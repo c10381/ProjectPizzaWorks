@@ -16,3 +16,7 @@ buildNumber.properties
 
 # Java Compiled class file
 *.class
+
+# Classmate say it may appear
+/.metadata/
+.metadata/
