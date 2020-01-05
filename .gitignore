@@ -1,0 +1,19 @@
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+
+# Compiled class file
+*.class
