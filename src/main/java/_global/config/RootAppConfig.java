@@ -23,13 +23,13 @@ public class RootAppConfig {
 	public DataSource msSQLDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("sa");
-		ds.setPassword("sa123456");
+		ds.setPassword("P@ssw0rd");
 		try {
 			ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jspdb");
+		ds.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433;DatabaseName=PizzaWorksDB");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
@@ -44,7 +44,7 @@ public class RootAppConfig {
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		ds.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/jspdb?serverTimezone=Asia/Taipei&useSSL=false&useUnicode=true&characterEncoding=utf-8");
+		ds.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/PizzaWorksDB?serverTimezone=Asia/Taipei&useSSL=false&useUnicode=true&characterEncoding=utf-8");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;
