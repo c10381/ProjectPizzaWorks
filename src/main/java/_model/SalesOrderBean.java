@@ -11,16 +11,18 @@ public class SalesOrderBean implements Serializable{
 	private Timestamp requireTime;
 	private Integer needDelivery;
 	private String deliverAddress;
+	private Integer totalSales;
 	
 	public SalesOrderBean() {}
 	
 	public SalesOrderBean(Integer memberId, Timestamp orderTime, Timestamp requireTime, Integer needDelivery,
-			String deliverAddress) {
+			String deliverAddress, Integer totalSales) {
 		this.memberId = memberId;
 		this.orderTime = orderTime;
 		this.requireTime = requireTime;
 		this.needDelivery = needDelivery;
 		this.deliverAddress = deliverAddress;
+		this.totalSales = totalSales;
 	}
 
 	public Integer getSalesOrderId() {
@@ -69,6 +71,14 @@ public class SalesOrderBean implements Serializable{
 
 	public void setDeliverAddress(String deliverAddress) {
 		this.deliverAddress = deliverAddress;
+	}
+
+	public Integer getTotalSales() {
+		return totalSales;
+	}
+
+	public void setTotalSales(Integer totalSales) {
+		this.totalSales = totalSales;
 	}
 	
 }
