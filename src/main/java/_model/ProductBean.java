@@ -2,6 +2,14 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Product")
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer productId;
@@ -34,7 +42,9 @@ public class ProductBean implements Serializable{
 		this.chicken = chicken;
 		this.imagePath = imagePath;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getProductId() {
 		return productId;
 	}
@@ -130,4 +140,13 @@ public class ProductBean implements Serializable{
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductBean [productId=" + productId + ", productName=" + productName + ", briefInfo=" + briefInfo
+				+ ", unitPrice=" + unitPrice + ", activeStatus=" + activeStatus + ", spicyLevel=" + spicyLevel
+				+ ", vegetableOnly=" + vegetableOnly + ", seafood=" + seafood + ", pork=" + pork + ", beef=" + beef
+				+ ", chicken=" + chicken + ", imagePath=" + imagePath + "]";
+	}
+	
 }

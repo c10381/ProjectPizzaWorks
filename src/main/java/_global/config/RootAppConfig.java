@@ -53,7 +53,7 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setPackagesToScan(new String[] {
-				"com.web.store.model"
+				"_model"
 		});
 		if (SystemConstant.DB_TYPE == SystemConstant.MYSQL) {
 			factory.setDataSource(mySQLDataSource());

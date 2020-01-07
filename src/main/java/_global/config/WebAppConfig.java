@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.iiiedu.EEIT110.ProjectPizzaWorks")
+@ComponentScan({"shopManageSystem","shopSystem","memberSystem","purchaseSystem","stockSystem","_model","_global.config"})
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
