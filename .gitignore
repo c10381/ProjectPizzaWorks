@@ -25,4 +25,4 @@ buildNumber.properties
 .metadata/
 
 #Datasource Config In Java
-RootAppConfig.java
+.project

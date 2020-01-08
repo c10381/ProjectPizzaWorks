@@ -33,7 +33,7 @@ public class MemberLoginDaoImpl implements MemberLoginDao{
 		}
 		return exist;
 	}
-	
+	//=====前台註冊=====
 	// 新增一筆Member物件到資料庫
 	@Override
 	public int saveMember(MembersBean mem) {
@@ -43,7 +43,35 @@ public class MemberLoginDaoImpl implements MemberLoginDao{
 		updateCount = 1;
 		return updateCount;
 	}
-	
+	// 更新紀錄(給使用者註冊資料用)
+		@Override
+		public boolean updateMember(MembersBean mem) {
+			String hql= "from members where email = :email";
+			Session session = factory.getCurrentSession();
+			MembersBean member = (MembersBean)session.createQuery(hql).setParameter("email", mem.getEmail()).getSingleResult();
+			//
+			if(!mem.getAddress().equals(null)) {
+				member.setAddress(mem.getAddress());
+			}
+			
+			if(!mem.getCellphone().equals(null)) {
+				member.setCellphone(mem.getCellphone());
+			}
+			
+			if(!mem.getFirstName().equals(null)) {
+				member.setFirstName(mem.getFirstName());
+			}
+			
+			if(!mem.getLastName().equals(null)) {
+				member.setLastName(mem.getLastName());
+			}
+						
+			session.update(member);
+			return true;
+		}
+		
+		
+	//====================	
 	// 經由Session介面的load()查詢資料庫內的紀錄
 	@Override
 	public MembersBean loadMember(int pk) {
@@ -64,19 +92,7 @@ public class MemberLoginDaoImpl implements MemberLoginDao{
 		return member;
 	}
 
-	// 更新紀錄(給使用者註冊資料用)
-	@Override
-	public boolean updateMember(MembersBean mem) {
-		String hql= "from members where email = :email";
-		Session session = factory.getCurrentSession();
-		MembersBean member = (MembersBean)session.createQuery(hql).setParameter("email", mem.getEmail()).getSingleResult();
-		// 
-		member.setAddress(mem.getAddress());
-		member.setBirthDate(mem.getBirthDate());
-
-		session.update(member);
-		return true;
-	}
+	
 
 
 	// 查詢所有紀錄
@@ -87,6 +103,40 @@ public class MemberLoginDaoImpl implements MemberLoginDao{
 		Session session = factory.getCurrentSession();
 		allMembers = session.createQuery("FROM members").list();
 		return allMembers;
+	}
+	
+	
+	@Override
+	public boolean saveCustomer(MembersBean mem) {
+		Session session = factory.getCurrentSession();
+		session.save(mem);		
+		return true;
+	}
+
+	@Override
+	public boolean updateCustomer(MembersBean mem) {
+		String hql= "from members where email = :email";
+		Session session = factory.getCurrentSession();
+		MembersBean member = (MembersBean)session.createQuery(hql).setParameter("email", mem.getEmail()).getSingleResult();
+		//
+		if(!mem.getAddress().equals(null)) {
+			member.setAddress(mem.getAddress());
+		}
+		
+		if(!mem.getCellphone().equals(null)) {
+			member.setCellphone(mem.getCellphone());
+		}
+		
+		if(!mem.getFirstName().equals(null)) {
+			member.setFirstName(mem.getFirstName());
+		}
+		
+		if(!mem.getLastName().equals(null)) {
+			member.setLastName(mem.getLastName());
+		}
+					
+		session.update(member);
+		return true;
 	}
 	
 }

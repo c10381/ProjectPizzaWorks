@@ -23,7 +23,11 @@ public interface MemberLoginDao {
 
 	// 更新紀錄(給使用者註冊資料用)
 	boolean updateMember(MembersBean mem);
-
+	
+	public boolean saveCustomer (MembersBean mem);
+	
+	public boolean updateCustomer(MembersBean mem);
+	
 	// 查詢所有紀錄
 	List<MembersBean> getAllMembers();
 
