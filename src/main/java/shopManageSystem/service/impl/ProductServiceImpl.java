@@ -26,4 +26,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductBean> getAllProducts(){
 		return dao.getAllProducts();
 	}
+	
+	@Transactional
+	@Override
+	public String getImagePathById(Integer productId) {
+		return dao.getImagePathById(productId);
+	}
 }

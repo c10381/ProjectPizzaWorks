@@ -11,4 +11,6 @@ public interface ProductService {
 
 	List<ProductBean> getAllProducts();
 
+	String getImagePathById(Integer productId);
+
 }
