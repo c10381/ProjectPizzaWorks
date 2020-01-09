@@ -2,6 +2,8 @@ package _model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,8 +23,8 @@ public class SalesOrderBean implements Serializable{
 	private Integer needDelivery;
 	private String deliverAddress;
 	private Integer totalSales;
-	private SalesOrderDetailBean salesOrderDetail;
-	
+	private List<SalesOrderDetailBean> salesOrderDetails = new ArrayList<>();
+
 	public SalesOrderBean() {}
 	
 	public SalesOrderBean(Integer memberId, Timestamp orderTime, Timestamp requireTime, Integer needDelivery,
@@ -94,12 +96,13 @@ public class SalesOrderBean implements Serializable{
 	}
 	
 	@OneToMany(mappedBy="salesOrder", cascade= {CascadeType.ALL})
-	public SalesOrderDetailBean getSalesOrderDetail() {
-		return salesOrderDetail;
+	public List<SalesOrderDetailBean> getSalesOrderDetails() {
+		return salesOrderDetails;
 	}
 
-	public void setSalesOrderDetail(SalesOrderDetailBean salesOrderDetail) {
-		this.salesOrderDetail = salesOrderDetail;
+	public void setSalesOrderDetails(List<SalesOrderDetailBean> salesOrderDetails) {
+		this.salesOrderDetails = salesOrderDetails;
 	}
+	
 	
 }
