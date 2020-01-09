@@ -33,7 +33,12 @@
 							<p>簡介：${product.briefInfo}</p>
 							<p>單價：${product.unitPrice}</p>
 							<p>上架狀態: ${product.activeStatus}</p>
-							
+							<p>
+                        	<a href="<spring:url value='/shopManageSystem/getProductById?id=${product.productId}'/>"
+                        		class="btn btn-primary">
+                        		<span class="glyphicon-info-sigh glyphicon"></span>詳細資料
+                        	</a>
+                        </p>
 						</div>
 					</div>
 				</div>

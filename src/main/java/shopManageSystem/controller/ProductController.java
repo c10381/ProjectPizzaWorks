@@ -25,6 +25,18 @@ public class ProductController {
 		model.addAttribute("products", list);
 		return "shopManageSystem/products";
 	}
+	//按下首頁超連結後來此，再跳出oneProduct.jsp
+	@RequestMapping("/shopManageSystem/getProductById")
+	public String getProductById(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("product", service.getProductById(id));
+		return "shopManageSystem/GetOneProduct";
+	}
+	
+	//參數應為json物件，在此controller進行解包，在此之前應有第二頁前端
+	@RequestMapping("/shopManageSystem/updateOneProduct")
+	public String updateOneProduct(@RequestParam("pb") ProductBean pb, Model model) {
+		return "shopManageSystem/updateProductProperties";
+	}
 	
 	@RequestMapping("/shopManageSystem/products2")
 	public String productsList2(Model model) {

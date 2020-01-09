@@ -29,7 +29,13 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Transactional
 	@Override
-	public String getImagePathById(Integer productId) {
-		return dao.getImagePathById(productId);
+	public ProductBean getProductById(int productId) {
+		return dao.getProductById(productId);
+	}
+	
+	@Transactional
+	@Override
+	public void updateOneProduct(ProductBean pb) {
+		dao.updateOneProduct(pb);
 	}
 }
