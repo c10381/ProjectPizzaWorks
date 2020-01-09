@@ -2,7 +2,14 @@ package _model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table
+@Entity(name="StockRequest")
 public class StockRequestBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestId;
@@ -27,7 +34,9 @@ public class StockRequestBean implements Serializable{
 		this.responseTime = responseTime;
 		this.readTime = readTime;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getsRequestId() {
 		return sRequestId;
 	}
