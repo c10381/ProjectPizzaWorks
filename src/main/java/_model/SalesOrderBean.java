@@ -3,6 +3,15 @@ package _model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="SalesOrder")
 public class SalesOrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderId;
@@ -12,6 +21,7 @@ public class SalesOrderBean implements Serializable{
 	private Integer needDelivery;
 	private String deliverAddress;
 	private Integer totalSales;
+	private SalesOrderDetailBean salesOrderDetail;
 	
 	public SalesOrderBean() {}
 	
@@ -24,7 +34,9 @@ public class SalesOrderBean implements Serializable{
 		this.deliverAddress = deliverAddress;
 		this.totalSales = totalSales;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getSalesOrderId() {
 		return salesOrderId;
 	}
@@ -79,6 +91,15 @@ public class SalesOrderBean implements Serializable{
 
 	public void setTotalSales(Integer totalSales) {
 		this.totalSales = totalSales;
+	}
+	
+	@OneToMany(mappedBy="salesOrder", cascade= {CascadeType.ALL})
+	public SalesOrderDetailBean getSalesOrderDetail() {
+		return salesOrderDetail;
+	}
+
+	public void setSalesOrderDetail(SalesOrderDetailBean salesOrderDetail) {
+		this.salesOrderDetail = salesOrderDetail;
 	}
 	
 }

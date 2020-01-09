@@ -3,8 +3,17 @@ package _model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="DisposalHistory")
 public class DisposalHistoryBean implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private Integer disposalHistoryId;
 	private Integer materialsId;
 	private Timestamp stockTime;
 	private double remainingQuantity;
@@ -20,6 +29,16 @@ public class DisposalHistoryBean implements Serializable{
 		this.remainingQuantity = remainingQuantity;
 		this.disposalTime = disposalTime;
 		this.sRequest = sRequest;
+	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getDisposalHistoryId() {
+		return disposalHistoryId;
+	}
+
+	public void setDisposalHistoryId(Integer disposalHistoryId) {
+		this.disposalHistoryId = disposalHistoryId;
 	}
 
 	public Integer getMaterialsId() {

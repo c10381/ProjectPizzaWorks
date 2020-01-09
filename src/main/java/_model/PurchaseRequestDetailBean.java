@@ -2,8 +2,17 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table
+@Entity(name="PurchaseRequestDetail")
 public class PurchaseRequestDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private Integer pRequestDetailId;
 	private Integer pRequestId;
 	private Integer materialsId;
 	private double unitPrice;
@@ -17,7 +26,17 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
 	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getpRequestDetailId() {
+		return pRequestDetailId;
+	}
 
+	public void setpRequestDetailId(Integer pRequestDetailId) {
+		this.pRequestDetailId = pRequestDetailId;
+	}
+	
 	public Integer getpRequestId() {
 		return pRequestId;
 	}
@@ -49,5 +68,4 @@ public class PurchaseRequestDetailBean implements Serializable{
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
 }
