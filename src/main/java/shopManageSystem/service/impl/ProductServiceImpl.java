@@ -38,4 +38,10 @@ public class ProductServiceImpl implements ProductService {
 	public void updateOneProduct(ProductBean pb) {
 		dao.updateOneProduct(pb);
 	}
+
+	@Override
+	public String getImagePathById(Integer productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
