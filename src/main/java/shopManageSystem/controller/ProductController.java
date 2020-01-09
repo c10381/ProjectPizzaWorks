@@ -25,10 +25,10 @@ public class ProductController {
 		return "shopManageSystem/products";
 	}
 	
-	@RequestMapping("/")
-	public String home(Model model) {
-		System.out.println("YEe");
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String home(Model model) {
+//		System.out.println("YEe");
+//		return "index";
+//	}
 	
 }
