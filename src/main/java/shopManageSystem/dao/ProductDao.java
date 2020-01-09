@@ -12,4 +12,6 @@ public interface ProductDao {
 
 	List<ProductBean> getAllProducts();
 
+	String getImagePathById(Integer productId);
+
 }

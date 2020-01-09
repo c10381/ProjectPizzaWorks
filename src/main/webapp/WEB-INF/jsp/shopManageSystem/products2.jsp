@@ -20,25 +20,20 @@
 	<hr
 		style="height: 1px; border: none; color: #333; background-color: #333;">
 	<section class="container">
-		<div class="row">
+		<table>
 			<c:forEach var='product' items='${products}'>
-				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<img width='100' height='200'
-							src="<c:url value='../_global/images/${product.imagePath}'/>" />
-						<div class="caption">
-							<p>
-								<b style='font-size: 16px;'>${product.productName}</b>
-							</p>
-							<p>簡介：${product.briefInfo}</p>
-							<p>單價：${product.unitPrice}</p>
-							<p>上架狀態: ${product.activeStatus}</p>
-							
-						</div>
-					</div>
-				</div>
+				<tr>
+					<td><img width='100' height='200'
+						src="<c:url value='/_global/images/${product.imagePath}'/>" />
+					</td>
+					<td><b style='font-size: 16px;'>${product.productName}</b></td>
+					
+					<td><textarea style="resize:none" cols='50' rows='5' name='briefInfo'>${product.briefInfo}</textarea></td>
+					<td><input type="text" value='${product.unitPrice}' name='unitPrice'></td>
+					<td><input type="text" value='${product.activeStatus}' name='activeStatus'></td>
+				</tr>
 			</c:forEach>
-		</div>
+		</table>
 	</section>
 </body>
 </html>

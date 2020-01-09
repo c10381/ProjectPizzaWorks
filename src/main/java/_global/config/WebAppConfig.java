@@ -28,7 +28,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("WEB-INF/css/");
@@ -40,6 +40,8 @@ public class WebAppConfig implements WebMvcConfigurer {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+	
+	
 	//檔案相關(P382)
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {

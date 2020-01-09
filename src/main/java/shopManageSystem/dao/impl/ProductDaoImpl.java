@@ -31,4 +31,10 @@ public class ProductDaoImpl implements ProductDao {
 		list = session.createQuery(hql).getResultList();
 		return  list;
 	}
+	@Override
+	public String getImagePathById(Integer productId) {
+		Session session = null;
+		String imagePath = session.get(ProductBean.class, productId).getImagePath();
+		return imagePath;
+	}
 }

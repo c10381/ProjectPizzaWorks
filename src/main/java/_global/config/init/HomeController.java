@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	
-	
+	//index Page
 	@RequestMapping("/")
 	public String home(){
 		return "index";
 	}
 	
-	@RequestMapping("/pageNoFound")
+	//404 Page
+	@RequestMapping("/*")
 	public String pageNoFound(){
-		return "pageNoFound";
+		return "/_global/PageNoFound";
 	}
 }
