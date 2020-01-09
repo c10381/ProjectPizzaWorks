@@ -2,22 +2,33 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="SalesOrderDetail")
 public class SalesOrderDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer salesOrderId;
+	private Integer salesOrderDetailId;
+//	private Integer salesOrderId;
 	private Integer productId;
 	private double unitPrice;
 	private Integer quantity;
 	private Integer doubleCheese;
 	private Integer crustId;
 	private double discount;
+	private SalesOrderBean salesOrder;
 	
 	public SalesOrderDetailBean() {} 
 	
-	public SalesOrderDetailBean(Integer salesOrderId, Integer productId, double unitPrice, Integer quantity,
+	public SalesOrderDetailBean(Integer productId, double unitPrice, Integer quantity,
 			Integer doubleCheese, Integer crustId, double discount) {
-		super();
-		this.salesOrderId = salesOrderId;
 		this.productId = productId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
@@ -25,14 +36,35 @@ public class SalesOrderDetailBean implements Serializable{
 		this.crustId = crustId;
 		this.discount = discount;
 	}
+	
+//	public SalesOrderDetailBean(Integer salesOrderId, Integer productId, double unitPrice, Integer quantity,
+//			Integer doubleCheese, Integer crustId, double discount) {
+//		this.salesOrderId = salesOrderId;
+//		this.productId = productId;
+//		this.unitPrice = unitPrice;
+//		this.quantity = quantity;
+//		this.doubleCheese = doubleCheese;
+//		this.crustId = crustId;
+//		this.discount = discount;
+//	}
 
-	public Integer getSalesOrderId() {
-		return salesOrderId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getSalesOrderDetailId() {
+		return salesOrderDetailId;
 	}
 
-	public void setSalesOrderId(Integer salesOrderId) {
-		this.salesOrderId = salesOrderId;
-	}
+	public void setSalesOrderDetailId(Integer salesOrderDetailId) {
+		this.salesOrderDetailId = salesOrderDetailId;
+	} 
+	
+//	public Integer getSalesOrderId() {
+//		return salesOrderId;
+//	}
+//
+//	public void setSalesOrderId(Integer salesOrderId) {
+//		this.salesOrderId = salesOrderId;
+//	}
 
 	public Integer getProductId() {
 		return productId;
@@ -80,5 +112,16 @@ public class SalesOrderDetailBean implements Serializable{
 
 	public void setDiscount(double discount) {
 		this.discount = discount;
-	} 
+	}
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="salesOrderId", nullable=false)
+	public SalesOrderBean getSalesOrder() {
+		return salesOrder;
+	}
+
+	public void setSalesOrder(SalesOrderBean salesOrder) {
+		this.salesOrder = salesOrder;
+	}
+
 }
