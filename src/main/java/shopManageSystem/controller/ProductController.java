@@ -41,9 +41,4 @@ public class ProductController {
 //		return "_global/images/"+imagePath;
 //	}
 	
-	@RequestMapping("/")
-	public String home(Model model) {
-		return "index";
-	}
-	
 }
