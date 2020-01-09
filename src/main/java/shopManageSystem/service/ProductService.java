@@ -10,5 +10,9 @@ public interface ProductService {
 	void setDao(ProductDao dao);
 
 	List<ProductBean> getAllProducts();
+	
+	ProductBean getProductById(int productId);
+	
+	void updateOneProduct(ProductBean pb);
 
 }
