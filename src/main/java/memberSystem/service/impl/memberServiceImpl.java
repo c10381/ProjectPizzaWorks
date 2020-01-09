@@ -1,48 +1,33 @@
 package memberSystem.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import _model.MembersBean;
-import memberSystem.dao.MemberLoginDao;
+import memberSystem.dao.MemberDao;
+import memberSystem.service.MemberService;
 
 @Service
-public class memberServiceImpl {
-	MemberLoginDao dao;
+public class MemberServiceImpl implements MemberService {
+	MemberDao dao;
 	
+	@Override
 	@Autowired
-	public void setDao(MemberLoginDao dao) {
+	public void setDao(MemberDao dao) {
 		this.dao = dao;
 	}
-	@Transactional
-	//帳號是否存在
-	public boolean idExists(String email) {
+
+	@Override
+	public boolean idExists(String email) {		
 		return dao.idExists(email);
 	}
+	
 	@Transactional
-	//註冊帳號
+	@Override
 	public int saveMember(MembersBean mem) {
 		
 		return 0;
 	}
-	
-	
-	@Transactional
-	//帳號登入
-	public boolean memberLogin(String Email,String Password) {
-		boolean LoginState=false;
-		
-		return LoginState;
-	}
-	
-	@Transactional
-	//更改密碼(首次登入)
-	public boolean memFirstLoginChangePW(MembersBean mem,String Password) {
-		boolean ChangePW=false;
-		
-		
-		return ChangePW;
-	}
+
 }
