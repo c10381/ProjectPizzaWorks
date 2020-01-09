@@ -39,9 +39,9 @@ public class ProductServiceImpl implements ProductService {
 		dao.updateOneProduct(pb);
 	}
 
-	@Override
-	public String getImagePathById(Integer productId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public String getImagePathById(Integer productId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
