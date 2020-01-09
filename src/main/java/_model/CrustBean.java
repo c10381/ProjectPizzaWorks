@@ -2,6 +2,14 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Crust")
 public class CrustBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer crustId;
@@ -14,7 +22,9 @@ public class CrustBean implements Serializable{
 		this.materialsId = materialsId;
 		this.quantity = quantity;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getCrustId() {
 		return crustId;
 	}

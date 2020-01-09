@@ -3,8 +3,17 @@ package _model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="StorageHistory")
 public class StorageHistoryBean implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private Integer storageHistoryId;
 	private Integer sRequestId;
 	private Integer materialsId;
 	private double unitPrice;
@@ -26,6 +35,16 @@ public class StorageHistoryBean implements Serializable{
 		this.stockTime = stockTime;
 		this.expiryTime = expiryTime;
 		this.unit = unit;
+	}
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getStorageHistoryId() {
+		return storageHistoryId;
+	}
+
+	public void setStorageHistoryId(Integer storageHistoryId) {
+		this.storageHistoryId = storageHistoryId;
 	}
 
 	public Integer getsRequestId() {
