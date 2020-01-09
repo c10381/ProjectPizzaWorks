@@ -11,6 +11,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -23,7 +24,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/");
+		resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
@@ -31,6 +32,13 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/css/**").addResourceLocations("WEB-INF/css/");
+		registry.addResourceHandler("/images/**").addResourceLocations("WEB-INF/images/");
+		registry.addResourceHandler("/js/**").addResourceLocations("WEB-INF/js/");
 	}
 	//檔案相關(P382)
 	@Bean
@@ -57,4 +65,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 		resolver.setDefaultViews(views);
 		return resolver;
 	}
+	
+	
 }
