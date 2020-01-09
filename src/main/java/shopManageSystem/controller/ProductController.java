@@ -25,17 +25,10 @@ public class ProductController {
 		return "shopManageSystem/products";
 	}
 	
-	@RequestMapping("/shopManageSystem/products2")
-	public String productsList2(Model model) {
-		List<ProductBean> list = service.getAllProducts();
-		model.addAttribute("products", list);
-		return "shopManageSystem/products2";
-	}
-	
-	@RequestMapping("/")
-	public String home(Model model) {
-		System.out.println("YEe");
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String home(Model model) {
+//		System.out.println("YEe");
+//		return "index";
+//	}
 	
 }
