@@ -37,8 +37,8 @@ public class RootAppConfig {
 	@Bean
 	public DataSource mySQLDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
-		ds.setUser("root");
-		ds.setPassword("Do!ng123");
+		ds.setUser("user");
+		ds.setPassword("P@ssw0rd");
 		try {
 			ds.setDriverClass("com.mysql.cj.jdbc.Driver");
 		} catch (PropertyVetoException e) {
