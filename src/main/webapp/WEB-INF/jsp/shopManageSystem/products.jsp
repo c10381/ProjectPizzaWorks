@@ -25,7 +25,7 @@
 				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
 					<div class="thumbnail" style="width: 320px; height: 340px">
 						<img width='100' height='200'
-							src="<c:url value='../_global/images/${product.imagePath}'/>" />
+							src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
 						<div class="caption">
 							<p>
 								<b style='font-size: 16px;'>${product.productName}</b>

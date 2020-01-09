@@ -15,6 +15,6 @@ public interface ProductService {
 	
 	void updateOneProduct(ProductBean pb);
 
-	String getImagePathById(Integer productId);
+//	String getImagePathById(Integer productId);
 
 }

@@ -77,10 +77,10 @@ public class ProductDaoImpl implements ProductDao {
 		ProductBean pb = session.get(ProductBean.class, productId);
 		return pb;
 	}
-	@Override
-	public String getImagePathById(Integer productId) {
-		Session session = null;
-		String imagePath = session.get(ProductBean.class, productId).getImagePath();
-		return imagePath;
-	}
+//	@Override
+//	public String getImagePathById(Integer productId) {
+//		Session session = null;
+//		String imagePath = session.get(ProductBean.class, productId).getImagePath();
+//		return imagePath;
+//	}
 }
