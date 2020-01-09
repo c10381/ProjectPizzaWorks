@@ -25,72 +25,80 @@
 		</div>
 	</section>
 	<section class="container">
-		<form:form method='POST' modelAttribute="productBean"
+		<form:form method='POST' modelAttribute="product"
 			class='form-horizontal'>
-			<div class="row">
-				<div class="col-md-5">
-					<h3>
-						名稱：<input id="productName" type="text" name="productName"
-							value="${product.productName}">
-					</h3>
-					<p>
-						簡述：
-						<textarea id="briefInfo" name="briefInfo" cols=50 rows=5
-							style="resize: none">${product.briefInfo}</textarea>
-					</p>
-					<p>
-						單價：<input type="text" name="brieunitPricefInfo"
-							value="${product.unitPrice}">
-					</p>
-					<p>
-						辣度：<input type="text" name="spicyLevel"
-							value="${product.spicyLevel}">
-					</p>
-					<p>
-						<label>純素食：<input type="checkbox" name="vegetableOnly"
-							value="1"></label>
-					</p>
-					<p>
-						<label>有無海鮮：<input id="seafood" type="checkbox"
-							name="seafood" value="1"></label>
-					</p>
-					<p>
-						<label>有無豬肉：<input id="pork" type="checkbox" name="pork"
-							value="1"></label>
-					</p>
-					<p>
-						<label>有無牛肉：<input id="beef" type="checkbox" name="beef"
-							value="1"></label>
-					</p>
-					<p>
-						<label>有無雞肉：<input id="chicken" type="checkbox"
-							name="chicken" value="1"></label>
-					</p>
-					<p>
-						圖片路徑：<input type="text" name="imagePath"
-							value="${product.imagePath}">
-					</p>
+			<fieldset>
+				<div class="row">
+					<div class="col-md-5">
+						<h3>
+							名稱：
+							<form:input id="productName" type='text' path="productName"
+								value="${product.productName}" class='form:input-large' />
+						</h3>
+						<p>
+							簡述：
+							<textarea id="briefInfo" name="briefInfo" cols=50 rows=5
+								style="resize: none">${product.briefInfo}</textarea>
+						</p>
+						<p>
+							單價：
+							<form:input type="text" path="unitPrice"
+								value="${product.unitPrice}" class='form:input-large' />
+						</p>
+						<p>
+							辣度：
+							<form:input type="text" path="spicyLevel"
+								value="${product.spicyLevel}" class='form:input-large' />
+						</p>
+						<p>
+							<label>純素食：<form:checkbox id="vegetableOnly"
+									path="vegetableOnly" class='form:input-large' value='1' /></label>
+						</p>
+						<p>
+							<label>有無海鮮：<form:checkbox id="seafood" value='1'
+									path="seafood" class='form:input-large' /></label>
+						</p>
+						<p>
+							<label>有無豬肉：<form:checkbox id="pork" value='1'
+									path="pork" class='form:input-large' /></label>
+						</p>
+						<p>
+							<label>有無牛肉：<form:checkbox id="beef" value='1'
+									path="beef" class='form:input-large' /></label>
+						</p>
+						<p>
+							<label>有無雞肉：<form:checkbox id="chicken" value='1'
+									path="chicken" class='form:input-large' /></label>
+						</p>
+						<p>
+							圖片路徑：<input type="text" name="imagePath"
+								value="${product.imagePath}">
+						</p>
 
-					<p>
-						<strong>商品編號: </strong> <span class='label label-warning'>
-							${product.productId} </span>
-					</p>
-					<p>
-						<a href="<spring:url value='/shopManageSystem/products' />"
-							class="btn btn-default"> <span
-							class="glyphicon-hand-left glyphicon"></span>返回
-						</a> <a href='#' class='btn btn-warning btn-large'> <span
-							class='glyphicon-shopping-cart glyphicon'></span>提交修改
-						</a>
-					</p>
+						<p>
+							<strong>商品編號: </strong> <span class='label label-warning'>
+								${product.productId} </span>
+							<form:input type="hidden" path="productId"
+								value="${product.productId}" />
+						</p>
+						<p>
+							<a href="<spring:url value='/shopManageSystem/products' />"
+								class="btn btn-default"> <span
+								class="glyphicon-hand-left glyphicon"></span>返回
+							</a> <a href='#' class='btn btn-warning btn-large'> <input
+								id="btnUpdate" type='submit'
+								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
+							</a>
+						</p>
+					</div>
 				</div>
-			</div>
+			</fieldset>
 		</form:form>
 	</section>
 	<script>
 	function scanCheckBoxStatus(){		
 		if(${product.vegetableOnly}==1){
-			document.getElementsByName("vegetableOnly").checked = true;	
+			document.getElementsByName("vegetableOnly").checked = true;
 		}
 		if(${product.seafood}==1){
 			document.getElementById("seafood").checked = true;
