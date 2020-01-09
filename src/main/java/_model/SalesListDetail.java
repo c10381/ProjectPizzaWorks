@@ -1,28 +1,27 @@
 package _model;
 
-import java.io.Serializable;
-
-public class RecipeBean implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private Integer productId;
+public class SalesListDetail {
+	private Integer salesListId;
 	private Integer materialsId;
 	private double quantity;
 	private String unit;
 	
-	public RecipeBean() {}
-	
-	public RecipeBean(Integer materialsId, double quantity, String unit) {
+	public SalesListDetail() {}
+
+	public SalesListDetail(Integer salesListId, Integer materialsId, double quantity, String unit) {
+		super();
+		this.salesListId = salesListId;
 		this.materialsId = materialsId;
 		this.quantity = quantity;
 		this.unit = unit;
 	}
 
-	public Integer getProductId() {
-		return productId;
+	public Integer getSalesListId() {
+		return salesListId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setSalesListId(Integer salesListId) {
+		this.salesListId = salesListId;
 	}
 
 	public Integer getMaterialsId() {

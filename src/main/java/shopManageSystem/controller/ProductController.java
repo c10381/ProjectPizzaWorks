@@ -38,9 +38,23 @@ public class ProductController {
 		return "shopManageSystem/updateProductProperties";
 	}
 	
+	@RequestMapping("/shopManageSystem/products2")
+	public String productsList2(Model model) {
+		List<ProductBean> list = service.getAllProducts();
+		model.addAttribute("products", list);
+		return "shopManageSystem/products2";
+	}
+	
+//	@RequestMapping("/_global/images/{imagePath}")
+//	public String productImage(@RequestParam("imagePath") String imagePath, Model model) {
+////		String imagePath = service.getImagePathById(productId);
+//		System.out.println("getImage");
+//		System.out.println("_global/images/"+imagePath);
+//		return "_global/images/"+imagePath;
+//	}
+	
 	@RequestMapping("/")
 	public String home(Model model) {
-		System.out.println("YEe");
 		return "index";
 	}
 	

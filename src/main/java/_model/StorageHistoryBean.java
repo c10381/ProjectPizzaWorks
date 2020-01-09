@@ -12,11 +12,12 @@ public class StorageHistoryBean implements Serializable{
 	private double remainingQuantity;
 	private Timestamp stockTime;
 	private Timestamp expiryTime;
+	private String unit;
 	
 	public StorageHistoryBean() {}
 	
 	public StorageHistoryBean(Integer sRequestId, Integer materialsId, double unitPrice, double quantity,
-			double remainingQuantity, Timestamp stockTime, Timestamp expiryTime) {
+			double remainingQuantity, Timestamp stockTime, Timestamp expiryTime, String unit) {
 		this.sRequestId = sRequestId;
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
@@ -24,6 +25,7 @@ public class StorageHistoryBean implements Serializable{
 		this.remainingQuantity = remainingQuantity;
 		this.stockTime = stockTime;
 		this.expiryTime = expiryTime;
+		this.unit = unit;
 	}
 
 	public Integer getsRequestId() {
@@ -80,6 +82,14 @@ public class StorageHistoryBean implements Serializable{
 
 	public void setExpiryTime(Timestamp expiryTime) {
 		this.expiryTime = expiryTime;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 	
 	

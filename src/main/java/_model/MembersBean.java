@@ -9,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
-@Table
+@Table(name="Members")
 public class MembersBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer memberId;
 	private String firstName;
 	private String lastName;
@@ -46,7 +44,8 @@ public class MembersBean implements Serializable{
 		this.registeredTime = registeredTime;
 		this.activeStatus = activeStatus;
 	}
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getMemberId() {
 		return memberId;
 	}

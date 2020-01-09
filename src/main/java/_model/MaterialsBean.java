@@ -10,16 +10,18 @@ public class MaterialsBean implements Serializable{
 	private Integer reorderLevel;
 	private Integer	supplierId;
 	private Integer unitOnOrder;
+	private String unit;
 	
 	public MaterialsBean() {}
 
 	public MaterialsBean(String materialsName, double quantity, Integer reorderLevel, Integer supplierId,
-			Integer unitOnOrder) {
+			Integer unitOnOrder, String unit) {
 		this.materialsName = materialsName;
 		this.quantity = quantity;
 		this.reorderLevel = reorderLevel;
 		this.supplierId = supplierId;
 		this.unitOnOrder = unitOnOrder;
+		this.unit = unit;
 	}
 
 	public Integer getMaterialsId() {
@@ -68,5 +70,13 @@ public class MaterialsBean implements Serializable{
 
 	public void setUnitOnOrder(Integer unitOnOrder) {
 		this.unitOnOrder = unitOnOrder;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 }
