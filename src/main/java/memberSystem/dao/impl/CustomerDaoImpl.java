@@ -52,7 +52,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		member = (MembersBean) session.get(MembersBean.class, email);
 		return member;
 	}
-
+	//新增會員
 	@Override
 	public boolean addCustomer(MembersBean mem) {
 		Session session = factory.getCurrentSession();

@@ -1,4 +1,4 @@
-package memberSystem.util;
+package memberSystem.Mailutil;
 
 
 import javax.mail.MessagingException;
