@@ -10,40 +10,41 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PasswordChangeRequest")
-public class PasswordChangeRequestBean implements Serializable{
+@Table(name="ValidationRequest")
+public class ValidationRequestBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer pcRequestId;
+	private Integer vRequestId;
 	private String email;
 	private Timestamp requestTime;
 	private Integer approverId;
 	private String responseComment;
 	private Timestamp responseTime;
 	private Integer requestStatus;
+	private String validationCode;
 	
-	public PasswordChangeRequestBean() {
+	public ValidationRequestBean() {
 
 	}
 
-	public PasswordChangeRequestBean(String email, Timestamp requestTime, Integer approverId, String responseComment,
-			Timestamp responseTime, Integer requestStatus) {
-		super();
+	public ValidationRequestBean(String email, Timestamp requestTime, Integer approverId, String responseComment,
+			Timestamp responseTime, Integer requestStatus, String validationCode) {
 		this.email = email;
 		this.requestTime = requestTime;
 		this.approverId = approverId;
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
 		this.requestStatus = requestStatus;
+		this.validationCode = validationCode;
 	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getPcRequestId() {
-		return pcRequestId;
+	public Integer getvRequestId() {
+		return vRequestId;
 	}
 
-	public void setPcRequestId(Integer pcRequestId) {
-		this.pcRequestId = pcRequestId;
+	public void setvRequestId(Integer vRequestId) {
+		this.vRequestId = vRequestId;
 	}
 
 	public String getEmail() {
@@ -92,6 +93,14 @@ public class PasswordChangeRequestBean implements Serializable{
 
 	public void setRequestStatus(Integer requestStatus) {
 		this.requestStatus = requestStatus;
+	}
+
+	public String getValidationCode() {
+		return validationCode;
+	}
+
+	public void setValidationCode(String validationCode) {
+		this.validationCode = validationCode;
 	}
 	
 }
