@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,10 +15,12 @@ import javax.persistence.Table;
 public class RecipeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer recipeId;
-	private Integer productId;
+//	private Integer productId;
 	private Integer materialsId;
 	private double quantity;
 	private String unit;
+	
+	private ProductBean product;
 	
 	public RecipeBean() {}
 	
@@ -36,13 +40,13 @@ public class RecipeBean implements Serializable{
 		this.recipeId = recipeId;
 	}
 	
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
+//	public Integer getProductId() {
+//		return productId;
+//	}
+//
+//	public void setProductId(Integer productId) {
+//		this.productId = productId;
+//	}
 
 	public Integer getMaterialsId() {
 		return materialsId;
@@ -66,5 +70,15 @@ public class RecipeBean implements Serializable{
 
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="productId", nullable=false)
+	public ProductBean getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductBean product) {
+		this.product = product;
 	}
 }
