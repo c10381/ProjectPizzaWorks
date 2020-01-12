@@ -21,19 +21,19 @@ public class SalesOrderDetailBean implements Serializable{
 	private double unitPrice;
 	private Integer quantity;
 	private Integer doubleCheese;
-	private Integer crustId;
+	private Integer crustTypeId;
 	private double discount;
 	private SalesOrderBean salesOrder;
 	
 	public SalesOrderDetailBean() {} 
 	
 	public SalesOrderDetailBean(Integer productId, double unitPrice, Integer quantity,
-			Integer doubleCheese, Integer crustId, double discount) {
+			Integer doubleCheese, Integer crustTypeId, double discount) {
 		this.productId = productId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
 		this.doubleCheese = doubleCheese;
-		this.crustId = crustId;
+		this.crustTypeId = crustTypeId;
 		this.discount = discount;
 	}
 	
@@ -99,11 +99,11 @@ public class SalesOrderDetailBean implements Serializable{
 	}
 
 	public Integer getCrustId() {
-		return crustId;
+		return crustTypeId;
 	}
 
 	public void setCrustId(Integer crustId) {
-		this.crustId = crustId;
+		this.crustTypeId = crustId;
 	}
 
 	public double getDiscount() {
