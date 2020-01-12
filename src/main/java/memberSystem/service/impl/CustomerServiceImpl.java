@@ -29,12 +29,6 @@ public class CustomerServiceImpl implements CustomerService {
 	public void setDao(CustomerDao dao) {
 		this.dao = dao;
 	}
-	
-	
-	@Autowired
-	public void setMailContext(MailCtxAndUtil mailContext) {
-		this.mailContext = mailContext;
-	}
 
 	//新增會員，新增成功會傳送註冊信
 	@Transactional
@@ -61,11 +55,11 @@ public class CustomerServiceImpl implements CustomerService {
 			requestBean.setValidationCode(validationCode);
 			dao.addCustomerValidationRequest(requestBean);
 			
-			
+			//操作Spring Mail區
 			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
 			SpringMailUtil ms = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
-			ms.sendMail("eeit11017@outlook.com",mem.getEmail() , "會員註冊信",
-					mailCtxAndUtil.ConfirmationMailContext(request,validationCode));
+			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員註冊信",
+					mailCtxAndUtil.ConfirmationMailContext(request,mem,validationCode));
 			return true;
 		}
 		return false;
@@ -90,6 +84,49 @@ public class CustomerServiceImpl implements CustomerService {
 		};
 		return false;
 	}
+	//User要求申請忘記密碼(拿的到email)
+	//1. 更改MembersBean activeStatus:2
+	//2. 新增ValidationRequestBean,RequestStatus：3,確認validationCode是否獨一無二
+	//3. 寄送信件 mailCtxAndUtil.CustomerForgetPW()
+	//4. return true:成功寄出信件,false:無此帳號
+	//和新增會員很像，可以考慮重構
+	@Transactional
+	@Override
+	public boolean userRequestChangePW(HttpServletRequest request,String email) {
+		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
+		MembersBean mem=dao.getCustomer(email);
+		mem.setActiveStatus(2);
+		//更改ActiveStatus有成功的話，才創建ValidationRequestBean
+		if(dao.updateCustomerStatus(mem)) {
+			ValidationRequestBean requestBean = new ValidationRequestBean();
+			requestBean.setEmail(mem.getEmail());
+			requestBean.setRequestTime(new Timestamp(System.currentTimeMillis()));
+			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
+			requestBean.setRequestStatus(3);
+			
+			//確認validationCode是否獨一無二
+			String validationCode = "";
+			List<?> checkVC=null;
+			do {
+				validationCode = mailCtxAndUtil.RandomvalidationCode();
+				checkVC=dao.useValidationCodeGetBean(validationCode);
+			} while (!checkVC.isEmpty());
+			requestBean.setValidationCode(validationCode);
+			dao.addCustomerValidationRequest(requestBean);
+			
+			//操作Spring Mail區
+			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
+			SpringMailUtil ms = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
+			//寄出信件
+			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員密碼確認信",
+					mailCtxAndUtil.CustomerForgetPW(request,mem,validationCode));
+			return true;
+		};
+		
+		return false;
+	}
+	
+	
 	
 	@Transactional
 	@Override

@@ -28,4 +28,7 @@ public interface CustomerService {
 	//確認驗證信
 	boolean confirmvalidationCode(String VCode);
 	
+	//user要求忘記密碼(更改密碼)
+	boolean userRequestChangePW(HttpServletRequest request, String email);
+	
 }
