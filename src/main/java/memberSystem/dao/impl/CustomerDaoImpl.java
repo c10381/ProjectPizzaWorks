@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 import memberSystem.dao.CustomerDao;
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
-	
+
 	private SessionFactory factory;
-		
+
 	@Override
 	@Autowired
 	public void setFactory(SessionFactory factory) {
@@ -52,40 +53,41 @@ public class CustomerDaoImpl implements CustomerDao {
 		member = (MembersBean) session.get(MembersBean.class, email);
 		return member;
 	}
-	//新增會員
+
+	// 新增會員
 	@Override
 	public boolean addCustomer(MembersBean mem) {
 		Session session = factory.getCurrentSession();
-		session.save(mem);		
+		session.save(mem);
 		return true;
 	}
 
 	@Override
 	public boolean updateCustomer(MembersBean mem) {
-		String hql= "from members where email = :email";
+		String hql = "from members where email = :email";
 		Session session = factory.getCurrentSession();
-		MembersBean member = (MembersBean)session.createQuery(hql).setParameter("email", mem.getEmail()).getSingleResult();
+		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
+				.getSingleResult();
 		//
-		if(!mem.getAddress().equals(null)) {
+		if (!mem.getAddress().equals(null)) {
 			member.setAddress(mem.getAddress());
 		}
-		
-		if(!mem.getCellphone().equals(null)) {
+
+		if (!mem.getCellphone().equals(null)) {
 			member.setCellphone(mem.getCellphone());
 		}
-		
-		if(!mem.getFirstName().equals(null)) {
+
+		if (!mem.getFirstName().equals(null)) {
 			member.setFirstName(mem.getFirstName());
 		}
-		
-		if(!mem.getLastName().equals(null)) {
+
+		if (!mem.getLastName().equals(null)) {
 			member.setLastName(mem.getLastName());
 		}
-					
+
 		session.update(member);
 		return true;
 	}
-	
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -95,5 +97,50 @@ public class CustomerDaoImpl implements CustomerDao {
 		allMembers = session.createQuery("FROM members").list();
 		return allMembers;
 	}
+	
+	//===========以下為驗證信部分============
+	// 寫入ValidationRequestBean
+	@Override
+	public boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean) {
+		Session session = factory.getCurrentSession();
+		session.save(validationRequestBean);
+		return true;
+	}
 
+	// 修改ValidationRequestBean
+	@Override
+	public boolean updateCustomerValidationRequest(ValidationRequestBean validationRequestBean) {
+		Session session = factory.getCurrentSession();
+		session.update(validationRequestBean);
+		return true;
+	}
+
+	// 利用validationCode取得List<ValidationRequestBean>(可用來判斷有沒有資料)
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ValidationRequestBean> useValidationCodeGetBean(String validationCode) {
+		String hql = "from ValidationRequestBean where validationCode = :validationCode";
+		Session session = factory.getCurrentSession();
+		List<ValidationRequestBean> lvrb = session.createQuery(hql).setParameter("validationCode", validationCode)
+				.getResultList();
+		return lvrb;
+	}
+	// 更新MemberBean的activeStatus欄位
+	@Override
+	public boolean updateCustomerStatus(MembersBean mem) {
+		Session session = factory.getCurrentSession();
+		session.update(mem);
+		return true;
+	}
+	
+	// 使用Email拿單獨的的ValidationRequestBean(目前未用)
+	@Override
+	public ValidationRequestBean getCustomerValidationRequest(String email) {
+		ValidationRequestBean vrb = null;
+		Session session = factory.getCurrentSession();
+		vrb = session.get(ValidationRequestBean.class, email);
+		return vrb;
+	}
+	
+	//=============以上為驗證信部分================
 }

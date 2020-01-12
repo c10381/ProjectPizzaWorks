@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 
 public interface CustomerDao {
 	
@@ -26,4 +27,18 @@ public interface CustomerDao {
 	
 	// 查詢所有紀錄
 	List<MembersBean> getAllCustomers();
+	
+	//=====以下為驗證信部分======
+	//寫入ValidationRequestBean
+	boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean);
+	// 修改ValidationRequestBean
+	boolean updateCustomerValidationRequest(ValidationRequestBean validationRequestBean);
+	//利用validationCode取得List<ValidationRequestBean>(可用來判斷有沒有資料)
+	List<ValidationRequestBean> useValidationCodeGetBean(String validationCode);
+	//使用Email拿單獨的的ValidationRequestBean(目前未用)
+	ValidationRequestBean getCustomerValidationRequest(String email);
+	// 更新MemberBean的activeStatus欄位
+	boolean updateCustomerStatus(MembersBean mem);
+	//=====以上為驗證信部分======
+
 }
