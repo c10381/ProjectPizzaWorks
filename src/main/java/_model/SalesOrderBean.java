@@ -1,11 +1,11 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +19,8 @@ public class SalesOrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderId;
 	private Integer memberId;
-	private Timestamp orderTime;
-	private Timestamp requireTime;
+	private String orderTime;
+	private String requireTime;
 	private Integer needDelivery;
 	private String deliverAddress;
 	private Integer totalSales;
@@ -28,7 +28,7 @@ public class SalesOrderBean implements Serializable{
 
 	public SalesOrderBean() {}
 	
-	public SalesOrderBean(Integer memberId, Timestamp orderTime, Timestamp requireTime, Integer needDelivery,
+	public SalesOrderBean(Integer memberId, String orderTime, String requireTime, Integer needDelivery,
 			String deliverAddress, Integer totalSales) {
 		this.memberId = memberId;
 		this.orderTime = orderTime;
@@ -55,20 +55,20 @@ public class SalesOrderBean implements Serializable{
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
-
-	public Timestamp getOrderTime() {
+	@Column(name="orderTime", columnDefinition="datetime")
+	public String getOrderTime() {
 		return orderTime;
 	}
 
-	public void setOrderTime(Timestamp orderTime) {
+	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
-
-	public Timestamp getRequireTime() {
+	@Column(name="requireTime", columnDefinition="datetime")
+	public String getRequireTime() {
 		return requireTime;
 	}
 
-	public void setRequireTime(Timestamp requireTime) {
+	public void setRequireTime(String requireTime) {
 		this.requireTime = requireTime;
 	}
 

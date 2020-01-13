@@ -1,8 +1,8 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,16 +21,16 @@ public class MembersBean implements Serializable{
 	private Integer gender;
 	private String cellphone;
 	private Integer privilegeId;
-	private Timestamp birthDate;
-	private Timestamp modifiedTime;
-	private Timestamp registeredTime;
+	private String birthDate;
+	private String modifiedTime;
+	private String registeredTime;
 	private Integer activeStatus;
 	
 	public MembersBean() {}
 	
 	public MembersBean(String firstName, String lastName, String email, String password, String address,
-			Integer gender, String cellphone, Integer privilegeId, Timestamp birthDate, Timestamp modifiedTime,
-			Timestamp registeredTime, Integer activeStatus) {
+			Integer gender, String cellphone, Integer privilegeId, String birthDate, String modifiedTime,
+			String registeredTime, Integer activeStatus) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -117,28 +117,31 @@ public class MembersBean implements Serializable{
 	public void setPrivilegeId(Integer privilegeId) {
 		this.privilegeId = privilegeId;
 	}
-
-	public Timestamp getBirthDate() {
+	
+	@Column(name="birthDate", columnDefinition="datetime")
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Timestamp birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
-
-	public Timestamp getModifiedTime() {
+	
+	@Column(name="modifiedTime", columnDefinition="datetime")
+	public String getModifiedTime() {
 		return modifiedTime;
 	}
 
-	public void setModifiedTime(Timestamp modifiedTime) {
+	public void setModifiedTime(String modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
-
-	public Timestamp getRegisteredTime() {
+	
+	@Column(name="registeredTime", columnDefinition="datetime")
+	public String getRegisteredTime() {
 		return registeredTime;
 	}
 
-	public void setRegisteredTime(Timestamp registeredTime) {
+	public void setRegisteredTime(String registeredTime) {
 		this.registeredTime = registeredTime;
 	}
 
