@@ -24,11 +24,11 @@
 			<c:forEach var='product' items='${products}'>
 				<tr>
 					<td><img width='100' height='200'
-						src="<c:url value='../_global/images/${product.imagePath}'/>" />
+						src="<c:url value='/_global/images/${product.imagePath}'/>" />
 					</td>
 					<td><b style='font-size: 16px;'>${product.productName}</b></td>
 					
-					<td><textarea cols='50' rows='5' name='briefInfo'>${product.briefInfo}</textarea></td>
+					<td><textarea style="resize:none" cols='50' rows='5' name='briefInfo'>${product.briefInfo}</textarea></td>
 					<td><input type="text" value='${product.unitPrice}' name='unitPrice'></td>
 					<td><input type="text" value='${product.activeStatus}' name='activeStatus'></td>
 				</tr>

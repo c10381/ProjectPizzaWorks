@@ -36,6 +36,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("WEB-INF/js/");
 		registry.addResourceHandler("/fonts/**").addResourceLocations("WEB-INF/fonts/");
 	}
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();

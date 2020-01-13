@@ -2,55 +2,57 @@ package _model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
-@Entity(name="StockRequest")
-public class StockRequestBean implements Serializable{
+@Entity
+@Table(name="ValidationRequest")
+public class ValidationRequestBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer sRequestId;
-	private Integer proposalerId;
+	private Integer vRequestId;
+	private String email;
 	private Timestamp requestTime;
-	private String briefInfo;
 	private Integer approverId;
 	private String responseComment;
 	private Timestamp responseTime;
-	private Timestamp readTime;
+	private Integer requestStatus;
+	private String validationCode;
 	
-	public StockRequestBean() {
+	public ValidationRequestBean() {
+
 	}
 
-	public StockRequestBean(Integer proposalerId, Timestamp requestTime, String briefInfo, Integer approverId,
-			String responseComment, Timestamp responseTime, Timestamp readTime) {
-		this.proposalerId = proposalerId;
+	public ValidationRequestBean(String email, Timestamp requestTime, Integer approverId, String responseComment,
+			Timestamp responseTime, Integer requestStatus, String validationCode) {
+		this.email = email;
 		this.requestTime = requestTime;
-		this.briefInfo = briefInfo;
 		this.approverId = approverId;
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
-		this.readTime = readTime;
+		this.requestStatus = requestStatus;
+		this.validationCode = validationCode;
 	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getsRequestId() {
-		return sRequestId;
+	public Integer getvRequestId() {
+		return vRequestId;
 	}
 
-	public void setsRequestId(Integer sRequestId) {
-		this.sRequestId = sRequestId;
+	public void setvRequestId(Integer vRequestId) {
+		this.vRequestId = vRequestId;
 	}
 
-	public Integer getProposalerId() {
-		return proposalerId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setProposalerId(Integer proposalerId) {
-		this.proposalerId = proposalerId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Timestamp getRequestTime() {
@@ -59,14 +61,6 @@ public class StockRequestBean implements Serializable{
 
 	public void setRequestTime(Timestamp requestTime) {
 		this.requestTime = requestTime;
-	}
-
-	public String getBriefInfo() {
-		return briefInfo;
-	}
-
-	public void setBriefInfo(String briefInfo) {
-		this.briefInfo = briefInfo;
 	}
 
 	public Integer getApproverId() {
@@ -93,13 +87,20 @@ public class StockRequestBean implements Serializable{
 		this.responseTime = responseTime;
 	}
 
-	public Timestamp getReadTime() {
-		return readTime;
+	public Integer getRequestStatus() {
+		return requestStatus;
 	}
 
-	public void setReadTime(Timestamp readTime) {
-		this.readTime = readTime;
+	public void setRequestStatus(Integer requestStatus) {
+		this.requestStatus = requestStatus;
 	}
-	
+
+	public String getValidationCode() {
+		return validationCode;
+	}
+
+	public void setValidationCode(String validationCode) {
+		this.validationCode = validationCode;
+	}
 	
 }

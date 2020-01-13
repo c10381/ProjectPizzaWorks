@@ -2,6 +2,14 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Materials")
 public class MaterialsBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer materialsId;
@@ -23,7 +31,9 @@ public class MaterialsBean implements Serializable{
 		this.unitOnOrder = unitOnOrder;
 		this.unit = unit;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getMaterialsId() {
 		return materialsId;
 	}

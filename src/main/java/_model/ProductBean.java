@@ -1,11 +1,17 @@
 package _model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +30,8 @@ public class ProductBean implements Serializable{
 	private Integer beef;
 	private Integer chicken;
 	private String imagePath;
+	
+	private List<RecipeBean> recipes = new ArrayList<>();
 	
 	public ProductBean() {}
 	
@@ -140,13 +148,22 @@ public class ProductBean implements Serializable{
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ProductBean [productId=" + productId + ", productName=" + productName + ", briefInfo=" + briefInfo
 				+ ", unitPrice=" + unitPrice + ", activeStatus=" + activeStatus + ", spicyLevel=" + spicyLevel
 				+ ", vegetableOnly=" + vegetableOnly + ", seafood=" + seafood + ", pork=" + pork + ", beef=" + beef
-				+ ", chicken=" + chicken + ", imagePath=" + imagePath + "]";
+				+ ", chicken=" + chicken + ", imagePath=" + imagePath + ", recipes=" + recipes + "]";
+	}
+
+	@OneToMany(mappedBy="product", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	public List<RecipeBean> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<RecipeBean> recipes) {
+		this.recipes = recipes;
 	}
 	
 }

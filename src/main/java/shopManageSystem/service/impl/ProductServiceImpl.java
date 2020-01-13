@@ -2,9 +2,10 @@ package shopManageSystem.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import _model.ProductBean;
 import shopManageSystem.dao.ProductDao;
@@ -26,4 +27,9 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getAllProducts();
 	}
 	
+	@Transactional
+	@Override
+	public String getImagePathById(Integer productId) {
+		return dao.getImagePathById(productId);
+	}
 }

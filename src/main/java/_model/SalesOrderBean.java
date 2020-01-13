@@ -2,7 +2,19 @@ package _model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="SalesOrder")
 public class SalesOrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderId;
@@ -12,7 +24,8 @@ public class SalesOrderBean implements Serializable{
 	private Integer needDelivery;
 	private String deliverAddress;
 	private Integer totalSales;
-	
+	private List<SalesOrderDetailBean> salesOrderDetails = new ArrayList<>();
+
 	public SalesOrderBean() {}
 	
 	public SalesOrderBean(Integer memberId, Timestamp orderTime, Timestamp requireTime, Integer needDelivery,
@@ -24,7 +37,9 @@ public class SalesOrderBean implements Serializable{
 		this.deliverAddress = deliverAddress;
 		this.totalSales = totalSales;
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getSalesOrderId() {
 		return salesOrderId;
 	}
@@ -80,5 +95,15 @@ public class SalesOrderBean implements Serializable{
 	public void setTotalSales(Integer totalSales) {
 		this.totalSales = totalSales;
 	}
+	
+	@OneToMany(mappedBy="salesOrder", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	public List<SalesOrderDetailBean> getSalesOrderDetails() {
+		return salesOrderDetails;
+	}
+
+	public void setSalesOrderDetails(List<SalesOrderDetailBean> salesOrderDetails) {
+		this.salesOrderDetails = salesOrderDetails;
+	}
+	
 	
 }
