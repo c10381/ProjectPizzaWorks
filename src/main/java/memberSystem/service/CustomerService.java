@@ -25,10 +25,14 @@ public interface CustomerService {
 	
 	// 查詢所有紀錄
 	List<MembersBean> getAllCustomers();
-	//確認驗證信
-	boolean confirmvalidationCode(String VCode);
+	//Customer點擊信件確認驗證信、忘記密碼連結
+	//要撈出MemberBean
+	MembersBean confirmvalidationCode(String VCode);
 	
-	//user要求忘記密碼(更改密碼)
+	//user要求忘記密碼(更改密碼、寄出驗證信)
 	boolean userRequestChangePW(HttpServletRequest request, String email);
+	//Customer點擊信件忘記密碼連結
+	//要撈出MemberBean
+	//導向修改密碼介面
 	
 }

@@ -33,18 +33,19 @@ public class CustomerController {
 		return "addCustomer";
 	}
 	//新會員驗證信(所以此Request一開始不會拿到MemberBean)
+	//最後會拿到Bean
 	//view部分尚未建立
 	@RequestMapping(value="/member/add/{VCode}")
 	public String validationCode(@PathVariable("VCode") String VCode,Model model) {
-		Boolean confirmvalidationCode=service.confirmvalidationCode(VCode);
-		if(confirmvalidationCode) {
+		MembersBean mem=service.confirmvalidationCode(VCode);
+		if(mem!=null) {
+			model.addAttribute("MembersBean",mem);
 			return "memberSystem/ConfirmEmailSuccess";
 		}
-		return "memberSystem/ConfirmEmailCodeFail";
+		return "memberSystem/ConfirmEmailFail";
 	}
 	@RequestMapping(value="/memberSystem/ForgetPW")
 	public String forgetPWPageRequest() {
-		
 		return "memberSystem/ForgetPWPage";
 	}
 	//Customer忘記密碼
@@ -52,19 +53,22 @@ public class CustomerController {
 	@PostMapping(value="/memberSystem/forgetPW")
 	public @ResponseBody String forgetPWRequest(@RequestParam(value="email") String email,Model model,HttpServletRequest request) {
 
-		service.userRequestChangePW(request,email);
-		return "OK!";
+		if(service.userRequestChangePW(request,email)) {
+			return "OK!";
+		};
+		return "此Email尚未申請會員，請先註冊";
 	}
 	//Customer點擊忘記密碼連結
 	//要撈出MemberBean
 	//導向修改密碼介面
-	@RequestMapping(value="/member/forgetPW/{VCode}")
+	@RequestMapping(value="/memberSystem/forgetPW/{VCode}")
 	public String forgetPWvalidationCode(@PathVariable("VCode") String VCode,Model model) {
-		
-		if(true) {
-			return "validationCodeSuccess";
+		MembersBean mem=service.confirmvalidationCode(VCode);
+		if(mem!=null) {
+			model.addAttribute("MembersBean",mem);
+			return "/memberSystem/validationCodeSuccess";
 		}
-		return "validationCodeFail";
+		return "/memberSystem/validationCodeFail";
 	}
 	
 }
