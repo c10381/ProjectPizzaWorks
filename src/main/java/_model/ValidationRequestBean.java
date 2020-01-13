@@ -80,7 +80,7 @@ public class ValidationRequestBean implements Serializable{
 		this.responseComment = responseComment;
 	}
 	
-	@Column(name="responseDate", columnDefinition="datetime")
+	@Column(name="responseTime", columnDefinition="datetime")
 	public String getResponseTime() {
 		return responseTime;
 	}
