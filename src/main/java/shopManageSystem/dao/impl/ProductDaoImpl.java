@@ -31,4 +31,6 @@ public class ProductDaoImpl implements ProductDao {
 		list = session.createQuery(hql).getResultList();
 		return  list;
 	}
+	
+	
 }

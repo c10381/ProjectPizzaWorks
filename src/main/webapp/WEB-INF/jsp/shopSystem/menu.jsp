@@ -34,9 +34,9 @@
 		</div>
 		<div class="container">
 			<div class="row mx-auto">
-
+				<!-- 當產品簡介與上一個不相等時（代表跟上一個非同一產品）則可以顯示 -->
 				<c:forEach var='product' items='${products}' varStatus="status">
-					<!-- 當產品簡介與上一個不相等時（代表跟上一個非同一產品）則可以顯示 -->
+
 					<c:if
 						test="${product.briefInfo!= products[status.index-1].briefInfo}">
 						<div class="col-lg-4 col-md-6 mt-5 text-center ">
@@ -45,7 +45,7 @@
 									style="background-image: url(${pageContext.request.contextPath}/images/Products/${product.imagePath });"></a>
 								<div class="text">
 									<h3>
-										<!-- 處理產品名稱 去除尾部-->
+										
 
 										<c:set var="originalName" value="${product.productName }" />
 										<c:set var="length" value="${fn:length(originalName) }" />
@@ -60,7 +60,7 @@
 									</p>
 									<p>
 										<a
-											href='<spring:url value="/product?name=${product.showName }"/>'
+											href='<spring:url value="/shop/product?name=${showName }"/>'
 											class="ml-2 btn btn-white btn-outline-white mr-2">了解更多</a> <a
 											href="#" class="btn btn-white btn-outline-white">快速訂購</a>
 									</p>

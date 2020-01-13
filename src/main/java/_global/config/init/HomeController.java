@@ -13,7 +13,7 @@ public class HomeController {
 	}
 	
 	//404 Page
-	@RequestMapping("/*")
+//	@RequestMapping("/*")
 	public String pageNoFound(){
 		return "/_global/PageNoFound";
 	}

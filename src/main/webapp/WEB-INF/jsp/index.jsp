@@ -22,5 +22,18 @@
 			</td>
 		</tr>
 	</table>
+	
+	<table border="1" style="margin: 0px auto;">
+	<tr >
+	<th colspan="1">Client端頁面</th>
+	</tr>
+		<tr>
+			<td width="350"><p align="left" /> <a href='shop/menu'>查詢所有產品資料</a><BR>
+			</td>
+			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+			</td>
+		</tr>
+		
+		</table>
 </body>
 </html>
