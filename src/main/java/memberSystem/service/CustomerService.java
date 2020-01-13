@@ -11,6 +11,8 @@ public interface CustomerService {
 	
 	void setDao(CustomerDao dao);
 	
+	boolean emailExists(String email);
+	
 	// 經由Session介面的load()查詢資料庫內的紀錄
 	MembersBean loadCustomer(String email);
 

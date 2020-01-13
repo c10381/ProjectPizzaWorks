@@ -29,6 +29,13 @@
 			<td width="350"><p align="left" /> <a href='shopManageSystem/manage/Login'></a><BR>
 			</td>
 		</tr>
+		<tr height="52" bgcolor="lightblue" align="center">
+			<td width="350"><p align="left" /> <a href=''></a><BR>
+			</td>
+			<td width="350"><p align="left" /> <a href='memberSystem/customer_register'>會員註冊</a><BR>
+			</td>
+		</tr>
+		
 	</table>
 </body>
 </html>

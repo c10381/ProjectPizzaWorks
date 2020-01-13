@@ -151,5 +151,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<MembersBean> getAllCustomers() {
 		return dao.getAllCustomers();
 	}
+	
+	@Transactional
+	@Override
+	public boolean emailExists(String email) {
+		return dao.emailExists(email);
+	}
 
 }

@@ -17,4 +17,8 @@ public class HomeController {
 	public String pageNoFound(){
 		return "/_global/PageNoFound";
 	}
+	@RequestMapping(value="/customer_register")
+	public String register() {				
+			return "memberSystem/register";
+	}
 }

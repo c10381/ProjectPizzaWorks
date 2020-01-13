@@ -24,11 +24,11 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public boolean idExists(String email) {
+	public boolean emailExists(String email) {
 		boolean exist = false;
 		Session session = factory.getCurrentSession();
 		System.out.println(session.getClass().getName());
-		String queryString = "from members where email = :email";
+		String queryString = "from MembersBean where email = :email";
 		List<?> list = session.createQuery(queryString).setParameter("email", email).list();
 		if (!list.isEmpty()) {
 			exist = true;

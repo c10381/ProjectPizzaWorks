@@ -17,14 +17,16 @@ import _model.MembersBean;
 import memberSystem.service.CustomerService;
 
 @Controller
+@RequestMapping(value = "/memberSystem")
 public class CustomerController {
-	
+
 	private CustomerService service;
-	
+
 	@Autowired
 	public void setService(CustomerService service) {
 		this.service = service;
 	}
+//<<<<<<< Updated upstream
 	
 	  
 	@RequestMapping(value="/member/add", method=RequestMethod.POST)
@@ -32,6 +34,27 @@ public class CustomerController {
 		service.addCustomer(request,mem);
 		return "addCustomer";
 	}
+
+//轉址,未來找地方放?
+	@RequestMapping(value = "/customer_register")
+	public String register(Model model) {
+		MembersBean mem = new MembersBean();
+		model.addAttribute("MembersBean", mem);
+		return "memberSystem/register";
+	}
+
+	@RequestMapping(value = "/customer_register2", method = RequestMethod.POST)
+	public String register_2(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+		if (!service.emailExists(mem.getEmail())) {
+			model.addAttribute("MembersBean", mem);
+			return "memberSystem/register2";
+		} else {
+			String existError = "此信箱已註冊，請進行登入或以其他信箱註冊";
+			model.addAttribute("existError", existError);
+			return "redirect: /customer_register";
+		}
+	}
+
 	//新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	//view部分尚未建立
 	@RequestMapping(value="/member/add/{VCode}")

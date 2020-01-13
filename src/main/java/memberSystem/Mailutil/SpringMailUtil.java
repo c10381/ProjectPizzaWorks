@@ -17,7 +17,7 @@ public class SpringMailUtil {
 //	public JavaMailSender getMailSender() {
 //		return mailSender;
 //	}
-	@Autowired
+//	@Autowired
 	public void setMailSender(JavaMailSenderImpl mailSender) {
 		this.mailSender = mailSender;
 	}

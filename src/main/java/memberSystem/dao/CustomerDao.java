@@ -11,7 +11,7 @@ public interface CustomerDao {
 	
 	void setFactory(SessionFactory factory);
 	
-	boolean idExists(String email);
+	boolean emailExists(String email);
 	
 	// 經由Session介面的load()查詢資料庫內的紀錄
 	MembersBean loadCustomer(String email);
