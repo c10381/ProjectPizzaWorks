@@ -26,3 +26,6 @@ buildNumber.properties
 
 #Datasource Config In Java
 .project
+
+Spring Email Configure
+SpringMailConfig.java
