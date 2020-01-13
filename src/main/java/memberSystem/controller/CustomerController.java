@@ -28,7 +28,7 @@ public class CustomerController {
 	}
 
 	// 轉址,未來找地方放?
-	@RequestMapping(value = "/customer_register", method = RequestMethod.GET)
+	@RequestMapping(value = "customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
 		MembersBean mem = new MembersBean();
 		model.addAttribute("MembersBean", mem);
@@ -43,22 +43,21 @@ public class CustomerController {
 		} else {
 			String existError = "此信箱已註冊，請進行登入或以其他信箱註冊";
 			model.addAttribute("existError", existError);
-			return "redirect: /customer_register";
+			return "redirect: customer_register";
 		}
 	}
 
-	@RequestMapping(value = "/memberSystem/customer_add", method = RequestMethod.POST)
+	@RequestMapping(value = "memberSystem/customer_add", method = RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request, Model model) {
 
 		service.addCustomer(request, mem);
-		return "register_complete";
+		return "memberSystem/register_complete";
 	}
 
 	
 	//新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	//最後會拿到Bean
-	//view部分尚未建立
-	@RequestMapping(value="/member/add/{VCode}")
+	@RequestMapping(value="memberSystem/customer_add/{VCode}")
 	public String validationCode(@PathVariable("VCode") String VCode,Model model) {
 		MembersBean mem=service.confirmvalidationCode(VCode);
 		if(mem!=null) {
@@ -67,9 +66,12 @@ public class CustomerController {
 		}
 		return "memberSystem/ConfirmEmailFail";
 	}
-	@RequestMapping(value="/memberSystem/ForgetPW")
+	
+	
+	
+	@RequestMapping(value="memberSystem/ForgetPW")
 	public String forgetPWPageRequest() {
-		return "memberSystem/ForgetPWPage";
+		return "/memberSystem/ForgetPWPage";
 	}
 	//Customer忘記密碼
 	//用AJAX回傳字串，要在回傳物件前加@ResponseBody
@@ -80,7 +82,6 @@ public class CustomerController {
 		if (service.userRequestChangePW(request, email)) {
 			return "OK!";
 		}
-		;
 		return "此Email尚未申請會員，請先註冊";
 	}
 

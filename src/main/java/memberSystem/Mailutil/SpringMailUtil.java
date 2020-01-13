@@ -5,6 +5,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -14,10 +15,10 @@ public class SpringMailUtil {
 	
 	private JavaMailSenderImpl mailSender;
 
-//	public JavaMailSender getMailSender() {
-//		return mailSender;
-//	}
-//	@Autowired
+	public JavaMailSender getMailSender() {
+		return mailSender;
+	}
+	@Autowired
 	public void setMailSender(JavaMailSenderImpl mailSender) {
 		this.mailSender = mailSender;
 	}

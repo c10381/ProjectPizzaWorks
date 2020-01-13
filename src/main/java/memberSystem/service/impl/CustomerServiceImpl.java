@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
 import memberSystem.Mailutil.MailCtxAndUtil;
+import memberSystem.Mailutil.SpringMailConfig;
 //import memberSystem.Mailutil.SpringMailConfig;
 import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
