@@ -1,8 +1,8 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +15,10 @@ public class ValidationRequestBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer vRequestId;
 	private String email;
-	private Timestamp requestTime;
+	private String requestTime;
 	private Integer approverId;
 	private String responseComment;
-	private Timestamp responseTime;
+	private String responseTime;
 	private Integer requestStatus;
 	private String validationCode;
 	
@@ -26,8 +26,8 @@ public class ValidationRequestBean implements Serializable{
 
 	}
 
-	public ValidationRequestBean(String email, Timestamp requestTime, Integer approverId, String responseComment,
-			Timestamp responseTime, Integer requestStatus, String validationCode) {
+	public ValidationRequestBean(String email, String requestTime, Integer approverId, String responseComment,
+			String responseTime, Integer requestStatus, String validationCode) {
 		this.email = email;
 		this.requestTime = requestTime;
 		this.approverId = approverId;
@@ -55,11 +55,12 @@ public class ValidationRequestBean implements Serializable{
 		this.email = email;
 	}
 
-	public Timestamp getRequestTime() {
+	public String getRequestTime() {
 		return requestTime;
 	}
-
-	public void setRequestTime(Timestamp requestTime) {
+	
+	@Column(name="requestTime", columnDefinition="datetime")
+	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
 	}
 
@@ -78,12 +79,13 @@ public class ValidationRequestBean implements Serializable{
 	public void setResponseComment(String responseComment) {
 		this.responseComment = responseComment;
 	}
-
-	public Timestamp getResponseTime() {
+	
+	@Column(name="responseDate", columnDefinition="datetime")
+	public String getResponseTime() {
 		return responseTime;
 	}
 
-	public void setResponseTime(Timestamp responseTime) {
+	public void setResponseTime(String responseTime) {
 		this.responseTime = responseTime;
 	}
 
