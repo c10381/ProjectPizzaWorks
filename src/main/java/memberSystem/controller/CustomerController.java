@@ -26,6 +26,7 @@ public class CustomerController {
 	public void setService(CustomerService service) {
 		this.service = service;
 	}
+<<<<<<< Updated upstream
 //<<<<<<< Updated upstream
 	
 	  
@@ -33,6 +34,37 @@ public class CustomerController {
 	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem,HttpServletRequest request) {	
 		service.addCustomer(request,mem);
 		return "addCustomer";
+=======
+
+	// 轉址,未來找地方放?
+	@RequestMapping(value = "/customer_register")
+	public String register(Model model) {
+		MembersBean mem = new MembersBean();
+		model.addAttribute("MembersBean", mem);
+		return "memberSystem/register";
+	}
+
+	@RequestMapping(value = "/customer_register", method = RequestMethod.POST)
+	public String register_2(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+		if (!service.emailExists(mem.getEmail())) {
+			model.addAttribute("MembersBean", mem);
+			return "memberSystem/register2";
+		} else {
+			String existError = "此信箱已註冊，請進行登入或以其他信箱註冊";
+			model.addAttribute("existError", existError);
+			return "redirect: /customer_register";
+		}
+	}
+
+	@RequestMapping(value = "/reg_form")
+	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+		if (!service.emailExists(mem.getEmail())) {
+			model.addAttribute("MembersBean", mem);
+			return "/reg_complete";
+		} else {
+			return "redirect:register";
+		}
+>>>>>>> Stashed changes
 	}
 
 //轉址,未來找地方放?
