@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import _model.ProductBean;
+import _model.SalesOrderBean;
 import shopManageSystem.service.ProductService;
 
 @Controller
@@ -47,12 +48,17 @@ public class ProductController {
 		return "shopManageSystem/products2";
 	}
 	
-//	@RequestMapping("/_global/images/{imagePath}")
-//	public String productImage(@RequestParam("imagePath") String imagePath, Model model) {
-////		String imagePath = service.getImagePathById(productId);
-//		System.out.println("getImage");
-//		System.out.println("_global/images/"+imagePath);
-//		return "_global/images/"+imagePath;
-//	}
+	@RequestMapping("/shopManageSystem/salesOrders")
+	public String salesOrdersList(Model model) {
+		List<SalesOrderBean> list = service.getAllSalesOrders();
+		model.addAttribute("salesOrders", list);
+		return "shopManageSystem/SalesOrders";
+	}
+	
+	@RequestMapping(value="/shopManageSystem/getSalesOrder", method=RequestMethod.GET)
+	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
+		model.addAttribute("salesOrder", service.getSalesOrderById(salesOrderId));
+		return "shopManageSystem/GetSalesOrder";
+	}
 	
 }

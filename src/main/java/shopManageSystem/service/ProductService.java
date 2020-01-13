@@ -3,6 +3,7 @@ package shopManageSystem.service;
 import java.util.List;
 
 import _model.ProductBean;
+import _model.SalesOrderBean;
 import shopManageSystem.dao.ProductDao;
 
 public interface ProductService {
@@ -11,10 +12,12 @@ public interface ProductService {
 
 	List<ProductBean> getAllProducts();
 	
-	ProductBean getProductById(int productId);
+	ProductBean getProductById(Integer productId);
 	
 	void updateOneProduct(ProductBean pb);
 
-//	String getImagePathById(Integer productId);
+	
+	List<SalesOrderBean> getAllSalesOrders();
 
+	SalesOrderBean getSalesOrderById(Integer salesOrderId);
 }
