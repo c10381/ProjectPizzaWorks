@@ -59,6 +59,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public boolean addCustomer(MembersBean mem) {
 		Session session = factory.getCurrentSession();
+		
 		session.save(mem);
 		return true;
 	}

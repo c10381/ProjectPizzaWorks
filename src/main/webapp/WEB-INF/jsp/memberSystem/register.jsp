@@ -13,6 +13,10 @@
 
 </style>
 <title>會員註冊</title>
+
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
  <section>
@@ -22,13 +26,13 @@
  </section>
 <hr width='3'>
 <section class='container'>
-<form:form method='POST' modelAttribute="MembersBean" class='form-horizontal'>
+<form:form method='POST' modelAttribute="MembersBean" class='form-horizontal' action="memberSystem/register">
 <fieldset>
 <legend>登入資訊註冊</legend>
-<label>請輸入註冊信箱：</label>
-<form:input id="email" path="email" type='text' /><br>
-<label>請輸入密碼　    ：</label>
-<form:input id="password" path="password" type="password" /><br>
+<label>* 請輸入註冊信箱：</label>
+<form:input id="email" path="email" type='text' required='required'/><br>
+<label>* 請輸入密碼　    ：</label>
+<form:input id="password" path="password" type="password" required='required'/><br>
 <input id='btnAdd' type="submit" value="送出" />
 <input id='btnReset' type="reset" value="重填" />
 

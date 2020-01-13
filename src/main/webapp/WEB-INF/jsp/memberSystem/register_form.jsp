@@ -22,16 +22,18 @@
 	<hr width='3'>
 	<section class='container'>
 		<form:form method='POST' modelAttribute="MembersBean"
-			class='form-horizontal'>
+			class='form-horizontal' action='customer_add'>
 			<fieldset>
 				<legend>會員資料填寫</legend>
-
-
+				
+				<form:hidden path="email" value="${MembersBean.email }" />
+				<form:hidden path="password" value="${ MembersBean.password}" />
+				
 				<label>姓 ：</label>
-				<form:input id='lastName' path='lastName' type='text' /><br> 
+				<form:input id='lastName' path='lastName' type='text' required='required'/> 
 				
 				<label>名 ：</label>
-				<form:input id='firstName' path='firstName' type='text' />
+				<form:input id='firstName' path='firstName' type='text' required='required'/>
 
 				<br> <label>性別 ：</label>
 				<form:select path="gender" >
@@ -40,13 +42,13 @@
 				<form:option value="2" label="女"></form:option>
 				</form:select>
 				<br> <label>生日 ：</label>
-				<form:input id='birthDate' path='birthDate' type="text" />
+				<form:input id='birthDate' path='birthDate' type="date" />
 
 				<br> <label>地址 ：</label>
-				<form:input id="address" path="address" type="text" />
+				<form:input id="address" path="address" type="text" required='required'/>
 
 				<br> <label>連絡電話 ：</label>
-				<form:input id="cellphone" path="cellphone" type="text" />
+				<form:input id="cellphone" path="cellphone" type="text" required='required'/>
 
 				<br>
 				<form:hidden path="activeStatus" value="1" />

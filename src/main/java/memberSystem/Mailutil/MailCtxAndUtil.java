@@ -8,7 +8,7 @@ import _model.MembersBean;
 
 
 public class MailCtxAndUtil {
-	public String UserName= SpringMailConfig.MAILUsername;
+//	public String UserName= SpringMailConfig.MAILUsername;
 	String Context="";
 
 	//新會員註冊的確認信
