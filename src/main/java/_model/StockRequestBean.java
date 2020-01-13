@@ -53,7 +53,7 @@ public class StockRequestBean implements Serializable {
 	public void setProposalerId(Integer proposalerId) {
 		this.proposalerId = proposalerId;
 	}
-	@Column(name="requestDate", columnDefinition="datetime")
+	@Column(name="requestTime", columnDefinition="datetime")
 	public String getRequestTime() {
 		return requestTime;
 	}

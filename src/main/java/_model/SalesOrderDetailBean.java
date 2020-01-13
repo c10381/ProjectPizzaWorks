@@ -98,11 +98,11 @@ public class SalesOrderDetailBean implements Serializable{
 		this.doubleCheese = doubleCheese;
 	}
 
-	public Integer getCrustId() {
+	public Integer getCrustTypeId() {
 		return crustTypeId;
 	}
 
-	public void setCrustId(Integer crustId) {
+	public void setCrustTypeId(Integer crustId) {
 		this.crustTypeId = crustId;
 	}
 
