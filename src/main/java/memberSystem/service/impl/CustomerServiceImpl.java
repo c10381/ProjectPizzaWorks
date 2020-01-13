@@ -157,5 +157,5 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean emailExists(String email) {
 		return dao.emailExists(email);
 	}
-
+	
 }
