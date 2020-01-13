@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 			do {
 				validationCode = mailCtxAndUtil.RandomvalidationCode();
 				checkVC=dao.useValidationCodeGetBean(validationCode);
-			} while (checkVC.isEmpty());
+			} while (!checkVC.isEmpty());
 			
 			requestBean.setValidationCode(validationCode);
 			dao.addCustomerValidationRequest(requestBean);
@@ -64,25 +64,36 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return false;
 	}
-	//確認驗證信
+	
+	//Customer點擊信件確認驗證信、忘記密碼連結
+	//要撈出MemberBean
+
 	@Transactional
 	@Override
-	public boolean confirmvalidationCode(String VCode) {
-		List<ValidationRequestBean> Lveb=dao.useValidationCodeGetBean(VCode);
-		if(Lveb.size()==1) {
-			ValidationRequestBean veb = Lveb.get(0);
+	public MembersBean confirmvalidationCode(String VCode) {
+		List<ValidationRequestBean> Lvrb=dao.useValidationCodeGetBean(VCode);
+		 
+		if(Lvrb.size()==1) {
+			ValidationRequestBean veb = Lvrb.get(0);
 			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
-			veb.setRequestStatus(2);
+			if(veb.getRequestStatus()==1) {
+				veb.setRequestStatus(2);
+			}else if(veb.getRequestStatus()==3) {
+				veb.setRequestStatus(4);
+			}else {
+				return null;
+			}
+			
 			dao.updateCustomerValidationRequest(veb);
 			
 			//更改會員狀態為已啟用(activeStatus：1-未啟用,2-改密碼,3-已啟用)
 			MembersBean mem=dao.getCustomer(veb.getEmail());
-			mem.setActiveStatus(2);
+			mem.setActiveStatus(3);
 			//只有單純update(可以這樣用吧？)
 			dao.updateCustomerStatus(mem);
-			return true;
+			return mem;
 		};
-		return false;
+		return null;
 	}
 	//User要求申請忘記密碼(拿的到email)
 	//1. 更改MembersBean activeStatus:2
@@ -125,8 +136,10 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return false;
 	}
-	
-	
+	//Customer點擊信件忘記密碼連結
+	//要撈出MemberBean
+	//導向修改密碼介面
+
 	
 	@Transactional
 	@Override

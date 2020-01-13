@@ -19,7 +19,7 @@ function SendToBack(){
 		data: {"email":$("#email").val()},
 		type:"POST",
 		error: function(){
-			alert($("Something Wrong.");
+			alert("Something Wrong.");
 		},
 		success: function(data){
 			 $("#SendButton").empty();
