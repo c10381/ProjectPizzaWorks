@@ -12,6 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
 import memberSystem.Mailutil.MailCtxAndUtil;
@@ -25,6 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	private CustomerDao dao;
 	public MailCtxAndUtil mailContext;
+	private Encrypted encrypter;
 	
 	@Autowired
 	public void setDao(CustomerDao dao) {
@@ -34,12 +36,11 @@ public class CustomerServiceImpl implements CustomerService {
 	//新增會員，新增成功會傳送註冊信
 	@Transactional
 	@Override
-	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {
+	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {		
+		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
 		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
-		boolean addStatus=dao.addCustomer(mem);
-		
-		
+		boolean addStatus=dao.addCustomer(mem);		
 		if(addStatus==true) {
 			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 			//寫入ValidationRequestBean
@@ -176,6 +177,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return dao.emailExists(email);
 	}
 	
-	
-	
+	@Transactional
+	@Override
+	public MembersBean login (String email, String pwd) {		
+		return dao.login(email, encrypter.getMD5Endocing(pwd));
+	}	
 }

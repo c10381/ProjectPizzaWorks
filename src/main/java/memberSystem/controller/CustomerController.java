@@ -34,9 +34,17 @@ public class CustomerController {
 		model.addAttribute("MembersBean", mem);
 		return "memberSystem/register";
 	}
+	
+	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String login(Model model) {
+		MembersBean mem = new MembersBean();
+		model.addAttribute("MembersBean", mem);
+		return "memberSystem/login";
+	}
 
 	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
-	public String register2(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+	public String register(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
 		if (!service.emailExists(mem.getEmail())) {
 			model.addAttribute("MembersBean", mem);
 			return "memberSystem/register_form";
@@ -52,6 +60,18 @@ public class CustomerController {
 
 		service.addCustomer(request, mem);
 		return "memberSystem/register_complete";
+	}
+	
+	@RequestMapping(value="/memberSystem/loginCheck" )
+	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+		
+		MembersBean bean =service.login(mem.getEmail(),mem.getPassword());
+		if (bean!=null) {
+			model.addAttribute("MembersBean",bean);			
+			return "memberSystem/loginOK";
+		}else {
+			return "memberSystem/loginfail";
+		}		
 	}
 
 	
