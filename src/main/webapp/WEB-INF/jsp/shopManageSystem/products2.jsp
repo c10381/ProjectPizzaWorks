@@ -23,8 +23,8 @@
 		<table>
 			<c:forEach var='product' items='${products}'>
 				<tr>
-					<td><img width='100' height='200'
-						src="<c:url value='/_global/images/${product.imagePath}'/>" />
+					<td><img width='200' height='200'
+						src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
 					</td>
 					<td><b style='font-size: 16px;'>${product.productName}</b></td>
 					

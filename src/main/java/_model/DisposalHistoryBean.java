@@ -1,8 +1,8 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,14 +15,14 @@ public class DisposalHistoryBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer disposalHistoryId;
 	private Integer materialsId;
-	private Timestamp stockTime;
+	private String stockTime;
 	private double remainingQuantity;
-	private Timestamp disposalTime;
+	private String disposalTime;
 	private Integer sRequest;
 	
 	public DisposalHistoryBean() {}
 	
-	public DisposalHistoryBean(Integer materialsId, Timestamp stockTime, double remainingQuantity, Timestamp disposalTime,
+	public DisposalHistoryBean(Integer materialsId, String stockTime, double remainingQuantity, String disposalTime,
 			Integer sRequest) {
 		this.materialsId = materialsId;
 		this.stockTime = stockTime;
@@ -48,12 +48,13 @@ public class DisposalHistoryBean implements Serializable{
 	public void setMaterialsId(Integer materialsId) {
 		this.materialsId = materialsId;
 	}
-
-	public Timestamp getStockTime() {
+	
+	@Column(name="stockTime", columnDefinition="datetime")
+	public String getStockTime() {
 		return stockTime;
 	}
 
-	public void setStockTime(Timestamp stockTime) {
+	public void setStockTime(String stockTime) {
 		this.stockTime = stockTime;
 	}
 
@@ -64,12 +65,13 @@ public class DisposalHistoryBean implements Serializable{
 	public void setRemainingQuantity(double remainingQuantity) {
 		this.remainingQuantity = remainingQuantity;
 	}
-
-	public Timestamp getDisposalTime() {
+	
+	@Column(name="disposalTime", columnDefinition="datetime")
+	public String getDisposalTime() {
 		return disposalTime;
 	}
 
-	public void setDisposalTime(Timestamp disposalTime) {
+	public void setDisposalTime(String disposalTime) {
 		this.disposalTime = disposalTime;
 	}
 

@@ -1,8 +1,8 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +19,14 @@ public class StorageHistoryBean implements Serializable{
 	private double unitPrice;
 	private double quantity;
 	private double remainingQuantity;
-	private Timestamp stockTime;
-	private Timestamp expiryTime;
+	private String stockTime;
+	private String expiryTime;
 	private String unit;
 	
 	public StorageHistoryBean() {}
 	
 	public StorageHistoryBean(Integer sRequestId, Integer materialsId, double unitPrice, double quantity,
-			double remainingQuantity, Timestamp stockTime, Timestamp expiryTime, String unit) {
+			double remainingQuantity, String stockTime, String expiryTime, String unit) {
 		this.sRequestId = sRequestId;
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
@@ -86,20 +86,20 @@ public class StorageHistoryBean implements Serializable{
 	public void setRemainingQuantity(double remainingQuantity) {
 		this.remainingQuantity = remainingQuantity;
 	}
-
-	public Timestamp getStockTime() {
+	@Column(name="stockTime", columnDefinition="datetime")
+	public String getStockTime() {
 		return stockTime;
 	}
 
-	public void setStockTime(Timestamp stockTime) {
+	public void setStockTime(String stockTime) {
 		this.stockTime = stockTime;
 	}
-
-	public Timestamp getExpiryTime() {
+	@Column(name="expiryTime", columnDefinition="datetime")
+	public String getExpiryTime() {
 		return expiryTime;
 	}
 
-	public void setExpiryTime(Timestamp expiryTime) {
+	public void setExpiryTime(String expiryTime) {
 		this.expiryTime = expiryTime;
 	}
 

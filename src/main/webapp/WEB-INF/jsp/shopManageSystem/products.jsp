@@ -25,7 +25,7 @@
 				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
 					<div class="thumbnail" style="width: 320px; height: 340px">
 						<img width='100' height='200'
-							src="<c:url value='../_global/images/${product.imagePath}'/>" />
+							src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
 						<div class="caption">
 							<p>
 								<b style='font-size: 16px;'>${product.productName}</b>
@@ -33,7 +33,12 @@
 							<p>簡介：${product.briefInfo}</p>
 							<p>單價：${product.unitPrice}</p>
 							<p>上架狀態: ${product.activeStatus}</p>
-							
+							<p>
+                        	<a href="<spring:url value='/shopManageSystem/getProductById?id=${product.productId}'/>"
+                        		class="btn btn-primary">
+                        		<span class="glyphicon-info-sigh glyphicon"></span>詳細資料
+                        	</a>
+                        </p>
 						</div>
 					</div>
 				</div>

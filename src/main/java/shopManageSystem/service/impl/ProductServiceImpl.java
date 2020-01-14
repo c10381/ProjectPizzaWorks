@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import _model.ProductBean;
+import _model.SalesOrderBean;
 import shopManageSystem.dao.ProductDao;
 import shopManageSystem.service.ProductService;
 
@@ -29,7 +30,25 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Transactional
 	@Override
-	public String getImagePathById(Integer productId) {
-		return dao.getImagePathById(productId);
+	public ProductBean getProductById(Integer productId) {
+		return dao.getProductById(productId);
+	}
+	
+	@Transactional
+	@Override
+	public void updateOneProduct(ProductBean pb) {
+		dao.updateOneProduct(pb);
+	}
+
+	@Transactional
+	@Override
+	public List<SalesOrderBean> getAllSalesOrders(){
+		return dao.getAllSalesOrders();
+	}
+	
+	@Transactional
+	@Override
+	public SalesOrderBean getSalesOrderById(Integer salesOrderId) {
+		return dao.getSalesOrderById(salesOrderId);
 	}
 }

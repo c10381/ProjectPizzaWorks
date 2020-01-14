@@ -23,7 +23,7 @@ public class RootAppConfig {
 	public DataSource msSQLDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("sa");
-		ds.setPassword("P@ssw0rd");
+		ds.setPassword("q8300322");
 		try {
 			ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (PropertyVetoException e) {
