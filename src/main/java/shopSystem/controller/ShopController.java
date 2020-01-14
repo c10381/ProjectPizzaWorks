@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +15,7 @@ import shopManageSystem.service.ProductService;
 import shopSystem.service.ShopService;
 
 @Controller
+@RequestMapping("/shop")
 public class ShopController {
 	ProductService pdService;
 	ShopService shopService;
@@ -26,10 +28,9 @@ public class ShopController {
 	@Autowired
 	public void setShopService(ShopService shopService) {
 		this.shopService = shopService;
-
 	}
 
-	@RequestMapping("/shop/menu")
+	@RequestMapping("/menu")
 	public String getMenu(Model model) {
 		List<ProductBean> products = pdService.getAllProducts();
 		model.addAttribute("products", products);
@@ -37,14 +38,14 @@ public class ShopController {
 	}
 
 //	@GetMapping(value="/shop/product", produces="text/html")
-	public String getProductByIdjson(Model model, @RequestParam("name") String productName) {
-		String json = shopService.getProductByNameJson(productName);
-		System.out.println(json);
-		model.addAttribute(json);
-		return "shopSystem/product" ;
-	}
+//	public String getProductByIdjson(Model model, @RequestParam("name") String productName) {
+//		String json = shopService.getProductByNameJson(productName);
+//		System.out.println(json);
+//		model.addAttribute(json);
+//		return "shopSystem/product" ;
+//	}
 	
-	@RequestMapping("/shop/product")
+	@RequestMapping("/product")
 	public String getProductById(Model model, @RequestParam("name") String productName) {
 		model.addAttribute("products", shopService.getProductByName(productName));
 		return "shopSystem/product" ;
