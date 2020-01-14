@@ -145,4 +145,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 	
 	//=============以上為驗證信部分================
+	
+	
+	
+	
+	@Override
+	public MembersBean login(String acct, String pwd) {
+		
+		return null;
+	}
 }

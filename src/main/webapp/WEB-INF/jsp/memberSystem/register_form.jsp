@@ -37,10 +37,11 @@
 
 				<br> <label>性別 ：</label>
 				<form:select path="gender" >
-				<form:option value="0" label="請選擇"  ></form:option>
+				<form:option value="0" label="請選擇" ></form:option>
 				<form:option value="1" label="男"></form:option>
 				<form:option value="2" label="女"></form:option>
 				</form:select>
+				
 				<br> <label>生日 ：</label>
 				<form:input id='birthDate' path='birthDate' type="date" />
 

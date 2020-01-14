@@ -30,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	public void setDao(CustomerDao dao) {
 		this.dao = dao;
-	}
+	}	
 
 	//新增會員，新增成功會傳送註冊信
 	@Transactional
@@ -176,5 +176,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean emailExists(String email) {
 		return dao.emailExists(email);
 	}
+	
+	
 	
 }

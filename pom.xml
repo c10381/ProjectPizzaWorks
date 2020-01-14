@@ -254,6 +254,9 @@
 			<version>1.3.2</version>
 		</dependency>
 
+		<!-- 以下為spring security的dependency, 採用spring boot -->
+
+
 	</dependencies>
 
 </project>

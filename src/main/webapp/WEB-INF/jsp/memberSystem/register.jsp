@@ -14,8 +14,8 @@
 </style>
 <title>會員註冊</title>
 
-<script type="text/javascript">
-
+<script type="text/javascript">	
+	
 </script>
 </head>
 <body>
@@ -30,9 +30,13 @@
 <fieldset>
 <legend>登入資訊註冊</legend>
 <label>* 請輸入註冊信箱：</label>
-<form:input id="email" path="email" type='text' required='required'/><br>
-<label>* 請輸入密碼　    ：</label>
-<form:input id="password" path="password" type="password" required='required'/><br>
+<form:input id="email" path="email" type='text' placeholder='請輸入信箱'  required='required' /><br>
+<label>* 請輸入密碼　(最多輸入16位，且不可含特殊字元)　    ：</label>
+<form:input id="password" path="password" type="password" 
+	placeholder='請輸入密碼'  required='required' maxlength='16'/><br>
+<label>* 請再次輸入密碼　    ：</label>
+<input id='validpwd' type="password" placeholder='請再次輸入密碼'  required='required'/><br>
+
 <input id='btnAdd' type="submit" value="送出" />
 <input id='btnReset' type="reset" value="重填" />
 
