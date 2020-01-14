@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/shopManageSystem/all.min.css">
+	href="${pageContext.request.contextPath}/css/shopManageSystem/all.css">
 <!-- Ionicons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
