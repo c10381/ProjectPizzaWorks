@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="MaterialsUnit")
+@Table(name="Privilege")
 public class PrivilegeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer privilegeId;

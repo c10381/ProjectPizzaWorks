@@ -1,11 +1,11 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +19,14 @@ public class SalesListBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesListId;
 	private Integer memberId;
-	private Timestamp orderTime;
+	private String orderTime;
 	private Integer totalSales;
 	private Integer salesOrderId;
 	private List<SalesListDetailBean> salesListDetails = new ArrayList<>();
 	
 	public SalesListBean() {}
 
-	public SalesListBean(Integer memberId, Timestamp orderTime, Integer totalSales, Integer salesOrderId) {
+	public SalesListBean(Integer memberId, String orderTime, Integer totalSales, Integer salesOrderId) {
 		this.memberId = memberId;
 		this.orderTime = orderTime;
 		this.totalSales = totalSales;
@@ -50,12 +50,13 @@ public class SalesListBean implements Serializable{
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
-
-	public Timestamp getOrderTime() {
+	
+	@Column(name="orderTime", columnDefinition="datetime")
+	public String getOrderTime() {
 		return orderTime;
 	}
 
-	public void setOrderTime(Timestamp orderTime) {
+	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
 
