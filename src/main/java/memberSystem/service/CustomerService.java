@@ -37,4 +37,5 @@ public interface CustomerService {
 	//要撈出MemberBean
 	//導向修改密碼介面
 	
+	MembersBean login(String email , String pwd);
 }

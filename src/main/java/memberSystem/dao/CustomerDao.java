@@ -41,6 +41,6 @@ public interface CustomerDao {
 	boolean updateCustomerStatus(MembersBean mem);
 	//=====以上為驗證信部分======
 	
-	MembersBean login (String acct, String pwd);
+	MembersBean login (String email, String pwd);
 	
 }

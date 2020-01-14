@@ -145,13 +145,15 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 	
 	//=============以上為驗證信部分================
-	
-	
-	
-	
-	@Override
-	public MembersBean login(String acct, String pwd) {
 		
-		return null;
+	@Override
+	public MembersBean login(String email, String pwd) {	
+		String hql = "from MembersBean where email = :email and password = :password";
+		MembersBean member = null;
+		Session session = factory.getCurrentSession();
+		member = (MembersBean) session.createQuery(hql).
+				setParameter("email", email).setParameter("password", pwd).
+				getSingleResult();
+		return member;
 	}
 }
