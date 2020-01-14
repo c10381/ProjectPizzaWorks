@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
 import memberSystem.Mailutil.MailCtxAndUtil;
-import memberSystem.Mailutil.SpringMailConfig;
 //import memberSystem.Mailutil.SpringMailConfig;
 import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
@@ -61,11 +60,11 @@ public class CustomerServiceImpl implements CustomerService {
 			requestBean.setValidationCode(validationCode);
 			dao.addCustomerValidationRequest(requestBean);
 			
-			//操作Spring Mail區
-			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
-			SpringMailUtil ms = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
-			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員註冊信",
-					mailCtxAndUtil.ConfirmationMailContext(request,mem,validationCode));
+//			//操作Spring Mail區
+//			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
+//			SpringMailUtil ms = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
+//			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員註冊信",
+//					mailCtxAndUtil.ConfirmationMailContext(request,mem,validationCode));
 			return true;
 		}
 		return false;
