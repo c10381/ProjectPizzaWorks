@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
 			//寫入ValidationRequestBean
 			ValidationRequestBean requestBean = new ValidationRequestBean();
 			requestBean.setEmail(mem.getEmail());
-			requestBean.setRequestTime(new Timestamp(System.currentTimeMillis()));
+			requestBean.setRequestTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
 			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
 			requestBean.setRequestStatus(1);
 			
