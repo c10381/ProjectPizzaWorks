@@ -3,6 +3,8 @@ package memberSystem.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
 		return member;
 	}
-
+	
 	// 新增會員
 	@Override
 	public boolean addCustomer(MembersBean mem) {
@@ -151,9 +153,13 @@ public class CustomerDaoImpl implements CustomerDao {
 		String hql = "from MembersBean where email = :email and password = :password";
 		MembersBean member = null;
 		Session session = factory.getCurrentSession();
+		try {
 		member = (MembersBean) session.createQuery(hql).
 				setParameter("email", email).setParameter("password", pwd).
 				getSingleResult();
+		}catch(NoResultException nre) {
+			member = null;
+		}
 		return member;
 	}
 }

@@ -180,7 +180,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Transactional
 	@Override
-	public MembersBean login(String email, String pwd) {		
+	public MembersBean login (String email, String pwd) {		
 		return dao.login(email, encrypter.getMD5Endocing(pwd));
 	}	
 }
