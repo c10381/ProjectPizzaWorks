@@ -6,9 +6,9 @@
 <body>
 	<table border="1" style="margin: 0px auto;">
 		<tr height="52" bgcolor="lightblue" align="center">
-			<td width="350"><p align="left" /> <a href='shopManageSystem/products'>查詢所有產品資料</a><BR>
+			<td width="350"><p align="left" /> <a href='shopManageSystem/products'>查詢多筆產品資料</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+			<td width="350"><p align="left" /> <a href='shopManageSystem/products2'>查詢所有產品資料(testing)</a><BR>
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
@@ -18,7 +18,7 @@
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
-			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+			<td width="350"><p align="left" /> <a href='shopManageSystem/SalesManageIndex'>導入後臺主頁</a><BR>
 			</td>
 			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
 			</td>
@@ -26,7 +26,7 @@
 		<tr height="52" bgcolor="lightblue" align="center">
 			<td width="350"><p align="left" /> <a href='memberSystem/ForgetPW'>忘記密碼</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href='shopManageSystem/manage/Login'></a><BR>
+			<td width="350"><p align="left" /> <a href=''></a><BR>
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
