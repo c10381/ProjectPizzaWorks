@@ -36,8 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {
-		mem.setModifiedTime(new Timestamp(new Date().getTime()));
-		mem.setRegisteredTime(new Timestamp(new Date().getTime()));		
+		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
+		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
 		boolean addStatus=dao.addCustomer(mem);
 		
 		
