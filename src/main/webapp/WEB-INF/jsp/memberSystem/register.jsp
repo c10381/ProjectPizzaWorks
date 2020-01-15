@@ -26,7 +26,7 @@
  </section>
 <hr width='3'>
 <section class='container'>
-<form:form method='POST' modelAttribute="MembersBean" class='form-horizontal' action="memberSystem/register">
+<form:form method='POST' modelAttribute="MembersBean" class='form-horizontal' action="${pageContext.request.contextPath}/memberSystem/register">
 <fieldset>
 <legend>登入資訊註冊</legend>
 <label>* 請輸入註冊信箱：</label>

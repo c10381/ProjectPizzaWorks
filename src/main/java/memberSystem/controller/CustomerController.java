@@ -1,7 +1,7 @@
 package memberSystem.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class CustomerController {
 	}
 
 	// 轉址,未來找地方放?
-	@RequestMapping(value = "customer_register", method = RequestMethod.GET)
+	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
 		MembersBean mem = new MembersBean();
 		model.addAttribute("MembersBean", mem);
@@ -39,9 +39,12 @@ public class CustomerController {
 	}
 	
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login(Model model) {
-		MembersBean mem = new MembersBean();
+	@RequestMapping(value = "/memberSystem/login" ,method = RequestMethod.GET)
+	public String login(Model model, RedirectAttributes ra) {
+		MembersBean mem = new MembersBean();		
+		model.addAttribute("errorMessage", model.getAttribute("errorMessage"));
+		String errorMessage = (String) ra.getAttribute("errorMessage");
+		ra.addAttribute("errorMessage", errorMessage);
 		model.addAttribute("MembersBean", mem);
 		return "memberSystem/login";
 	}
@@ -54,35 +57,39 @@ public class CustomerController {
 		} else {
 			String existError = "此信箱已註冊，請進行登入或以其他信箱註冊";
 			model.addAttribute("existError", existError);
-			return "redirect: customer_register";
+			return "redirect: memberSystem/customer_register";
 		}
 	}
 
-	@RequestMapping(value = "memberSystem/customer_add", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberSystem/customer_add", method = RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request, Model model) {
 
 		service.addCustomer(request, mem);
 		return "memberSystem/register_complete";
 	}
 	
-	@RequestMapping(value="/memberSystem/loginCheck" )
-	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpServletResponse response) {
-		
+	@RequestMapping(value="/memberSystem/loginCheck", method = RequestMethod.POST)	
+	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, RedirectAttributes ra, HttpSession session) {
+				
 		MembersBean bean =service.login(mem.getEmail(),mem.getPassword());
 		if (bean!=null) {
 			if(bean.getPrivilegeId() !=1 ) {
-				model.addAttribute("errorMessage","此帳號不存在，請重新輸入！");
-				return "redirect:loginCheck";
+				ra.addFlashAttribute("errorMessage","此帳號不存在，請重新輸入！");
+				return "redirect: login";
 			}if(bean.getActiveStatus() !=3) {
-				model.addAttribute("errorMessage","帳號尚未通過驗證，請於信箱透過驗證信進行驗證！");
-				return "redirect:loginCheck";
+				ra.addFlashAttribute("errorMessage","帳號尚未通過驗證，請於信箱透過驗證信進行驗證！");
+				return "redirect: login";
 			}else {
-			model.addAttribute("MembersBean",bean);			
+			model.addAttribute("Cus_LoginOK",bean);	
+			session.removeAttribute("errorMessage");
 			return "memberSystem/loginOK";
+			
 			}
 		}else {
-			model.addAttribute("errorMessage","此帳號不存在，請進行註冊或重新輸入！");
-			return "memberSystem/loginfail";
+			ra.addAttribute("errorMessage", "帳號或密碼錯誤，請進行註冊或重新輸入！8888");
+			session.removeAttribute("errorMessage");
+//			session.setAttribute("errorMessage", "帳號或密碼錯誤，請進行註冊或重新輸入！");
+			return "redirect: login";
 		}		
 	}
 

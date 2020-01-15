@@ -22,7 +22,7 @@
 	</section>
 	<hr width='3'>
 	<section class='container'>
-		<form:form method='POST' modelAttribute="MembersBean" action='memberSystem/loginCheck' 
+		<form:form method='POST' modelAttribute="MembersBean" action='${pageContext.request.contextPath}/memberSystem/loginCheck' 
 			class='form-horizontal'>
 			<fieldset>
 				<legend>登入</legend>
@@ -33,11 +33,10 @@
 				<form:input id="password" path="password" type="password"
 					placeholder='請輸入密碼' required='required' maxlength='16' />
 				<br> <input id='btnAdd' type="submit" value="送出" /> <input
-					id='btnReset' type="reset" value="重填" />
-	
+					id='btnReset' type="reset" value="重填" />	
 			</fieldset>
-		</form:form>
-		<span style="color: red;">${errorMessage}</span>
+		</form:form>		
 	</section>
+	<p style='color: red;'>${errorMessage}</p>
 </body>
 </html>
