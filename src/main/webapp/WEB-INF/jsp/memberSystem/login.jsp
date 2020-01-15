@@ -34,9 +34,10 @@
 					placeholder='請輸入密碼' required='required' maxlength='16' />
 				<br> <input id='btnAdd' type="submit" value="送出" /> <input
 					id='btnReset' type="reset" value="重填" />
-
+	
 			</fieldset>
 		</form:form>
+		<span style="color: red;">${errorMessage}</span>
 	</section>
 </body>
 </html>

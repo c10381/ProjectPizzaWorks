@@ -1,6 +1,7 @@
 package memberSystem.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,13 +64,22 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/memberSystem/loginCheck" )
-	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
+	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpServletResponse response) {
 		
 		MembersBean bean =service.login(mem.getEmail(),mem.getPassword());
 		if (bean!=null) {
+			if(bean.getPrivilegeId() !=1 ) {
+				model.addAttribute("errorMessage","此帳號不存在，請重新輸入！");
+				return "redirect:loginCheck";
+			}if(bean.getActiveStatus() !=3) {
+				model.addAttribute("errorMessage","帳號尚未通過驗證，請於信箱透過驗證信進行驗證！");
+				return "redirect:loginCheck";
+			}else {
 			model.addAttribute("MembersBean",bean);			
 			return "memberSystem/loginOK";
+			}
 		}else {
+			model.addAttribute("errorMessage","此帳號不存在，請進行註冊或重新輸入！");
 			return "memberSystem/loginfail";
 		}		
 	}
