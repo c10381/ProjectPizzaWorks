@@ -14,13 +14,13 @@
 		<tr height="52" bgcolor="lightblue" align="center">
 			<td width="350"><p align="left" /> <a href='memberSystem/login'>會員登入</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href='backendSystem/adminIndex'>後台直接登入</a><BR>
+			<td width="350"><p align="left" /> <a href='backendSystem/coworkerLogin'>後台登入</a><BR>
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
-			<td width="350"><p align="left" /> <a href='shopManageSystem/SalesManageIndex'>導入後臺主頁</a><BR>
+			<td width="350"><p align="left" /> <a href='backendSystem/adminIndex'>後台直接登入</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+			<td width="350"><p align="left" /> <a href='shopManageSystem/SalesManageIndex'>導入後臺主頁</a><BR>
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">

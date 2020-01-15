@@ -29,12 +29,12 @@
 <body class="hold-transition sidebar-mini" onload="clock()">
 	<!-- Site wrapper -->
 	<div class="wrapper">
-
+		<!-- import navbar(use request),change the color in Jsp -->
 		<jsp:include page="/backendSystem/navbar" />
-
+		<!-- import sidebar(use request),select the jsp in controller(by Bean privilege) -->
 		<jsp:include page="/backendSystem/sidebar" />
 
-		<!-- Main content -->
+		<!-- Main content ,use jQuery load() to load page-->
 		<div class="content-wrapper">
 			<jsp:include page="/backendSystem/navbar" />
 
@@ -42,10 +42,6 @@
 		<!-- Main content -->
 	</div>
 	<!-- ./wrapper -->
-
-
-
-
 
 
 	<!-- footer -->

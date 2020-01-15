@@ -1,29 +1,32 @@
 package backendSystem.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _model.MembersBean;
 
 @Controller
+@SessionAttributes("Mem_LoginOK")
 public class redirectController {
-
-	// 轉址(Index，之後會有MemberBean)
-	@RequestMapping("/backendSystem/adminIndex")
-	public String LoginSuccessful() {
-		return "backendSystem/backendIndex";
+	// 轉址(Login page)
+	@RequestMapping("/backendSystem/coworkerLogin")
+	public String LoginPage(Model model) {
+		return "backendSystem/coworkerLogin";
 	}
 
 	// 轉址(navbar)
-	@GetMapping(value = "/backendSystem/navbar")
-	public String navbar() {
+	@PostMapping(value = "/backendSystem/navbar")
+	public String navbar(Model model) {
 		return "backendSystem/navbar";
 	}
 
 	// 轉址(sidebar,判斷權限)
-	@GetMapping(value = "/backendSystem/sidebar")
-	public String sidebarSelect() {
+	@PostMapping(value = "/backendSystem/sidebar")
+	public String sidebarSelect(@ModelAttribute("Mem_LoginOK") MembersBean mem, Model model) {
 //		if(mem.getPrivilegeId()==2) {
 //			return "backendSystem/sideBar_webAdmin";
 //		}else if(mem.getPrivilegeId()==3) {
