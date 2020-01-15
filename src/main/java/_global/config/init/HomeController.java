@@ -27,4 +27,5 @@ public class HomeController {
 	public String register() {				
 			return "memberSystem/register";
 	}
+
 }
