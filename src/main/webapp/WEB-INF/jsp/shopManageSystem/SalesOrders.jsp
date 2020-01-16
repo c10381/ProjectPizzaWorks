@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -50,6 +51,21 @@
 						name='totalSales'></td>
 				</tr>
 			</c:forEach>
+		</table>
+
+		<table id="saleOrders" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<td></td>
+					<td>訂單編號</td>
+					<td>客戶編號</td>
+					<td>訂購時間</td>
+					<td>取餐時間</td>
+					<td>是否需要外送</td>
+					<td>外送地址</td>
+					<td>訂單總價</td>
+				</tr>
+			</thead>
 		</table>
 	</section>
 </body>
