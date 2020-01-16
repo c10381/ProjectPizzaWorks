@@ -12,17 +12,30 @@
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
-			<td width="350"><p align="left" /> <a href='memberSystem/customerLogin'>會員登入</a><BR>
+			<td width="350"><p align="left" /> <a href='memberSystem/login'>會員登入</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href='shopManageSystem/manage/Login'>後台登入</a><BR>
+			<td width="350"><p align="left" /> <a href='backendSystem/coworkerLogin'>後台登入</a><BR>
 			</td>
 		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
+			<td width="350"><p align="left" /> <a href='backendSystem/adminIndex'>後台直接登入</a><BR>
+			</td>
 			<td width="350"><p align="left" /> <a href='shopManageSystem/SalesManageIndex'>導入後臺主頁</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+		</tr>
+		<tr height="52" bgcolor="lightblue" align="center">
+			<td width="350"><p align="left" /> <a href='memberSystem/ForgetPW'>忘記密碼</a><BR>
+			</td>
+			<td width="350"><p align="left" /> <a href=''></a><BR>
 			</td>
 		</tr>
+		<tr height="52" bgcolor="lightblue" align="center">
+			<td width="350"><p align="left" /> <a href=''></a><BR>
+			</td>
+			<td width="350"><p align="left" /> <a href='memberSystem/customer_register'>會員註冊</a><BR>
+			</td>
+		</tr>
+		
 	</table>
 </body>
 </html>

@@ -4,9 +4,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><!-- 
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <title>Products</title>
 </head>
 <body>
@@ -16,15 +16,15 @@
 				<h1>產品清單</h1>
 			</div>
 		</div>
-	</section>
+	</section><!-- 
 	<hr
-		style="height: 1px; border: none; color: #333; background-color: #333;">
+		style="height: 1px; border: none; color: #333; background-color: #333;"> -->
 	<section class="container">
 		<div class="row">
 			<c:forEach var='product' items='${products}'>
-				<div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<img width='100' height='200'
+				<div class="col-sm-6 col-md-3" style="width: 300px; height: 550px">
+					<div class="thumbnail" style="width: 200px; height: 100px">
+						<img width='200' height='200'
 							src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
 						<div class="caption">
 							<p>

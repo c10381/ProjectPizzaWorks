@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/shopManageSystem/fontawesome-free/css/all.min.css">
+	href="${pageContext.request.contextPath}/css/shopManageSystem/all.css">
 <!-- Ionicons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -459,7 +459,7 @@
 		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/js/bootstrap.bundle.min.js"></script>
+		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
