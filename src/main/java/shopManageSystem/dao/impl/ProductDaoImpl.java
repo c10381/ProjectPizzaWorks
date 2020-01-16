@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.ProductBean;
+import _model.RecipeBean;
 import _model.SalesOrderBean;
 import shopManageSystem.dao.ProductDao;
 
@@ -53,30 +54,51 @@ public class ProductDaoImpl implements ProductDao {
 		if (pb.getSpicyLevel() != null) {
 			originalProduct.setSpicyLevel(pb.getSpicyLevel());
 		}
-		if(pb.getVegetableOnly()!=null) {
+		if (pb.getVegetableOnly() != null) {
 			originalProduct.setVegetableOnly(pb.getVegetableOnly());
 		}
-		if(pb.getSeafood()!=null) {
+		if (pb.getSeafood() != null) {
 			originalProduct.setSeafood(pb.getSeafood());
 		}
-		if(pb.getPork()!= null) {
+		if (pb.getPork() != null) {
 			originalProduct.setPork(pb.getPork());
 		}
-		if(pb.getBeef()!= null) {
+		if (pb.getBeef() != null) {
 			originalProduct.setBeef(pb.getBeef());
 		}
-		if(pb.getChicken()!= null) {
+		if (pb.getChicken() != null) {
 			originalProduct.setChicken(pb.getChicken());
 		}
-		if(pb.getImagePath()!= null) {
+		if (pb.getImagePath() != null) {
 			originalProduct.setImagePath(pb.getImagePath());
 		}
 	}
+
 	@Override
 	public ProductBean getProductById(Integer productId) {
 		Session session = factory.getCurrentSession();
 		ProductBean pb = session.get(ProductBean.class, productId);
 		return pb;
+	}
+
+	@Override
+	public void updateOneRecipe(RecipeBean recipe) {
+		String hql = "UPDATE RecipeBean SET quantity = :quantity WHERE productId = :productId AND materialsId = :materialsId";
+		Session session = factory.getCurrentSession();
+		
+		session.createQuery(hql).setParameter("quantity", recipe.getQuantity())
+				.setParameter("productId", recipe.getProduct().getProductId())
+				.setParameter("materialsId", recipe.getMaterial().getMaterialsId()).executeUpdate();
+	}
+	
+	@Override
+	public void updateOneRecipeJson(Double quantity, Integer productId, Integer materialsId) {
+		String hql = "UPDATE RecipeBean SET quantity = :quantity WHERE productId = :productId AND materialsId = :materialsId";
+		Session session = factory.getCurrentSession();
+		
+		session.createQuery(hql).setParameter("quantity", quantity)
+				.setParameter("productId", productId)
+				.setParameter("materialsId", materialsId).executeUpdate();
 	}
 	@Override
 	public List<SalesOrderBean> getAllSalesOrders(){

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import _model.ProductBean;
 import _model.SalesOrderBean;
+import _model.RecipeBean;
 import shopManageSystem.dao.ProductDao;
 import shopManageSystem.service.ProductService;
 
@@ -39,6 +40,26 @@ public class ProductServiceImpl implements ProductService {
 	public void updateOneProduct(ProductBean pb) {
 		dao.updateOneProduct(pb);
 	}
+	
+	@Transactional
+	@Override
+	public List<RecipeBean> getRecipeById(Integer productId) {
+		ProductBean product = dao.getProductById(productId);
+//		List<RecipeBean> list = dao.getRecipeById(id);
+		return product.getRecipes();
+	}
+	@Transactional
+	@Override
+	public void updateOneRecipe(RecipeBean recipe) {
+		dao.updateOneRecipe(recipe);		
+	}
+	@Transactional
+	@Override
+	public void updateOneRecipeJson(Double quantity, Integer productId, Integer materialsId) {
+		dao.updateOneRecipeJson(quantity, productId, materialsId);
+	}
+	
+	
 
 	@Transactional
 	@Override

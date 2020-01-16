@@ -94,6 +94,12 @@
 				</div>
 			</fieldset>
 		</form:form>
+			<a href="<spring:url value='/shopManageSystem/updateRecipeById?id=${product.productId}' />" 
+				class='btn btn-warning btn-large'> <input
+				id="btnRecipeGet" type='button'
+				class='glyphicon-shopping-cart glyphicon' value="查詢BOM" />
+			</a>
+		
 	</section>
 	<script>
 	function scanCheckBoxStatus(){		
