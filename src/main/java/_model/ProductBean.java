@@ -3,7 +3,6 @@ package _model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ public class ProductBean implements Serializable{
 	private Integer productId;
 	private String productName;
 	private String briefInfo;
-	private Integer unitPrice; 
+	private Integer unitPrice;
 	private Integer activeStatus;
 	private Integer spicyLevel;
 	private Integer vegetableOnly;
