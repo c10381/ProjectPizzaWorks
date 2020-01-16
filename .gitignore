@@ -24,5 +24,12 @@ buildNumber.properties
 /.metadata/
 .metadata/
 
+# 
+.project
 #Datasource Config In Java
 RootAppConfig.java
+SystemConstant.java
+# Mailconfig
+MailCtxAndUtil.java
+MailTest.java
+SpringMailUtil.java
