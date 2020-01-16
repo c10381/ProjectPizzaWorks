@@ -1,6 +1,10 @@
 package _global.config.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.BadPaddingException;
@@ -77,4 +81,90 @@ public class Encrypted {
 		}
 		return decryptedString;
 	}
+	
+	public static String getMD5Endocing(String message) {
+		final StringBuffer buffer = new StringBuffer();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(message.getBytes());
+			byte[] digest = md.digest();
+
+			for (int i = 0; i < digest.length; ++i) {
+				final byte b = digest[i];
+				final int value = Byte.toUnsignedInt(b);
+				buffer.append(value < 16 ? "0" : "");
+				buffer.append(Integer.toHexString(value));
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return buffer.toString();
+	}
+	
+	public static String getMD5Endocing(File file) throws NoSuchAlgorithmException, IOException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		try (FileInputStream fis = new FileInputStream(file);) {
+			byte[] ba = new byte[1024];
+			int len = 0;
+			while ((len = fis.read(ba)) != -1) {
+				md.update(ba, 0, len);
+			}
+		}
+		byte[] digest = md.digest();
+		final StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < digest.length; ++i) {
+			byte b = digest[i];
+			final int value = Byte.toUnsignedInt(b);
+			buffer.append(value < 16 ? "0" : "");
+			buffer.append(Integer.toHexString(value));
+
+		}
+		return buffer.toString();
+	}
+	
+	
+	public static String getSHA1Endocing(String message) {
+		final StringBuffer buffer = new StringBuffer();
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA1");
+			md.update(message.getBytes());
+			byte[] digest = md.digest();
+
+			for (int i = 0; i < digest.length; ++i) {
+				final byte b = digest[i];
+				final int value = Byte.toUnsignedInt(b);
+				buffer.append(value < 16 ? "0" : "");
+				buffer.append(Integer.toHexString(value));
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return buffer.toString();
+	}
+	
+	public static String getSHA1Endocing(File file) throws NoSuchAlgorithmException, IOException {
+		MessageDigest md = MessageDigest.getInstance("SHA-512");
+		try (FileInputStream fis = new FileInputStream(file);) {
+			byte[] ba = new byte[1024];
+			int len = 0;
+			while ((len = fis.read(ba)) != -1) {
+				md.update(ba, 0, len);
+			}
+		}
+		byte[] digest = md.digest();
+		final StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < digest.length; ++i) {
+			byte b = digest[i];
+//			int value = (b & 0x7F) + (b < 0 ? 128 : 0);
+			final int value = Byte.toUnsignedInt(b);
+			buffer.append(value < 16 ? "0" : "");
+			buffer.append(Integer.toHexString(value));
+
+		}
+		return buffer.toString();
+	}
+	
+	
 }

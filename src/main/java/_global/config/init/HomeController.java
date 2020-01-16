@@ -22,4 +22,10 @@ public class HomeController {
 	public String directSalesManageIndex() {
 		return "shopManageSystem/SalesManageIndex";
 	}
+	
+	@RequestMapping(value="/customer_register")
+	public String register() {				
+			return "memberSystem/register";
+	}
+
 }
