@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesOrderBean;
 
 public interface ProductDao {
 
@@ -16,12 +17,15 @@ public interface ProductDao {
 	// 供網站管理員修改商品上架否之方法
 	void updateOneProduct(ProductBean pb);
 
-	ProductBean getProductById(int productId);
+	ProductBean getProductById(Integer productId);
 
+	
+	List<SalesOrderBean> getAllSalesOrders();
 	void updateOneRecipe(RecipeBean recipe);
 
 	void updateOneRecipeJson(Double quantity, Integer productId, Integer materialsId);
 
-//	String getImagePathById(Integer productId);
+
+	SalesOrderBean getSalesOrderById(Integer salesOrderId);
 
 }

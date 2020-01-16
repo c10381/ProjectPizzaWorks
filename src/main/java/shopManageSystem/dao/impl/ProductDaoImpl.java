@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesOrderBean;
 import shopManageSystem.dao.ProductDao;
 
 @Repository
@@ -74,17 +75,11 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public ProductBean getProductById(int productId) {
+	public ProductBean getProductById(Integer productId) {
 		Session session = factory.getCurrentSession();
 		ProductBean pb = session.get(ProductBean.class, productId);
 		return pb;
 	}
-//	@Override
-//	public String getImagePathById(Integer productId) {
-//		Session session = null;
-//		String imagePath = session.get(ProductBean.class, productId).getImagePath();
-//		return imagePath;
-//	}
 
 	@Override
 	public void updateOneRecipe(RecipeBean recipe) {
@@ -104,5 +99,20 @@ public class ProductDaoImpl implements ProductDao {
 		session.createQuery(hql).setParameter("quantity", quantity)
 				.setParameter("productId", productId)
 				.setParameter("materialsId", materialsId).executeUpdate();
+	}
+	@Override
+	public List<SalesOrderBean> getAllSalesOrders(){
+		String hql = "FROM SalesOrderBean";
+		Session session = null;
+		List<SalesOrderBean> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	@Override
+	public SalesOrderBean getSalesOrderById(Integer salesOrderId) {
+		Session session = factory.getCurrentSession();
+		SalesOrderBean salesOrder = session.get(SalesOrderBean.class, salesOrderId);
+		return salesOrder;
 	}
 }

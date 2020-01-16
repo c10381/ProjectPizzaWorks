@@ -1,7 +1,8 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,23 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
-@Entity(name="StockRequest")
-public class StockRequestBean implements Serializable{
+@Entity(name = "StockRequest")
+public class StockRequestBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestId;
 	private Integer proposalerId;
-	private Timestamp requestTime;
+	private String requestTime;
 	private String briefInfo;
 	private Integer approverId;
 	private String responseComment;
-	private Timestamp responseTime;
-	private Timestamp readTime;
-	
+	private String responseTime;
+	private String readTime;
+
 	public StockRequestBean() {
 	}
 
-	public StockRequestBean(Integer proposalerId, Timestamp requestTime, String briefInfo, Integer approverId,
-			String responseComment, Timestamp responseTime, Timestamp readTime) {
+	public StockRequestBean(Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
+			String responseComment, String responseTime, String readTime) {
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
 		this.briefInfo = briefInfo;
@@ -34,9 +35,9 @@ public class StockRequestBean implements Serializable{
 		this.responseTime = responseTime;
 		this.readTime = readTime;
 	}
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getsRequestId() {
 		return sRequestId;
 	}
@@ -52,12 +53,12 @@ public class StockRequestBean implements Serializable{
 	public void setProposalerId(Integer proposalerId) {
 		this.proposalerId = proposalerId;
 	}
-
-	public Timestamp getRequestTime() {
+	@Column(name="requestTime", columnDefinition="datetime")
+	public String getRequestTime() {
 		return requestTime;
 	}
 
-	public void setRequestTime(Timestamp requestTime) {
+	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
 	}
 
@@ -84,22 +85,21 @@ public class StockRequestBean implements Serializable{
 	public void setResponseComment(String responseComment) {
 		this.responseComment = responseComment;
 	}
-
-	public Timestamp getResponseTime() {
+	@Column(name="responseTime", columnDefinition="datetime")
+	public String getResponseTime() {
 		return responseTime;
 	}
 
-	public void setResponseTime(Timestamp responseTime) {
+	public void setResponseTime(String responseTime) {
 		this.responseTime = responseTime;
 	}
-
-	public Timestamp getReadTime() {
+	@Column(name="readTime", columnDefinition="datetime")
+	public String getReadTime() {
 		return readTime;
 	}
 
-	public void setReadTime(Timestamp readTime) {
+	public void setReadTime(String readTime) {
 		this.readTime = readTime;
 	}
-	
-	
+
 }

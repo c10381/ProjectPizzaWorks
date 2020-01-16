@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import _model.ProductBean;
+import _model.SalesOrderBean;
 import _model.RecipeBean;
 import shopManageSystem.service.ProductService;
 
@@ -51,6 +52,12 @@ public class ProductController {
 		return "shopManageSystem/products2";
 	}
 	
+	@RequestMapping("/shopManageSystem/salesOrders")
+	public String salesOrdersList(Model model) {
+		List<SalesOrderBean> list = service.getAllSalesOrders();
+		model.addAttribute("salesOrders", list);
+		return "shopManageSystem/SalesOrders";
+	}
 	@RequestMapping(value="/shopManageSystem/updateRecipeById", method=RequestMethod.GET)
 	public String getRecipeById(@RequestParam("id") Integer productId, Model model) {
 		List<RecipeBean> list = service.getRecipeById(productId);
@@ -76,5 +83,10 @@ public class ProductController {
 		return "OK!";
 	}
 	
-
+	@RequestMapping(value="/shopManageSystem/getSalesOrder", method=RequestMethod.GET)
+	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
+		model.addAttribute("salesOrder", service.getSalesOrderById(salesOrderId));
+		return "shopManageSystem/GetSalesOrder";
+	}
+	
 }
