@@ -37,6 +37,6 @@
 			</fieldset>
 		</form:form>		
 	</section>
-	<p style='color: red;'>${errorMessage}</p>
+	<p style='color: red;'>${errMsg}</p>
 </body>
 </html>

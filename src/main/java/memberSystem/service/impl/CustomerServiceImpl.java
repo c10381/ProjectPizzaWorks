@@ -161,8 +161,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Transactional
 	@Override
-	public boolean updateCustomer(MembersBean mem) {
-		return dao.updateCustomer(mem);
+	public boolean updateInfo(MembersBean mem) {
+		return dao.updateInfo(mem);
 	}
 	
 	@Transactional

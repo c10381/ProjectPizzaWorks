@@ -23,7 +23,7 @@ public interface CustomerService {
 	public boolean addCustomer(HttpServletRequest request, MembersBean mem);
 	
 	// 更新紀錄(給使用者註冊資料用)
-	public boolean updateCustomer(MembersBean mem);
+	public boolean updateInfo(MembersBean mem);
 	
 	// 查詢所有紀錄
 	List<MembersBean> getAllCustomers();

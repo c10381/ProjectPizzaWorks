@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import _model.MembersBean;
 import memberSystem.service.CustomerService;
 
 @Controller
-@RequestMapping(value = "/memberSystem")
-@SessionAttributes("Cus_LoginOK")
+@SessionAttributes("CLoginOK")
 public class CustomerController {
 
 	private CustomerService service;
@@ -30,84 +31,117 @@ public class CustomerController {
 		this.service = service;
 	}
 
-	// 轉址,未來找地方放?
+	// 轉址,未來找地方放?　註冊轉址
 	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
 		MembersBean mem = new MembersBean();
 		model.addAttribute("MembersBean", mem);
+		if(model.getAttribute("errMsg").equals(4)) {
+			model.addAttribute("errMsg","該信箱已註冊，請至登入畫面進行登入");
+		}
 		return "memberSystem/register";
 	}
 	
-	
-	@RequestMapping(value = "/memberSystem/login" ,method = RequestMethod.GET)
-	public String login(Model model, RedirectAttributes ra) {
+	//登入轉址
+	@RequestMapping(value = "/memberSystem/login" , method = RequestMethod.GET)
+	public String login(Model model) {
 		MembersBean mem = new MembersBean();		
-		model.addAttribute("errorMessage", model.getAttribute("errorMessage"));
-		String errorMessage = (String) ra.getAttribute("errorMessage");
-		ra.addAttribute("errorMessage", errorMessage);
 		model.addAttribute("MembersBean", mem);
+		
+		//登入失敗時，透過此方法取得失敗的值並將對應的訊息塞到下個畫面
+		if(model.getAttribute("errMsg")!=null) {
+			System.out.println(model.getAttribute("333"));
+			System.out.println(model.getAttribute("errMsg"));
+			System.out.println(model.getAttribute("333"));
+			if((int)model.getAttribute("errMsg") == 1) {
+				model.addAttribute("errMsg","登入失敗：請至信箱透過驗證信啟動會員");
+			}else if ((int)model.getAttribute("errMsg") == 2) {
+				model.addAttribute("errMsg","登入失敗：帳號或密碼錯誤請重新輸入");
+			}else if ((int)model.getAttribute("errMsg") == 3) {
+				model.addAttribute("errMsg","登入失敗：帳號或密碼錯誤請重新輸入");
+			}
+		}				
 		return "memberSystem/login";
 	}
-
+	
+	//資料更新轉址
+	@RequestMapping(value = "/memberSystem/update",method = RequestMethod.POST)
+	public String update(Model model, HttpSession session) {
+		MembersBean mem = new MembersBean();
+		model.addAttribute("MembersBean", mem);
+		return "memberSystem/infoUpdate";
+	}
+	
 	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
 		if (!service.emailExists(mem.getEmail())) {
 			model.addAttribute("MembersBean", mem);
 			return "memberSystem/register_form";
 		} else {
-			String existError = "此信箱已註冊，請進行登入或以其他信箱註冊";
-			model.addAttribute("existError", existError);
-			return "redirect: memberSystem/customer_register";
+			model.addAttribute("errMsg", "4");
+			return "redirect: customer_register";
 		}
 	}
 
 	@RequestMapping(value = "/memberSystem/customer_add", method = RequestMethod.POST)
-	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request, Model model) {
-
+	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request) {
+ 
 		service.addCustomer(request, mem);
 		return "memberSystem/register_complete";
 	}
 	
 	@RequestMapping(value="/memberSystem/loginCheck", method = RequestMethod.POST)	
-	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, RedirectAttributes ra, HttpSession session) {
-				
+	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpSession session, RedirectAttributes ra) {
+		
 		MembersBean bean =service.login(mem.getEmail(),mem.getPassword());
 		if (bean!=null) {
-			if(bean.getPrivilegeId() !=1 ) {
-				ra.addFlashAttribute("errorMessage","此帳號不存在，請重新輸入！");
+			//會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
+			if(bean.getPrivilegeId()==1 && bean.getActiveStatus()==3) {				
+				session.setAttribute("CLoginOK", bean);	
+				return "memberSystem/loginOK";
+			//會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
+			}if(bean.getPrivilegeId()==1 && bean.getActiveStatus()==1) {
+				model.addAttribute("errMsg", 1);
+				ra.addFlashAttribute("errMsg", 1);
+				System.out.println(model.getAttribute("errMsg"));
 				return "redirect: login";
-			}if(bean.getActiveStatus() !=3) {
-				ra.addFlashAttribute("errorMessage","帳號尚未通過驗證，請於信箱透過驗證信進行驗證！");
-				return "redirect: login";
-			}else {
-			model.addAttribute("Cus_LoginOK",bean);	
-			session.removeAttribute("errorMessage");
-			return "memberSystem/loginOK";
 			
+			//會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入	
+			}else {
+				model.addAttribute("errMsg", 2);
+				ra.addFlashAttribute("errMsg", 2);
+				System.out.println(model.getAttribute("errMsg"));
+				return "redirect: login";
 			}
+			
+			//因為bean取到空值表示根本不是會員，透過errMsg告知使用者進行註冊
 		}else {
-			ra.addAttribute("errorMessage", "帳號或密碼錯誤，請進行註冊或重新輸入！8888");
-			session.removeAttribute("errorMessage");
-//			session.setAttribute("errorMessage", "帳號或密碼錯誤，請進行註冊或重新輸入！");
+			model.addAttribute("errMsg", 3);
+			ra.addFlashAttribute("errMsg", 3);
+			System.out.println(model.getAttribute("errMsg"));
 			return "redirect: login";
 		}		
 	}
-
+	
+	@RequestMapping(value="memberSystem/doupdate")
+	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem) {
+	
+		service.updateInfo(mem);		
+		return "memberSystem/updateSuccess";
+	}
 	
 	//新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	//最後會拿到Bean
 	@RequestMapping(value="memberSystem/customer_add/{VCode}")
 	public String validationCode(@PathVariable("VCode") String VCode,Model model) {
-		MembersBean mem=service.confirmvalidationCode(VCode);
+		MembersBean mem = service.confirmvalidationCode(VCode);
 		if(mem!=null) {
 			model.addAttribute("MembersBean",mem);
 			return "memberSystem/ConfirmEmailSuccess";
 		}
 		return "memberSystem/ConfirmEmailFail";
 	}
-	
-	
-	
+		
 	@RequestMapping(value="memberSystem/ForgetPW")
 	public String forgetPWPageRequest() {
 		return "/memberSystem/ForgetPWPage";

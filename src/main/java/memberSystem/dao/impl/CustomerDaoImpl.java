@@ -60,33 +60,24 @@ public class CustomerDaoImpl implements CustomerDao {
 	// 新增會員
 	@Override
 	public boolean addCustomer(MembersBean mem) {
-		Session session = factory.getCurrentSession();
-		
+		Session session = factory.getCurrentSession();		
 		session.save(mem);
 		return true;
 	}
 
 	@Override
-	public boolean updateCustomer(MembersBean mem) {
+	public boolean updateInfo(MembersBean mem) {
 		String hql = "from MembersBean where email = :email";
 		Session session = factory.getCurrentSession();
 		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
 				.getSingleResult();
 		//
-		if (!mem.getAddress().equals(null)) {
+		if (mem.getAddress()!= null) {
 			member.setAddress(mem.getAddress());
 		}
 
-		if (!mem.getCellphone().equals(null)) {
+		if (mem.getCellphone()!= null) {
 			member.setCellphone(mem.getCellphone());
-		}
-
-		if (!mem.getFirstName().equals(null)) {
-			member.setFirstName(mem.getFirstName());
-		}
-
-		if (!mem.getLastName().equals(null)) {
-			member.setLastName(mem.getLastName());
 		}
 
 		session.update(member);
