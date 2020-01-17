@@ -22,9 +22,9 @@
 	<section class="container">
 		<div class="row">
 			<c:forEach var='product' items='${products}'>
-				<div class="col-sm-6 col-md-3" style="width: 300px; height: 360px">
-					<div class="thumbnail" style="width: 320px; height: 340px">
-						<img width='100' height='200'
+				<div class="col-sm-6 col-md-3" style="width: 300px; height: 550px">
+					<div class="thumbnail" style="width: 200px; height: 100px">
+						<img width='200' height='200'
 							src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
 						<div class="caption">
 							<p>
