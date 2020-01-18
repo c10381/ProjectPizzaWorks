@@ -1,27 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-    
-		<!-- Navbar -->
-		<nav class="main-header navbar navbar-expand navbar-dark navbar-success">
-		<!-- <c:choose> -->
-		<!-- <c:when test="${LoginOK.privilegeId==3}"> -->
-			<!-- <nav class="main-header navbar navbar-expand navbar-dark navbar-success"> -->
-		<!-- </c:when> -->
-		<!-- </c:choose> -->
-		
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
-					href="#"><i class="fas fa-bars"></i></a></li>
-				<!-- <li class="nav-item d-none d-sm-inline-block"><a
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!-- Navbar -->
+<!-- <nav class="main-header navbar navbar-expand navbar-dark navbar-success"> -->
+<c:choose>
+	<c:when test="${Mem_LoginOK.privilegeId==2}">
+		<nav
+			class="main-header navbar navbar-expand navbar-light navbar-white">
+	</c:when>
+	<c:when test="${Mem_LoginOK.privilegeId==3}">
+		<nav
+			class="main-header navbar navbar-expand navbar-dark navbar-success">
+	</c:when>
+	<c:when test="${Mem_LoginOK.privilegeId==4}">
+		<nav
+			class="main-header navbar navbar-expand navbar-dark navbar-danger">
+	</c:when>
+	<c:when test="${Mem_LoginOK.privilegeId==5}">
+		<nav
+			class="main-header navbar navbar-expand navbar-dark navbar-primary">
+	</c:when>
+	<c:when test="${Mem_LoginOK.privilegeId==6}">
+		<nav
+			class="main-header navbar navbar-expand navbar-dark navbar-lightblue">
+	</c:when>
+	<c:when test="${Mem_LoginOK.privilegeId==7}">
+		<nav
+			class="main-header navbar navbar-expand navbar-dark navbar-secondary">
+	</c:when>
+</c:choose>
+<!-- Left navbar links -->
+<ul class="navbar-nav">
+	<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+		href="#"><i class="fas fa-bars"></i></a></li>
+	<!-- <li class="nav-item d-none d-sm-inline-block"><a
 					href="../../index3.html" class="nav-link">Home</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="#"
 					class="nav-link">Contact</a></li> -->
-			</ul>
+</ul>
 
-			<!-- SEARCH FORM -->
-			<!-- <form class="form-inline ml-3">
+<!-- SEARCH FORM -->
+<!-- <form class="form-inline ml-3">
 				<div class="input-group input-group-sm">
 					<input class="form-control form-control-navbar" type="search"
 						placeholder="Search" aria-label="Search">
@@ -33,15 +53,29 @@
 				</div>
 			</form> -->
 
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<!-- Messages Dropdown Menu -->
-				<li class="nav-item dropdown"><a class="nav-link"
+<!-- Right navbar links -->
+<ul class="navbar-nav ml-auto">
+	<!-- Notifications Dropdown Menu -->
+	<li class="nav-item dropdown"><a class="nav-link"
+		data-toggle="dropdown" href="#"> <i class="fas fa-user"></i> <span
+			class="badge badge-warning navbar-badge"></span>
+	</a>
+		<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+			<a href="#" class="dropdown-item"> <i class="fas fa-key"></i>
+				修改密碼
+			</a>
+			<div class="dropdown-divider"></div>
+			<a href="${pageContext.request.contextPath}/logout" class="dropdown-item"> <i class="fas fa-door-open"></i>
+				登出
+			</a></div></li>
+
+	<!-- Messages Dropdown Menu -->
+	<!-- <li class="nav-item dropdown"><a class="nav-link"
 					data-toggle="dropdown" href="#"> <i class="far fa-comments"></i>
 						<span class="badge badge-danger navbar-badge">3</span>
 				</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="../../dist/img/user1-128x128.jpg" alt="User Avatar"
 									class="img-size-50 mr-3 img-circle">
@@ -55,10 +89,10 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="../../dist/img/user8-128x128.jpg" alt="User Avatar"
 									class="img-size-50 img-circle mr-3">
@@ -72,10 +106,10 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="../../dist/img/user3-128x128.jpg" alt="User Avatar"
 									class="img-size-50 img-circle mr-3">
@@ -89,42 +123,39 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All
 							Messages</a>
-					</div></li>
-				<!-- Notifications Dropdown Menu -->
-				<li class="nav-item dropdown"><a class="nav-link"
-					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-						class="badge badge-warning navbar-badge">15</span>
-				</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15
-							Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-envelope mr-2"></i> 4 new messages <span
-							class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i
-							class="fas fa-users mr-2"></i> 8 friend requests <span
-							class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-							3 new reports <span class="float-right text-muted text-sm">2
-								days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All
-							Notifications</a>
-					</div></li>
-				<li class="nav-item"><a class="nav-link"
-					data-widget="control-sidebar" data-slide="true" href="#"> <i
-						class="fas fa-th-large"></i>
-				</a></li>
-			</ul>
-		</nav>
+					</div></li> -->
+
+
+	<!-- Notifications Dropdown Menu -->
+	<li class="nav-item dropdown"><a class="nav-link"
+		data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
+			class="badge badge-warning navbar-badge">15</span>
+	</a>
+		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+			<span class="dropdown-item dropdown-header">15 Notifications</span>
+			<div class="dropdown-divider"></div>
+			<a href="#" class="dropdown-item"> <i
+				class="fas fa-envelope mr-2"></i> 4 new messages <span
+				class="float-right text-muted text-sm">3 mins</span>
+			</a>
+			<div class="dropdown-divider"></div>
+			<a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i>
+				8 friend requests <span class="float-right text-muted text-sm">12
+					hours</span>
+			</a>
+			<div class="dropdown-divider"></div>
+			<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+				3 new reports <span class="float-right text-muted text-sm">2
+					days</span>
+			</a>
+			<div class="dropdown-divider"></div>
+			<a href="#" class="dropdown-item dropdown-footer">See All
+				Notifications</a>
+		</div></li>
+</ul>
+</nav>

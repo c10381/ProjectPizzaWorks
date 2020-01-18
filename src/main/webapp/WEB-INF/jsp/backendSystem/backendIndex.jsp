@@ -26,19 +26,63 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini" onload="clock()">
+<body class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<!-- import navbar(use request),change the color in Jsp -->
 		<jsp:include page="/backendSystem/navbar" />
+
+
 		<!-- import sidebar(use request),select the jsp in controller(by Bean privilege) -->
-		<jsp:include page="/backendSystem/sidebar" />
+
+		<aside class="main-sidebar elevation-4 sidebar-dark-primary">
+			<!-- Brand Logo -->
+			<a href="${pageContext.request.contextPath}/backendSystem/adminIndex"
+				class="brand-link"> <img
+				src="${pageContext.request.contextPath}/images/shopManageSystem/tempLogo.jpg"
+				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+				style="opacity: .8"> <span
+				class="brand-text font-weight-light">PizzaWorks</span>
+			</a>
+
+			<!-- Sidebar -->
+			<div
+				class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent"
+						data-widget="treeview" role="menu" data-accordion="false">
+						<li class="nav-header" id="clock"
+							style="margin: 0; padding: 0px; text-align: center; width: 100%; color: white; font-size: 40px; line-height: 1;"></li>
+
+						<li class="nav-header"
+							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.firstName}
+							您好</li>
+						<!-- 待辦事項 -->
+						<li class="nav-item has-treeview" onclick="loadingPage('')"><div
+								class="nav-link">
+								<i class="nav-icon fas fa-chalkboard-teacher"></i>
+								<p>待辦事項</p>
+							</div></li>
+
+						<!-- 依角色變換sidebar(透過controller) -->
+						<jsp:include page="/backendSystem/sidebar" />
+
+					</ul>
+				</nav>
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
+
+
 
 		<!-- Main content ,use jQuery load() to load page-->
-		<div class="content-wrapper">
-			<jsp:include page="/backendSystem/navbar" />
 
-		</div>
+
+
+
 		<!-- Main content -->
 	</div>
 	<!-- ./wrapper -->
@@ -89,9 +133,14 @@
 
 		//Loading 頁面功能
 		function loadingPage(requestPage) {
-			$('.content-wrapper').empty();
-			$('.content-wrapper').load(
-					"${pageContext.request.contextPath}" + requestPage);
+			if (requestPage == '') {
+				console.log("還沒做，加油R");
+			} else {
+				$('.content-wrapper').empty();
+				$('.content-wrapper').load(
+						"${pageContext.request.contextPath}" + requestPage);
+			}
+
 		}
 	</script>
 </body>
