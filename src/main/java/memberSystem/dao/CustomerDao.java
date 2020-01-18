@@ -28,6 +28,9 @@ public interface CustomerDao {
 	// 查詢所有紀錄
 	List<MembersBean> getAllCustomers();
 	
+	//登入
+	public MembersBean login(String acct, String pwd);
+		
 	//=====以下為驗證信部分======
 	//寫入ValidationRequestBean
 	boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean);
