@@ -56,11 +56,11 @@ public class CustomerDaoImpl implements CustomerDao {
 		member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
 		return member;
 	}
-	
+
 	// 新增會員
 	@Override
 	public boolean addCustomer(MembersBean mem) {
-		Session session = factory.getCurrentSession();		
+		Session session = factory.getCurrentSession();
 		session.save(mem);
 		return true;
 	}
@@ -72,11 +72,11 @@ public class CustomerDaoImpl implements CustomerDao {
 		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
 				.getSingleResult();
 		//
-		if (mem.getAddress()!= null) {
+		if (mem.getAddress() != null) {
 			member.setAddress(mem.getAddress());
 		}
 
-		if (mem.getCellphone()!= null) {
+		if (mem.getCellphone() != null) {
 			member.setCellphone(mem.getCellphone());
 		}
 
@@ -89,29 +89,26 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<MembersBean> getAllCustomers() {
 		List<MembersBean> allMembers = new ArrayList<MembersBean>();
 		Session session = factory.getCurrentSession();
-		allMembers = session.createQuery("FROM members").list();
+		allMembers = session.createQuery("FROM members where privilegeId=1").list();
 		return allMembers;
 	}
-	
-	
-	@Override
-	public MembersBean login(String acct, String pwd) {
-		String hql = "from members where email = : email and password = : password";
-		Session session = factory.getCurrentSession();
-		MembersBean member = (MembersBean) session.createQuery(hql)
-				.setParameter("email", acct).setParameter("password", pwd)
-				.getSingleResult();	
-		return member;
-	}
-	
-	
-	
-	
-	//===========以下為驗證信部分============
+
+//	@Override
+//	public MembersBean login(String acct, String pwd) {
+//		String hql = "from members where email = : email and password = : password";
+//		Session session = factory.getCurrentSession();
+//		MembersBean member = (MembersBean) session.createQuery(hql)
+//				.setParameter("email", acct).setParameter("password", pwd)
+//				.getSingleResult();	
+//		return member;
+//	}
+
+	// ===========以下為驗證信部分============
 	// 寫入ValidationRequestBean
 	@Override
 	public boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean) {
 		Session session = factory.getCurrentSession();
+		
 		session.save(validationRequestBean);
 		return true;
 	}
@@ -134,6 +131,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				.getResultList();
 		return lvrb;
 	}
+
 	// 更新MemberBean的activeStatus欄位
 	@Override
 	public boolean updateCustomerStatus(MembersBean mem) {
@@ -141,7 +139,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		session.update(mem);
 		return true;
 	}
-	
+
 	// 使用Email拿單獨的的ValidationRequestBean(目前未用)
 	@Override
 	public ValidationRequestBean getCustomerValidationRequest(String email) {
@@ -150,21 +148,43 @@ public class CustomerDaoImpl implements CustomerDao {
 		vrb = session.get(ValidationRequestBean.class, email);
 		return vrb;
 	}
-	
-	//=============以上為驗證信部分================
-		
+
+	// =============以上為驗證信部分================
+
 	@Override
-	public MembersBean login(String email, String pwd) {	
+	public MembersBean login(String email, String pwd) {
 		String hql = "from MembersBean where email = :email and password = :password";
 		MembersBean member = null;
 		Session session = factory.getCurrentSession();
 		try {
-		member = (MembersBean) session.createQuery(hql).
-				setParameter("email", email).setParameter("password", pwd).
-				getSingleResult();
-		}catch(NoResultException nre) {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", email).setParameter("password", pwd)
+					.getSingleResult();
+		} catch (NoResultException nre) {
 			member = null;
 		}
 		return member;
+	}
+
+	@Override
+	public boolean updPwd(String email, String oldPwd, String newPwd) {
+		boolean status = false;
+		String hql = "from MembersBean where email = :email and password = :password";
+		MembersBean member = null;
+		Session session = factory.getCurrentSession();
+		try {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", email).setParameter("password", oldPwd)
+					.getSingleResult();
+		} catch (NoResultException nre) {
+			member = null;
+		}
+		
+		if(member!=null) {
+			member.setPassword(newPwd);
+			session.update(member);
+			status = true;
+			return status;
+		}else {
+			return status;
+		}		
 	}
 }

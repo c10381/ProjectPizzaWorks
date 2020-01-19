@@ -30,7 +30,8 @@ public interface CustomerDao {
 	
 	//登入
 	public MembersBean login(String acct, String pwd);
-		
+	
+	public boolean updPwd(String email, String oldPwd, String newPwd);		
 	//=====以下為驗證信部分======
 	//寫入ValidationRequestBean
 	boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean);
@@ -43,6 +44,5 @@ public interface CustomerDao {
 	// 更新MemberBean的activeStatus欄位
 	boolean updateCustomerStatus(MembersBean mem);
 	//=====以上為驗證信部分======
-	
-	MembersBean login (String email, String pwd);	
+		
 }

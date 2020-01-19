@@ -1,6 +1,7 @@
 package memberSystem.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
-import memberSystem.Mailutil.MailCtxAndUtil;
+//import memberSystem.Mailutil.MailCtxAndUtil;
 //import memberSystem.Mailutil.SpringMailConfig;
-import memberSystem.Mailutil.SpringMailUtil;
+//import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
 import memberSystem.service.CustomerService;
 
@@ -25,7 +26,7 @@ import memberSystem.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
 	
 	private CustomerDao dao;
-	public MailCtxAndUtil mailContext;
+//	public MailCtxAndUtil mailContext;
 	private Encrypted encrypter;
 	
 	@Autowired
@@ -42,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
 		boolean addStatus=dao.addCustomer(mem);		
 		if(addStatus==true) {
-			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
+//			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 			//寫入ValidationRequestBean
 			ValidationRequestBean requestBean = new ValidationRequestBean();
 			requestBean.setEmail(mem.getEmail());
@@ -54,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
 			String validationCode = "";
 			List<?> checkVC=null;
 			do {
-				validationCode = mailCtxAndUtil.RandomvalidationCode();
+//				validationCode = mailCtxAndUtil.RandomvalidationCode();
 				checkVC=dao.useValidationCodeGetBean(validationCode);
 			} while (!checkVC.isEmpty());
 			
@@ -110,7 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean userRequestChangePW(HttpServletRequest request,String email) {
-		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
+//		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 		MembersBean mem=dao.getCustomer(email);
 		mem.setActiveStatus(2);
 		//更改ActiveStatus有成功的話，才創建ValidationRequestBean
@@ -168,6 +169,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public List<MembersBean> getAllCustomers() {
+			
 		return dao.getAllCustomers();
 	}
 	
@@ -181,5 +183,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public MembersBean login (String email, String pwd) {		
 		return dao.login(email, encrypter.getMD5Endocing(pwd));
-	}	
+	}
+	
+	@Transactional
+	@Override
+	public boolean updPwd (String email, String oldPwd, String newPwd) {		
+		return dao.updPwd(email, encrypter.getMD5Endocing(oldPwd), encrypter.getMD5Endocing(newPwd));
+	}
+	
 }
