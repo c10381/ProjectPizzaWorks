@@ -1,5 +1,6 @@
 package shopManageSystem.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import _model.ProductBean;
-import _model.SalesOrderBean;
 import _model.RecipeBean;
+import _model.SalesOrderBean;
 import shopManageSystem.service.ProductService;
 
 @Controller
@@ -89,4 +90,30 @@ public class ProductController {
 		return "shopManageSystem/GetSalesOrder";
 	}
 	
+	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.GET)
+	public String getAllMaterials(Model model) {
+		model.addAttribute("materials", service.getAllMaterials());
+		return "shopManageSystem/AddNewProduct";
+	}
+	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
+	public String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
+		System.out.println(recipe_str);
+		List<RecipeBean> recipes = new ArrayList<>();
+		JSONArray jsonArray = new JSONArray(recipe_str);
+		if(jsonArray!=null && jsonArray.length()!=0) {
+			for(int i = 0;i < jsonArray.length();i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				RecipeBean recipe = new RecipeBean();
+				recipe.setProductId(jsonObject.getInt("productId"));
+				recipe.setMaterialsId(jsonObject.getInt("materialsId"));
+				recipe.setQuantity(jsonObject.getDouble("quantity"));
+				recipe.setUnit(jsonObject.getString("unit"));
+				recipes.add(recipe);
+			}
+			ProductBean product = service.addRecipes(recipes);
+			model.addAttribute("product", product);
+		}		
+		return "OK!";
+//		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
+	}
 }
