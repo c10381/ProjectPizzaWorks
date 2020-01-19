@@ -27,19 +27,22 @@ public class redirectController {
 	// 轉址(sidebar,判斷權限)
 	@PostMapping(value = "/backendSystem/sidebar")
 	public String sidebarSelect(@ModelAttribute("Mem_LoginOK") MembersBean mem, Model model) {
-//		if(mem.getPrivilegeId()==2) {
-//			return "backendSystem/sideBar_webAdmin";
-//		}else if(mem.getPrivilegeId()==3) {
-//			return "backendSystem/sideBar_salesManger";
-//		}else if(mem.getPrivilegeId()==4) {
-//			return "backendSystem/sideBar_purchaseManger";
-//		}else if(mem.getPrivilegeId()==5) {
-//			return "backendSystem/sideBar_stockManger";
-//		}else if(mem.getPrivilegeId()==6) {
-//			return "backendSystem/sideBar_customerService";
-//		}else if(mem.getPrivilegeId()==7) {
-//			return "backendSystem/sideBar_admin";
-//		}
-		return "backendSystem/sideBar/sideBar_admin";
+
+		switch (mem.getPrivilegeId()) {
+		case 2:
+			return "backendSystem/sideBar/sideBar_webAdmin";
+		case 3:
+			return "backendSystem/sideBar/sideBar_salesManger";
+		case 4:
+			return "backendSystem/sideBar/sideBar_purchaseManger";
+		case 5:
+			return "backendSystem/sideBar/sideBar_stockManger";
+		case 6:
+			return "backendSystem/sideBar/sideBar_customerService";
+		case 7:
+			return "backendSystem/sideBar/sideBar_admin";
+		default:
+			return "backendSystem/coworkerLogin";
+		}
 	}
 }

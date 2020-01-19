@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+				<!-- privilegeId=2 -->
 
 				<!-- frontEnd System -->
-				<li class="nav-item has-treeview"><div class="nav-link">
+				<li class="nav-item has-treeview menu-open"><div class="nav-link">
 						<i class="nav-icon far fas fa-store"></i>
 						<p>
 							前台系統管理 <i class="fas fa-angle-left right"></i>
 						</p>
 					</div>
-					<ul class="nav nav-treeview">
+					<ul class="nav nav-treeview" style="display: block;">
 						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>查詢會員資料</p>
@@ -25,38 +25,14 @@
 					</ul></li>
 				<!-- /frontEnd System -->
 
-
-				<!-- MemberSystem -->
-				<li class="nav-item has-treeview"><div class="nav-link">
-						<i class="nav-icon far fa-id-badge"></i>
-						<p>
-							員工系統 <i class="fas fa-angle-left right"></i>
-						</p>
-					</div>
-					<ul class="nav nav-treeview">
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>新進員工註冊</p>
-							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>員工管理</p>
-							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>忘記密碼確認</p>
-							</div></li>
-					</ul></li>
-				<!-- /MemberSystem -->
-
 				<!-- ProductSystem -->
-				<li class="nav-item has-treeview"><div class="nav-link">
+				<li class="nav-item has-treeview menu-open"><div class="nav-link">
 						<i class="nav-icon fas fa-pizza-slice"></i>
 						<p>
 							商品管理 <i class="fas fa-angle-left right"></i>
 						</p>
 					</div>
-					<ul class="nav nav-treeview">
+					<ul class="nav nav-treeview" style="display: block;">
 						<li class="nav-item"
 							onclick="loadingPage('/shopManageSystem/products')">
 							<div class="nav-link">
@@ -76,75 +52,18 @@
 					</ul></li>
 				<!-- /ProductSystem -->
 
-				<!-- PurchaseSystem (三層結構)-->
-				<li class="nav-item has-treeview"><div class="nav-link">
-						<i class="nav-icon fas fa-shopping-basket"></i>
-						<p>
-							採購管理 <i class="fas fa-angle-left right"></i>
-						</p>
-					</div>
-
-					<ul class="nav nav-treeview" style="display: none;">
-						
-						<li class="nav-item has-treeview">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									採購單系統<i class="fas fa-angle-left right"></i>
-								</p>
-							</div>
-							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>採購單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>查詢採購單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>查詢請購單</p>
-									</div></li>
-							</ul>
-						</li>
-
-
-						<li class="nav-item has-treeview">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									進貨單系統<i class="fas fa-angle-left right"></i>
-								</p>
-							</div>
-
-							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>採購單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>查詢採購單</p>
-									</div></li>
-							</ul>
-						</li>
-						
-					</ul>
-				</li>
-				<!-- /PurchaseSystem -->
-				
+	
 				<!-- SalesSystem (三層結構)-->
-				<li class="nav-item has-treeview"><div class="nav-link">
+				<li class="nav-item has-treeview menu-open"><div class="nav-link">
 						<i class="nav-icon fas fa-user-tie"></i>
 						<p>
 							銷售管理 <i class="fas fa-angle-left right"></i>
 						</p>
 					</div>
 
-					<ul class="nav nav-treeview" style="display: none;">
+					<ul class="nav nav-treeview" style="display: block;">
 						
-						<li class="nav-item has-treeview">
+						<li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
 								<p>
@@ -165,7 +84,7 @@
 						</li>
 
 
-						<li class="nav-item has-treeview">
+						<li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
 								<p>
@@ -189,7 +108,7 @@
 							</ul>
 						</li>
 						
-						<li class="nav-item has-treeview">
+						<li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
 								<p>
@@ -213,47 +132,7 @@
 				</li>
 				<!-- /SalesSystem -->
 				
-				<!-- StockSystem -->
-				<li class="nav-item has-treeview"><div class="nav-link">
-						<i class="nav-icon fas fa-cubes"></i>
-						<p>
-							庫存管理 <i class="fas fa-angle-left right"></i>
-						</p>
-					</div>
 
-					<ul class="nav nav-treeview" style="display: none;">
-						
-						<li class="nav-item has-treeview" onclick="loadingPage('')">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									檢視存貨
-								</p>
-							</div>
-						</li>
-
-
-						<li class="nav-item has-treeview" onclick="loadingPage('')">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									庫存盤點
-								</p>
-							</div>
-						</li>
-						<li class="nav-item has-treeview" onclick="loadingPage('')">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									報廢紀錄
-								</p>
-							</div>
-						</li>
-						
-					</ul>
-				</li>
-				<!-- /StockSystem -->
-				
 				<!-- customerService -->
 				<li class="nav-item has-treeview" onclick="loadingPage('')"><div class="nav-link">
 						<i class="nav-icon fas fa-microphone"></i>
@@ -273,5 +152,5 @@
 					</div>
 				</li>
 				<!-- /Analysis -->
-				<li class="nav-header" style="margin:0;padding: 0px; text-align: center; font-size: 25px;line-height: 1.5">Admin</li>
+				<li class="nav-header" style="margin:0;padding: 0px; text-align: center; font-size: 25px;line-height: 1.5">webAdmin</li>
 				
