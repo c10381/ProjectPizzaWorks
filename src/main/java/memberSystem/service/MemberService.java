@@ -1,17 +1,15 @@
 package memberSystem.service;
 
 import _model.MembersBean;
-import memberSystem.dao.MemberDao;
+import memberSystem.dao.CustomerDao;
 
 public interface MemberService {
 
-	void setDao(MemberDao dao);
+	void setDao(CustomerDao dao);
 
-	boolean idExists(String email);
 
-	int saveMember(MembersBean mem);
+	int addMember(MembersBean mem);
 
-//	boolean memberLogin(String Email, String Password);
 //
 //	boolean memFirstLoginChangePW(MembersBean mem, String Password);
 

@@ -9,6 +9,11 @@
 <title>Backend Index</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jquery-ui -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
+<!-- DataTable -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
@@ -79,10 +84,10 @@
 
 
 		<!-- Main content ,use jQuery load() to load page-->
+		<div class="content-wrapper">
 
 
-
-
+		</div>
 		<!-- Main content -->
 	</div>
 	<!-- ./wrapper -->
@@ -100,16 +105,24 @@
 
 	<!-- jQuery -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
+	<!-- jQuery-ui 1.12.1 -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+	<!-- jQuery.csv(Api)-->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
 	<!-- Bootstrap 4 -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
+	<!-- DataTable(Api) -->
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
+		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
+	<%-- <!-- AdminLTE for demo purposes -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/demo.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/demo.js"></script> --%>
 	<script>
 		//小時鐘功能
 		function clock() {
@@ -135,7 +148,7 @@
 		function loadingPage(requestPage) {
 			if (requestPage == '') {
 				console.log("還沒做，加油R");
-			} else {
+			} else{
 				$('.content-wrapper').empty();
 				$('.content-wrapper').load(
 						"${pageContext.request.contextPath}" + requestPage);

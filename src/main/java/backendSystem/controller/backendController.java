@@ -41,7 +41,9 @@ public class backendController {
 				model.addAttribute("errorMessage","此帳號不存在，請重新輸入！");
 				return "backendSystem/coworkerLogin";
 			}if(bean.getActiveStatus() !=3) {
-				model.addAttribute("errorMessage","帳號尚未通過驗證，請於信箱透過驗證信進行驗證！");
+				//這裡要變更為強迫更改密碼
+				
+				
 				return "backendSystem/coworkerLogin";
 			}else {
 			model.addAttribute("Mem_LoginOK",bean);			
