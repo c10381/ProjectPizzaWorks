@@ -159,7 +159,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		MembersBean member = null;
 		Session session = factory.getCurrentSession();
 		try {
-			member = (MembersBean) session.createQuery(hql).setParameter("email", email).setParameter("password", pwd)
+			member = (MembersBean) session.createQuery(hql)
+					.setParameter("email", email).setParameter("password", pwd)
 					.getSingleResult();
 		} catch (NoResultException nre) {
 			member = null;

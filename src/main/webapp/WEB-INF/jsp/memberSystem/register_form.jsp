@@ -27,7 +27,7 @@
 				<legend>會員資料填寫</legend>
 				
 				<form:hidden path="email" value="${MembersBean.email }" />
-				<form:hidden path="password" value="${ MembersBean.password}" />
+				<form:hidden path="password" value="${MembersBean.password}" />
 				
 				<label>姓 ：</label>
 				<form:input id='lastName' path='lastName' type='text' required='required'/> 

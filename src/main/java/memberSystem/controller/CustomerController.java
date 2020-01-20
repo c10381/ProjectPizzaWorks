@@ -35,8 +35,6 @@ public class CustomerController {
 	// 轉址,未來找地方放? 註冊轉址
 	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
-		MembersBean mem = new MembersBean();
-		model.addAttribute("MembersBean", mem);
 		if (model.getAttribute("errMsg") != null) {
 			model.addAttribute("errMsg", "該信箱已註冊，請至登入畫面進行登入");
 		}
@@ -73,8 +71,11 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
-		if (!service.emailExists(mem.getEmail())) {
+	public String register(@RequestParam(value="email") String email,@RequestParam(value="password") String password ,Model model) {		
+		if (!service.emailExists(email)) {
+			MembersBean mem = new MembersBean();
+			mem.setEmail(email);
+			mem.setPassword(password);
 			model.addAttribute("MembersBean", mem);
 			return "memberSystem/register_form";
 		} else {
