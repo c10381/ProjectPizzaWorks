@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login Success</title>
+<title>登入成功</title>
 </head>
 <body>
 
@@ -12,6 +12,7 @@
 
 <a href='${pageContext.request.contextPath}/memberSystem/infoUpdate'>資料修改</a><BR>
 <a href='${pageContext.request.contextPath}/memberSystem/updPwd'>密碼修改</a><BR>
+<a href='${pageContext.request.contextPath}/memberSystem/allCustomer'>顧客檢視</a><BR>
 
 </body>
 </html>

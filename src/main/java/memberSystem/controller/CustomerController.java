@@ -156,11 +156,11 @@ public class CustomerController {
 		}
 	}
 
-	@RequestMapping(value = "memberSystem/getAllCustomers")
+	@RequestMapping(value = "memberSystem/allCustomer")
 	public String getAllCustomers(Model model) {
 		List<MembersBean> allCustomers = service.getAllCustomers();
 		model.addAttribute("Customers", allCustomers);
-		return "memberSystem/getAllCustomers";
+		return "memberSystem/allCustomer";
 	}
 
 	// 新會員驗證信(所以此Request一開始不會拿到MemberBean)

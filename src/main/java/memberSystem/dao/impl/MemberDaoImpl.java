@@ -101,7 +101,10 @@ public class MemberDaoImpl implements MemberDao {
 	public List<MembersBean> getAllMembers() {
 		List<MembersBean> allMembers = new ArrayList<MembersBean>();
 		Session session = factory.getCurrentSession();
-		allMembers = session.createQuery("FROM members").list();
+		allMembers = session.createQuery("FROM MembersBean where privilegeId BETWEEN :startId AND :endId")
+							.setParameter("startId", 2)
+							.setParameter("endId", 7)
+							.list();
 		return allMembers;
 	}
 

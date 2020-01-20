@@ -88,9 +88,12 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<MembersBean> getAllCustomers() {
 		List<MembersBean> allMembers = new ArrayList<MembersBean>();
 		Session session = factory.getCurrentSession();
-		allMembers = session.createQuery("FROM members where privilegeId=1").list();
+		allMembers = session.createQuery("FROM MembersBean where privilegeId =: privilegeId")
+							.setParameter("privilegeId", 1)
+							.list();
 		return allMembers;
 	}
+	
 
 //	@Override
 //	public MembersBean login(String acct, String pwd) {

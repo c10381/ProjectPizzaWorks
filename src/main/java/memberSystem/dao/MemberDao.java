@@ -25,5 +25,5 @@ public interface MemberDao {
 	boolean updateMember(MembersBean mem);	
 	
 	// 查詢所有紀錄
-	List<MembersBean> getAllMembers();
+	public List<MembersBean> getAllMembers();
 }
