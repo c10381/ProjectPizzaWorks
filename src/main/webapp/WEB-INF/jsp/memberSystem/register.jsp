@@ -7,33 +7,54 @@
 <head>
 
 <meta charset="UTF-8">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<!--  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/memberSystem/passwordscheck.css" />
-<script src="${pageContext.request.contextPath}/js/memberSystem/passwordscheck.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'> -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<script type="text/javascript"></script>
 
 <title>會員註冊</title>
 
 </head>
 <body>
 	<div id='container'>
-			<div id='header'>
-				<h1 style="text-align: center">新會員註冊</h1>
+		<div id='header'>
+			<h1 style="text-align: center">新會員註冊</h1>
+		</div>
+
+		<form method='POST' id="register" class='form-horizontal'
+			action="${pageContext.request.contextPath}/memberSystem/register">
+			* 請輸入註冊信箱：<input id="email" name="email" type='email'
+				placeholder='請輸入信箱' required='required' /><br>
+			<div id='content'>
+				<label for="password">* 請輸入密碼 (至少8碼，最多20碼，需包含大小寫英數字且不可含特殊字元)
+					：</label> <input id="password" name="password" type="password"
+					placeholder='請輸入密碼' required='required' maxlength='20'
+					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+					title="請輸入至少8位數密碼" /><br> <span id="result"></span> <label>*
+					請再次輸入密碼 ：</label> <input id='validpwd' name="validpwd" type="password"
+					placeholder='請再次輸入密碼' required='required' maxlength='20'
+					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" /><br>
+				<input id='btnAdd' type="submit" value="送出" disabled/> <input id='btnReset'
+					type="reset" value="重填" />
 			</div>
-	
-			<form method='POST' id="register" class='form-horizontal' action="${pageContext.request.contextPath}/memberSystem/register">					
-					* 請輸入註冊信箱：<input id="email" name="email" type='email' placeholder='請輸入信箱' required='required' /><br>
-					<div id='content'>
-					<label for="password">* 請輸入密碼 (最多輸入16位，且不可含特殊字元) ：</label>
-					<input id="password" name="password" type="password" placeholder='請輸入密碼' required='required' maxlength='20' /><br> 
-					<span id="result"></span> 
-					<label>* 請再次輸入密碼 ：</label> 
-					<input id='validpwd' name="validpwd" type="password" placeholder='請再次輸入密碼' required='required' maxlength='20' /><br> 
-						<input id='btnAdd' type="submit"value="送出" /> 
-						<input id='btnReset' type="reset" value="重填" />
-					</div>				
-			</form>
+		</form>
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#validpwd").blur(function() {
+				var pwd1 = $("#password").val();
+				var pwd2 = $("#validpwd").val();
+				if (pwd2 != pwd1) {
+					$("#validpwd").after("確認密碼不一致，請再次確認！");
+				}else{
+					$("#btnAdd").prop("disabled",false);
+				}
+			})
+		})
+	</script>
 </body>
 </html>
