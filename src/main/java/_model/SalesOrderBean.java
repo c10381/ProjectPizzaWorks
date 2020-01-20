@@ -24,18 +24,20 @@ public class SalesOrderBean implements Serializable{
 	private Integer needDelivery;
 	private String deliverAddress;
 	private Integer totalSales;
+	private Integer orderStatus;
 	private List<SalesOrderDetailBean> salesOrderDetails = new ArrayList<>();
 
 	public SalesOrderBean() {}
 	
 	public SalesOrderBean(Integer memberId, String orderTime, String requireTime, Integer needDelivery,
-			String deliverAddress, Integer totalSales) {
+			String deliverAddress, Integer totalSales,Integer orderStatus) {
 		this.memberId = memberId;
 		this.orderTime = orderTime;
 		this.requireTime = requireTime;
 		this.needDelivery = needDelivery;
 		this.deliverAddress = deliverAddress;
 		this.totalSales = totalSales;
+		this.orderStatus = orderStatus;
 	}
 	
 	@Id
@@ -103,6 +105,14 @@ public class SalesOrderBean implements Serializable{
 
 	public void setSalesOrderDetails(List<SalesOrderDetailBean> salesOrderDetails) {
 		this.salesOrderDetails = salesOrderDetails;
+	}
+
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 	
 	

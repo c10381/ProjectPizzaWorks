@@ -30,6 +30,7 @@
 				<th>是否需要外送</th>
 				<th>外送地址</th>
 				<th>訂單總價</th>
+				<th>訂單狀態<th>
 			</tr>
 			<c:forEach var='salesOrder' items='${salesOrders}'>
 				<tr>
@@ -37,36 +38,18 @@
 						href="<spring:url value='/shopManageSystem/getSalesOrder?id=${salesOrder.salesOrderId}'/>">
 							<b style='font-size: 16px;'>${salesOrder.salesOrderId}</b>
 					</a></td>
-					<td><input type="text" value='${salesOrder.memberId}'
-						name='memberId'></td>
-					<td><input type="text" value='${salesOrder.orderTime}'
-						name='orderTime'></td>
-					<td><input type="text" value='${salesOrder.requireTime}'
-						name='requireTime'></td>
-					<td><input type="text" value='${salesOrder.needDelivery}'
-						name='needDelivery'></td>
-					<td><input type="text" value='${salesOrder.deliverAddress}'
-						name='deliverAddress'></td>
-					<td><input type="text" value='${salesOrder.totalSales}'
-						name='totalSales'></td>
+					<td>${salesOrder.memberId}</td>
+					<td>${salesOrder.orderTime}</td>
+					<td>${salesOrder.requireTime}</td>
+					<td>${salesOrder.needDelivery}</td>
+					<td>${salesOrder.deliverAddress}</td>
+					<td>${salesOrder.totalSales}</td>
+					<td>${salesOrder.orderStatus}</td>
 				</tr>
 			</c:forEach>
 		</table>
 
-		<table id="saleOrders" class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<td></td>
-					<td>訂單編號</td>
-					<td>客戶編號</td>
-					<td>訂購時間</td>
-					<td>取餐時間</td>
-					<td>是否需要外送</td>
-					<td>外送地址</td>
-					<td>訂單總價</td>
-				</tr>
-			</thead>
-		</table>
+		
 	</section>
 </body>
 </html>

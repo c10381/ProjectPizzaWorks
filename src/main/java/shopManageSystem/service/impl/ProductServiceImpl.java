@@ -39,6 +39,9 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void updateOneProduct(ProductBean pb) {
+		if(pb.getActiveStatus() == null) {
+			pb.setActiveStatus(0);
+		}
 		dao.updateOneProduct(pb);
 	}
 	

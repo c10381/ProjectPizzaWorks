@@ -70,6 +70,9 @@
 							<label>有無雞肉：<form:checkbox id="chicken" value='1'
 									path="chicken" class='form:input-large' /></label>
 						</p>
+						<p><label>上架狀態：<form:checkbox id="activeStatus" value='1'
+									path="activeStatus" class='form:input-large' /></label>
+						</p>
 						<p>
 							圖片路徑：<input type="text" name="imagePath"
 								value="${product.imagePath}">
@@ -117,6 +120,9 @@
 		}
 		if(${product.chicken}==1){
 			document.getElementById("chicken").checked = true;
+		}
+		if(${product.activeStatus}==1){
+			document.getElementById("activeStatus").checked = true;
 		}
 	}
 	scanCheckBoxStatus();

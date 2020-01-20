@@ -95,6 +95,7 @@ public class ProductController {
 		model.addAttribute("materials", service.getAllMaterials());
 		return "shopManageSystem/AddNewProduct";
 	}
+	
 	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
 	public String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
 		System.out.println(recipe_str);
@@ -104,7 +105,7 @@ public class ProductController {
 			for(int i = 0;i < jsonArray.length();i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				RecipeBean recipe = new RecipeBean();
-				recipe.setProductId(jsonObject.getInt("productId"));
+//				recipe.setProductId(jsonObject.getInt("productId"));
 				recipe.setMaterialsId(jsonObject.getInt("materialsId"));
 				recipe.setQuantity(jsonObject.getDouble("quantity"));
 				recipe.setUnit(jsonObject.getString("unit"));
@@ -112,8 +113,9 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
+			return "redirect:/shopManageSystem/GetOneProduct?id="+product.getProductId();
 		}		
-		return "OK!";
+		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
 	}
 }

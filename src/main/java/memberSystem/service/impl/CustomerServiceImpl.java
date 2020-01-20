@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {		
-		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
+//		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
 		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
 		boolean addStatus=dao.addCustomer(mem);		
@@ -180,6 +180,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public MembersBean login (String email, String pwd) {		
-		return dao.login(email, encrypter.getMD5Endocing(pwd));
+//		return dao.login(email, encrypter.getMD5Endocing(pwd));
+		return null;
 	}	
 }

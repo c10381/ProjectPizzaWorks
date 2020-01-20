@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>Product</title>
@@ -37,15 +38,11 @@
 					<td>${material.materialsId}</td>
 					<td>${material.materialsName}</td>
 					<td>${material.unit}</td>
-					<td><button id='rm' onclick="removeRow_test(this)">remove</button></td>
+					<td><button id='rm' onclick="removeRow_material(this)">Remove</button></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</section>
-	<p>
-		<input type="button" id="addRow" value="Add New Row"
-			onclick="addRow()" />
-	</p>
 
 	<!--THE CONTAINER WHERE WE'll ADD THE DYNAMIC TABLE-->
 	<div id="cont"></div>
@@ -61,6 +58,7 @@
 		// ADD THE TABLE TO YOUR WEB PAGE.
 		var recipe;
 		var material;
+		var recipes = [];
 		
 		function createTable() {
 			var recipeTable = document.createElement('table');
@@ -77,10 +75,8 @@
 		
 		createTable();
 		
-		
-		
 		// DELETE TABLE ROW.
-		function removeRow_test(oButton) {
+		function removeRow_material(oButton) {
 			var materialsTable = document.getElementById('materialsTable');
 			var thisRow = oButton.parentNode.parentNode;
 			
@@ -88,28 +84,27 @@
 			recipe["materialsId"] = thisRow.cells[0].innerHTML;
 			recipe["materialsName"] = thisRow.cells[1].innerHTML;
 			recipe["unit"] = thisRow.cells[2].innerHTML;
-			addRow_test(recipe);
+			addRow_recipe(recipe);
 			materialsTable.deleteRow(oButton.parentNode.parentNode.rowIndex); // BUTTON -> TD -> TR.
 		}
 		
 		// DELETE TABLE ROW.
-		function removeRow_test2(oButton) {
+		function removeRow_recipe(oButton) {
 			var recipeTable = document.getElementById('recipeTable');
 			var thisRow = oButton.parentNode.parentNode;
 			
 			material = new Object();
-			material["materialsId"] = thisRow.cells[1].children[0].value;
-			material["materialsName"] = thisRow.cells[2].children[0].value;
-			material["unit"] = thisRow.cells[4].children[0].value;
-			addRow_test2(material);
+			material["materialsId"] = thisRow.cells[1].innerHTML;
+			material["materialsName"] = thisRow.cells[2].innerHTML;
+			material["unit"] = thisRow.cells[4].innerHTML;
+			addRow_material(material);
 			recipeTable.deleteRow(oButton.parentNode.parentNode.rowIndex); // BUTTON -> TD -> TR.
 		}
 		
-		function addRow_test(recipe){
+		function addRow_recipe(recipe){
 			var recipeTable = document.getElementById('recipeTable');
 			var rowCnt = recipeTable.rows.length; // GET TABLE ROW COUNT.
 			var tr = recipeTable.insertRow(rowCnt); // TABLE ROW.
-			tr = recipeTable.insertRow(rowCnt);
 			for (var c = 0; c < arrHead.length; c++) {
 				var td = document.createElement('td'); // TABLE DEFINITION.
 				td = tr.insertCell(c);
@@ -121,26 +116,29 @@
 					button.setAttribute('value', 'Remove');
 					button.setAttribute('id', 'rm');
 					// ADD THE BUTTON's 'onclick' EVENT.
-					button.setAttribute('onclick', 'removeRow_test2(this)');
+					button.setAttribute('onclick', 'removeRow_recipe(this)');
 					td.appendChild(button);
 				} 
 				else if(c == 1){
-					var ele = document.createElement('input');
-					ele.setAttribute('type', 'text');
-					ele.setAttribute('value', recipe.materialsId);
-					td.appendChild(ele);
+					///var ele = document.createElement('input');
+					//ele.setAttribute('type', 'text');
+					//ele.setAttribute('value', recipe.materialsId);
+					//td.appendChild(ele);
+					td.innerHTML = recipe.materialsId;
 				}
 				else if(c == 2){
-					var ele = document.createElement('input');
-					ele.setAttribute('type', 'text');
-					ele.setAttribute('value', recipe.materialsName);
-					td.appendChild(ele);
+					//var ele = document.createElement('input');
+					//ele.setAttribute('type', 'text');
+					//ele.setAttribute('value', recipe.materialsName);
+					//td.appendChild(ele);
+					td.innerHTML = recipe.materialsName;
 				}
 				else if(c == 4){
-					var ele = document.createElement('input');
-					ele.setAttribute('type', 'text');
-					ele.setAttribute('value', recipe.unit);
-					td.appendChild(ele);
+					//var ele = document.createElement('input');
+					//ele.setAttribute('type', 'text');
+					//ele.setAttribute('value', recipe.unit);
+					//td.appendChild(ele);
+					td.innerHTML = recipe.unit;
 				}
 				else {
 					// CREATE AND ADD TEXTBOX IN EACH CELL.
@@ -152,8 +150,8 @@
 			}
 		}
 		
-		function addRow_test2(material){
-			console.log(material);
+		function addRow_material(material){
+			//console.log(material);
 			var materialsTable = document.getElementById('materialsTable');
 			var rowCnt = materialsTable.rows.length; // GET TABLE ROW COUNT.
 			var tr = materialsTable.insertRow(rowCnt); // TABLE ROW.
@@ -178,7 +176,7 @@
 					button.setAttribute('value', 'Remove');
 					button.setAttribute('id', 'rm');
 					// ADD THE BUTTON's 'onclick' EVENT.
-					button.setAttribute('onclick', 'removeRow_test(this)');
+					button.setAttribute('onclick', 'removeRow_material(this)');
 					td.appendChild(button);
 				}
 				//else {
@@ -191,58 +189,48 @@
 			}
 		}
 		
-		// ADD A NEW ROW TO THE TABLE
-		function addRow() {
-			var recipeTable = document.getElementById('recipeTable');
-			var rowCnt = recipeTable.rows.length; // GET TABLE ROW COUNT.
-			var tr = recipeTable.insertRow(rowCnt); // TABLE ROW.
-			tr = recipeTable.insertRow(rowCnt);
-			for (var c = 0; c < arrHead.length; c++) {
-				var td = document.createElement('td'); // TABLE DEFINITION.
-				td = tr.insertCell(c);
-				if (c == 0) { // FIRST COLUMN.
-					// ADD A BUTTON.
-					var button = document.createElement('input');
-					// SET INPUT ATTRIBUTE.
-					button.setAttribute('type', 'button');
-					button.setAttribute('value', 'Remove');
-					button.setAttribute('id', 'rm');
-					// ADD THE BUTTON's 'onclick' EVENT.
-					button.setAttribute('onclick', 'removeRow(this)');
-					td.appendChild(button);
-				} else {
-					// CREATE AND ADD TEXTBOX IN EACH CELL.
-					var ele = document.createElement('input');
-					ele.setAttribute('type', 'text');
-					ele.setAttribute('value', '');
-					td.appendChild(ele);
-				}
+		function getRecipesTable(){
+			var totalNumber = document.getElementById("recipeTable").rows.length;
+			for(var i=1; i<totalNumber; i+=1){
+				var table_row = document.getElementById("recipeTable").rows[i];
+				var recipe = new Object();
+				recipe["materialsId"] = table_row.cells[1].innerHTML;
+				recipe["quantity"] = table_row.cells[3].children[0].value;
+				recipe["unit"] = table_row.cells[4].innerHTML;
+				recipes.push(recipe);
 			}
+			//console.log(recipes);
 		}
 		
-		// DELETE TABLE ROW.
-		function removeRow(oButton) {
-			var recipeTable = document.getElementById('recipeTable');
-			recipeTable.deleteRow(oButton.parentNode.parentNode.rowIndex); // BUTTON -> TD -> TR.
-		}
-
 		// EXTRACT AND SUBMIT TABLE DATA.
 		function sumbit() {
-			var myTab = document.getElementById('recipeTable');
-			var values = new Array();
-
 			// LOOP THROUGH EACH ROW OF THE TABLE.
-			for (row = 1; row < myTab.rows.length - 1; row++) {
-				for (c = 0; c < myTab.rows[row].cells.length; c++) { // EACH CELL IN A ROW.
-					var element = myTab.rows.item(row).cells[c];
-					if (element.childNodes[0].getAttribute('type') == 'text') {
-						values.push(element.childNodes[0].value);
-
-					}
-				}
-			}
-			console.log('Data send:\n' + values);
+			recipes.length = 0;
+			getRecipesTable();
+			//console.log('Data send:\n' + JSON.stringify({recipes: recipes}));
+			sendData();
 		}
+		
+		function sendData(){
+			$.ajax({
+				url: "${pageContext.request.contextPath}/shopManageSystem/AddNewProduct",
+				data: {"recipes":JSON.stringify(recipes)},
+				type: "POST",
+				
+				error:function(){
+					console.log(JSON.stringify({recipes: recipes}));
+					console.log("Error");
+				},
+				success: function(data){
+					//console.log(recipes);
+					//console.log(${product.productId});
+					alert("食譜儲存"+data);
+					//document.location.href="${pageContext.request.contextPath}/shopManageSystem/getProductById?id=${product.productId}";
+				}
+			})
+			
+		}
+		
 	</script>
 </body>
 </html>
