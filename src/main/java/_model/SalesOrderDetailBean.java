@@ -17,6 +17,7 @@ public class SalesOrderDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderDetailId;
 //	private Integer salesOrderId;
+	private Integer salesListId;
 	private Integer productId;
 	private double unitPrice;
 	private Integer quantity;
@@ -27,8 +28,9 @@ public class SalesOrderDetailBean implements Serializable{
 	
 	public SalesOrderDetailBean() {} 
 	
-	public SalesOrderDetailBean(Integer productId, double unitPrice, Integer quantity,
+	public SalesOrderDetailBean(Integer salesListId, Integer productId, double unitPrice, Integer quantity,
 			Integer doubleCheese, Integer crustTypeId, double discount) {
+		this.salesListId = salesListId;
 		this.productId = productId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
@@ -122,6 +124,14 @@ public class SalesOrderDetailBean implements Serializable{
 
 	public void setSalesOrder(SalesOrderBean salesOrder) {
 		this.salesOrder = salesOrder;
+	}
+
+	public Integer getSalesListId() {
+		return salesListId;
+	}
+
+	public void setSalesListId(Integer salesListId) {
+		this.salesListId = salesListId;
 	}
 
 }

@@ -16,4 +16,6 @@ public interface ShopDao {
 
 	List<CrustBean> getCrustTest();
 
+	List<CrustBean> getCrustError();
+
 }

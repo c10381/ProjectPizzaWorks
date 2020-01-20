@@ -1,49 +1,83 @@
-let cartTest = {
-  "deliverType": "takeout",
+let cart = JSON.parse(localStorage.getItem('cartList')) || {};
+let salesOrderDetails = cart.salesOrderDetails;
 
-  "detail": [
-    {
-      "productId": 1,
-      "prductName": "炭火肉食披薩",
-      "size": "lg",
-      "price": 329,
-      "qtty": 2
-    },
-    {
-      "productId": 10,
-      "prductName": "總匯披薩",
-      "size": "sm",
-      "price": 229,
-      "qtty": 1,
-    }
-  ]
-};
 
-var cart = JSON.parse(localStorage.getItem('dataList')) || {};
+
+
 $(function () {
-  $("#addCart").click(function () {
-    if (cart.deliverType == undefined) {
-      checkDeliver();
-    } else {
-      checkPizza();
-    }
-  })
+	var url = location.href;
+	console.log(url);
+	url
+	updateList();
+	
+	$(".del_btn").on('click',function(){
+		var num = $(this).find("svg").data("num");
+		deleteList(num);
+	})
 });
 
 
-// 外帶方式確認
-function checkDeliver() {
-  $("#delieverModal").modal("show");
-  $("#delieverModal a").click(function () {
-    cart.deliverType = $("#delieverModal select").val();
-    checkPizza();
-  })
+function updateList() {
+	let str = '';
+	let cartSize = salesOrderDetails.length;
+	if(cartSize==0 ||salesOrderDetails==undefined ){
+		str = `<p class="h6 text-center ">還未將任何商品加入購物車</p>
+					<div class="col-md-6 justify-content-center mx-auto mt-3">
+						<a href= "../shop/menu" class="mt-3">
+							<button type="button"
+								class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
+						</a>
+					</div>`
+	}else{
+		for (let i = 0; i < cartSize; i++) {
+			str +=
+				`
+				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
+				<div class="img" style="background-image: url(images/pizza-3.jpg);"></div>
+				<div class="desc pl-3">
+	      	<div class="d-flex text align-items-center">
+						<div class="col-11">
+							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
+						</div>
+						<span class="price">${salesOrderDetails[i].unitPrice}</span>
+						<div class="col-1 del_btn">
+							<i class="far fa-trash-alt" data-num="${[i]}"></i>
+						</div>
+				</div>
+					<div class="d-block">
+						<select name="quantity" class="ml-3">
+							<option value="1">1</option>
+								<option value="2">2</option>
+							<option value="3">3</option>
+							</select>
+							
+						<span>${salesOrderDetails[i].crustTypeName}</span> 
+						
+						<span> / </span>
+			`
+			if (salesOrderDetails[i].doubleCheese == 1) {
+				str += `<span>加量一份起司</span> <span>+25</span>`
+			} else {
+				str += `<span>正常起司</span>`
+			}
+
+			str +=`</div ></div ></div >`
+		}
+		
+	}		
+	$(".cartList").html(str);
+	 let cartStr = JSON.stringify(cart);
+	 localStorage.setItem('cartList', cartStr);
 }
 
-// pizza規格確認
 
-function checkPizza() {
-  $("#pizzaModal").modal("show");
+
+
+function deleteList(num){
+	salesOrderDetails.splice(num, 1);
+	updateList();
+	location.reload();
 }
 
 
+	

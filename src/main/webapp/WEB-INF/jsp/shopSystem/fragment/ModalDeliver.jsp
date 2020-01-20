@@ -13,7 +13,7 @@
         </div>
         <div class="modal-body">
           <select name="delieverType">
-            <option value="takeout">外帶</option>
+            <option value="takeout">來店取餐</option>
             <option value="delivery">外送</option>
           </select>
         </div>

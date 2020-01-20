@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
     <!-- START navbar -->
 <nav class="navbar navbar-expand-md navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -26,8 +27,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="nav navbar-nav ml-auto">
-				<li class="nav-item active"><a href="cart.html"
-					class="nav-link"> <span class="glyphicon glyphicon-cart">購物車</span>
+				<li class="nav-item active"><a href='<spring:url value="/shop/cart" />'
+					class="nav-link"> <i class="fas fa-shopping-cart"></i>
 				</a></li>
 				<li class="nav-item"><a href="login.html" class="nav-link">登入</a>
 				</li>

@@ -34,6 +34,6 @@ public class ShopRestController {
 
 	@GetMapping(value = "/getCrust" , produces = "application/json")
 	public List<CrustBean> getCrust() {
-		return service.getCrustTest();
+		return service.getCrust();
 	}
 }

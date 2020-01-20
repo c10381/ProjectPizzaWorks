@@ -1,27 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- pizza Modal-->
 <div class="modal fade" id="pizzaModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title text-dark" id="exampleModalLabel">請選擇你的披薩</h5>
+				<h5 class="modal-title text-dark" id="exampleModalLabel">請選擇您的披薩</h5>
 				<button class="close" type="button" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<select name="size">
-					<option value=" large">大</option>
+				<h5 class="text-dark"></h5>
+
+				<label for="pizzaSize">披薩尺寸:</label> <select name="pizzaSize"
+					id="pizzaSize">
+					<option value="large">大</option>
 					<option value="small">小</option>
-				</select>
+				</select> <label for="qtty">數量</label> <select name="qtty" id="qtty">
+				</select> <label for="crust">請選擇餅皮</label> <select name="crust" id="crust">
+				</select> <label for="doubleCheese"></label> <input type="checkbox">雙倍起司
+				+25
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">
-					放入購物車<span class="amount"> $355</span>
-				</button>
+				<c:forEach items="${ products}" var="item" varStatus="status">
+					<c:if test="${status.first }">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal" data-id="${item.productId }">
+							放入購物車 <span class="amount"> </span>
+						</button>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

@@ -26,7 +26,7 @@
 		<tr>
 			<td width="350"><p align="left" /> <a href='shop/menu'>查詢所有產品資料</a><BR>
 			</td>
-			<td width="350"><p align="left" /> <a href=''>&nbsp;</a><BR>
+			<td width="350"><p align="left" /> <a href='shop/cart'>購物車資訊</a><BR>
 			</td>
 		</tr>
 		

@@ -71,6 +71,8 @@ public class ShopServiceImpl implements ShopService {
 	// 撈取特定欄位方法二，使用Hibernate方法 - setResultTransformer(但即將廢棄
 	@Override
 	public List<CrustBean> getCrustTest() {
-		return dao.getCrustTest();
+		return dao.getCrustError();
 	}
+	
+	
 }

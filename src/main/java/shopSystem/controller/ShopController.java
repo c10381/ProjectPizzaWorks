@@ -51,6 +51,12 @@ public class ShopController {
 		return "shopSystem/product" ;
 	}
 	
+	@RequestMapping("/cart")
+		public String getCart(Model model) {
+		
+		return "shopSystem/cart";
+	}
+	
 	
 
 

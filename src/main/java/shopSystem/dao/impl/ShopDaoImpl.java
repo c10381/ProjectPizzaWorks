@@ -67,4 +67,14 @@ public class ShopDaoImpl implements ShopDao {
 			return crusts;
 		} 
 		
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<CrustBean> getCrustError(){
+			String hql = "select distinct crustTypeName , crustTypeId , unitPrice from CrustBean as CB";
+			Session session = factory.getCurrentSession();
+			List<CrustBean> crusts = new ArrayList<>();
+			crusts = session.createQuery(hql).getResultList();
+			return crusts;
+		} 
+		
 }
