@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
 import _model.SalesOrderBean;
@@ -114,5 +115,31 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		SalesOrderBean salesOrder = session.get(SalesOrderBean.class, salesOrderId);
 		return salesOrder;
+	}
+	@Override
+	public List<MaterialsBean> getAllMaterials(){
+		String hql = "FROM MaterialsBean";
+		Session session = factory.getCurrentSession();
+		List<MaterialsBean> materials = session.createQuery(hql).getResultList();
+		return materials;
+	} 
+	@Override
+	public ProductBean InsertProduct(ProductBean product) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ProductBean WHERE productName = :productName";
+		session.save(product);
+		return product;
+	}
+	@Override
+	public void InsertRecipes(List<RecipeBean> recipes){
+		Session session = factory.getCurrentSession();
+		for(RecipeBean recipe : recipes) {
+			session.save(recipe);
+		}
+	}
+	@Override
+	public void InsertRecipe(RecipeBean recipe){
+		Session session = factory.getCurrentSession();
+		session.save(recipe);
 	}
 }
