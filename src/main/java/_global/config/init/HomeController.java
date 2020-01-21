@@ -15,6 +15,17 @@ public class HomeController {
 	//404 Page
 //	@RequestMapping("/*")
 	public String pageNoFound(){
-		return "/_global/PageNoFound";
+		return "_global/PageNoFound";
 	}
+	
+	@RequestMapping("/shopManageSystem/SalesManageIndex")
+	public String directSalesManageIndex() {
+		return "shopManageSystem/SalesManageIndex";
+	}
+	
+	@RequestMapping(value="/customer_register")
+	public String register() {				
+			return "memberSystem/register";
+	}
+
 }
