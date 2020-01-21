@@ -1,5 +1,6 @@
 let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
+console.log(cart);
 
 $(function () {
 	updateList();
@@ -13,9 +14,8 @@ $(function () {
 
 function updateList() {
 	let str = '';
-	let row_order_control = '';
-	let cartSize = salesOrderDetails.length;
-	if(cartSize==0 ||salesOrderDetails==undefined ){
+	let cartSize = salesOrderDetails.length
+	if(cartSize==0 ||cart==undefined ){
 		str = `<p class="h6 text-center ">還未將任何商品加入購物車</p>
 					<div class="col-md-6 justify-content-center mx-auto mt-3">
 						<a href= "../shop/menu" class="mt-3">
@@ -30,7 +30,7 @@ function updateList() {
 			str +=
 				`
 				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
-				<div class="img" style="background-image: url(../../images/shopSystem/pizza-3.jpg);"></div>
+				<div class="img" style="background-image: url(../images/shopSystem/pizza-3.jpg);"></div>
 				<div class="desc pl-3">
 	      	<div class="d-flex text align-items-center">
 						<div class="col-11">

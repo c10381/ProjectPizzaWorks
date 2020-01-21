@@ -22,7 +22,6 @@ $(function () {
 			    contentType : "application/json",
 			    dataType: "text",
 			}).done(function(result){
-				console.log(result);
 				if(result=="OK"){
 					localStorage.clear();
 					updateList();
@@ -32,8 +31,6 @@ $(function () {
 			})
 			
 		};
-		
-		
 	})
 });
 
@@ -42,11 +39,10 @@ $(function () {
 function updateList() {
 	let str = '';
 	let row_order_control = '';
-	let cartSize = salesOrderDetails.length;
-	if(cartSize==0 ||salesOrderDetails==undefined ){
+	if(cart.length==0 ||cart==undefined ){
 		window.location.replace("../shop/");
 	}else{
-		for (let i = 0; i < cartSize; i++) {
+		for (let i = 0; i < salesOrderDetails.length; i++) {
 			str +=
 				`
 				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">

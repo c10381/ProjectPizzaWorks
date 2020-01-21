@@ -13,6 +13,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
 </head>
 <body>
 
@@ -39,7 +42,7 @@
 						<c:forEach items="${ products}" var="item" varStatus="status">
 							<c:if test="${status.first }">
 								<div class="col-md-12 mb-4">
-								<%-- 	<h2 class="h4 mt-sm-3" id="productName">${item.productName }</h2> --%>
+									<%-- 	<h2 class="h4 mt-sm-3" id="productName">${item.productName }</h2> --%>
 									<h2 class="h4 mt-sm-3" id="productName"></h2>
 								</div>
 								<div class="col-md-12 mb-3">
@@ -56,8 +59,9 @@
 								<div class="col-md-12 mb-3">
 									<p class="h5">價格</p>
 									<p>
-										大 <span>$</span><span class="price" data-id="${item.productId }">
-											${item.unitPrice }</span>／ 小 <span>$</span><span class="price"
+										大 <span>$</span><span class="price"
+											data-id="${item.productId }"> ${item.unitPrice }</span>／ 小 <span>$</span><span
+											class="price"
 											data-id="${products[status.index+1].productId }">
 											${products[status.index+1].unitPrice }</span>
 									</p>
@@ -84,5 +88,6 @@
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script
 		src="${pageContext.request.contextPath }/js/shopSystem/product.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
 </body>
 </html>

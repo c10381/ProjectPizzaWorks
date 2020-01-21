@@ -3,6 +3,8 @@ const doubleCheese = 25;
 console.log(cart);
 
 $(function () {
+	
+	//暫時方法 存取商品名稱
 	var url = location.href;
 	if(url.indexOf('?')!=-1)
 	{
@@ -33,7 +35,8 @@ $(function () {
 // 外帶方式確認
 function checkDeliver() {
     $("#delieverModal").modal("show");
-    $("#delieverModal a").click(function () {
+    insertDate();
+    $("#delieverModal .next").click(function () {
         var deliverType = $("#delieverModal select").val();
         if (deliverType == "delivery") {
             cart.needDelivery = 1;
@@ -146,4 +149,9 @@ function insertCrust() {
     	    }
     	    $("#crust").empty().append(option);
      })
+}
+
+function insertDate(){
+	$("#requireTime").flatpickr({
+	});
 }
