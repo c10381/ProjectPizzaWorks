@@ -65,7 +65,7 @@
 							</div>
 						</li>
 
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+						<li class="nav-item" onclick="loadingPage('/shopManageSystem/AddNewProduct')"><div class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>新增產品</p>
 							</div></li>

@@ -63,16 +63,16 @@ public class CustomerServiceImpl implements CustomerService {
 //			dao.addCustomerValidationRequest(requestBean);
 			
 			//確認validationCode是否獨一無二
-			String validationCode = "";
-			List<?> checkVC=null;
-			do {
+//			String validationCode = "";
+//			List<?> checkVC=null;
+//			do {
 //				validationCode = mailCtxAndUtil.RandomvalidationCode();
-				checkVC=dao.useValidationCodeGetBean(validationCode);
-			} while (!checkVC.isEmpty());
-			
-			requestBean.setValidationCode(validationCode);
-			dao.addCustomerValidationRequest(requestBean);
-			
+//				checkVC=dao.useValidationCodeGetBean(validationCode);
+//			} while (!checkVC.isEmpty());
+//			
+//			requestBean.setValidationCode(validationCode);
+//			dao.addCustomerValidationRequest(requestBean);
+//			
 //			//操作Spring Mail區
 //			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
 //			SpringMailUtil ms = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
