@@ -222,9 +222,11 @@
 					console.log("Error");
 				},
 				success: function(data){
+					console.log(data);
+					window.location.replace(data);
 					//console.log(recipes);
 					//console.log(${product.productId});
-					alert("食譜儲存"+data);
+					//alert("食譜儲存"+data);
 					//document.location.href="${pageContext.request.contextPath}/shopManageSystem/getProductById?id=${product.productId}";
 				}
 			})

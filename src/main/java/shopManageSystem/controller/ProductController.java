@@ -1,16 +1,17 @@
 package shopManageSystem.controller;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.io.ByteArrayOutputStream;
+<<<<<<<<< Temporary merge branch 1
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,7 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,13 +44,18 @@ public class ProductController {
 	public void setService(ProductService service) {
 		this.service = service;
 	}
-	
+
 	ServletContext context;
+
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
+<<<<<<<<< Temporary merge branch 1
+
+=========
 	
+>>>>>>>>> Temporary merge branch 2
 	@RequestMapping("/shopManageSystem/products")
 	public String productsList(Model model) {
 		List<ProductBean> list = service.getAllProducts();
@@ -103,7 +108,6 @@ public class ProductController {
 
 	@RequestMapping(value = "/picture/{productId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getPicture(@PathVariable Integer productId) {
-		System.out.println("\nINLA\n");
 		byte[] body = null;
 		ResponseEntity<byte[]> re = null;
 		MediaType mediaType = null;
@@ -213,7 +217,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
-	public String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
+	public @ResponseBody String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
 		System.out.println(recipe_str);
 		List<RecipeBean> recipes = new ArrayList<>();
 		JSONArray jsonArray = new JSONArray(recipe_str);
@@ -229,7 +233,7 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
-			return "redirect:/shopManageSystem/GetOneProduct?id="+product.getProductId();
+			return "shopManageSystem/getProductById?id="+product.getProductId();
 		}		
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
@@ -308,4 +312,5 @@ public class ProductController {
 		return result;
 
 	}
+>>>>>>>>> Temporary merge branch 2
 }
