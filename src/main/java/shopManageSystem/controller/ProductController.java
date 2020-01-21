@@ -1,18 +1,33 @@
 package shopManageSystem.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import _model.ProductBean;
 import _model.RecipeBean;
@@ -25,6 +40,12 @@ public class ProductController {
 	@Autowired
 	public void setService(ProductService service) {
 		this.service = service;
+	}
+	
+	ServletContext context;
+	@Autowired
+	public void setContext(ServletContext context) {
+		this.context = context;
 	}
 	
 	@RequestMapping("/shopManageSystem/products")
@@ -41,8 +62,37 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/shopManageSystem/getProductById", method=RequestMethod.POST)
-	public String UpdateOneProduct(@ModelAttribute("product") ProductBean pb, Model model) {
-		service.updateOneProduct(pb);
+	public String UpdateOneProduct(@ModelAttribute("product") ProductBean product, BindingResult result, Model model, HttpServletRequest request) {
+		MultipartFile productImage = product.getProductImage();
+		System.out.println(product.getProductName());
+		System.out.println(productImage);
+		String oringinalFilename = productImage.getOriginalFilename();
+		
+		product.setImagePath(oringinalFilename);
+		if (productImage.getSize() == 0) {
+			// 表示使用者並未挑選圖片
+//			product original = productService.get(id);
+//			product.setImage(original.getImage());
+		} else {
+			String originalFilename = productImage.getOriginalFilename();
+			if (originalFilename.length() > 0 && originalFilename.lastIndexOf(".") > -1) {
+				product.setImagePath(originalFilename);
+			}
+
+			// 建立Blob物件
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					byte[] b = productImage.getBytes();
+					Blob blob = new SerialBlob(b);
+					product.setCoverImage(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+				}
+			}
+		}
+		
+		service.updateOneProduct(product);
 		return "redirect:/shopManageSystem/products";
 	}
 	
@@ -117,5 +167,79 @@ public class ProductController {
 		}		
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
+	}
+	
+	@RequestMapping(value = "/picture/{productId}", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getPicture(@PathVariable Integer productId) {
+		byte[] body = null;
+		ResponseEntity<byte[]> re = null;
+		MediaType mediaType = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+		ProductBean product = service.getProductById(productId);
+		if (product == null) {
+			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+		}
+		String filename = product.getImagePath();
+		if (filename != null) {
+			if (filename.toLowerCase().endsWith("jfif")) {
+				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
+			} else {
+				mediaType = MediaType.valueOf(context.getMimeType(filename));
+				headers.setContentType(mediaType);
+			}
+		}
+		Blob blob = product.getCoverImage();
+		if (blob != null) {
+			body = blobToByteArray(blob);
+		} 
+//		else {
+//			String path = null;
+//			if (product.getGender() == null || product.getGender().length() == 0) {
+//				path = noImageMale;
+//			} else if (product.getGender().equals("M")) {
+//				path = noImageMale;
+//			} else {
+//				path = noImageFemale;
+//				;
+//			}
+//			body = fileToByteArray(path);
+//		}
+		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+
+		return re;
+	}
+	
+	private byte[] fileToByteArray(String path) {
+		byte[] result = null;
+		try (InputStream is = context.getResourceAsStream(path);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public byte[] blobToByteArray(Blob blob) {
+		byte[] result = null;
+		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
 	}
 }

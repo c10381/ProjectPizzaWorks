@@ -51,8 +51,10 @@
 			<c:forEach var='product' items='${products}'>
 				<div class="col-sm-6 col-md-3" style="width: 300px; height: 550px">
 					<div class="thumbnail" style="width: 200px; height: 100px">
+					<!-- <img width='200' height='200' src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" /> -->
 						<img width='200' height='200'
-							src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
+						src="<c:url value='${request.contextPath}/picture/${product.productId}'/>" />
+						
 						<div class="caption">
 							<p>
 								<b style='font-size: 16px;'>${product.productName}</b>

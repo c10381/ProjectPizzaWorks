@@ -129,7 +129,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public ProductBean InsertProduct(ProductBean product) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ProductBean WHERE productName = :productName";
+//		String hql = "FROM ProductBean WHERE productName = :productName";
 		product.setProductId((int) session.save(product));
 		return product;
 	}
