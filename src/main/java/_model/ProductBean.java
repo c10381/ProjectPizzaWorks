@@ -1,6 +1,7 @@
 package _model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="Product")
@@ -29,6 +33,10 @@ public class ProductBean implements Serializable{
 	private Integer beef;
 	private Integer chicken;
 	private String imagePath;
+
+	Blob coverImage;
+	MultipartFile productImage;	
+	
 	
 	private List<RecipeBean> recipes = new ArrayList<>();
 	
@@ -146,6 +154,23 @@ public class ProductBean implements Serializable{
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	
+	public Blob getCoverImage(){
+		return coverImage;
+	}
+	
+	public void setCoverImage(Blob coverImage){
+		this.coverImage = coverImage;
+	}
+	
+	@Transient
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 	
 	@Override

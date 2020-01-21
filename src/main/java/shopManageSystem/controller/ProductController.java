@@ -24,6 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -206,5 +207,108 @@ public class ProductController {
 	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
 		model.addAttribute("salesOrder", service.getSalesOrderById(salesOrderId));
 		return "shopManageSystem/GetSalesOrder";
+	}
+	
+	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.GET)
+	public String getAllMaterials(Model model) {
+		model.addAttribute("materials", service.getAllMaterials());
+		return "shopManageSystem/AddNewProduct";
+	}
+	
+	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
+	public String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
+		System.out.println(recipe_str);
+		List<RecipeBean> recipes = new ArrayList<>();
+		JSONArray jsonArray = new JSONArray(recipe_str);
+		if(jsonArray!=null && jsonArray.length()!=0) {
+			for(int i = 0;i < jsonArray.length();i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				RecipeBean recipe = new RecipeBean();
+//				recipe.setProductId(jsonObject.getInt("productId"));
+				recipe.setMaterialsId(jsonObject.getInt("materialsId"));
+				recipe.setQuantity(jsonObject.getDouble("quantity"));
+				recipe.setUnit(jsonObject.getString("unit"));
+				recipes.add(recipe);
+			}
+			ProductBean product = service.addRecipes(recipes);
+			model.addAttribute("product", product);
+			return "redirect:/shopManageSystem/GetOneProduct?id="+product.getProductId();
+		}		
+		return "";
+//		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
+	}
+	
+	@RequestMapping(value = "/picture/{productId}", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getPicture(@PathVariable Integer productId) {
+		byte[] body = null;
+		ResponseEntity<byte[]> re = null;
+		MediaType mediaType = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+		ProductBean product = service.getProductById(productId);
+		if (product == null) {
+			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+		}
+		String filename = product.getImagePath();
+		if (filename != null) {
+			if (filename.toLowerCase().endsWith("jfif")) {
+				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
+			} else {
+				mediaType = MediaType.valueOf(context.getMimeType(filename));
+				headers.setContentType(mediaType);
+			}
+		}
+		Blob blob = product.getCoverImage();
+		if (blob != null) {
+			body = blobToByteArray(blob);
+		} 
+//		else {
+//			String path = null;
+//			if (product.getGender() == null || product.getGender().length() == 0) {
+//				path = noImageMale;
+//			} else if (product.getGender().equals("M")) {
+//				path = noImageMale;
+//			} else {
+//				path = noImageFemale;
+//				;
+//			}
+//			body = fileToByteArray(path);
+//		}
+		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+
+		return re;
+	}
+	
+	private byte[] fileToByteArray(String path) {
+		byte[] result = null;
+		try (InputStream is = context.getResourceAsStream(path);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public byte[] blobToByteArray(Blob blob) {
+		byte[] result = null;
+		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
 	}
 }

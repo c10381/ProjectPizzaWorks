@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
-import memberSystem.Mailutil.MailCtxAndUtil;
+//import memberSystem.Mailutil.MailCtxAndUtil;
 //import memberSystem.Mailutil.SpringMailConfig;
-import memberSystem.Mailutil.SpringMailUtil;
+//import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
 import memberSystem.service.CustomerService;
 
@@ -25,7 +25,7 @@ import memberSystem.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
 	
 	private CustomerDao dao;
-	public MailCtxAndUtil mailContext;
+//	public MailCtxAndUtil mailContext;
 	private Encrypted encrypter;
 	
 	@Autowired
@@ -37,29 +37,29 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {		
-		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
+//		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
 		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
 		boolean addStatus=dao.addCustomer(mem);		
 		if(addStatus==true) {
-			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
+//			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 			//寫入ValidationRequestBean
-			ValidationRequestBean requestBean = new ValidationRequestBean();
-			requestBean.setEmail(mem.getEmail());
-			requestBean.setRequestTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
-			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
-			requestBean.setRequestStatus(1);
-			
-			//確認validationCode是否獨一無二
-			String validationCode = "";
-			List<?> checkVC=null;
-			do {
-				validationCode = mailCtxAndUtil.RandomvalidationCode();
-				checkVC=dao.useValidationCodeGetBean(validationCode);
-			} while (!checkVC.isEmpty());
-			
-			requestBean.setValidationCode(validationCode);
-			dao.addCustomerValidationRequest(requestBean);
+//			ValidationRequestBean requestBean = new ValidationRequestBean();
+//			requestBean.setEmail(mem.getEmail());
+//			requestBean.setRequestTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
+//			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
+//			requestBean.setRequestStatus(1);
+//			
+//			//確認validationCode是否獨一無二
+//			String validationCode = "";
+//			List<?> checkVC=null;
+//			do {
+//				validationCode = mailCtxAndUtil.RandomvalidationCode();
+//				checkVC=dao.useValidationCodeGetBean(validationCode);
+//			} while (!checkVC.isEmpty());
+//			
+//			requestBean.setValidationCode(validationCode);
+//			dao.addCustomerValidationRequest(requestBean);
 			
 //			//操作Spring Mail區
 //			ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
@@ -110,7 +110,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean userRequestChangePW(HttpServletRequest request,String email) {
-		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
+//		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 		MembersBean mem=dao.getCustomer(email);
 		mem.setActiveStatus(2);
 		//更改ActiveStatus有成功的話，才創建ValidationRequestBean
@@ -180,6 +180,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public MembersBean login (String email, String pwd) {		
-		return dao.login(email, encrypter.getMD5Endocing(pwd));
+//		return dao.login(email, encrypter.getMD5Endocing(pwd));
+		return null;
 	}	
 }
