@@ -138,7 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
 //			//寄出信件
 //			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員密碼確認信",
 //					mailCtxAndUtil.CustomerForgetPW(request,mem,validationCode));
-//			return true;
+			return true;
 		};
 		
 		return false;

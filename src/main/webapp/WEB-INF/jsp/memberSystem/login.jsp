@@ -76,7 +76,7 @@
 				<!-- /.social-auth-links -->
 
 				<p class="mb-1">
-					<a href="forgot-password.html">忘記密碼</a>
+					<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
 				</p>
 
 			<!-- /.login-card-body -->

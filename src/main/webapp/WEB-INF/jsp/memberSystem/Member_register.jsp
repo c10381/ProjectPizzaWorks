@@ -34,7 +34,7 @@
 						<form:input id='email' path='email' type='text'
 							required='required' /><br>
 						<label>密碼 ：</label>
-						<form:input id='password' path='password' type='text'
+						<form:input id='password' path='password' type='password'
 							required='required' value="P@ssw0rd" readonly="true" />
 						<br> <label>身分 ：</label>
 						<form:select id="privilegeId" path="privilegeId">
@@ -86,9 +86,13 @@
 		</div>
 		<!-- /registerOneMember -->
 		<div id="registerManyMember">
-			<input type="file" id="files" name="files[]" multiple />
+			<div style="width:100%;margin:5px;">
+				<input type="file" id="files" name="files[]" multiple />
+				<button style="margin-right:5px" onclick="submitCsv()">送出註冊清單</button>
+			</div>
 			<br>
 			<div>
+				
 				<table id="CsvTable" class="display">
     				
 				</table>
@@ -170,7 +174,7 @@
       	    return false;
       	  }
       };
-
+      var csvdata=[];
 		//csv功能，將csv轉成Objects Array
       function handleDialog(event) {
         var files = event.target.files;
@@ -181,12 +185,12 @@
         reader.onload = function(event){
           var csv = event.target.result;
           //這個data就是我們要的東西，塞進去DataTable咖實在
-          var data = $.csv.toObjects(csv);
+          csvdata = $.csv.toObjects(csv);
           //console.log(data);
           $('#CsvTable').append("<thead><th>姓</th><th>名</th><th>帳號(Email)</th><th>地址</th><th>性別</th><th>連絡電話</th><th>身分</th><th>生日</th></thead><tbody></tbody>");
           //呼叫DataTable
           $('#CsvTable').DataTable( {
-        	    data: data,
+        	    data: csvdata,
         	    columns: [
         	        { data: 'lastName' },
         	        { data: 'firstName' },
@@ -213,7 +217,27 @@
         } );
         }
       }
+	//submit csv
+ 	function submitCsv(){
+
+		$.ajax({
+            contentType : 'application/json; charset=utf-8',
+            type: "POST",
+            url:'${pageContext.request.contextPath}/memberSystem/member_mutiple_add',
+            dataType : 'json',
+            data : JSON.stringify(csvdata),
+            success : function(callback){
+                //callback會為一個map物件
+               //裡面有errorMsg,success,failure,failureEmail
+                alert("新增成功數量："+callback.success+"\n新增失敗數量："+callback.failure+"\n新增失敗名單(email)：\n"+callback.failureEmail)
+            },
+            error : function(){
+                console.log(callback);
+            }
+        });
+
 		
+		}
 	</script>
 
 </body>
