@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Pizza|產品介紹</title>
@@ -9,7 +10,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
-<link href="${pageContext.request.contextPath }/css/shopSystem/cart.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/css/shopSystem/cart.css"
+	rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="fragment/navbar.jsp" />
@@ -24,15 +26,16 @@
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="col-md-8 cartList">
-					<p class="h6 text-center ">還未將任何商品加入購物車</p>
-					<div class="col-md-6 justify-content-center mx-auto mt-3">
-						<a href="<spring:url value="/shop/menu" />" class="mt-3">
-							<button type="button"
-								class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
-						</a>
-					</div>
-				</div>
+				<div class="col-md-8 cartList"></div>
+			</div>
+			<div class="row justify-content-center mb-5 pb-3 order-controll">
+				<a href="<spring:url value='/shop/menu'/>" class="mt-3">
+					<button type="button"
+						class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
+				</a> <a href="<spring:url value='/shop/checkout'/>" class="mt-3">
+					<button type="button"
+						class="btn btn-block btn-lg btn-outline-light rounded-full">前往結帳</button>
+				</a>
 			</div>
 		</div>
 	</section>

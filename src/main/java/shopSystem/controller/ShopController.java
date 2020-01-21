@@ -30,11 +30,23 @@ public class ShopController {
 		this.shopService = shopService;
 	}
 
+	@RequestMapping("/")
+	public String getIndex(Model model) {
+		return "shopSystem/index";
+	}
+	
+	
+	
 	@RequestMapping("/menu")
 	public String getMenu(Model model) {
 		List<ProductBean> products = pdService.getAllProducts();
 		model.addAttribute("products", products);
 		return "shopSystem/menu";
+	}
+	
+	@RequestMapping("/checkout")
+	public String checkOut(Model model) {
+		return "shopSystem/checkout";
 	}
 
 //	@GetMapping(value="/shop/product", produces="text/html")

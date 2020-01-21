@@ -1,5 +1,7 @@
 package shopSystem.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,14 +44,20 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void saveOrder(SalesOrderBean SOB) {
 		List<SalesOrderDetailBean> list = SOB.getSalesOrderDetails();
+		
+		//設定訂單時間
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = now.format(formatter);
+        SOB.setOrderTime(formatDateTime);
+        System.out.println(SOB.getOrderTime());
+        
 		for (SalesOrderDetailBean sd : list) {
 			sd.setSalesOrder(SOB);
+			//進銷存用 ，先預設塞值為0
 			sd.setSalesListId(0);
 		}
-
 		SOB.setMemberId(6);
-		SOB.setOrderTime("2020-01-14");
-		SOB.setRequireTime("2020-01-14");
 		dao.saveOrder(SOB);
 
 	}

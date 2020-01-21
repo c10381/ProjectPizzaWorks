@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -46,8 +45,8 @@
 									style="background-image: url(${pageContext.request.contextPath}/images/Products/${product.imagePath });"></a>
 								<div class="text">
 									<h3>
-										
-
+										<%  %>
+									
 										<c:set var="originalName" value="${product.productName }" />
 										<c:set var="length" value="${fn:length(originalName) }" />
 										<c:set var="showName"
@@ -73,9 +72,9 @@
 			</div>
 		</div>
 	</section>
+	
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
-
 	<jsp:include page="fragment/ContentJS.jsp" />
 </body>
 </html>

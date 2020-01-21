@@ -1,14 +1,42 @@
 let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
+// 還沒做 先用插入的
+
+cart.deliverAddress = "店取";
+cart.requireTime = "2020-01-22 19:00:15";
+cart.totalSales = 8888;
+console.log(cart)
 
 $(function () {
 	updateList();
+	formInfo();
 	
-	$(".del_btn").on('click',function(){
-		var num = $(this).find("svg").data("num");
-		deleteList(num);
+	$(":button").click(function(e){
+		e.preventDefault();
+		if(confirm("是否送出訂單?")){
+			
+			$.ajax({
+			    type : "POST", 
+			    url : "../shop/order",
+			    data : JSON.stringify(cart),
+			    contentType : "application/json",
+			    dataType: "text",
+			}).done(function(result){
+				console.log(result);
+				if(result=="OK"){
+					localStorage.clear();
+					updateList();
+					alert("訂單新建成功");
+					window.location.replace("../shop/");
+				}
+			})
+			
+		};
+		
+		
 	})
 });
+
 
 
 function updateList() {
@@ -16,30 +44,19 @@ function updateList() {
 	let row_order_control = '';
 	let cartSize = salesOrderDetails.length;
 	if(cartSize==0 ||salesOrderDetails==undefined ){
-		str = `<p class="h6 text-center ">還未將任何商品加入購物車</p>
-					<div class="col-md-6 justify-content-center mx-auto mt-3">
-						<a href= "../shop/menu" class="mt-3">
-							<button type="button"
-								class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
-						</a>
-					</div>`
-		$(".order-controll").hide();
-		
+		window.location.replace("../shop/");
 	}else{
 		for (let i = 0; i < cartSize; i++) {
 			str +=
 				`
 				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
-				<div class="img" style="background-image: url(../../images/shopSystem/pizza-3.jpg);"></div>
+				<div class="img" style="background-image: url(../images/shopSystem/pizza-3.jpg);"></div>
 				<div class="desc pl-3">
 	      	<div class="d-flex text align-items-center">
 						<div class="col-11">
 							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
 						</div>
 						<span class="price">${salesOrderDetails[i].unitPrice}</span>
-						<div class="col-1 del_btn">
-							<i class="far fa-trash-alt" data-num="${[i]}"></i>
-						</div>
 				</div>
 					<div class="d-block">
 						<select name="quantity" class="ml-3">
@@ -57,23 +74,29 @@ function updateList() {
 			} else {
 				str += `<span>正常起司</span>`
 			}
-			str +=`</div ></div ></div >`;
-			$(".order-controll").show();
-				
+
+			str +=`</div ></div ></div >`
 		}
+		
+
+		
 	}		
 	$(".cartList").html(str);
-	 let cartStr = JSON.stringify(cart);
-	 localStorage.setItem('cartList', cartStr);
 }
 
 
-
-
-function deleteList(num){
-	salesOrderDetails.splice(num, 1);
-	updateList();
-	location.reload();
+ function formInfo(){
+	let deliveryType = cart.needDelivery;
+	if(deliveryType==0){
+		$(":text[name='needDelivery']").val("來店取餐");
+		$(":text[name='deliverAddress']").val(cart.deliverAddress);
+	} else{
+		$(":text[name='needDelivery']").val("外送");
+		$(":text[name='deliverAddress']").val(cart.deliverAddress);
+	}
+	
+	$(":text[name='requireTime']").val(cart.requireTime);
+	
 }
 
 
