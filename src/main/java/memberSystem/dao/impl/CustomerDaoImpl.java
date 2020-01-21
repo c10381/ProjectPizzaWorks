@@ -63,7 +63,17 @@ public class CustomerDaoImpl implements CustomerDao {
 		session.save(mem);
 		return true;
 	}
-
+	//更新會員
+	@Override
+	public boolean updateCustomer(MembersBean mem) {
+		Session session = factory.getCurrentSession();
+		session.update(mem);
+		return true;
+	}
+	
+	
+	
+	
 	@Override
 	public boolean updateInfo(MembersBean mem) {
 		String hql = "from MembersBean where email = :email";

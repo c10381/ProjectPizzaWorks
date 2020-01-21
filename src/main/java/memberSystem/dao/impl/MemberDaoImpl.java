@@ -21,19 +21,19 @@ public class MemberDaoImpl implements MemberDao {
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
-
-	@Override
-	public boolean idExists(String email) {
-		boolean exist = false;
-		Session session = factory.getCurrentSession();		
-//		System.out.println(session.getClass().getName());
-		String queryString = "from members where email = :email";
-		List<?> list = session.createQuery(queryString).setParameter("email", email).list();
-		if (!list.isEmpty()) {
-			exist = true;
-		}
-		return exist;
-	}
+//目前沒用到
+//	@Override
+//	public boolean idExists(String email) {
+//		boolean exist = false;
+//		Session session = factory.getCurrentSession();		
+////		System.out.println(session.getClass().getName());
+//		String queryString = "from members where email = :email";
+//		List<?> list = session.createQuery(queryString).setParameter("email", email).list();
+//		if (!list.isEmpty()) {
+//			exist = true;
+//		}
+//		return exist;
+//	}
 
 	// =====後台註冊=====
 	// 新增一筆Member物件到資料庫
@@ -95,7 +95,7 @@ public class MemberDaoImpl implements MemberDao {
 		return member;
 	}
 
-	// 查詢所有紀錄
+	// 查詢後台所有員工紀錄
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<MembersBean> getAllMembers() {
@@ -107,5 +107,7 @@ public class MemberDaoImpl implements MemberDao {
 							.list();
 		return allMembers;
 	}
-
+	//==ValidationRequest部分==
+	
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import _global.config.util.Encrypted;
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 import memberSystem.dao.CustomerDao;
 import memberSystem.service.MemberService;
 
@@ -80,5 +81,41 @@ public class MemberServiceImpl implements MemberService {
 		map.put("failureEmail", failureEmail);
 		return map;
 	}
-
+	
+	//使用者忘記密碼要求
+	@Transactional
+	@Override
+	public boolean memberFPWrequest(String email) {
+		if(dao.emailExists(email)) {
+			MembersBean mem=dao.getCustomer(email);
+			ValidationRequestBean vrm=new ValidationRequestBean();
+			//把ActiveStatus 3->2(已啟用改成變更密碼狀態)
+			mem.setActiveStatus(2);
+			//變更使用者變更欄位時間
+			mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
+			dao.updateCustomerStatus(mem);
+			
+			//紀錄ValidationRequest表單
+			vrm.setEmail(mem.getEmail());
+			vrm.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
+			vrm.setRequestStatus(3);//1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
+			dao.addCustomerValidationRequest(vrm);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	//這個是要給更新密碼用的
+	@Transactional
+	@Override
+	public MembersBean coworkerUpdPwd(String email,String newPW) {
+		MembersBean mem=dao.getCustomer(email);
+		if(encrypter.getMD5Endocing(newPW).equals(mem.getPassword())) {
+			return null;
+		}
+		mem.setPassword(encrypter.getMD5Endocing(newPW));
+		mem.setActiveStatus(3);
+		dao.updateCustomer(mem);
+		return mem;
+	}
 }
