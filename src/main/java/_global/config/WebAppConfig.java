@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+
+
 @Configuration
 @EnableWebMvc
 @ComponentScan({"shopManageSystem","shopSystem","memberSystem","purchaseSystem",

@@ -7,9 +7,6 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-
-
 <title>新會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
@@ -37,7 +34,7 @@
 				<h1 style="text-align: center">新會員註冊</h1>
 			</div>
 
-			<form method='POST' id="register" class='col-md-6 mx-auto align-items-center'
+			<form method='POST' id="register" class='col-md-4 mx-auto align-items-center'
 				action="${pageContext.request.contextPath}/memberSystem/register">
 				<div class="form-group">
 					<label for="#">* 請輸入註冊信箱：</label> <input id="email" name="email"

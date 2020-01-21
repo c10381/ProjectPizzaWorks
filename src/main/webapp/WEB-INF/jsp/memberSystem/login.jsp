@@ -32,6 +32,7 @@
 
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
 		<div class="login-logo">
 			<a href="../../index2.html"><b>Pizza</b>會員登入</a>
