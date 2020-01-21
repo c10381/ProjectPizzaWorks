@@ -5,10 +5,12 @@
 </head>
 <body>
 	<table border="1" style="margin: 0px auto;">
+	<tr>
+			<th colspan="1">員工端頁面</th>
+		</tr>
 		<tr height="52" bgcolor="lightblue" align="center">
-<<<<<<< HEAD
 			<td width="350"><p align="left" /> <a
-				href='shopManageSystem/products2'>查詢所有產品資料</a><BR></td>
+				href='shopManageSystem/products'>查詢多筆產品資料</a><BR></td>
 			<td width="350"><p align="left" /> <a
 				href='shopManageSystem/products2'>查詢所有產品資料(testing)</a><BR></td>
 		</tr>
@@ -18,30 +20,6 @@
 			<td width="350"><p align="left" /> <a
 				href='shopManageSystem/manage/Login'>後台登入</a><BR></td>
 		</tr>
-	</table>
-
-	<table border="1" style="margin: 0px auto;">
-		<tr>
-			<th colspan="1">Client端頁面</th>
-		</tr>
-		<tr>
-			<td width="350"><p align="left" /> <a href='shop/menu'>查詢所有產品資料</a><BR>
-=======
-			<td width="350"><p align="left" /> <a href='shopManageSystem/products'>查詢多筆產品資料</a><BR>
->>>>>>> feature-memberSystem
-			</td>
-			<td width="350"><p align="left" /> <a href='shop/cart'>購物車資訊</a><BR>
-			</td>
-		</tr>
-<<<<<<< HEAD
-		<tr>
-			<td width="350"><p align="left" /> <a href='shop/'>前台頁面</a><BR>
-			</td>
-			<td width="350"><p align="left" /> <a href='shop/checkout'>結帳頁面</a><BR>
-			</td>
-		</tr>
-
-=======
 		<tr height="52" bgcolor="lightblue" align="center">
 			<td width="350"><p align="left" /> <a href='memberSystem/login'>會員登入</a><BR>
 			</td>
@@ -66,8 +44,25 @@
 			<td width="350"><p align="left" /> <a href='memberSystem/customer_register'>會員註冊</a><BR>
 			</td>
 		</tr>
+	</table>
+
+	<table border="1" style="margin: 0px auto;">
+		<tr>
+			<th colspan="1">Client端頁面</th>
+		</tr>
+		<tr>
+			<td width="350"><p align="left" /> <a href='shop/menu'>查詢所有產品資料</a><BR>
+			<td width="350"><p align="left" /> <a href='shop/cart'>購物車資訊</a><BR>
+			</td>
+		</tr>
+		<tr>
+			<td width="350"><p align="left" /> <a href='shop/'>前台頁面</a><BR>
+			</td>
+			<td width="350"><p align="left" /> <a href='shop/checkout'>結帳頁面</a><BR>
+			</td>
+		</tr>
+
 		
->>>>>>> feature-memberSystem
 	</table>
 </body>
 </html>
