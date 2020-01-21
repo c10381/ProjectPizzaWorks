@@ -1,5 +1,6 @@
 package shopManageSystem.dao.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,9 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		if (pb.getImagePath() != null) {
 			originalProduct.setImagePath(pb.getImagePath());
+		}
+		if(pb.getCoverImage() != null) {
+			originalProduct.setCoverImage(pb.getCoverImage());
 		}
 	}
 

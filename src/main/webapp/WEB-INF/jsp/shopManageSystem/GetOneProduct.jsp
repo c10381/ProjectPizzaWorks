@@ -18,7 +18,7 @@
 </head>
 <body>
 	<section>
-		<div>
+		<div align="left">
 			<div class="container" style="text-align: center">
 				<h2>產品資料</h2>
 			</div>
@@ -26,7 +26,7 @@
 	</section>
 	<section class="container">
 		<form:form method='POST' modelAttribute="product"
-			class='form-horizontal'>
+			class='form-horizontal' enctype="multipart/form-data">
 			<fieldset>
 				<div class="row">
 					<div class="col-md-5">
@@ -81,6 +81,14 @@
 							<form:input type="hidden" path="productId"
 								value="${product.productId}" />
 						</p>
+						
+						<form:input id="productImage" path="productImage" type='file'
+							class='form:input-large' onchange="readURL(this)"
+							targetID="${request.contextPath}/images/Products/${product.imagePath}"
+							accept="image/gif, image/jpeg, image/png" /> <img
+							id="${request.contextPath}/images/Products/${product.imagePath}"
+							src="<c:url value='/picture/${product.productId}'/>" />
+							
 						<p>
 							<a href="<spring:url value='/shopManageSystem/products' />"
 								class="btn btn-default"> <span
@@ -89,18 +97,52 @@
 								id="btnUpdate" type='submit'
 								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
 							</a>
-						</p>
+						</p>					
 					</div>
 				</div>
 			</fieldset>
 		</form:form>
-			<a href="<spring:url value='/shopManageSystem/updateRecipeById?id=${product.productId}' />" 
-				class='btn btn-warning btn-large'> <input
-				id="btnRecipeGet" type='button'
-				class='glyphicon-shopping-cart glyphicon' value="查詢BOM" />
-			</a>
-		
+		<a
+			href="<spring:url value='/shopManageSystem/updateRecipeById?id=${product.productId}' />"
+			class='btn btn-warning btn-large'> <input id="btnRecipeGet"
+			type='button' class='glyphicon-shopping-cart glyphicon' value="查詢BOM" />
+		</a>
+
 	</section>
+	<script>
+		function readURL(input){
+			if(input.files && input.files[0]){
+				var imageTagID = input.getAttribute("targetID");
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					var img = document.getElementById(imageTagID);
+					img.setAttribute("src", e.target.result);
+				}
+			reader.readAsDataURL(input.files[0]);
+			}
+		}												
+		$("#btnUpdatePicture").click(function(){
+			getRecipesTable();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/shopManageSystem/updateRecipeById",
+				data: {"recipes":JSON.stringify(recipes)},
+				type: "POST",
+				error:function(){
+					console.log(JSON.stringify({recipes: recipes}));
+					console.log("Error");
+				},
+				success: function(data){
+					//console.log(recipes);
+					console.log(data);
+				}
+			})
+		})
+						
+		$("#btnUpdate").click(function(){
+			getRecipesTable();
+			recipe_str=recipes.toString();			
+		})
+	</script>
 	<script>
 	function scanCheckBoxStatus(){		
 		if(${product.vegetableOnly}==1){
