@@ -191,4 +191,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return dao.updPwd(email, encrypter.getMD5Endocing(oldPwd), encrypter.getMD5Endocing(newPwd));
 	}
 	
+	@Transactional
+	@Override
+	public boolean resetPwd(String email, String newPwd) {		
+		return dao.resetPwd(email, encrypter.getMD5Endocing(newPwd));
+	}
+	
 }

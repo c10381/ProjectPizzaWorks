@@ -39,5 +39,6 @@ public interface CustomerService {
 	
 	MembersBean login(String email , String pwd);
 	boolean updPwd(String email, String oldPwd, String newPwd);
+	boolean resetPwd(String email, String newPwd );
 	
 }
