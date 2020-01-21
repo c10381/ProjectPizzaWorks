@@ -200,4 +200,26 @@ public class CustomerDaoImpl implements CustomerDao {
 			return status;
 		}		
 	}
+
+	@Override
+	public boolean resetPwd(String email, String newPwd) {
+		boolean status = false;
+		String hql = "from MembersBean where email = :email ";
+		MembersBean member = null;
+		Session session = factory.getCurrentSession();
+		try {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
+		} catch (NoResultException nre) {
+			member = null;
+		}
+		
+		if(member!=null) {
+			member.setPassword(newPwd);
+			session.update(member);
+			status = true;
+			return status;
+		}else {
+			return status;
+		}		
+	}
 }

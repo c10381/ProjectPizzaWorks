@@ -145,19 +145,20 @@ public class CustomerController {
 	}
 
 	// 修改密碼
-	@RequestMapping(value = "memberSystem/doUpdPwd")
+	@RequestMapping(value = "/memberSystem/doUpdPwd")
 	public String doUpdPwd(HttpSession session, @RequestParam(value = "oldPwd") String oldPwd,
 			@RequestParam(value = "newPwd") String newPwd) {
 		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
-		boolean status = service.updPwd(mem.getEmail(), oldPwd, newPwd);
-		if (status) {
+		if (service.updPwd(mem.getEmail(), oldPwd, newPwd)) {			
+			session.setAttribute("CLoginOK", service.getCustomer(mem.getEmail()));
 			return "memberSystem/updateSuccess";
 		} else {
 			return "memberSystem/updateFail";
 		}
 	}
-
-	@RequestMapping(value = "memberSystem/allCustomer")
+	
+	//檢視前台所有顧客
+	@RequestMapping(value = "/memberSystem/allCustomer")
 	public String getAllCustomers(Model model) {
 		List<MembersBean> allCustomers = service.getAllCustomers();
 		model.addAttribute("Customers", allCustomers);
@@ -174,6 +175,23 @@ public class CustomerController {
 			return "memberSystem/ConfirmEmailSuccess";
 		}
 		return "memberSystem/ConfirmEmailFail";
+	}
+	
+	//忘記密碼的重設密碼轉址
+	@RequestMapping(value = "memberSystem/resetPwd")
+	public String resetPwd() {
+		return "memberSystem/resetPwd";
+	}
+		
+	//忘記密碼的重設密碼
+	@RequestMapping(value = "memberSystem/doResetPwd")
+	public String doResetPwd(@RequestParam(value = "email") String email, 
+							@RequestParam(value = "newPwd") String newPwd) {
+		if (service.resetPwd(email, newPwd)) {
+			return "memberSystem/resetSuccess";
+		} else {
+			return "memberSystem/resetFail";
+		}
 	}
 
 	@RequestMapping(value = "memberSystem/forgetpwd")
@@ -198,9 +216,9 @@ public class CustomerController {
 	public String forgetPWvalidationCode(@PathVariable("VCode") String VCode, Model model) {
 		MembersBean mem = service.confirmvalidationCode(VCode);
 		if (mem != null) {
-			model.addAttribute("MembersBean", mem);
-			return "/memberSystem/validationCodeSuccess";
+			model.addAttribute("email", mem.getEmail());
+			return "memberSystem/resetPwd";
 		}
-		return "/memberSystem/validationCodeFail";
+		return "memberSystem/validationCodeFail";
 	}
 }

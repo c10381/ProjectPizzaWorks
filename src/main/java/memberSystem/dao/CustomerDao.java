@@ -34,7 +34,10 @@ public interface CustomerDao {
 	//登入
 	public MembersBean login(String acct, String pwd);
 	
-	public boolean updPwd(String email, String oldPwd, String newPwd);		
+	public boolean updPwd(String email, String oldPwd, String newPwd);	
+	
+	public boolean resetPwd(String email, String newPwd);
+	
 	//=====以下為驗證信部分======
 	//寫入ValidationRequestBean
 	boolean addCustomerValidationRequest(ValidationRequestBean validationRequestBean);
