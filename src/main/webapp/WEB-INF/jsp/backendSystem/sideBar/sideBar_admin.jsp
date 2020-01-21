@@ -10,7 +10,7 @@
 						</p>
 					</div>
 					<ul class="nav nav-treeview">
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+						<li class="nav-item" onclick="loadingPage('/memberSystem/allCustomer')"><div class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>查詢會員資料</p>
 							</div></li>

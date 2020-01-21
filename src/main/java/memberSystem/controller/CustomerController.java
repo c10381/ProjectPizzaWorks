@@ -178,18 +178,17 @@ public class CustomerController {
 
 	@RequestMapping(value = "memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
-		return "memberSystem/forgetPW";
+		return "memberSystem/forgetPWPage";
 	}
-	// Customer忘記密碼
+	// Customer導入忘記密碼
 	// 用AJAX回傳字串，要在回傳物件前加@ResponseBody
-
 	@PostMapping(value = "/memberSystem/forgetPW")
 	public @ResponseBody String forgetPWRequest(@RequestParam(value = "email") String email, Model model,
 			HttpServletRequest request) {
 		if (service.userRequestChangePW(request, email)) {
 			return "OK!";
 		}
-		return "此Email尚未申請會員，請先註冊";
+		return "Failure";
 	}
 
 	// Customer點擊忘記密碼連結
