@@ -1,7 +1,6 @@
 package shopManageSystem.controller;
 
 import java.io.ByteArrayOutputStream;
-<<<<<<<<< Temporary merge branch 1
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,11 +50,7 @@ public class ProductController {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
-<<<<<<<<< Temporary merge branch 1
-
-=========
 	
->>>>>>>>> Temporary merge branch 2
 	@RequestMapping("/shopManageSystem/products")
 	public String productsList(Model model) {
 		List<ProductBean> list = service.getAllProducts();
@@ -233,84 +228,10 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
-			return "shopManageSystem/getProductById?id="+product.getProductId();
+			return "getProductById?id="+product.getProductId();
 		}		
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
 	}
 	
-	@RequestMapping(value = "/picture/{productId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getPicture(@PathVariable Integer productId) {
-		byte[] body = null;
-		ResponseEntity<byte[]> re = null;
-		MediaType mediaType = null;
-		HttpHeaders headers = new HttpHeaders();
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-
-		ProductBean product = service.getProductById(productId);
-		if (product == null) {
-			return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-		}
-		String filename = product.getImagePath();
-		if (filename != null) {
-			if (filename.toLowerCase().endsWith("jfif")) {
-				mediaType = MediaType.valueOf(context.getMimeType("dummy.jpeg"));
-			} else {
-				mediaType = MediaType.valueOf(context.getMimeType(filename));
-				headers.setContentType(mediaType);
-			}
-		}
-		Blob blob = product.getCoverImage();
-		if (blob != null) {
-			body = blobToByteArray(blob);
-		} 
-//		else {
-//			String path = null;
-//			if (product.getGender() == null || product.getGender().length() == 0) {
-//				path = noImageMale;
-//			} else if (product.getGender().equals("M")) {
-//				path = noImageMale;
-//			} else {
-//				path = noImageFemale;
-//				;
-//			}
-//			body = fileToByteArray(path);
-//		}
-		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-
-		return re;
-	}
-	
-	private byte[] fileToByteArray(String path) {
-		byte[] result = null;
-		try (InputStream is = context.getResourceAsStream(path);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-			byte[] b = new byte[819200];
-			int len = 0;
-			while ((len = is.read(b)) != -1) {
-				baos.write(b, 0, len);
-			}
-			result = baos.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	public byte[] blobToByteArray(Blob blob) {
-		byte[] result = null;
-		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-			byte[] b = new byte[819200];
-			int len = 0;
-			while ((len = is.read(b)) != -1) {
-				baos.write(b, 0, len);
-			}
-			result = baos.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-
-	}
->>>>>>>>> Temporary merge branch 2
 }
