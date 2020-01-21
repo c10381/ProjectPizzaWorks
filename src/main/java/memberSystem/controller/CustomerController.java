@@ -48,9 +48,6 @@ public class CustomerController {
 		model.addAttribute("MembersBean", mem);
 		// 登入失敗時，透過此方法取得失敗的值並將對應的訊息塞到下個畫面
 		if (model.getAttribute("errMsg") != null) {
-			System.out.println(model.getAttribute("333"));
-			System.out.println(model.getAttribute("errMsg"));
-			System.out.println(model.getAttribute("333"));
 			if ((int) model.getAttribute("errMsg") == 1) {
 				model.addAttribute("errMsg", "登入失敗：請至信箱透過驗證信啟動會員");
 			} else if ((int) model.getAttribute("errMsg") == 2) {

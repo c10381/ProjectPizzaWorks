@@ -78,6 +78,10 @@
 				<p class="mb-1">
 					<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
 				</p>
+				
+				<p class="mb-1">
+					<a href="${pageContext.request.contextPath}/memberSystem/customer_register">註冊</a>
+				</p>
 
 			<!-- /.login-card-body -->
 		</div>

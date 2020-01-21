@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
     <!-- START navbar -->
 <nav class="navbar navbar-expand-md navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -30,7 +31,7 @@
 				<li class="nav-item active"><a href='<spring:url value="/shop/cart" />'
 					class="nav-link"> <i class="fas fa-shopping-cart"></i>
 				</a></li>
-				<li class="nav-item"><a href="login.html" class="nav-link">登入 / 註冊 </a>
+				<li class="nav-item"><a href="<spring:url value='/memberSystem/login' />" class="nav-link">登入 / 註冊 </a>
 				</li>
 			</ul>
 		</div>
