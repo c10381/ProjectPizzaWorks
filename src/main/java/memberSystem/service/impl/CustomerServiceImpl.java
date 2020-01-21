@@ -38,18 +38,29 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public boolean addCustomer(HttpServletRequest request, MembersBean mem) {		
-		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
+//		mem.setPassword(encrypter.getMD5Endocing(mem.getPassword()));		
 		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));		
 		boolean addStatus=dao.addCustomer(mem);		
 		if(addStatus==true) {
 //			MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 			//寫入ValidationRequestBean
-			ValidationRequestBean requestBean = new ValidationRequestBean();
-			requestBean.setEmail(mem.getEmail());
-			requestBean.setRequestTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
-			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
-			requestBean.setRequestStatus(1);
+//			ValidationRequestBean requestBean = new ValidationRequestBean();
+//			requestBean.setEmail(mem.getEmail());
+//			requestBean.setRequestTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
+//			//RequestStatus:1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
+//			requestBean.setRequestStatus(1);
+//			
+//			//確認validationCode是否獨一無二
+//			String validationCode = "";
+//			List<?> checkVC=null;
+//			do {
+//				validationCode = mailCtxAndUtil.RandomvalidationCode();
+//				checkVC=dao.useValidationCodeGetBean(validationCode);
+//			} while (!checkVC.isEmpty());
+//			
+//			requestBean.setValidationCode(validationCode);
+//			dao.addCustomerValidationRequest(requestBean);
 			
 			//確認validationCode是否獨一無二
 			String validationCode = "";
