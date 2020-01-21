@@ -10,7 +10,7 @@ public interface MemberDao {
 
 	void setFactory(SessionFactory factory);
 
-	boolean idExists(String email);
+//	boolean idExists(String email);
 
 	// 新增一筆Member物件到資料庫
 	int addMember(MembersBean mem);

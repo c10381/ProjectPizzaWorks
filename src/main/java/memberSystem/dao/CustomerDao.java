@@ -22,6 +22,9 @@ public interface CustomerDao {
 	// 新增一筆Customer物件到資料庫
 	public boolean addCustomer(MembersBean mem);
 	
+	//	直接更新這個使用者的Bean
+	boolean updateCustomer(MembersBean mem);
+	
 	// 更新紀錄(給使用者註冊資料用)
 	public boolean updateInfo(MembersBean mem);
 	
@@ -44,5 +47,7 @@ public interface CustomerDao {
 	// 更新MemberBean的activeStatus欄位
 	boolean updateCustomerStatus(MembersBean mem);
 	//=====以上為驗證信部分======
+
+	
 		
 }

@@ -16,6 +16,12 @@ public interface MemberService {
 
 	Map<String, String> addMutipleMember(List<MembersBean> MemberList);
 
+
+	boolean memberFPWrequest(String email);
+
+
+	MembersBean coworkerUpdPwd(String email, String newPW);
+
 //
 //	boolean memFirstLoginChangePW(MembersBean mem, String Password);
 

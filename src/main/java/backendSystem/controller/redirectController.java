@@ -2,6 +2,7 @@ package backendSystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,12 @@ public class redirectController {
 	@PostMapping(value = "/backendSystem/navbar")
 	public String navbar(Model model) {
 		return "backendSystem/navbar";
+	}
+
+	// 轉址(Login 忘記密碼)
+	@GetMapping(value = "/memberSystem/coworkerfPW")
+	public String coworkerForgetPW(Model model) {
+		return "memberSystem/coworkerforgetPWPage";
 	}
 
 	// 轉址(sidebar,判斷權限)
