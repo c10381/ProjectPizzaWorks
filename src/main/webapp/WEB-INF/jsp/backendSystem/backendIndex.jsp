@@ -35,6 +35,7 @@
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<!-- import navbar(use request),change the color in Jsp -->
+		<!--  /backendSystem/navbar-->
 		<jsp:include page="/backendSystem/navbar" />
 
 

@@ -2,6 +2,7 @@ package shopManageSystem.service;
 
 import java.util.List;
 
+import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
 import _model.SalesOrderBean;
@@ -18,6 +19,7 @@ public interface ProductService {
 	void updateOneProduct(ProductBean pb);
 
 	List<SalesOrderBean> getAllSalesOrders();
+	
 	List<RecipeBean> getRecipeById(Integer id);
 
 	void updateOneRecipe(RecipeBean recipe);
@@ -25,4 +27,10 @@ public interface ProductService {
 	void updateOneRecipeJson(Double quantity, Integer productId, Integer materialsId);
 
 	SalesOrderBean getSalesOrderById(Integer salesOrderId);
+
+	ProductBean addRecipes(List<RecipeBean> recipes);
+
+	List<MaterialsBean> getAllMaterials();
+
+	List<Object> getSalesOrderDetails(Integer salesOrderId);
 }

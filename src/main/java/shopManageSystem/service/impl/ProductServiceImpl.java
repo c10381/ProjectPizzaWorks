@@ -1,5 +1,6 @@
 package shopManageSystem.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,9 +8,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import _model.CrustBean;
+import _model.MaterialsBean;
 import _model.ProductBean;
-import _model.SalesOrderBean;
 import _model.RecipeBean;
+import _model.SalesOrderBean;
+import _model.SalesOrderDetailBean;
 import shopManageSystem.dao.ProductDao;
 import shopManageSystem.service.ProductService;
 
@@ -38,6 +42,9 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void updateOneProduct(ProductBean pb) {
+		if(pb.getActiveStatus() == null) {
+			pb.setActiveStatus(0);
+		}
 		dao.updateOneProduct(pb);
 	}
 	
@@ -59,8 +66,6 @@ public class ProductServiceImpl implements ProductService {
 		dao.updateOneRecipeJson(quantity, productId, materialsId);
 	}
 	
-	
-
 	@Transactional
 	@Override
 	public List<SalesOrderBean> getAllSalesOrders(){
@@ -71,5 +76,46 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public SalesOrderBean getSalesOrderById(Integer salesOrderId) {
 		return dao.getSalesOrderById(salesOrderId);
+		
+	}
+	
+	@Transactional
+	@Override
+	public ProductBean addRecipes(List<RecipeBean> recipes) {
+		ProductBean product_temp = new ProductBean("PlaceHolderName", "PlaceHoldingInfo", 100, 0, 0, 0, 0, 0, 0, 0, "PlaceHoldingPath");
+		product_temp = dao.InsertProduct(product_temp);
+		for(RecipeBean recipe: recipes) {
+			recipe.setProductId(product_temp.getProductId());
+		}
+		dao.InsertRecipes(recipes);
+		return product_temp;
+	}
+	
+	@Transactional
+	@Override
+	public List<MaterialsBean> getAllMaterials(){
+		return dao.getAllMaterials();
+	}
+	
+	@Transactional
+	@Override
+	public List<Object> getSalesOrderDetails(Integer salesOrderId) {
+		SalesOrderBean salesOrder = dao.getSalesOrderById(salesOrderId);
+		List<ProductBean> products = new ArrayList<>();
+		List<CrustBean> crusts = new ArrayList<>();
+		for(SalesOrderDetailBean saleOrderDetail: salesOrder.getSalesOrderDetails()) {
+			ProductBean product = new ProductBean();
+			product = dao.getProductById(saleOrderDetail.getProductId());
+			products.add(product);
+			
+			CrustBean crust = new CrustBean();
+			crust = dao.getCrustByTypeId(saleOrderDetail.getCrustTypeId()).get(0);
+			crusts.add(crust);
+		}
+		List<Object> output = new ArrayList<>();
+		output.add(salesOrder);
+		output.add(products);
+		output.add(crusts);
+		return output;
 	}
 }

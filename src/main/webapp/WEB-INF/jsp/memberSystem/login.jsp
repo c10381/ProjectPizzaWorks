@@ -32,6 +32,7 @@
 
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
 		<div class="login-logo">
 			<a href="../../index2.html"><b>Pizza</b>會員登入</a>
@@ -77,6 +78,10 @@
 
 				<p class="mb-1">
 					<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
+				</p>
+				
+				<p class="mb-1">
+					<a href="${pageContext.request.contextPath}/memberSystem/customer_register">註冊</a>
 				</p>
 
 			<!-- /.login-card-body -->

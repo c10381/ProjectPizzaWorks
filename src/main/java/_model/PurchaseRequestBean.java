@@ -21,13 +21,14 @@ public class PurchaseRequestBean implements Serializable{
 	private String responseComment;
 	private Timestamp responseTime;
 	private Timestamp readTime;
-	private double totalPrice;
+	private Integer requestStatus;
+	private Double totalPrice;
 	
 	public PurchaseRequestBean() {
 	}
 
 	public PurchaseRequestBean(Integer proposalerId, Timestamp requestTime, String purchaseReason, Integer approverId,
-			String responseComment, Timestamp responseTime, Timestamp readTime, double totalPrice) {
+			String responseComment, Timestamp responseTime, Timestamp readTime, Integer requestStatus, Double totalPrice) {
 		super();
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
@@ -37,6 +38,7 @@ public class PurchaseRequestBean implements Serializable{
 		this.responseTime = responseTime;
 		this.readTime = readTime;
 		this.totalPrice = totalPrice;
+		this.setRequestStatus(requestStatus);
 	}
 
 	@Id
@@ -105,11 +107,19 @@ public class PurchaseRequestBean implements Serializable{
 		this.purchaseReason = purchaseReason;
 	}
 
-	public double getTotalPrice() {
+	public Double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(double totalPrice) {
+	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public Integer getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Integer requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 }

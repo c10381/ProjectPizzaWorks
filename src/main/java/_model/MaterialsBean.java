@@ -14,7 +14,7 @@ public class MaterialsBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer materialsId;
 	private String materialsName;
-	private double quantity;
+	private Double quantity;
 	private Integer reorderLevel;
 	private Integer	supplierId;
 	private Integer unitOnOrder;
@@ -22,7 +22,7 @@ public class MaterialsBean implements Serializable{
 	
 	public MaterialsBean() {}
 
-	public MaterialsBean(String materialsName, double quantity, Integer reorderLevel, Integer supplierId,
+	public MaterialsBean(String materialsName, Double quantity, Integer reorderLevel, Integer supplierId,
 			Integer unitOnOrder, String unit) {
 		this.materialsName = materialsName;
 		this.quantity = quantity;
@@ -50,11 +50,11 @@ public class MaterialsBean implements Serializable{
 		this.materialsName = materialsName;
 	}
 
-	public double getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(double quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 

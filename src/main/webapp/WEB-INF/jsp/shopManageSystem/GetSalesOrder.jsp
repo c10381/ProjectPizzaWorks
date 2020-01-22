@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>SalesOrder</title>
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/styles.css'
-	type="text/css" />
 <script>
 	
 </script>
@@ -37,52 +32,51 @@
 								value="${salesOrder.salesOrderId}" />
 						</p>
 						<h3>
-							訂購人編號：
-							<form:input id="memberId" type='text' path="memberId"
-								value="${salesOrder.memberId}" class='form:input-large' />
+							訂購人編號：${salesOrder.memberId}
 						</h3>
 						<p>
-							訂購時間：
-							<form:input type="text" path="orderTime"
-								value="${salesOrder.orderTime}" class='form:input-large' />
+							訂購時間：${salesOrder.orderTime}
 						</p>
 						<p>
-							取貨時間：
-							<form:input type="text" path="requireTime"
-								value="${salesOrder.requireTime}" class='form:input-large' />
+							取貨時間：${salesOrder.requireTime}
 						</p>
 						<p>
-							是否需要外送：
-							<form:input type="text" path="needDelivery"
-								value="${salesOrder.needDelivery}" class='form:input-large' />
+							是否需要外送：${salesOrder.needDelivery}
 						</p>
 						<p>
-							外送地址：
-							<form:input type="text" path="deliverAddress"
-								value="${salesOrder.deliverAddress}" class='form:input-large' />
+							外送地址：${salesOrder.deliverAddress}
 						</p>
 						<p>
-							總價：
-							<form:input type="text" path="totalSales"
-								value="${salesOrder.totalSales}" class='form:input-large' />
+							總價：${salesOrder.totalSales}
+						</p>
+						<p>
+							訂單狀態：${salesOrder.orderStatus}
+						</p>
+						<p>
+							備註：${salesOrder.note}
 						</p>
 						<table>
-							<c:forEach var='salesOrderDetail' items='${salesOrder.salesOrderDetails}'>
+						<tr>
+						<th>產品名稱</th>
+						<th>產品單價</th>
+						<th>總數</th>
+						<th>是否要加雙倍起司</th>
+						<th>餅皮</th>
+						<th>折扣</th>
+						</tr>
+							<c:forEach var='salesOrderDetail' items='${salesOrder.salesOrderDetails}' varStatus="i">
 								<tr>
-									<td><b style='font-size: 16px;'>${salesOrderDetail.productId}</b></td>
-									<td><input type="text" value='${salesOrderDetail.unitPrice}' name='unitPrice'></td>
-									<td><input type="text" value='${salesOrderDetail.quantity}' name='quantity'></td>
-									<td><input type="text" value='${salesOrderDetail.doubleCheese}' name='doubleCheese'></td>
-									<td><input type="text" value='${salesOrderDetail.crustTypeId}' name='crustTypeId'></td>
-									<td><input type="text" value='${salesOrderDetail.discount}' name='discount'></td>
+									<td><b style='font-size: 16px;'>${products[i.index].productName}</b></td>
+									<td>${salesOrderDetail.unitPrice}</td>
+									<td>${salesOrderDetail.quantity}</td>
+									<td>${salesOrderDetail.doubleCheese}</td>
+									<td>${crusts[i.index].crustTypeName}</td>
+									<td>${salesOrderDetail.discount}</td>
 								</tr>
 							</c:forEach>
 						</table>
 						<p>
-							<a href="<spring:url value='/shopManageSystem/salesOrders'/>"
-								class="btn btn-default"> <span
-								class="glyphicon-hand-left glyphicon"></span>返回
-							</a>
+							<button onclick="loadingPage('/shopManageSystem/salesOrders')">返回</button>
 							<!-- <a href='#' class='btn btn-warning btn-large'> <input
 								id="btnUpdate" type='submit'
 								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
@@ -112,6 +106,7 @@
 		}
 	}
 	scanCheckBoxStatus();
+	
 	</script>
 </body>
 </html>
