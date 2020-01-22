@@ -6,34 +6,18 @@
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
 <title>忘記密碼</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- icheck bootstrap -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/icheck-bootstrap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/adminlte.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
 
 </head>
 
 <body class="hold-transition login-page">
-	<div class="login-box">
+	<div class="login-box" style="width: 30%; margin:auto;">
+		<!-- 佔位子用的 -->
+		<div style="height: 30px; margin:auto;"></div>
 		<div class="login-logo">
-			<a href="../../index2.html"><b>Pizza後台忘記密碼請求</b></a>
+			<a href="../../index2.html"><b>更改密碼</b></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="card">
@@ -44,10 +28,10 @@
 					action="${pageContext.request.contextPath}/memberSystem/coworkerchangePW"
 					method="Post">
 					<input type="hidden" class="form-control" id="email" name="email"
-						value="${email}">
+						value="${Mem_LoginOK.email}">
 
 					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="請輸入密碼"
+						<input type="password" class="form-control" placeholder="請輸入新密碼"
 							id="password" name="password">
 						<div class="input-group-append">
 							<div class="input-group-text">
@@ -56,7 +40,7 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="確認密碼"
+						<input type="password" class="form-control" placeholder="請重新輸入新密碼"
 							id="Compassword" name="comfirmPassword">
 						<div class="input-group-append">
 							<div class="input-group-text">
@@ -85,16 +69,29 @@
 		</div>
 	</div>
 	<!-- /.login-box -->
+	<script>
+	/* function submit(){
 
-
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
+		$.ajax({
+            contentType : 'application/json; charset=utf-8',
+            type: "POST",
+            url:'${pageContext.request.contextPath}/memberSystem/coworkerchangePW',
+            dataType : 'json',
+            data : {
+                "email":$("#email").val(),
+                "password":$("#password").val(),
+                "comfirmPassword":$("#Compassword").val(),
+                },
+            success : 
+            	window.location.replace(data);,
+            error : function(){
+                console.log(callback);
+            }
+        });
+ */
+		
+		}
+	</script>
 </body>
 
 </html>

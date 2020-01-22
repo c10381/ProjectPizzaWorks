@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 import memberSystem.dao.MemberDao;
 
 @Repository
@@ -109,5 +110,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	//==ValidationRequest部分==
 	
+	// 使用Email拿ValidationRequestBean
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ValidationRequestBean> getValidationRequestByrequestStatus(Integer[] requestStatus) {
+		String hql = "from ValidationRequestBean where requestStatus in (:requestStatus)";
+		Session session = factory.getCurrentSession();
+		List<ValidationRequestBean> lvrb = session.createQuery(hql).setParameterList("requestStatus", requestStatus)
+				.getResultList();
+		return lvrb;
+	}
+	
+	//==/ValidationRequest部分==
 	
 }

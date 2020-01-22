@@ -46,7 +46,7 @@ public interface CustomerDao {
 	//利用validationCode取得List<ValidationRequestBean>(可用來判斷有沒有資料)
 	List<ValidationRequestBean> useValidationCodeGetBean(String validationCode);
 	//使用Email拿單獨的的ValidationRequestBean(目前未用)
-	ValidationRequestBean getCustomerValidationRequest(String email);
+	public List<ValidationRequestBean> getValidationRequestBean(String email);
 	// 更新MemberBean的activeStatus欄位
 	boolean updateCustomerStatus(MembersBean mem);
 	//=====以上為驗證信部分======

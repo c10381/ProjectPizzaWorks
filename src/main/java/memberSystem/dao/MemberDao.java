@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 
 public interface MemberDao {
 
@@ -26,4 +27,6 @@ public interface MemberDao {
 	
 	// 查詢所有紀錄
 	public List<MembersBean> getAllMembers();
+
+	List<ValidationRequestBean> getValidationRequestByrequestStatus(Integer[] requestStatus);
 }

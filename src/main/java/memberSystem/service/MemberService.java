@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import _model.MembersBean;
+import _model.ValidationRequestBean;
 import memberSystem.dao.CustomerDao;
+import memberSystem.dao.MemberDao;
 
 public interface MemberService {
 
-	void setDao(CustomerDao dao);
+	void setCustomerDao(CustomerDao Custdao);
 
+	void setMemberDao(MemberDao Memdao);
 
 	int addMember(MembersBean mem);
 
@@ -21,6 +24,11 @@ public interface MemberService {
 
 
 	MembersBean coworkerUpdPwd(String email, String newPW);
+
+
+	List<ValidationRequestBean> SearchValidationRequestBeans(Integer... requestStatus);
+
+
 
 //
 //	boolean memFirstLoginChangePW(MembersBean mem, String Password);

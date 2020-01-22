@@ -2,12 +2,16 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="ValidationRequest")
@@ -21,6 +25,7 @@ public class ValidationRequestBean implements Serializable{
 	private String responseTime;
 	private Integer requestStatus;
 	private String validationCode;
+	private MembersBean approver;
 	
 	public ValidationRequestBean() {
 
@@ -63,7 +68,8 @@ public class ValidationRequestBean implements Serializable{
 	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
 	}
-
+	
+	@Transient
 	public Integer getApproverId() {
 		return approverId;
 	}
@@ -103,6 +109,16 @@ public class ValidationRequestBean implements Serializable{
 
 	public void setValidationCode(String validationCode) {
 		this.validationCode = validationCode;
+	}
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="appoverId")
+	public MembersBean getApprover() {
+		return approver;
+	}
+
+	public void setApprover(MembersBean approver) {
+		this.approver = approver;
 	}
 	
 }

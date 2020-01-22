@@ -61,9 +61,9 @@
 			class="badge badge-warning navbar-badge"></span>
 	</a>
 		<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-			<a href="#" class="dropdown-item"> <i class="fas fa-key"></i>
+			<div onclick="loadingPage('/memberSystem/memberPW')" class="dropdown-item"> <i class="fas fa-key"></i>
 				修改密碼
-			</a>
+			</div>
 			<div class="dropdown-divider"></div>
 			<a href="${pageContext.request.contextPath}/logout" class="dropdown-item"> <i class="fas fa-door-open"></i>
 				登出

@@ -53,8 +53,8 @@ public class MemberController {
 			return "backendSystem/coworkerLogin";
 		}
 		MembersBean bean = Custservice.login(email, password);
-
-		if (bean.getPrivilegeId() == 1) {
+		
+		if (bean==null||bean.getPrivilegeId() == 1) {
 			model.addAttribute("errorMessage", "此帳號不存在，請重新輸入！");
 			return "backendSystem/coworkerLogin";
 		} else if (bean.getActiveStatus() == 1) {
@@ -146,4 +146,14 @@ public class MemberController {
 	
 	// ==/變更密碼區/==
 
+	// ==拿ValidationRequest==
+	
+	@GetMapping(value = "memberSystem/searchCoworkerStatus")
+	public String coworkerchangePW(Model model) {
+		model.addAttribute("List", memService.SearchValidationRequestBeans(1,3));
+		return "memberSystem/coworkerCPWReq";
+	}
+	
+	// ==/變更密碼區/==
+	
 }

@@ -38,7 +38,7 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>新進員工註冊</p>
 							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+						<li class="nav-item" onclick="loadingPage('/memberSystem/searchCoworkerStatus')"><div class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>員工管理</p>
 							</div></li>

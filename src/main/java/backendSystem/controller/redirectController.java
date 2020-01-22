@@ -25,10 +25,15 @@ public class redirectController {
 		return "backendSystem/navbar";
 	}
 
-	// 轉址(Login 忘記密碼)
+	// 轉址(Login 忘記密碼請求)
 	@GetMapping(value = "/memberSystem/coworkerfPW")
 	public String coworkerForgetPW(Model model) {
 		return "memberSystem/coworkerforgetPWPage";
+	}
+	// 轉址(忘記密碼)
+	@GetMapping(value = "/memberSystem/memberPW")
+	public String memberPW(Model model) {
+		return "memberSystem/MemberPWPage";
 	}
 
 	// 轉址(sidebar,判斷權限)

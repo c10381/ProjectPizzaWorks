@@ -152,13 +152,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		return true;
 	}
 
-	// 使用Email拿單獨的的ValidationRequestBean(目前未用)
+	// 使用Email拿ValidationRequestBean
 	@Override
-	public ValidationRequestBean getCustomerValidationRequest(String email) {
-		ValidationRequestBean vrb = null;
+	@SuppressWarnings("unchecked")
+	public List<ValidationRequestBean> getValidationRequestBean(String email) {
+		String hql = "from ValidationRequestBean where email = :email";
 		Session session = factory.getCurrentSession();
-		vrb = session.get(ValidationRequestBean.class, email);
-		return vrb;
+		List<ValidationRequestBean> lvrb = session.createQuery(hql).setParameter("email", email)
+				.getResultList();
+		return lvrb;
 	}
 
 	// =============以上為驗證信部分================

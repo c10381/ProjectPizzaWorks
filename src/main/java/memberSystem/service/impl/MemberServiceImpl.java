@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+
 import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
 import memberSystem.dao.CustomerDao;
+import memberSystem.dao.MemberDao;
 import memberSystem.service.MemberService;
 
 //這裡是後台的會員系統
@@ -21,13 +24,20 @@ import memberSystem.service.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	private CustomerDao dao;
+	private CustomerDao Custdao;
+	private MemberDao Memdao;
+	
 	private Encrypted encrypter;
 
 	@Override
 	@Autowired
-	public void setDao(CustomerDao dao) {
-		this.dao = dao;
+	public void setCustomerDao(CustomerDao Custdao) {
+		this.Custdao = Custdao;
+	}
+	@Override
+	@Autowired
+	public void setMemberDao(MemberDao Memdao) {
+		this.Memdao = Memdao;
 	}
 
 	// 單筆會員註冊
@@ -36,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int addMember(MembersBean mem) {
 
-		boolean Exists = dao.emailExists(mem.getEmail());
+		boolean Exists = Custdao.emailExists(mem.getEmail());
 		if (Exists == true) {
 			return 1;
 		}
@@ -44,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
 		mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 		mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));
 		try {
-			boolean addStatus = dao.addCustomer(mem);
+			boolean addStatus = Custdao.addCustomer(mem);
 		} catch (Exception e) {
 			return 0;
 		}
@@ -60,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
 		String failureEmail = "";
 
 		for (MembersBean mem : MemberList) {
-			boolean Exists = dao.emailExists(mem.getEmail());
+			boolean Exists = Custdao.emailExists(mem.getEmail());
 			if (Exists == true) {
 				failure++;
 				failureEmail += mem.getEmail() + " ";
@@ -70,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 			mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
 			mem.setRegisteredTime(String.valueOf(new Timestamp(new Date().getTime())));
 			mem.setActiveStatus(1);
-			if (dao.addCustomer(mem)) {
+			if (Custdao.addCustomer(mem)) {
 				success++;
 			}
 			;
@@ -86,20 +96,20 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public boolean memberFPWrequest(String email) {
-		if(dao.emailExists(email)) {
-			MembersBean mem=dao.getCustomer(email);
+		if(Custdao.emailExists(email)) {
+			MembersBean mem=Custdao.getCustomer(email);
 			ValidationRequestBean vrm=new ValidationRequestBean();
 			//把ActiveStatus 3->2(已啟用改成變更密碼狀態)
 			mem.setActiveStatus(2);
 			//變更使用者變更欄位時間
 			mem.setModifiedTime(String.valueOf(new Timestamp(new Date().getTime())));
-			dao.updateCustomerStatus(mem);
+			Custdao.updateCustomerStatus(mem);
 			
 			//紀錄ValidationRequest表單
 			vrm.setEmail(mem.getEmail());
 			vrm.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
 			vrm.setRequestStatus(3);//1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
-			dao.addCustomerValidationRequest(vrm);
+			Custdao.addCustomerValidationRequest(vrm);
 			return true;
 		}else {
 			return false;
@@ -109,13 +119,30 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public MembersBean coworkerUpdPwd(String email,String newPW) {
-		MembersBean mem=dao.getCustomer(email);
+		MembersBean mem=Custdao.getCustomer(email);
 		if(encrypter.getMD5Endocing(newPW).equals(mem.getPassword())) {
 			return null;
 		}
 		mem.setPassword(encrypter.getMD5Endocing(newPW));
 		mem.setActiveStatus(3);
-		dao.updateCustomer(mem);
+		Custdao.updateCustomer(mem);
+		
+		List<ValidationRequestBean>  lvrm=Custdao.getValidationRequestBean(email);
+		if(!lvrm.isEmpty()) {
+			//拿最後一顆，未來可能要改寫
+			ValidationRequestBean vrm=lvrm.get(lvrm.size()-1);
+			vrm.setRequestStatus(4);
+			Custdao.updateCustomerValidationRequest(vrm);
+		}
 		return mem;
+	}
+	
+	//這個是要利用requestStatus拿到ValidationRequestBeans
+	@Transactional
+	@Override
+	public List<ValidationRequestBean> SearchValidationRequestBeans(Integer... requestStatus) {
+		List<ValidationRequestBean>  lvrm=Memdao.getValidationRequestByrequestStatus(requestStatus);
+		
+		return lvrm;
 	}
 }
