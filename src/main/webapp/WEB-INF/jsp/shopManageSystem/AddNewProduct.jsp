@@ -5,8 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<meta charset="UTF-8"><!-- 
+<script src="http://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
 <title>Product</title>
 <script>
 	

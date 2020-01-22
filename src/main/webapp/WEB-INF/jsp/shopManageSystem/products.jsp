@@ -9,9 +9,9 @@
 <!-- 
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
-	 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<!-- 	 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
 <title>Products</title>
 </head>
 <body>
