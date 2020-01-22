@@ -50,7 +50,7 @@
 						(至少8碼，最多20碼，需包含大小寫英數字且不可含特殊字元) </small>
 				</div>
 				<div class="form-group">
-					<label>* 請再次輸入密碼 ：</label> <input id='validpwd' name="validpwd"
+					<label for="validpwd">* 請再次輸入密碼 ：</label> <input id='validpwd' name="validpwd"
 						type="password" placeholder='請再次輸入密碼' required='required'
 						maxlength='20'
 						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" />
@@ -58,6 +58,7 @@
 				</div>
 				<br> <input id='btnAdd' type="submit" value="送出" disabled /> <input
 					id='btnReset' type="reset" value="重填" />
+				<input type='button' id='btnAuto' value="一鍵輸入" />
 			</form>
 		</div>
 	</section>
@@ -72,6 +73,14 @@
 <!-- ----- -->
 	<script type="text/javascript">
 		$(function() {
+					
+			$("#btnAuto").click(function(){
+				$("#email").val("iiiedujava@gmail.com");
+				$("#password").val("Andy8104");
+				$("#validpwd").val("Andy8104");
+				$("#btnAdd").prop("disabled", false);
+			})
+						
 			$("#password").change(function() {
 				var pwd1 = $("#password").val();
 				var pwd2 = $("#validpwd").val();
@@ -90,7 +99,7 @@
 					$("#btnAdd").prop("disabled", false);
 				}
 			})
-
+						
 			$("#validpwd").change(function() {
 				var pwd1 = $("#password").val();
 				var pwd2 = $("#validpwd").val();
@@ -109,6 +118,25 @@
 					$("#btnAdd").prop("disabled", false);
 				}
 			})
+			
+			$("#register").submit(function() {
+				var pwd1 = $("#password").val();
+				var pwd2 = $("#validpwd").val();
+				if (pwd2 != pwd1) {
+					$("#btnAdd").prop("disabled", true);
+					var errMsgP = document.createElement("span");
+					$("#errbox").append(errMsgP);
+					$("#errbox > span").attr("id", "errMsg");
+					$("#errMsg").text("密碼不一致，請確認您的輸入！");
+					$("#errMsg").attr({
+						"class" : "text",
+						"class" : "text-danger"
+					})
+				} else {
+					$("#errMsg").remove();
+					$("#btnAdd").prop("disabled", false);
+				}
+			})			
 		})
 	</script>
 </body>

@@ -35,6 +35,7 @@ public class CustomerController {
 	// 轉址,未來找地方放? 註冊轉址
 	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
+		
 		if (model.getAttribute("errMsg") != null) {
 			model.addAttribute("errMsg", "該信箱已註冊，請至登入畫面進行登入");
 		}
@@ -62,6 +63,12 @@ public class CustomerController {
 	// 會員資料更新轉址
 	@RequestMapping(value = "/memberSystem/infoUpdate")
 	public String infoUpdate(Model model, HttpSession session) {
+		
+		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
+		if(mem1 == null) {
+			return "memberSystem/login";
+		}
+		
 		MembersBean mem = new MembersBean();
 		model.addAttribute("MembersBean", mem);
 		return "memberSystem/infoUpdate";
@@ -88,8 +95,7 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/memberSystem/loginCheck", method = RequestMethod.POST)
-	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpSession session,
-			RedirectAttributes ra) {
+	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpSession session) {
 
 		MembersBean bean = service.login(mem.getEmail(), mem.getPassword());
 		if (bean != null) {
@@ -101,31 +107,30 @@ public class CustomerController {
 			}
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
 				model.addAttribute("errMsg", 1);
-				ra.addFlashAttribute("errMsg", 1);
-				System.out.println(model.getAttribute("errMsg"));
-				return "redirect: login";
+				return "memberSystem/login";
 
 				// 會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入
 			} else {
 				model.addAttribute("errMsg", 2);
-				ra.addFlashAttribute("errMsg", 2);
-				System.out.println(model.getAttribute("errMsg"));
-				return "redirect: login";
+				return "memberSystem/login";
 			}
 
 			// 因為bean取到空值表示根本不是會員，透過errMsg告知使用者進行註冊
 		} else {
 			model.addAttribute("errMsg", 3);
-			ra.addFlashAttribute("errMsg", 3);
-			System.out.println(model.getAttribute("errMsg"));
-			return "redirect: login";
+			return "memberSystem/login";
 		}
 	}
 
 	//
 	@RequestMapping(value = "/memberSystem/doupdate")
 	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, HttpSession session) {
+					
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
+		if(mem1 == null) {
+			return "memberSystem/login";
+		}
+		
 		mem1.setCellphone(mem.getCellphone());
 		mem1.setAddress(mem.getAddress());
 		if (service.updateInfo(mem1)) {
@@ -137,7 +142,11 @@ public class CustomerController {
 
 	// 修改密碼轉址
 	@RequestMapping(value = "/memberSystem/updPwd")
-	public String updPwd(Model model) {
+	public String updPwd(Model model, HttpSession session) {
+		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
+		if(mem1 == null) {
+			return "memberSystem/login";
+		}		
 		return "memberSystem/updPwd";
 	}
 
@@ -146,6 +155,10 @@ public class CustomerController {
 	public String doUpdPwd(HttpSession session, @RequestParam(value = "oldPwd") String oldPwd,
 			@RequestParam(value = "newPwd") String newPwd) {
 		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
+		if(mem == null) {
+			return "memberSystem/login";
+		}
+				
 		if (service.updPwd(mem.getEmail(), oldPwd, newPwd)) {			
 			session.setAttribute("CLoginOK", service.getCustomer(mem.getEmail()));
 			return "memberSystem/updateSuccess";
@@ -156,7 +169,16 @@ public class CustomerController {
 	
 	//檢視前台所有顧客
 	@RequestMapping(value = "/memberSystem/allCustomer")
-	public String getAllCustomers(Model model) {
+	public String getAllCustomers(Model model, HttpSession session) {
+		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
+		if(mem == null) {
+			return "memberSystem/login";
+		}
+		
+		if(mem.getPrivilegeId()!=2) {
+			return "index";
+		}
+		
 		List<MembersBean> allCustomers = service.getAllCustomers();
 		model.addAttribute("Customers", allCustomers);
 		return "memberSystem/allCustomer";
