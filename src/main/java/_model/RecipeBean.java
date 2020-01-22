@@ -11,15 +11,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="Recipe")
 public class RecipeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer recipeId;
-//	private Integer productId;
-//	private Integer materialsId;
-	private double quantity;
+	private Integer productId;
+	private Integer materialsId;
+	private Double quantity;
 	private String unit;
 	
 	private ProductBean product;
@@ -28,11 +29,17 @@ public class RecipeBean implements Serializable{
 	
 	public RecipeBean() {}
 	
-	public RecipeBean(double quantity, String unit) {
+	public RecipeBean(Double quantity, String unit) {
 		this.quantity = quantity;
 		this.unit = unit;
 	}
 	
+	public RecipeBean(Integer productId, Integer materialsId, Double quantity, String unit) {
+		this.productId = productId;
+		this.materialsId = materialsId;
+		this.quantity = quantity;
+		this.unit = unit;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getRecipeId() {
@@ -43,27 +50,29 @@ public class RecipeBean implements Serializable{
 		this.recipeId = recipeId;
 	}
 	
-//	public Integer getProductId() {
-//		return productId;
-//	}
-//
-//	public void setProductId(Integer productId) {
-//		this.productId = productId;
-//	}
+	@Transient
+	public Integer getProductId() {
+		return productId;
+	}
 
-//	public Integer getMaterialsId() {
-//		return materialsId;
-//	}
-//
-//	public void setMaterialsId(Integer materialsId) {
-//		this.materialsId = materialsId;
-//	}
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+	
+	@Transient
+	public Integer getMaterialsId() {
+		return materialsId;
+	}
 
-	public double getQuantity() {
+	public void setMaterialsId(Integer materialsId) {
+		this.materialsId = materialsId;
+	}
+
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(double quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 

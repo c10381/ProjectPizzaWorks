@@ -53,7 +53,9 @@ public class MemberController {
 			return "backendSystem/coworkerLogin";
 		}
 		MembersBean bean = Custservice.login(email, password);
-
+		System.out.println(bean.getEmail());
+		System.out.println(bean.getFirstName());
+		
 		if (bean.getPrivilegeId() == 1) {
 			model.addAttribute("errorMessage", "此帳號不存在，請重新輸入！");
 			return "backendSystem/coworkerLogin";
@@ -141,7 +143,7 @@ public class MemberController {
 			return "memberSystem/coworkerChangePWPage";
 		}
 		model.addAttribute("Mem_LoginOK",mem);
-		return "backendSystem/coworkerLogin";
+		return "backendSystem/backendIndex";
 	}
 	
 	// ==/變更密碼區/==

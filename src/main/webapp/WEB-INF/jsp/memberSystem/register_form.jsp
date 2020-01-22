@@ -6,6 +6,11 @@
 <html>
 <head>
 
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<style type="text/css">
+</style>
 <title>會員註冊</title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">

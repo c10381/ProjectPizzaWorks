@@ -24,7 +24,7 @@
 			<c:forEach var='product' items='${products}'>
 				<tr>
 					<td><img width='200' height='200'
-						src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" />
+						src="<c:url value='${pageContext.request.contextPath}/product/picture/${product.productId}'/>" />
 					</td>
 					<td><b style='font-size: 16px;'>${product.productName}</b></td>
 					

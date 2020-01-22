@@ -7,6 +7,9 @@
 <html>
 <head>
 
+<meta charset="UTF-8">
+
+
 <title>新會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
