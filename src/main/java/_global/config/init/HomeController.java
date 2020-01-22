@@ -9,7 +9,7 @@ public class HomeController {
 	//index Page
 	@RequestMapping("/")
 	public String home(){
-		return "index";
+		return "shopSystem/index";
 	}
 	
 	//404 Page
@@ -18,9 +18,9 @@ public class HomeController {
 		return "_global/PageNoFound";
 	}
 	
-	@RequestMapping("/shopManageSystem/SalesManageIndex")
+	@RequestMapping("/admin")
 	public String directSalesManageIndex() {
-		return "shopManageSystem/SalesManageIndex";
+		return "backendSystem/coworkerLogin";
 	}
 	
 	@RequestMapping(value="/customer_register")

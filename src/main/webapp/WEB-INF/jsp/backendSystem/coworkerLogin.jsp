@@ -35,7 +35,7 @@
 		<div class="card">
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">${errorMessage}</p>
-				<form action="${pageContext.request.contextPath}/backendSystem/loginCheck" method="post">
+				<form action="${pageContext.request.contextPath}/backendSystem/" method="post">
 					<div class="input-group mb-3">
 						<input type="email" class="form-control" placeholder="Email" name="email">
 						<div class="input-group-append">

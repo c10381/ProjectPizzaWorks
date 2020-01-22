@@ -42,7 +42,7 @@ public class MemberController {
 	// 驗證密碼
 	// 驗證成功進入後端頁面
 	// 驗證失敗重新導入此頁面,並顯示錯誤訊息
-	@PostMapping("/backendSystem/loginCheck")
+	@PostMapping("/backendSystem/")
 	public String Login(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
 			HttpServletResponse response) {
 		System.out.println(email);
