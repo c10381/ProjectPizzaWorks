@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
+import _model.CrustBean;
 import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
@@ -35,5 +36,7 @@ public interface ProductDao {
 	void InsertRecipes(List<RecipeBean> recipes);
 
 	void InsertRecipe(RecipeBean recipe);
+
+	List<CrustBean> getCrustByTypeId(Integer crustTypeId);
 
 }

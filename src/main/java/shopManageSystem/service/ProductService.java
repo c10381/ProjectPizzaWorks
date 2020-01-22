@@ -31,4 +31,6 @@ public interface ProductService {
 	ProductBean addRecipes(List<RecipeBean> recipes);
 
 	List<MaterialsBean> getAllMaterials();
+
+	List<Object> getSalesOrderDetails(Integer salesOrderId);
 }

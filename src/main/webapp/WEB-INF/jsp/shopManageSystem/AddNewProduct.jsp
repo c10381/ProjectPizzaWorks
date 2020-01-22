@@ -218,7 +218,8 @@
 				},
 				success: function(data){
 					console.log(data);
-					window.location.replace(data);
+					//window.location.replace(data);
+					loadingPage(data);
 					//console.log(recipes);
 					//console.log(${product.productId});
 					//alert("食譜儲存"+data);
@@ -227,6 +228,7 @@
 			})
 			
 		}
+		
 		
 	</script>
 </body>

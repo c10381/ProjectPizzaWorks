@@ -6,13 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>SalesOrders</title>
 </head>
 <body>
 	<section>
 		<div>
+			<button onclick="loadingPage('/backendSystem/backendIndex')"></button>
 			<div class="container" style="text-align: center">
 				<h1>訂單一覽</h1>
 			</div>
@@ -30,14 +29,14 @@
 				<th>是否需要外送</th>
 				<th>外送地址</th>
 				<th>訂單總價</th>
-				<th>訂單狀態<th>
+				<th>訂單狀態</th>
 			</tr>
 			<c:forEach var='salesOrder' items='${salesOrders}'>
 				<tr>
-					<td><a
-						href="<spring:url value='/shopManageSystem/getSalesOrder?id=${salesOrder.salesOrderId}'/>">
-							<b style='font-size: 16px;'>${salesOrder.salesOrderId}</b>
-					</a></td>
+					<td
+						onclick="loadingPage('/shopManageSystem/getSalesOrder?id=${salesOrder.salesOrderId}')">
+						<b style='font-size: 16px;'>${salesOrder.salesOrderId}</b>
+					</td>
 					<td>${salesOrder.memberId}</td>
 					<td>${salesOrder.orderTime}</td>
 					<td>${salesOrder.requireTime}</td>
@@ -49,7 +48,8 @@
 			</c:forEach>
 		</table>
 
-		
+
 	</section>
+	
 </body>
 </html>

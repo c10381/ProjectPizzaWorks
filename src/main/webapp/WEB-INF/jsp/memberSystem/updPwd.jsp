@@ -82,52 +82,7 @@
 		</div>
 	</div>
 	<!-- /.login-box -->
-	
-	
-	<script type="text/javascript">
-	
-	$(function() {
-		$("#password").change(function() {
-			var pwd1 = $("#password").val();
-			var pwd2 = $("#validpwd").val();
-			if (pwd2 != pwd1) {
-				$("#btnAdd").prop("disabled", true);
-				var errMsgP = document.createElement("span");
-				$("#errbox").append(errMsgP);
-				$("#errbox > span").attr("id", "errMsg");
-				$("#errMsg").text("密碼不一致，請確認您的輸入！");
-				$("#errMsg").attr({
-					"class" : "text",
-					"class" : "text-danger"
-				})
-			} else {
-				$("#errMsg").remove();
-				$("#btnAdd").prop("disabled", false);
-			}
-		})
 
-		$("#validpwd").change(function() {
-			var pwd1 = $("#password").val();
-			var pwd2 = $("#validpwd").val();
-			if (pwd2 != pwd1) {
-				$("#btnAdd").prop("disabled", true);
-				var errMsgP = document.createElement("span");
-				$("#errbox").append(errMsgP);
-				$("#errbox > span").attr("id", "errMsg");
-				$("#errMsg").text("密碼不一致，請確認您的輸入！");
-				$("#errMsg").attr({
-					"class" : "text",
-					"class" : "text-danger"
-				})
-			} else {
-				$("#errMsg").remove();
-				$("#btnAdd").prop("disabled", false);
-			}
-		})
-	})
-	
-	</script>
-	
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->

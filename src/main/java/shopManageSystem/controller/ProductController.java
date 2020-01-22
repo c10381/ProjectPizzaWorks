@@ -201,7 +201,10 @@ public class ProductController {
 
 	@RequestMapping(value = "/shopManageSystem/getSalesOrder", method = RequestMethod.GET)
 	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
-		model.addAttribute("salesOrder", service.getSalesOrderById(salesOrderId));
+		List<Object> output = service.getSalesOrderDetails(salesOrderId);
+		model.addAttribute("salesOrder", output.get(0));
+		model.addAttribute("products", output.get(1));
+		model.addAttribute("crusts", output.get(2));
 		return "shopManageSystem/GetSalesOrder";
 	}
 	

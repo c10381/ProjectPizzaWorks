@@ -21,12 +21,13 @@ public class StockRequestBean implements Serializable {
 	private String responseComment;
 	private String responseTime;
 	private String readTime;
-
+	private Integer requestStatus;
+	
 	public StockRequestBean() {
 	}
 
 	public StockRequestBean(Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
-			String responseComment, String responseTime, String readTime) {
+			String responseComment, String responseTime, String readTime ,Integer requestStatus) {
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
 		this.briefInfo = briefInfo;
@@ -34,6 +35,7 @@ public class StockRequestBean implements Serializable {
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
 		this.readTime = readTime;
+		this.setRequestStatus(requestStatus);
 	}
 
 	@Id
@@ -100,6 +102,14 @@ public class StockRequestBean implements Serializable {
 
 	public void setReadTime(String readTime) {
 		this.readTime = readTime;
+	}
+
+	public Integer getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Integer requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 
 }

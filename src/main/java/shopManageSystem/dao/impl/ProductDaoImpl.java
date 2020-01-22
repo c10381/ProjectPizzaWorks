@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import _model.CrustBean;
 import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
@@ -154,5 +155,13 @@ public class ProductDaoImpl implements ProductDao {
 	public void InsertRecipe(RecipeBean recipe) {
 		Session session = factory.getCurrentSession();
 		session.save(recipe);
+	}
+	
+	@Override
+	public List<CrustBean> getCrustByTypeId(Integer crustTypeId) {
+		String hql = "FROM CrustBean WHERE crustTypeId = :crustTypeId";
+		Session session = factory.getCurrentSession();
+		List<CrustBean> crusts = session.createQuery(hql).setParameter("crustTypeId", crustTypeId).getResultList();
+		return crusts;
 	}
 }
