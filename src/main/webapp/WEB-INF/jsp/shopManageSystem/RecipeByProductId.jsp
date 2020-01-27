@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>BOM</title>
 </head>
 <body>

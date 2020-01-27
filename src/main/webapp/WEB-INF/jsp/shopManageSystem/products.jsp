@@ -17,7 +17,8 @@
 <body>
 	<section>
 		<div>
-			<a href="SalesManageIndex">返回</a>
+			<button
+				onclick="loadingPage('${pageContext.request.contextPath}/backendSystem/backendIndex')">返回</button>
 			<div class="container" style="text-align: center">
 				<h1>產品清單</h1>
 			</div>
@@ -26,66 +27,92 @@
 	<!-- 
 	<hr
 		style="height: 1px; border: none; color: #333; background-color: #333;"> -->
-	<table id="myDataTable"  class="display"  >
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>產品名稱</th>
-                <th>產品簡介</th>
-                <th>上架狀態</th>
-            </tr>
-        </thead>
-        <tbody>
-        	<c:forEach var='product' items='${products}'>
-        	<tr>
-        		<td><a href="<spring:url value='/shopManageSystem/getProductById?id=${product.productId}'/>"
-                        		>${product.productId}</a></td>
-        		<td>${product.productName}</td>
-        		<td>${product.briefInfo}</td>
-        		<td>${product.activeStatus}</td>
-        	</tr>
-        	
-        	</c:forEach>
-        </tbody>
-    </table>
-	<section class="container">
-		<div class="row">
-			<c:forEach var='product' items='${products}'>
-				<div class="col-sm-6 col-md-3" style="width: 300px; height: 550px">
-					<div class="thumbnail" style="width: 200px; height: 100px">
-					<!-- <img width='200' height='200' src="<c:url value='${request.contextPath}/images/Products/${product.imagePath}'/>" /> -->
-						<img width='200' height='200'
-							src="<c:url value='/picture/${product.productId}'/>" />
-						<div class="caption">
-							<p>
-								<b style='font-size: 16px;'>${product.productName}</b>
-							</p>
-							<p>簡介：${product.briefInfo}</p>
-							<p>單價：${product.unitPrice}</p>
-							<p>上架狀態: ${product.activeStatus}</p>
-							<p>
-								<a
-									href="<spring:url value='/shopManageSystem/getProductById?id=${product.productId}'/>"
-									class="btn btn-primary"> <span
-									class="glyphicon-info-sigh glyphicon"></span>詳細資料
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</section>
+
+	<div class="container">
+		<table id="myDataTable" class="display">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>產品名稱</th>
+					<th>上架狀態</th>
+					<th>詳細資訊</th>
+				</tr>
+			</thead>
+			<tfoot>
+			</tfoot>
+		</table>
+	</div>
 	<script type="text/javascript">
+		var products = [
+		<c:forEach var='product' items='${products}' varStatus='status'>
+			["${product.productId}",
+			"${product.productName}",
+			"${product.activeStatus}"
+			]
+			<c:if test="${!status.last}">,</c:if>
+		</c:forEach>
+		];
+		
+		//console.log(products);
+		
         $(function () {
-            $("#myDataTable").DataTable({
+        	var table = $("#myDataTable").DataTable({
                 searching: false, //關閉filter功能
+                data: products,
+                responsive: true,
+                
                 columnDefs: [{
-                    targets: [3],
+                    targets: [1,2,3],
                     orderable: false,
-                }]
+                },{
+	                targets: 2,
+	                data: null,
+	                render: function(data, type, row, meta){
+						if(data[2]== "1"){
+							return "<select id='sltStatus'><option value=0 >未上架</option><option value=1 selected>已上架</option></select>";
+	                	}else if(data[2] == "0"){
+	                		return "<select id='sltStatus'><option value=0 selected>未上架</option><option value=1>已上架</option></select>";
+	                	}
+	                	return data;
+	                },
+	                defaultContent: ""
+				}, {
+	                targets: -1,
+	                data: null,
+	                defaultContent: "<button id='btnDetails' value='Get Details' >詳細資料</button>"
+				}]
+            });
+            
+            $('#myDataTable tbody').on('click', '[id*=btnDetails]', function () {
+                var data = table.row($(this).parents('tr')).data();
+                var productId = data[0];
+                loadingPage('${request.contextPath}/shopManageSystem/getProductById?id='+productId);
+            });
+            
+            $('#myDataTable tbody').on('change', '[id*=sltStatus]', function () {
+            	var data = table.row($(this).parents('tr')).data();
+                var activeStatus = this.value;
+                var product = new Object();
+                product["productId"] = data[0]
+                product["activeStatus"] = activeStatus;
+                $.ajax({
+    				url: "${pageContext.request.contextPath}/shopManageSystem/updateProductStatus",
+    				data: {"product":JSON.stringify(product)},
+    				type: "POST",
+    				
+    				error:function(){
+    					console.log(JSON.stringify({product: product}));
+    					console.log("Error");
+    				},
+    				success: function(data){
+    					console.log(data);
+    					alert("狀態修改"data);
+    				}
+    			})
+                this.val = activeStatus;
             });
         });
+        
     </script>
 </body>
 </html>

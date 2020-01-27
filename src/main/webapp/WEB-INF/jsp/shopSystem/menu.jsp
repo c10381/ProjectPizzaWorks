@@ -42,7 +42,7 @@
 						<div class="col-lg-4 col-md-6 mt-5 text-center ">
 							<div class="menu-wrap">
 								<a href="#" class="menu-img img mb-4"
-									style="background-image: url(${pageContext.request.contextPath}/images/Products/${product.imagePath });"></a>
+									style="background-image: url(${pageContext.request.contextPath}/picture/${product.productId});"></a>
 								<div class="text">
 									<h3>
 										<%  %>

@@ -214,6 +214,21 @@ public class ProductController {
 		return "shopManageSystem/AddNewProduct";
 	}
 	
+	@RequestMapping(value="/shopManageSystem/updateProductStatus", method=RequestMethod.POST)
+	public @ResponseBody String updateProductStatus(@RequestParam(value="product")String product_str, Model model){
+		System.out.println(product_str);
+		ProductBean product = null;
+		JSONObject jsonObject = new JSONObject(product_str);
+		if(jsonObject!=null && jsonObject.length()!=0) {
+				product = new ProductBean();
+				product.setProductId(jsonObject.getInt("productId"));
+				product.setActiveStatus(jsonObject.getInt("activeStatus"));
+			service.updateOneProduct(product);
+			return "OK!";
+		}		
+		return "";
+	}
+	
 	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
 	public @ResponseBody String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
 		System.out.println(recipe_str);

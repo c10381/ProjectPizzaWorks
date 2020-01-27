@@ -93,10 +93,8 @@
 							src="<c:url value='/picture/${product.productId}'/>" />
 							
 						<p>
-							<a href="<spring:url value='/shopManageSystem/products' />"
-								class="btn btn-default"> <span
-								class="glyphicon-hand-left glyphicon"></span>返回
-							</a> <a href='#' class='btn btn-warning btn-large'> <input
+							<button onclick="loadingPage('${request.contextPath}/shopManageSystem/products')">返回</button>
+							<a href='#' class='btn btn-warning btn-large'> <input
 								id="btnUpdate" type='submit'
 								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
 							</a>
@@ -105,11 +103,8 @@
 				</div>
 			</fieldset>
 		</form:form>
-		<a
-			href="<spring:url value='/shopManageSystem/updateRecipeById?id=${product.productId}' />"
-			class='btn btn-warning btn-large'> <input id="btnRecipeGet"
-			type='button' class='glyphicon-shopping-cart glyphicon' value="查詢BOM" />
-		</a>
+		<button onclick="loadingPage('${request.contextPath}/shopManageSystem/updateRecipeById?id=${product.productId}')">查詢BOM</button>
+		
 
 	</section>
 	<script>

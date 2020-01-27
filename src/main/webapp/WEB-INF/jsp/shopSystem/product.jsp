@@ -26,11 +26,11 @@
 	<section class="ftco-section contact-section">
 		<div class="container mt-5">
 			<div class="row staff">
-				<c:forEach items="${ products}" var="item" varStatus="status">
+				<c:forEach items="${products}" var="item" varStatus="status">
 					<c:if test="${status.first }">
 						<div class="col-md-6 ftco-animate">
 							<img
-								src="${pageContext.request.contextPath}/images/Products/${item.imagePath }"
+								src="${pageContext.request.contextPath}/picture/${products[status.index].productId}"
 								class="img-fluid" />
 						</div>
 					</c:if>
@@ -39,7 +39,7 @@
 
 				<div class="col-md-4 product-info ftco-animate">
 					<div class="row">
-						<c:forEach items="${ products}" var="item" varStatus="status">
+						<c:forEach items="${products}" var="item" varStatus="status">
 							<c:if test="${status.first }">
 								<div class="col-md-12 mb-4">
 									<%-- 	<h2 class="h4 mt-sm-3" id="productName">${item.productName }</h2> --%>
