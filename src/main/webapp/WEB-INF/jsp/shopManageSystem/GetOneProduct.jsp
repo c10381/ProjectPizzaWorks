@@ -24,12 +24,18 @@
 			</div>
 		</div>
 	</section>
-	<section class="container">
+	<section class="content">
 		<form:form method='POST' modelAttribute="product"
 			class='form-horizontal' enctype="multipart/form-data">
 			<fieldset>
 				<div class="row">
 					<div class="col-md-5">
+						<p>
+							<strong>商品編號: </strong> <span class='label label-warning'>
+								${product.productId} </span>
+							<form:input type="hidden" path="productId"
+								value="${product.productId}" />
+						</p>
 						<h3>
 							名稱：
 							<form:input id="productName" type='text' path="productName"
@@ -70,7 +76,8 @@
 							<label>有無雞肉：<form:checkbox id="chicken" value='1'
 									path="chicken" class='form:input-large' /></label>
 						</p>
-						<p><label>上架狀態：<form:checkbox id="activeStatus" value='1'
+						<p>
+							<label>上架狀態：<form:checkbox id="activeStatus" value='1'
 									path="activeStatus" class='form:input-large' /></label>
 						</p>
 						<p>
@@ -78,33 +85,31 @@
 								value="${product.imagePath}">
 						</p>
 
-						<p>
-							<strong>商品編號: </strong> <span class='label label-warning'>
-								${product.productId} </span>
-							<form:input type="hidden" path="productId"
-								value="${product.productId}" />
-						</p>
-						
+
+
 						<form:input id="productImage" path="productImage" type='file'
 							class='form:input-large' onchange="readURL(this)"
 							targetID="${request.contextPath}/images/Products/${product.imagePath}"
-							accept="image/gif, image/jpeg, image/png" /> <img
+							accept="image/gif, image/jpeg, image/png" />
+						<img
 							id="${request.contextPath}/images/Products/${product.imagePath}"
 							src="<c:url value='/picture/${product.productId}'/>" />
-							
+
 						<p>
-							<button onclick="loadingPage('${request.contextPath}/shopManageSystem/products')">返回</button>
+							<button
+								onclick="loadingPage('${request.contextPath}/shopManageSystem/products')">返回</button>
 							<a href='#' class='btn btn-warning btn-large'> <input
 								id="btnUpdate" type='submit'
 								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
 							</a>
-						</p>					
+						</p>
 					</div>
 				</div>
 			</fieldset>
 		</form:form>
-		<button onclick="loadingPage('${request.contextPath}/shopManageSystem/updateRecipeById?id=${product.productId}')">查詢BOM</button>
-		
+		<button
+			onclick="loadingPage('${request.contextPath}/shopManageSystem/updateRecipeById?id=${product.productId}')">查詢BOM</button>
+
 
 	</section>
 	<script>

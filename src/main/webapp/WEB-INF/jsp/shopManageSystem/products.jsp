@@ -85,7 +85,7 @@
             
             $('#myDataTable tbody').on('click', '[id*=btnDetails]', function () {
                 var data = table.row($(this).parents('tr')).data();
-                var productId = data[0];
+                var productId = data[0]; 
                 loadingPage('${request.contextPath}/shopManageSystem/getProductById?id='+productId);
             });
             
@@ -106,7 +106,7 @@
     				},
     				success: function(data){
     					console.log(data);
-    					alert("狀態修改"data);
+    					alert("狀態修改"+data);
     				}
     			})
                 this.val = activeStatus;
