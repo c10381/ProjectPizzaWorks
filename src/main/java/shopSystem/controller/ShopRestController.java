@@ -29,6 +29,7 @@ public class ShopRestController {
 	@PostMapping(value = "/order", consumes = "application/json", produces = "application/json")
 	public String saveOrder(@RequestBody SalesOrderBean SOB, HttpSession session) {
 		service.saveOrder(SOB);
+		// 可以的話改為新增後的訂單編號
 		return "OK";
 	}
 

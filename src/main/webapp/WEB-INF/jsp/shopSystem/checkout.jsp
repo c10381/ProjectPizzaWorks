@@ -58,7 +58,7 @@
 						</div>
 						<div class="form-group">
 							<label>備註</label>
-							<textarea name="" id="" cols="30" rows="3" class="form-control"
+							<textarea name="note" id="note" cols="30" rows="3" class="form-control"
 								placeholder="[邀您一同愛護地球] 即日起，不再主動提供餐巾紙及辣椒包。"></textarea>
 						</div>
 						<div class="form-group">
