@@ -196,19 +196,43 @@
         	        { data: 'firstName' },
         	        { data: 'email' },
         	        { data: 'address' },
-        	        { data: 'gender' },
+        	        { data : "gender",
+						render : function(data){
+							if(data==1){
+								return "男";
+							}else if(data==2){
+								return "女";
+							}
+						},
+					},
         	        { data: 'cellphone' },
-        	        { data: 'privilegeId' },
+        	        { data: 'privilegeId',
+						render : function(data){
+							if(data==2){
+								return "網站後台管理員";
+							}else if(data==3){
+								return "銷貨負責人";
+							}else if(data==4){
+								return "進貨負責人";
+							}else if(data==5){
+								return "存貨負責人";
+							}else if(data==6){
+								return "客服人員";
+							}else if(data==7){
+								return "管理者";
+							}
+						},
+					},
         	        { data: 'birthDate' },
         	    ],
 				//中文化相關
         	    oLanguage:{"sProcessing":"處理中...",
                 "sLengthMenu":"顯示 _MENU_ 項結果",
-                "sZeroRecords":"沒有匹配結果",
+                "sZeroRecords":"查無結果",
                 "sInfo":"顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
                 "sInfoEmpty":"顯示第 0 至 0 項結果，共 0 項",
                 "sInfoFiltered":"(從 _MAX_ 項結果過濾)",
-                "sSearch":"搜索:",
+                "sSearch":"搜尋:",
                 "oPaginate":{"sFirst":"首頁",
                                      "sPrevious":"上頁",
                                      "sNext":"下頁",

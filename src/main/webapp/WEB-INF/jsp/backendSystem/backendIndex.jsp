@@ -85,7 +85,7 @@
 
 
 		<!-- Main content ,use jQuery load() to load page-->
-		<div class="content-wrapper">
+		<div class="content-wrapper" style="box-sizing:border-box;padding:10px 15px">
 
 
 		</div>

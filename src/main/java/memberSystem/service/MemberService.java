@@ -28,9 +28,10 @@ public interface MemberService {
 
 	List<ValidationRequestBean> SearchValidationRequestBeans(Integer... requestStatus);
 
+	String getAllMembers();
 
+	Boolean changePWrequestCommit(Integer vRequestId, MembersBean admin, String responseComment);
+	Boolean changePWrequestRefuse(Integer vRequestId, Integer approverId, String responseComment);
 
-//
-//	boolean memFirstLoginChangePW(MembersBean mem, String Password);
 
 }

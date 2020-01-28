@@ -32,6 +32,7 @@
 						<th>允許時間</th>
 						<th>請求狀態</th>
 						<th>備註</th>
+						<th>回應</th>
 					</thead>
 					<tbody></tbody>
 				</table>
@@ -41,32 +42,66 @@
 	</div>
 	<!-- /tag -->
 	<script>
-				
+	//1. WTF??為啥沒東西(DB裡頭有)
+	console.log("${Bean.approver.memberId}");
+	console.log("${Bean.approverId}");
 				//呼叫DataTable
-				$('#Table').DataTable({
+				var table=$('#Table').DataTable({
 					data : [
 					<c:forEach items="${List}" var="Bean">
 					{
+						'rowId':"${Bean.vRequestId}",
 						'vRequestId':"${Bean.vRequestId}",
 						'email':"${Bean.email}",
 						'requestTime':"${Bean.requestTime}",
-						'approverName':"${Bean.approverId.lastName+Bean.approverId.firstName}",
+						//======有問題
+						<c:choose>
+							<c:when test="${Bean.approver}=='null'">
+								'approverName':"",
+							</c:when>
+							<c:when test="${Bean.approver} !='null'">
+								'approverName':"${Bean.approver.memberId}",
+							</c:when>
+						</c:choose>
+						//======
+						'approverName':"${Bean.approverId}",
 						'responseTime':"${Bean.responseTime}",
 						<c:choose>
 							<c:when test="${Bean.requestStatus == 1}">
-								'requestStatus':"未驗證",
+								'requestStatus':"帳號未驗證",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 2}">
-								'requestStatus':"已驗證",
+								'requestStatus':"帳號啟用",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 3}">
-								'requestStatus':"申請修改密碼",
+								'requestStatus':"尚未簽核",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 4}">
-								'requestStatus':"申請密碼通過",
+								'requestStatus':"核准申請",
+							</c:when>
+							<c:when test="${Bean.requestStatus == 5}">
+								'requestStatus':"拒絕申請",
 							</c:when>
 						</c:choose>
-						'responseComment':"${Bean.responseComment}",
+
+						<c:choose>
+							<c:when test="${Bean.requestStatus != 3}">
+								'responseComment':"${Bean.responseComment}",
+							</c:when>
+							<c:otherwise>
+								'responseComment':"<input type='text'></input>",
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${Bean.requestStatus == 3}">
+								'response':"<div id='${Bean.vRequestId}ButtonArea'><button onclick='responseCommit(${Bean.vRequestId})'>核准</button><button onclick='responseRefuse(${Bean.vRequestId})'>拒絕</button></div>",
+							</c:when>
+							<c:otherwise>
+								'response':"",
+							</c:otherwise>
+						</c:choose>
+						
 					},
 					</c:forEach>
 					],
@@ -84,6 +119,8 @@
 						data : 'requestStatus'
 					}, {
 						data : 'responseComment'
+					}, {
+						data : 'response'
 					}, ],
 					//中文化相關
 					oLanguage : {
@@ -102,6 +139,59 @@
 						}
 					}
 				});
+				function responseCommit(id){
+					console.log(id);
+					console.log(table.row(id-1).data(6));
+					$.ajax({
+						url : "${pageContext.request.contextPath}/memberSystem/CoworkerPWRequest",
+						//後端的MemberID寫不進去DB
+						data : {
+							"Answer":true,
+							"id" : id,
+							"responseComment":"456",
+						},
+						type : "Post",
+						error : function() {
+							console.log("error");
+						},
+						success : function(data) {
+							console.log(data);
+							$("#"+id+"ButtonArea").empty();
+							if(data==true){
+								$("#"+id+"ButtonArea").append("已送出回應");
+							}else{
+								$("#"+id+"ButtonArea").append("錯誤，此會員狀態可能未啟用");
+							}
+							
+						}
+					})
+					
+				}
+				function responseRefuse(id){
+					$.ajax({
+						url : "${pageContext.request.contextPath}/memberSystem/CoworkerPWRequest",
+						data : {
+							"Answer":false,
+							"id" : id,
+							"responseComment":"123",
+						},
+						type : "Post",
+						error : function() {
+							console.log("error");
+						},
+						success : function(data) {
+							console.log(data);
+							$("#"+id+"ButtonArea").empty();
+							if(data==true){
+								$("#"+id+"ButtonArea").append("已送出回應");
+							}else{
+								$("#"+id+"ButtonArea").append("錯誤，此會員狀態可能未啟用");
+							}
+							
+						}
+					})
+					
+				}
 	</script>
 
 </body>
