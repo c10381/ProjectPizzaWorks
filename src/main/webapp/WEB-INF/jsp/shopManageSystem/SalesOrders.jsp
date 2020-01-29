@@ -46,7 +46,7 @@
 								<c:forEach var='salesOrder' items='${salesOrders}'>
 									<tr>
 										<td
-											onclick="loadingPage('${pageContext.request.contextPath}/shopManageSystem/getSalesOrder?id=${salesOrder.salesOrderId}')">
+											onclick="loadingPage('${request.contextPath}/shopManageSystem/getSalesOrder?id=${salesOrder.salesOrderId}')">
 											<b style='font-size: 16px;'>${salesOrder.salesOrderId}</b>
 										</td>
 										<td>${salesOrder.memberId}</td>

@@ -106,26 +106,6 @@
 		<!-- container end -->
 	</section>
 	<!-- content end -->
-	<script>
-	function scanCheckBoxStatus(){		
-		if(${product.vegetableOnly}==1){
-			document.getElementsByName("vegetableOnly").checked = true;
-		}
-		if(${product.seafood}==1){
-			document.getElementById("seafood").checked = true;
-		}
-		if(${product.pork}==1){
-			document.getElementById("pork").checked = true;
-		}
-		if(${product.beef}==1){
-			document.getElementById("beef").checked = true;
-		}
-		if(${product.chicken}==1){
-			document.getElementById("chicken").checked = true;
-		}
-	}
-	scanCheckBoxStatus();
 	
-	</script>
 </body>
 </html>
