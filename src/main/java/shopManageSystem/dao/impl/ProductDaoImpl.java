@@ -72,7 +72,7 @@ public class ProductDaoImpl implements ProductDao {
 		if (pb.getChicken() != null) {
 			originalProduct.setChicken(pb.getChicken());
 		}
-		if (pb.getImagePath() != null || pb.getImagePath().equals("")) {
+		if (pb.getImagePath() != null) {
 			originalProduct.setImagePath(pb.getImagePath());
 		}
 		if(pb.getCoverImage() != null) {

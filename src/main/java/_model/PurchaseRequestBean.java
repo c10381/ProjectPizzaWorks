@@ -2,11 +2,16 @@ package _model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +28,7 @@ public class PurchaseRequestBean implements Serializable{
 	private Timestamp readTime;
 	private Integer requestStatus;
 	private Double totalPrice;
+	private List<PurchaseRequestDetailBean> purchaseRequestDetails = new ArrayList<>();
 	
 	public PurchaseRequestBean() {
 	}
@@ -121,5 +127,14 @@ public class PurchaseRequestBean implements Serializable{
 
 	public void setRequestStatus(Integer requestStatus) {
 		this.requestStatus = requestStatus;
+	}
+
+	@OneToMany(mappedBy="purchaseRequest", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	public List<PurchaseRequestDetailBean> getPurchaseRequestDetails() {
+		return purchaseRequestDetails;
+	}
+
+	public void setPurchaseRequestDetails(List<PurchaseRequestDetailBean> purchaseRequestDetails) {
+		this.purchaseRequestDetails = purchaseRequestDetails;
 	}
 }
