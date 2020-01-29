@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import _model.PurchaseRequestBean;
 import purchaseSystem.dao.PurchaseDao;
 import purchaseSystem.service.PurchaseService;
 
 @Service
+@Transactional
 public class PurchaseServiceImpl implements PurchaseService {
 	
 	PurchaseDao dao;
