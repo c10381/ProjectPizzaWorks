@@ -29,7 +29,9 @@
 						<div class="card-title">
 							<i class="fas fa-box-open"></i>食材
 						</div>
+						<!-- card-title end -->
 					</div>
+					<!--  card-header end -->
 					<div class="card-body table-responsive p-0">
 						<table id="materialsTable" class="table table-hover text-nowrap">
 							<tr>
@@ -49,9 +51,11 @@
 							</c:forEach>
 						</table>
 					</div>
+					<!--  card-body table end -->
 				</div>
+				<!-- card end -->
 			</div>
-
+			<!-- col end -->
 			<!--THE CONTAINER WHERE WE'll ADD THE DYNAMIC TABLE-->
 			<div class="col-md-6">
 				<div class="card card-default">
@@ -59,15 +63,21 @@
 						<div class="card-title">
 							<i class="fas fa-cookie"></i>食譜
 						</div>
+						<!-- card-title end -->
 					</div>
+					<!-- card-header end -->
 					<div id="cont" class="card-body table-responsive p-0"></div>
+					<!--  card-body table end -->
 				</div>
+				<!-- card end -->
 				<p>
 					<input type="button" value="新增產品" onclick="sumbit()"
 						class="btn btn-success float-right" />
 				</p>
 			</div>
+			<!-- col end -->
 		</div>
+		<!-- row end -->
 	</section>
 	<script>
 		// ARRAY FOR HEADER.

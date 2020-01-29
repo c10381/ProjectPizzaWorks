@@ -9,18 +9,26 @@
 <!-- <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <title>Product</title>
-<script>
-	
-</script>
 </head>
 <body>
-	<section>
-		<div align="left">
-			<div class="container" style="text-align: center">
+	<section class="content-header">
+		<div class="container-fluid row">
+			<div class="col-md-1">
+				<button
+					onclick="loadingPage('${request.contextPath}/shopManageSystem/products')"
+					class="btn btn-block btn-secondary">返回</button>
+			</div>
+			<!-- col end -->
+			<div class="col-md-4"></div>
+			<!-- col end -->
+			<div class="col-md-2">
 				<h2>產品資料</h2>
 			</div>
+			<!-- col end -->
 		</div>
+		<!-- row end -->
 	</section>
+	<!-- content-header end -->
 	<section class="content">
 		<form:form method='POST' modelAttribute="product"
 			class='form-horizontal' enctype="multipart/form-data">
@@ -32,7 +40,9 @@
 							<form:input type="hidden" path="productId"
 								value="${product.productId}" />
 						</div>
+						<!-- form-group end -->
 					</div>
+					<!-- row end -->
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -42,13 +52,15 @@
 										value="${product.productName}" class='form-control' />
 								</h4>
 							</div>
+							<!-- form-group end -->
 							<div class="form-group">
 								<label>簡述：</label>
 								<textarea id="briefInfo" name="briefInfo" cols=50 rows=5
 									class='form-control' style="resize: none">${product.briefInfo}</textarea>
 							</div>
+							<!-- form-group end -->
 						</div>
-
+						<!-- col end -->
 						<div class="col-md-6">
 							<img
 								id="${request.contextPath}/images/Products/${product.imagePath}"
@@ -57,9 +69,10 @@
 								class='form:input-large' onchange="readURL(this)"
 								targetID="${request.contextPath}/images/Products/${product.imagePath}"
 								accept="image/gif, image/jpeg, image/png" />
-
 						</div>
+						<!-- col end -->
 					</div>
+					<!-- row end -->
 					<p></p>
 					<div class="row">
 						<div class="col-md-6">
@@ -68,6 +81,7 @@
 								<form:input type="text" path="spicyLevel"
 									value="${product.spicyLevel}" class='form-control' />
 							</div>
+							<!-- form-group end -->
 							<div class="form-group">
 								<div class="custom-control custom-checkbox">
 									<label for="vegetableOnly">純素食：</label>
@@ -91,47 +105,54 @@
 									<form:checkbox id="chicken" value='1' path="chicken" />
 								</div>
 							</div>
+							<!-- form-group end -->
 						</div>
+						<!-- col end -->
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>單價：</label>
 								<form:input type="text" path="unitPrice"
 									value="${product.unitPrice}" class='form-control' />
 							</div>
+							<!-- form-group end -->
 							<div class="form-group">
 								<div class="custom-control custom-checkbox">
 									<label for="activeStatus">上架狀態：</label>
 									<form:checkbox id="activeStatus" value='1' path="activeStatus" />
 								</div>
 							</div>
+							<!-- form-group end -->
 						</div>
+						<!-- col end -->
 					</div>
-
+					<!-- row end -->
 					<div class="row">
-						<div class="col-12"></div>
-						<div class="col-sm-4">
-							<button
-								onclick="loadingPage('${request.contextPath}/shopManageSystem/products')"
-								class="btn btn-block btn-secondary">返回</button>
+						<p></p>
+						<div class="col-sm-2">
+						
 						</div>
-
-						<div class="col-sm-4">
+						<!-- col end -->
+						<div class="col-sm-6"></div>
+						<!-- col end -->
+						<div class="col-sm-2">
 							<button
 								onclick="loadingPage('${request.contextPath}/shopManageSystem/updateRecipeById?id=${product.productId}')"
 								class="btn btn-block btn-info">查詢BOM</button>
 						</div>
-
-						<div class="col-sm-4">
+						<!-- col end -->
+						<div class="col-sm-2">
 							<input id="btnUpdate" type='submit' value="提交修改"
 								class="btn btn-block btn-warning float-right" />
 						</div>
+						<!-- col end -->
 					</div>
-
+					<!-- row end -->
 				</div>
+				<!-- col end -->
 			</fieldset>
 		</form:form>
-
 	</section>
+	<!-- content end -->
 	<script>
 		function readURL(input){
 			if(input.files && input.files[0]){

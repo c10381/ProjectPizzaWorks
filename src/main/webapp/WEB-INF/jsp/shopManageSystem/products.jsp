@@ -15,18 +15,23 @@
 <title>Products</title>
 </head>
 <body>
-	<section>
-		<div>
-			<button
-				onclick="loadingPage('${pageContext.request.contextPath}/backendSystem/backendIndex')">返回</button>
-			<div class="container" style="text-align: center">
+	<section class="content-header">
+		<div class="container-fluid row">
+			<div class="col-md-1">
+				<button class="btn btn-block btn-secondary"
+					onclick="loadingPage('${pageContext.request.contextPath}/backendSystem/backendIndex')">返回</button>
+			</div>
+			<!-- col end -->
+			<div class="col-md-4"></div>
+			<!-- col end -->
+			<div class="col-md-2">
 				<h1>產品清單</h1>
 			</div>
+			<!-- col end -->
 		</div>
+		<!-- container row end -->
 	</section>
-	<!-- 
-	<hr
-		style="height: 1px; border: none; color: #333; background-color: #333;"> -->
+	<!--  <hr style="height: 1px; border: none; color: #333; background-color: #333;"> -->
 
 	<div class="container">
 		<table id="myDataTable" class="display">
@@ -42,6 +47,7 @@
 			</tfoot>
 		</table>
 	</div>
+	<!-- container end -->
 	<script type="text/javascript">
 		var products = [
 		<c:forEach var='product' items='${products}' varStatus='status'>
