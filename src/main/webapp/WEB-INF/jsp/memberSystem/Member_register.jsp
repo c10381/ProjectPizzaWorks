@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	<div id="tabs" style="width: 50%;margin:auto;">
+	<div id="tabs" style="width: 70%;margin:auto;">
 		<ul>
 			<li><a href="#registerOneMember">單一員工註冊</a></li>
 			<li><a href="#registerManyMember">上傳CSV</a></li>
@@ -26,7 +26,7 @@
 				</div>
 			</section>
 			<hr width='3'>
-			<section class='container'style="width: 60%;margin:auto;">
+			<section class='container'style="width: 70%;margin:auto;">
 				<form:form modelAttribute="oneRegister"
 					class='form-horizontal'>
 					<fieldset>

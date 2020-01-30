@@ -55,12 +55,12 @@ public class redirectController {
 	public String memberPW(Model model) {
 		return "memberSystem/MemberPWPage";
 	}
-	// 所有顧客資料
+	// 所有員工資料
 	@GetMapping(value = "/memberSystem/allMember")
 	public String AllMember(Model model) {
 		return "memberSystem/allMember";
 	}
-	// 所有員工資料
+	// 所有顧客資料
 	@GetMapping(value = "/memberSystem/allCustomer")
 	public String AllCustomer(Model model) {
 		return "memberSystem/allCustomer";

@@ -17,8 +17,8 @@
 				<th>帳號</th>
 				<th>姓</th>
 				<th>名</th>
-				<th>身分</th>
 				<th>性別</th>
+				<th>身分</th>
 				<th>生日</th>
 				<th>電話</th>
 				<th>地址</th>

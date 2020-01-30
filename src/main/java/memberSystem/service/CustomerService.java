@@ -26,7 +26,7 @@ public interface CustomerService {
 	public boolean updateInfo(MembersBean mem);
 	
 	// 查詢所有紀錄
-	List<MembersBean> getAllCustomers();
+	String getAllCustomers();
 	//Customer點擊信件確認驗證信、忘記密碼連結
 	//要撈出MemberBean
 	MembersBean confirmvalidationCode(String VCode);

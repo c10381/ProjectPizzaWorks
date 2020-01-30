@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -173,21 +174,28 @@ public class MemberController {
 	public @ResponseBody Boolean requestCommit(@RequestParam("Answer") Boolean Answer, @RequestParam("id") Integer vRequestId,
 			@RequestParam("responseComment") String responseComment, @ModelAttribute("Mem_LoginOK") MembersBean Admin) {
 		if (Answer) {
-			return memService.changePWrequestCommit(vRequestId, Admin, responseComment);
+			return memService.changePWrequestCommit(Answer,vRequestId, Admin, responseComment);
 		} else {
-			return memService.changePWrequestRefuse(vRequestId, Admin.getMemberId(), responseComment);
+			return memService.changePWrequestCommit(Answer,vRequestId, Admin, responseComment);
 		}
 	}
 
 	// ==/忘記密碼請求/==
 
-	// ==查詢全部會員==
+	// 查詢全部員工
 	// produces="text/html;charset=UTF-8;" 可以對@ResponseBody強制轉成繁體編碼
 	@GetMapping(value = "memberSystem/getAllMember",produces="text/html;charset=UTF-8;")
 	public @ResponseBody String getAllMember() {
 		
 		return memService.getAllMembers();
 	}
-	// ==/查詢全部會員/==
+	// 檢視前台所有顧客
+	@GetMapping(value = "/memberSystem/getAllCustomer",produces="text/html;charset=UTF-8;")
+	public @ResponseBody String getAllCustomers() {
 
+		return Custservice.getAllCustomers();
+	}
+
+	// ==/查詢全部會員/==
+	
 }

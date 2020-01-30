@@ -30,8 +30,7 @@ public interface MemberService {
 
 	String getAllMembers();
 
-	Boolean changePWrequestCommit(Integer vRequestId, MembersBean admin, String responseComment);
-	Boolean changePWrequestRefuse(Integer vRequestId, Integer approverId, String responseComment);
+	Boolean changePWrequestCommit(Boolean Answer, Integer vRequestId, MembersBean admin, String responseComment);
 
 
 }

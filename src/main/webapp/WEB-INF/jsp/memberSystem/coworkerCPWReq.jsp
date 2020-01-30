@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-	<div id="tabs" style="width: 50%; margin: auto;">
+	<div id="tabs">
 		<div id="registerOneMember">
 			<section>
 				<div class='container'>
@@ -42,29 +42,16 @@
 	</div>
 	<!-- /tag -->
 	<script>
-	//1. WTF??為啥沒東西(DB裡頭有)
-	console.log("${Bean.approver.memberId}");
-	console.log("${Bean.approverId}");
 				//呼叫DataTable
 				var table=$('#Table').DataTable({
 					data : [
 					<c:forEach items="${List}" var="Bean">
 					{
-						'rowId':"${Bean.vRequestId}",
+						'DT_RowId':"${Bean.vRequestId}",
 						'vRequestId':"${Bean.vRequestId}",
 						'email':"${Bean.email}",
 						'requestTime':"${Bean.requestTime}",
-						//======有問題
-						<c:choose>
-							<c:when test="${Bean.approver}=='null'">
-								'approverName':"",
-							</c:when>
-							<c:when test="${Bean.approver} !='null'">
-								'approverName':"${Bean.approver.memberId}",
-							</c:when>
-						</c:choose>
-						//======
-						'approverName':"${Bean.approverId}",
+						'approverName':"${Bean.approver.lastName}${Bean.approver.firstName}",
 						'responseTime':"${Bean.responseTime}",
 						<c:choose>
 							<c:when test="${Bean.requestStatus == 1}">
@@ -89,7 +76,7 @@
 								'responseComment':"${Bean.responseComment}",
 							</c:when>
 							<c:otherwise>
-								'responseComment':"<input type='text'></input>",
+								'responseComment':"<div id='${Bean.vRequestId}response'><input type='text' id='${Bean.vRequestId}responseComment'></input></div>",
 							</c:otherwise>
 						</c:choose>
 						
@@ -141,14 +128,17 @@
 				});
 				function responseCommit(id){
 					console.log(id);
-					console.log(table.row(id-1).data(6));
+					
+					//可以用這個方法選取指定欄位資料
+					//console.log(table.row("#"+id).data().requestStatus);
+					
+					var responseComment=$("#"+id+"responseComment").val()
 					$.ajax({
 						url : "${pageContext.request.contextPath}/memberSystem/CoworkerPWRequest",
-						//後端的MemberID寫不進去DB
 						data : {
 							"Answer":true,
 							"id" : id,
-							"responseComment":"456",
+							"responseComment":responseComment,
 						},
 						type : "Post",
 						error : function() {
@@ -156,6 +146,10 @@
 						},
 						success : function(data) {
 							console.log(data);
+							$("#"+id+"response").empty();
+							$("#"+id+"response").append(responseComment);
+							$("#"+id).children()[5].innerHTML="已簽核";
+							
 							$("#"+id+"ButtonArea").empty();
 							if(data==true){
 								$("#"+id+"ButtonArea").append("已送出回應");
@@ -164,7 +158,7 @@
 							}
 							
 						}
-					})
+					}) 
 					
 				}
 				function responseRefuse(id){
@@ -173,7 +167,7 @@
 						data : {
 							"Answer":false,
 							"id" : id,
-							"responseComment":"123",
+							"responseComment":$("#"+id+"responseComment").val(),
 						},
 						type : "Post",
 						error : function() {
@@ -181,6 +175,9 @@
 						},
 						success : function(data) {
 							console.log(data);
+							$("#"+id+"response").empty();
+							$("#"+id+"response").append(responseComment);
+							$("#"+id).children()[5].innerHTML="已簽核";
 							$("#"+id+"ButtonArea").empty();
 							if(data==true){
 								$("#"+id+"ButtonArea").append("已送出回應");

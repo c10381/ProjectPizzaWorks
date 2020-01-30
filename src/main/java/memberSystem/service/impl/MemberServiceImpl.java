@@ -148,46 +148,35 @@ public class MemberServiceImpl implements MemberService {
 	//允許會員變更密碼(更改ValidationRequestBeans與MembersBean)
 	@Transactional
 	@Override
-	public Boolean changePWrequestCommit(Integer vRequestId,MembersBean admin,String responseComment) {
+	public Boolean changePWrequestCommit(Boolean Answer,Integer vRequestId,MembersBean admin,String responseComment) {
 		List<ValidationRequestBean> lvrb=Memdao.getValidationRequestById(vRequestId);
 		if(lvrb.isEmpty()) {
 			return false;
 		}else {
+			//更改ValidationRequestBean狀態
 			ValidationRequestBean vrb=lvrb.get(0);
-			vrb.setRequestStatus(4);
+			if(Answer) {
+				vrb.setRequestStatus(4);
+			}else {
+				vrb.setRequestStatus(5);
+			}
 			vrb.setApprover(admin);
-			//一般來說同意就不需要理由了?
 			vrb.setResponseComment(responseComment);
-			vrb.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
+			vrb.setResponseTime(String.valueOf(new Timestamp(new Date().getTime())));
 			Memdao.updateValidationRequest(vrb);
 			
-			MembersBean mem=Custdao.getCustomer(vrb.getEmail());
-			mem.setActiveStatus(1);
-			Custdao.updateCustomerStatus(mem);
-			return true;
-		}
-	}
-	//拒絕會員變更密碼(更改ValidationRequestBeans與MembersBean)
-	@Transactional
-	@Override
-	public Boolean changePWrequestRefuse(Integer vRequestId,Integer approverId,String responseComment) {
-		List<ValidationRequestBean> lvrb=Memdao.getValidationRequestById(vRequestId);
-		if(lvrb.isEmpty()) {
-			return false;
-		}else {
-			ValidationRequestBean vrb=lvrb.get(0);
-			vrb.setRequestStatus(5);
-			vrb.setApproverId(approverId);
-			vrb.setResponseComment(responseComment);
-			vrb.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
-			Memdao.updateValidationRequest(vrb);
-			
+			//更改MembersBean狀態，並更改ActiveStatus為3
 			MembersBean mem=Custdao.getCustomer(vrb.getEmail());
 			if(mem.getActiveStatus()==1||mem.getActiveStatus()==3) {
 				return false;
 			}
-			mem.setActiveStatus(3);
+			if(Answer) {
+				mem.setActiveStatus(1);
+			}else {
+				mem.setActiveStatus(3);
+			}
 			Custdao.updateCustomerStatus(mem);
+			
 			return true;
 		}
 	}

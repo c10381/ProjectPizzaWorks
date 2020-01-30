@@ -63,7 +63,7 @@
 							style="margin: 0; padding: 0px; text-align: center; width: 100%; color: white; font-size: 40px; line-height: 1;"></li>
 
 						<li class="nav-header"
-							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.firstName}
+							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}
 							您好</li>
 						<!-- 待辦事項 -->
 						<li class="nav-item has-treeview" onclick="loadingPage('')"><div
