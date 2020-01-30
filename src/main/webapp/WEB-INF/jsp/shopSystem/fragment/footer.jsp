@@ -41,10 +41,10 @@
 						<ul>
 							<li><span class="icon icon-map-marker"></span><span
 								class="text">106台北市大安區復興南路一段390號</span></li>
-							<li><a href="#"><span class="icon icon-phone"></span><span
-									class="text">02 6631 6666</span></a></li>
-							<li><a href="#"><span class="icon icon-envelope"></span>
-								<span class="text">info@pizzaaabbcc.com</spanC></a></li>
+							<li><span class="icon icon-phone"></span><span
+									class="text">02 6631 6666</span></li>
+							<li><span class="icon icon-envelope"></span>
+								<span class="text">info@pizzaaabbcc.com</span></li>
 						</ul>
 					</div>
 				</div>

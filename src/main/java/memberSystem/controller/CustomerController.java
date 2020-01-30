@@ -102,7 +102,7 @@ public class CustomerController {
 			// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 3) {
 				session.setAttribute("CLoginOK", bean);
-				return "memberSystem/loginOK";
+				return "shopSystem/index";
 				// 會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
 			}
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
