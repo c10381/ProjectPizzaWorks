@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${CLoginOK == null}">
+	<c:redirect url="/memberSystem/login" />
+</c:if>
 <title>Pizza|購物車</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
@@ -15,7 +20,6 @@
 </head>
 <body>
 	<jsp:include page="fragment/navbar.jsp" />
-
 	<!-- MainContent -->
 	<section class="ftco-section">
 		<div class="container">
@@ -38,9 +42,9 @@
 			</div>
 			<div class="row justify-content-end">
 				<p class="line"></p>
-					<button class="btn btn-lg btn-outline-light">取消本次訂購</button>
+				<button class="btn btn-lg btn-outline-light">取消本次訂購</button>
 			</div>
-			
+
 		</div>
 	</section>
 
