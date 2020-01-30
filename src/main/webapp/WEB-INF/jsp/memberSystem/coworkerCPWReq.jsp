@@ -167,7 +167,7 @@
 						data : {
 							"Answer":false,
 							"id" : id,
-							"responseComment":$("#"+id+"responseComment").val(),
+							"responseComment":responseComment,
 						},
 						type : "Post",
 						error : function() {

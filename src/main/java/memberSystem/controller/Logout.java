@@ -18,5 +18,11 @@ public class Logout {
 	    request.getSession().invalidate();
 	    return "backendSystem/coworkerLogin";
 	}
+	@GetMapping(value = {"/shop/logout"})
+	public String logoutShop(HttpServletRequest request, SessionStatus session){
+		session.setComplete();
+		request.getSession().invalidate();
+		return "redirect:/";
+	}
 	
 }

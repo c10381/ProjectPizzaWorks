@@ -34,7 +34,7 @@ public class CustomerController {
 	// 轉址,未來找地方放? 註冊轉址
 	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
 	public String emailCheck(Model model) {
-		
+
 		if (model.getAttribute("errMsg") != null) {
 			model.addAttribute("errMsg", "該信箱已註冊，請至登入畫面進行登入");
 		}
@@ -62,19 +62,20 @@ public class CustomerController {
 	// 會員資料更新轉址
 	@RequestMapping(value = "/memberSystem/infoUpdate")
 	public String infoUpdate(Model model, HttpSession session) {
-		
+
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
-		if(mem1 == null) {
+		if (mem1 == null) {
 			return "memberSystem/login";
 		}
-		
+
 		MembersBean mem = new MembersBean();
 		model.addAttribute("MembersBean", mem);
 		return "memberSystem/infoUpdate";
 	}
 
 	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
-	public String register(@RequestParam(value="email") String email,@RequestParam(value="password") String password ,Model model) {		
+	public String register(@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String password, Model model) {
 		if (!service.emailExists(email)) {
 			MembersBean mem = new MembersBean();
 			mem.setEmail(email);
@@ -101,7 +102,7 @@ public class CustomerController {
 			// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 3) {
 				session.setAttribute("CLoginOK", bean);
-				return "memberSystem/loginOK";
+				return "shopSystem/index";
 				// 會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
 			}
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
@@ -124,12 +125,12 @@ public class CustomerController {
 	//
 	@RequestMapping(value = "/memberSystem/doupdate")
 	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, HttpSession session) {
-					
+
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
-		if(mem1 == null) {
+		if (mem1 == null) {
 			return "memberSystem/login";
 		}
-		
+
 		mem1.setCellphone(mem.getCellphone());
 		mem1.setAddress(mem.getAddress());
 		if (service.updateInfo(mem1)) {
@@ -143,9 +144,9 @@ public class CustomerController {
 	@RequestMapping(value = "/memberSystem/updPwd")
 	public String updPwd(Model model, HttpSession session) {
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
-		if(mem1 == null) {
+		if (mem1 == null) {
 			return "memberSystem/login";
-		}		
+		}
 		return "memberSystem/updPwd";
 	}
 
@@ -154,19 +155,21 @@ public class CustomerController {
 	public String doUpdPwd(HttpSession session, @RequestParam(value = "oldPwd") String oldPwd,
 			@RequestParam(value = "newPwd") String newPwd) {
 		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
-		if(mem == null) {
+		if (mem == null) {
 			return "memberSystem/login";
 		}
-				
-		if (service.updPwd(mem.getEmail(), oldPwd, newPwd)) {			
-			session.setAttribute("CLoginOK", service.getCustomer(mem.getEmail()));
+
+		if (service.updPwd(mem.getEmail(), oldPwd, newPwd)) {
+			MembersBean Members = service.getCustomer(mem.getEmail());
+			if (Members == null) {
+				return "memberSystem/updateFail";
+			}
+			session.setAttribute("CLoginOK", Members);
 			return "memberSystem/updateSuccess";
 		} else {
 			return "memberSystem/updateFail";
 		}
 	}
-	
-
 
 	// 新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	// 最後會拿到Bean
@@ -179,17 +182,17 @@ public class CustomerController {
 		}
 		return "memberSystem/ConfirmEmailFail";
 	}
-	
-	//忘記密碼的重設密碼轉址
+
+	// 忘記密碼的重設密碼轉址
 	@RequestMapping(value = "memberSystem/resetPwd")
 	public String resetPwd() {
 		return "memberSystem/resetPwd";
 	}
-		
-	//忘記密碼的重設密碼
+
+	// 忘記密碼的重設密碼
 	@RequestMapping(value = "memberSystem/doResetPwd")
-	public String doResetPwd(@RequestParam(value = "email") String email, 
-							@RequestParam(value = "newPwd") String newPwd) {
+	public String doResetPwd(@RequestParam(value = "email") String email,
+			@RequestParam(value = "newPwd") String newPwd) {
 		if (service.resetPwd(email, newPwd)) {
 			return "memberSystem/login";
 		} else {
@@ -201,6 +204,7 @@ public class CustomerController {
 	public String forgetPWPageRequest() {
 		return "memberSystem/forgetPWPage";
 	}
+
 	// Customer導入忘記密碼
 	// 用AJAX回傳字串，要在回傳物件前加@ResponseBody
 	@PostMapping(value = "/memberSystem/forgetPW")
