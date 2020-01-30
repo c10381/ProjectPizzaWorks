@@ -157,29 +157,6 @@
 
 		}
 
-		//將form資料塞入
-		//function formSubmit(requestURL, requestMethod, formName) {
-		$(document).ready(function(){
-			$("form").submit(function(e){
-				var formData = new FormData(form);
-				e.preventDefault();
-				$.ajax({
-					url:form.attr('action'),
-					method:form.attr('method'),
-					data:formData,
-					//url : "${pageContext.request.contextPath}" + requestURL,
-					//method : requestMethod,
-					//data : $('form[name=' + formName + ']').serialize(),
-					error : function(error) {
-						console.log(error)
-					},
-					success : function(data) {
-						$('.content-wrapper').empty();
-						$('.content-wrapper').load(data);
-					}
-				})
-			}
-		}
 	</script>
 </body>
 </html>
