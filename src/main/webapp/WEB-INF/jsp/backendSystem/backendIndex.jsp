@@ -13,7 +13,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
 <!-- DataTable -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
@@ -63,7 +64,7 @@
 							style="margin: 0; padding: 0px; text-align: center; width: 100%; color: white; font-size: 40px; line-height: 1;"></li>
 
 						<li class="nav-header"
-							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.firstName}
+							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}
 							您好</li>
 						<!-- 待辦事項 -->
 						<li class="nav-item has-treeview" onclick="loadingPage('')"><div
@@ -85,10 +86,8 @@
 
 
 		<!-- Main content ,use jQuery load() to load page-->
-		<div class="content-wrapper">
-
-
-		</div>
+		<div class="content-wrapper"
+			style="box-sizing: border-box; padding: 10px 15px"></div>
 		<!-- Main content -->
 	</div>
 	<!-- ./wrapper -->
@@ -117,7 +116,8 @@
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- DataTable(Api) -->
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
@@ -149,14 +149,37 @@
 		function loadingPage(requestPage) {
 			if (requestPage == '') {
 				console.log("還沒做，加油R");
-			} else{
+			} else {
 				$('.content-wrapper').empty();
 				$('.content-wrapper').load(
 						"${pageContext.request.contextPath}" + requestPage);
 			}
 
 		}
-		
+
+		//將form資料塞入
+		//function formSubmit(requestURL, requestMethod, formName) {
+		$(document).ready(function(){
+			$("form").submit(function(e){
+				var formData = new FormData(form);
+				e.preventDefault();
+				$.ajax({
+					url:form.attr('action'),
+					method:form.attr('method'),
+					data:formData,
+					//url : "${pageContext.request.contextPath}" + requestURL,
+					//method : requestMethod,
+					//data : $('form[name=' + formName + ']').serialize(),
+					error : function(error) {
+						console.log(error)
+					},
+					success : function(data) {
+						$('.content-wrapper').empty();
+						$('.content-wrapper').load(data);
+					}
+				})
+			}
+		}
 	</script>
 </body>
 </html>

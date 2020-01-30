@@ -22,95 +22,69 @@ public class MemberDaoImpl implements MemberDao {
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
-//目前沒用到
+
+	// ===後台會員CRUD===
+	// (Create)新增會員、(Read)拿會員資料、(Update)更新會員資料 與CustomerDao共用
+
 //	@Override
-//	public boolean idExists(String email) {
-//		boolean exist = false;
-//		Session session = factory.getCurrentSession();		
-////		System.out.println(session.getClass().getName());
-//		String queryString = "from members where email = :email";
-//		List<?> list = session.createQuery(queryString).setParameter("email", email).list();
-//		if (!list.isEmpty()) {
-//			exist = true;
-//		}
-//		return exist;
+//	public int addMember(MembersBean mem) {
+//		Session session = factory.getCurrentSession();
+//		int updateCount = 0;
+//		session.save(mem);
+//		updateCount = 1;
+//		return updateCount;
 //	}
 
-	// =====後台註冊=====
-	// 新增一筆Member物件到資料庫
-	@Override
-	public int addMember(MembersBean mem) {
-		Session session = factory.getCurrentSession();
-		int updateCount = 0;
-		session.save(mem);
-		updateCount = 1;
-		return updateCount;
-	}
-
 	// 更新紀錄(給使用者註冊資料用)
-	@Override
-	public boolean updateMember(MembersBean mem) {
-		String hql = "from members where email = :email";
-		Session session = factory.getCurrentSession();
-		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
-				.getSingleResult();
-		//
-		if (!mem.getAddress().equals(null)) {
-			member.setAddress(mem.getAddress());
-		}
-
-		if (!mem.getCellphone().equals(null)) {
-			member.setCellphone(mem.getCellphone());
-		}
-
-		if (!mem.getFirstName().equals(null)) {
-			member.setFirstName(mem.getFirstName());
-		}
-
-		if (!mem.getLastName().equals(null)) {
-			member.setLastName(mem.getLastName());
-		}
-
-		session.update(member);
-		return true;
-	}
+//	@Override
+//	public boolean updateMember(MembersBean mem) {
+//		String hql = "from members where email = :email";
+//		Session session = factory.getCurrentSession();
+//		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
+//				.getSingleResult();
+//		//
+//		if (!mem.getAddress().equals(null)) {
+//			member.setAddress(mem.getAddress());
+//		}
+//
+//		if (!mem.getCellphone().equals(null)) {
+//			member.setCellphone(mem.getCellphone());
+//		}
+//
+//		if (!mem.getFirstName().equals(null)) {
+//			member.setFirstName(mem.getFirstName());
+//		}
+//
+//		if (!mem.getLastName().equals(null)) {
+//			member.setLastName(mem.getLastName());
+//		}
+//
+//		session.update(member);
+//		return true;
+//	}
 
 	// ====================
 	// 經由Session介面的load()查詢資料庫內的紀錄
-	@Override
-	public MembersBean loadMember(String email) {
-		MembersBean member = null;
-		Session session = factory.getCurrentSession();
-//		String ipk = Integer.valueOf(pk);
-		member = (MembersBean) session.load(MembersBean.class, email);
-		return member;
-	}
+//	@Override
+//	public MembersBean loadMember(String email) {
+//		MembersBean member = null;
+//		Session session = factory.getCurrentSession();
+//		member = (MembersBean) session.load(MembersBean.class, email);
+//		return member;
+//	}
 
 	// 經由Session介面的get()查詢資料庫內的紀錄
-	@Override
-	public MembersBean getMember(String email) {
-		MembersBean member = null;
-		Session session = factory.getCurrentSession();
-//		Integer ipk = Integer.valueOf(pk);
-		member = (MembersBean) session.get(MembersBean.class, email);
-		return member;
-	}
+//	@Override
+//	public MembersBean getMember(String email) {
+//		MembersBean member = null;
+//		Session session = factory.getCurrentSession();
+//		member = (MembersBean) session.get(MembersBean.class, email);
+//		return member;
+//	}
 
-	// 查詢後台所有員工紀錄
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<MembersBean> getAllMembers() {
-		List<MembersBean> allMembers = new ArrayList<MembersBean>();
-		Session session = factory.getCurrentSession();
-		allMembers = session.createQuery("FROM MembersBean where privilegeId BETWEEN :startId AND :endId")
-							.setParameter("startId", 2)
-							.setParameter("endId", 7)
-							.list();
-		return allMembers;
-	}
-	//==ValidationRequest部分==
-	
-	// 使用Email拿ValidationRequestBean
+	// ==ValidationRequest(後台忘記密碼)部分==
+
+	// (Read)使用requestStatus拿ValidationRequestBean
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<ValidationRequestBean> getValidationRequestByrequestStatus(Integer[] requestStatus) {
@@ -120,7 +94,48 @@ public class MemberDaoImpl implements MemberDao {
 				.getResultList();
 		return lvrb;
 	}
-	
-	//==/ValidationRequest部分==
-	
+
+	// (Read)使用email拿ValidationRequestBean
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ValidationRequestBean> getValidationRequestByemail(String email) {
+		String hql = "from ValidationRequestBean where email = :email";
+		Session session = factory.getCurrentSession();
+		List<ValidationRequestBean> lvrb = session.createQuery(hql).setParameter("email", email).getResultList();
+		return lvrb;
+	}
+	// (Read)使用if拿ValidationRequestBean
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ValidationRequestBean> getValidationRequestById(Integer vRequestId) {
+		String hql = "from ValidationRequestBean where vRequestId = :vRequestId";
+		Session session = factory.getCurrentSession();
+		List<ValidationRequestBean> lvrb = session.createQuery(hql).setParameter("vRequestId", vRequestId).getResultList();
+		return lvrb;
+	}
+
+	// (Update)更改ValidationRequestBean
+	@Override
+	public Boolean updateValidationRequest(ValidationRequestBean vrb) {
+		Session session = factory.getCurrentSession();
+		try {
+			session.update(vrb);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	// ==/ValidationRequest部分==
+
+	// (Read)查詢後台所有員工
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<MembersBean> getAllMembers() {
+		List<MembersBean> allMembers = new ArrayList<MembersBean>();
+		Session session = factory.getCurrentSession();
+		allMembers = session.createQuery("FROM MembersBean where privilegeId BETWEEN :startId AND :endId")
+				.setParameter("startId", 2).setParameter("endId", 7).list();
+		return allMembers;
+	}
+
 }

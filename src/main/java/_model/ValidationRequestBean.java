@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="ValidationRequest")
-public class ValidationRequestBean implements Serializable{
+@Table(name = "ValidationRequest")
+public class ValidationRequestBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer vRequestId;
 	private String email;
@@ -26,13 +26,13 @@ public class ValidationRequestBean implements Serializable{
 	private Integer requestStatus;
 	private String validationCode;
 	private MembersBean approver;
-	
+
 	public ValidationRequestBean() {
 
 	}
 
 	public ValidationRequestBean(String email, String requestTime, Integer approverId, String responseComment,
-			String responseTime, Integer requestStatus, String validationCode) {
+			String responseTime, Integer requestStatus, String validationCode, MembersBean approver) {
 		this.email = email;
 		this.requestTime = requestTime;
 		this.approverId = approverId;
@@ -40,10 +40,11 @@ public class ValidationRequestBean implements Serializable{
 		this.responseTime = responseTime;
 		this.requestStatus = requestStatus;
 		this.validationCode = validationCode;
+		this.approver=approver;
 	}
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getvRequestId() {
 		return vRequestId;
 	}
@@ -63,12 +64,12 @@ public class ValidationRequestBean implements Serializable{
 	public String getRequestTime() {
 		return requestTime;
 	}
-	
-	@Column(name="requestTime", columnDefinition="datetime")
+
+	@Column(name = "requestTime", columnDefinition = "datetime")
 	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
 	}
-	
+
 	@Transient
 	public Integer getApproverId() {
 		return approverId;
@@ -85,8 +86,8 @@ public class ValidationRequestBean implements Serializable{
 	public void setResponseComment(String responseComment) {
 		this.responseComment = responseComment;
 	}
-	
-	@Column(name="responseTime", columnDefinition="datetime")
+
+	@Column(name = "responseTime", columnDefinition = "datetime")
 	public String getResponseTime() {
 		return responseTime;
 	}
@@ -110,9 +111,9 @@ public class ValidationRequestBean implements Serializable{
 	public void setValidationCode(String validationCode) {
 		this.validationCode = validationCode;
 	}
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="appoverId")
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "approverId")
 	public MembersBean getApprover() {
 		return approver;
 	}
@@ -120,5 +121,5 @@ public class ValidationRequestBean implements Serializable{
 	public void setApprover(MembersBean approver) {
 		this.approver = approver;
 	}
-	
+
 }

@@ -16,4 +16,5 @@
 	<script src="${pageContext.request.contextPath }/js/shopSystem/jquery.timepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath }/js/shopSystem/scrollax.min.js"></script>
 	<script src="${pageContext.request.contextPath }/js/shopSystem/main.js"></script>
+	<script src="${pageContext.request.contextPath }/js/shopSystem/all.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>

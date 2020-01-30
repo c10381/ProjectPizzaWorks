@@ -1,11 +1,7 @@
-var cart = JSON.parse(localStorage.getItem('cartList')) || {};
 const doubleCheese = 25;
 console.log(cart);
 
-$.fn.modal.Constructor.prototype.enforceFocus = function() {
-};
 $(function() {
-
 	// 暫時方法 存取商品名稱
 	var url = location.href;
 	if (url.indexOf('?') != -1) {
@@ -135,7 +131,9 @@ function updateCart(productId) {
 	if (cart.salesOrderDetails == undefined) {
 		cart.salesOrderDetails = []
 	}
+	
 	cart.salesOrderDetails.push(detail);
+	countnotif();
 
 }
 
@@ -151,8 +149,7 @@ function insertQtty() {
 
 // 動態插入pizza餅皮選擇
 function insertCrust() {
-	$
-			.ajax({
+	$.ajax({
 				type : "GET",
 				url : "../shop/getCrust",
 				dataType : "json",
