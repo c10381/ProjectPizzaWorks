@@ -100,6 +100,9 @@ public class CustomerServiceImpl implements CustomerService {
 			
 			//更改會員狀態為已啟用(activeStatus：1-未啟用,2-改密碼,3-已啟用)
 			MembersBean mem=dao.getCustomer(veb.getEmail());
+			if(mem==null) {
+				return null;
+			}
 			mem.setActiveStatus(3);
 			//只有單純update(可以這樣用吧？)
 			dao.updateCustomerStatus(mem);
@@ -119,6 +122,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean userRequestChangePW(HttpServletRequest request,String email) {
 		MailCtxAndUtil mailCtxAndUtil=new MailCtxAndUtil();
 		MembersBean mem=dao.getCustomer(email);
+		if(mem==null) {
+			return false;
+		}
 		mem.setActiveStatus(2);
 		//更改ActiveStatus有成功的話，才創建ValidationRequestBean
 		if(dao.updateCustomerStatus(mem)) {
