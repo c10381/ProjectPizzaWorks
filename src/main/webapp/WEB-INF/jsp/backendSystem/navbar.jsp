@@ -61,13 +61,15 @@
 			class="badge badge-warning navbar-badge"></span>
 	</a>
 		<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-			<div onclick="loadingPage('/memberSystem/memberPW')" class="dropdown-item"> <i class="fas fa-key"></i>
-				修改密碼
+			<div onclick="loadingPage('/memberSystem/memberPW')"
+				class="dropdown-item">
+				<i class="fas fa-key"></i> 修改密碼
 			</div>
 			<div class="dropdown-divider"></div>
-			<a href="${pageContext.request.contextPath}/logout" class="dropdown-item"> <i class="fas fa-door-open"></i>
-				登出
-			</a></div></li>
+			<a href="${pageContext.request.contextPath}/logout"
+				class="dropdown-item"> <i class="fas fa-door-open"></i> 登出
+			</a>
+		</div></li>
 
 	<!-- Messages Dropdown Menu -->
 	<!-- <li class="nav-item dropdown"><a class="nav-link"
@@ -154,7 +156,7 @@
 					days</span>
 			</a>
 			<div class="dropdown-divider"></div>
-			<a href="#" class="dropdown-item dropdown-footer">See All
+			<a href="backendSystem/getOrders" class="dropdown-item dropdown-footer">See All
 				Notifications</a>
 		</div></li>
 </ul>
