@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
-@Entity(name = "StockRequest")
-public class StockRequestBean implements Serializable {
+@Entity(name = "PurchaseOrder")
+public class PurchaseOrderBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer sRequestId;
+	private Integer pOrderId;
+	private Integer pRequestId;
 	private Integer proposalerId;
 	private String requestTime;
 	private String briefInfo;
@@ -21,31 +22,30 @@ public class StockRequestBean implements Serializable {
 	private String responseComment;
 	private String responseTime;
 	private String readTime;
-	private Integer requestStatus;
 	
-	public StockRequestBean() {
+	public PurchaseOrderBean() {
 	}
-
-	public StockRequestBean(Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
-			String responseComment, String responseTime, String readTime ,Integer requestStatus) {
+	
+	public PurchaseOrderBean(Integer proposalerId, Integer pRequestId, String requestTime, String briefInfo, Integer approverId,
+			String responseComment, String responseTime, String readTime) {
 		this.proposalerId = proposalerId;
+		this.pRequestId = pRequestId;
 		this.requestTime = requestTime;
 		this.briefInfo = briefInfo;
 		this.approverId = approverId;
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
 		this.readTime = readTime;
-		this.requestStatus = requestStatus;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getsRequestId() {
-		return sRequestId;
+	public Integer getpOrderId() {
+		return pOrderId;
 	}
 
-	public void setsRequestId(Integer sRequestId) {
-		this.sRequestId = sRequestId;
+	public void setpOrderId(Integer pOrderId) {
+		this.pOrderId = pOrderId;
 	}
 
 	public Integer getProposalerId() {
@@ -104,12 +104,12 @@ public class StockRequestBean implements Serializable {
 		this.readTime = readTime;
 	}
 
-	public Integer getRequestStatus() {
-		return requestStatus;
+	public Integer getpRequestId() {
+		return pRequestId;
 	}
 
-	public void setRequestStatus(Integer requestStatus) {
-		this.requestStatus = requestStatus;
+	public void setpRequestId(Integer pRequestId) {
+		this.pRequestId = pRequestId;
 	}
 
 }
