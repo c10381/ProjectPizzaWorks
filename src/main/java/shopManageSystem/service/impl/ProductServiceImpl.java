@@ -100,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public List<Object> getSalesOrderDetails(Integer salesOrderId) {
+		//依照訂單Id取出單一訂單資訊
 		SalesOrderBean salesOrder = dao.getSalesOrderById(salesOrderId);
 		List<ProductBean> products = new ArrayList<>();
 		List<CrustBean> crusts = new ArrayList<>();
