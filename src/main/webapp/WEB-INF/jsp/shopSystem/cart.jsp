@@ -19,14 +19,10 @@
 	<!-- MainContent -->
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
+			<div class="row justify-content-center mb-1 pb-3">
 				<div class="col-md-7 col-5 heading-section ftco-animate text-center">
-					<h2 class="mb-4">購物車</h2>
-					<p class="line"></p>
+					<h2 class="mb-1">購物車</h2>
 				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-8 cartList"></div>
 			</div>
 			<div class="row justify-content-center mb-5 pb-3 order-controll">
 				<a href="<spring:url value='/shop/menu'/>" class="mt-3">
@@ -37,6 +33,14 @@
 						class="btn btn-block btn-lg btn-outline-light rounded-full">前往結帳</button>
 				</a>
 			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-8 cartList mb-4"></div>
+			</div>
+			<div class="row justify-content-end">
+				<p class="line"></p>
+					<button class="btn btn-lg btn-outline-light">取消本次訂購</button>
+			</div>
+			
 		</div>
 	</section>
 

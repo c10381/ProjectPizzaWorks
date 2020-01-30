@@ -22,7 +22,6 @@ public class redirectController {
 	public String LoginPage(Model model) {
 		return "backendSystem/coworkerLogin";
 	}
-
 	// 轉址(navbar)
 	@PostMapping(value = "/backendSystem/navbar")
 	public String navbar(Model model) {

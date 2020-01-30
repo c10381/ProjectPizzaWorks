@@ -1,11 +1,10 @@
-let cart = JSON.parse(localStorage.getItem('cartList')) || {};
+//let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
 console.log(cart);
 
 $(function () {
 	updateList();
-	
-	$(".del_btn").on('click',function(){
+	$(".cartList").on('click',".del_btn", function(){
 		var num = $(this).find("svg").data("num");
 		deleteList(num);
 	})
@@ -13,9 +12,9 @@ $(function () {
 
 
 function updateList() {
+	countnotif();
 	let str = '';
-	let cartSize = salesOrderDetails.length
-	if(cartSize==0 ||cart==undefined ){
+	if(cart.length==0||salesOrderDetails.length==0  ){
 		str = `<p class="h6 text-center ">還未將任何商品加入購物車</p>
 					<div class="col-md-6 justify-content-center mx-auto mt-3">
 						<a href= "../shop/menu" class="mt-3">
@@ -26,7 +25,7 @@ function updateList() {
 		$(".order-controll").hide();
 		
 	}else{
-		for (let i = 0; i < cartSize; i++) {
+		for (let i = 0; i < salesOrderDetails.length; i++) {
 			str +=
 				`
 				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
@@ -73,7 +72,6 @@ function updateList() {
 function deleteList(num){
 	salesOrderDetails.splice(num, 1);
 	updateList();
-	location.reload();
 }
 
 

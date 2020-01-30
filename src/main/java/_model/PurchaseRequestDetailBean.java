@@ -18,8 +18,9 @@ public class PurchaseRequestDetailBean implements Serializable{
 	private Integer pRequestDetailId;
 //	private Integer pRequestId;
 	private Integer materialsId;
-	private double unitPrice;
+	private Double unitPrice;
 	private Integer quantity;
+	private Integer actualQuantity;
 	private PurchaseRequestBean purchaseRequest;
 	
 	public PurchaseRequestDetailBean() {}
@@ -30,10 +31,11 @@ public class PurchaseRequestDetailBean implements Serializable{
 //		this.unitPrice = unitPrice;
 //		this.quantity = quantity;
 //	}
-	public PurchaseRequestDetailBean(Integer materialsId, double unitPrice, Integer quantity) {
+	public PurchaseRequestDetailBean(Integer materialsId, Double unitPrice, Integer quantity, Integer actualQuantity) {
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
+		this.actualQuantity = actualQuantity;
 	}
 	
 	@Id
@@ -62,11 +64,11 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.materialsId = materialsId;
 	}
 
-	public double getUnitPrice() {
+	public Double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
@@ -86,5 +88,13 @@ public class PurchaseRequestDetailBean implements Serializable{
 
 	public void setPurchaseRequest(PurchaseRequestBean purchaseRequest) {
 		this.purchaseRequest = purchaseRequest;
+	}
+
+	public Integer getActualQuantity() {
+		return actualQuantity;
+	}
+
+	public void setActualQuantity(Integer actualQuantity) {
+		this.actualQuantity = actualQuantity;
 	}
 }

@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-	<div id="tabs" style="width: 50%; margin: auto;">
+	<div id="tabs">
 		<div id="registerOneMember">
 			<section>
 				<div class='container'>
@@ -32,6 +32,7 @@
 						<th>允許時間</th>
 						<th>請求狀態</th>
 						<th>備註</th>
+						<th>回應</th>
 					</thead>
 					<tbody></tbody>
 				</table>
@@ -41,32 +42,53 @@
 	</div>
 	<!-- /tag -->
 	<script>
-				
 				//呼叫DataTable
-				$('#Table').DataTable({
+				var table=$('#Table').DataTable({
 					data : [
 					<c:forEach items="${List}" var="Bean">
 					{
+						'DT_RowId':"${Bean.vRequestId}",
 						'vRequestId':"${Bean.vRequestId}",
 						'email':"${Bean.email}",
 						'requestTime':"${Bean.requestTime}",
-						'approverName':"${Bean.approverId.lastName+Bean.approverId.firstName}",
+						'approverName':"${Bean.approver.lastName}${Bean.approver.firstName}",
 						'responseTime':"${Bean.responseTime}",
 						<c:choose>
 							<c:when test="${Bean.requestStatus == 1}">
-								'requestStatus':"未驗證",
+								'requestStatus':"帳號未驗證",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 2}">
-								'requestStatus':"已驗證",
+								'requestStatus':"帳號啟用",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 3}">
-								'requestStatus':"申請修改密碼",
+								'requestStatus':"尚未簽核",
 							</c:when>
 							<c:when test="${Bean.requestStatus == 4}">
-								'requestStatus':"申請密碼通過",
+								'requestStatus':"核准申請",
+							</c:when>
+							<c:when test="${Bean.requestStatus == 5}">
+								'requestStatus':"拒絕申請",
 							</c:when>
 						</c:choose>
-						'responseComment':"${Bean.responseComment}",
+
+						<c:choose>
+							<c:when test="${Bean.requestStatus != 3}">
+								'responseComment':"${Bean.responseComment}",
+							</c:when>
+							<c:otherwise>
+								'responseComment':"<div id='${Bean.vRequestId}response'><input type='text' id='${Bean.vRequestId}responseComment'></input></div>",
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${Bean.requestStatus == 3}">
+								'response':"<div id='${Bean.vRequestId}ButtonArea'><button onclick='responseCommit(${Bean.vRequestId})'>核准</button><button onclick='responseRefuse(${Bean.vRequestId})'>拒絕</button></div>",
+							</c:when>
+							<c:otherwise>
+								'response':"",
+							</c:otherwise>
+						</c:choose>
+						
 					},
 					</c:forEach>
 					],
@@ -84,6 +106,8 @@
 						data : 'requestStatus'
 					}, {
 						data : 'responseComment'
+					}, {
+						data : 'response'
 					}, ],
 					//中文化相關
 					oLanguage : {
@@ -102,6 +126,69 @@
 						}
 					}
 				});
+				function responseCommit(id){
+					console.log(id);
+					
+					//可以用這個方法選取指定欄位資料
+					//console.log(table.row("#"+id).data().requestStatus);
+					
+					var responseComment=$("#"+id+"responseComment").val()
+					$.ajax({
+						url : "${pageContext.request.contextPath}/memberSystem/CoworkerPWRequest",
+						data : {
+							"Answer":true,
+							"id" : id,
+							"responseComment":responseComment,
+						},
+						type : "Post",
+						error : function() {
+							console.log("error");
+						},
+						success : function(data) {
+							console.log(data);
+							$("#"+id+"response").empty();
+							$("#"+id+"response").append(responseComment);
+							$("#"+id).children()[5].innerHTML="已簽核";
+							
+							$("#"+id+"ButtonArea").empty();
+							if(data==true){
+								$("#"+id+"ButtonArea").append("已送出回應");
+							}else{
+								$("#"+id+"ButtonArea").append("錯誤，此會員狀態可能未啟用");
+							}
+							
+						}
+					}) 
+					
+				}
+				function responseRefuse(id){
+					$.ajax({
+						url : "${pageContext.request.contextPath}/memberSystem/CoworkerPWRequest",
+						data : {
+							"Answer":false,
+							"id" : id,
+							"responseComment":$("#"+id+"responseComment").val(),
+						},
+						type : "Post",
+						error : function() {
+							console.log("error");
+						},
+						success : function(data) {
+							console.log(data);
+							$("#"+id+"response").empty();
+							$("#"+id+"response").append(responseComment);
+							$("#"+id).children()[5].innerHTML="已簽核";
+							$("#"+id+"ButtonArea").empty();
+							if(data==true){
+								$("#"+id+"ButtonArea").append("已送出回應");
+							}else{
+								$("#"+id+"ButtonArea").append("錯誤，此會員狀態可能未啟用");
+							}
+							
+						}
+					})
+					
+				}
 	</script>
 
 </body>
