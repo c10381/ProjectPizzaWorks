@@ -184,7 +184,7 @@
 						
 		$("#btnUpdate").click(function(){
 			getRecipesTable();
-			recipe_str=recipes.toString();			
+			recipe_str = recipes.toString();			
 		})
 		
 	function scanCheckBoxStatus(){		

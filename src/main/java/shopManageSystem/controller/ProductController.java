@@ -235,7 +235,7 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
-			return "getProductById?id="+product.getProductId();
+			return "shopManageSystem/getProductById?id="+product.getProductId();
 		}
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
