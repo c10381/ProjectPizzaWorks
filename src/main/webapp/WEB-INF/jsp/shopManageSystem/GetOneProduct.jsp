@@ -154,6 +154,33 @@
 	</section>
 	<!-- content end -->
 	<script>
+		//將form資料塞入
+		//function formSubmit(requestURL, requestMethod, formName) {
+		$(document).ready(function(){
+			$("#product").submit(function(e){
+				e.preventDefault();
+				console.log($("#product")[0]);
+				var formData = new FormData($("#product")[0]);
+				
+				$.ajax({
+					url:$("#product").attr('action'),
+					method:$("#product").attr('method'),
+					data:formData,
+					contentType: false,
+                    processData: false,
+					//url : "${pageContext.request.contextPath}" + requestURL,
+					//method : requestMethod,
+					//data : $('form[name=' + formName + ']').serialize(),
+					error : function(error) {
+						console.log(error)
+					},
+					success : function(data) {
+						$('.content-wrapper').empty();
+						$('.content-wrapper').load("${pageContext.request.contextPath}/shopManageSystem/products");
+					}
+				});
+			});
+		});
 		function readURL(input){
 			if(input.files && input.files[0]){
 				var imageTagID = input.getAttribute("targetID");
@@ -164,28 +191,7 @@
 				}
 			reader.readAsDataURL(input.files[0]);
 			}
-		}												
-		$("#btnUpdatePicture").click(function(){
-			getRecipesTable();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/shopManageSystem/updateRecipeById",
-				data: {"recipes":JSON.stringify(recipes)},
-				type: "POST",
-				error:function(){
-					console.log(JSON.stringify({recipes: recipes}));
-					console.log("Error");
-				},
-				success: function(data){
-					//console.log(recipes);
-					console.log(data);
-				}
-			})
-		})
-						
-		$("#btnUpdate").click(function(){
-			getRecipesTable();
-			recipe_str = recipes.toString();			
-		})
+		}
 		
 	function scanCheckBoxStatus(){		
 		if(${product.vegetableOnly}==1){
