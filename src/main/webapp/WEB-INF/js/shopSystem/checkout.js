@@ -1,4 +1,3 @@
-let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
 // 還沒做 先用插入的
 

@@ -167,22 +167,7 @@ public class CustomerController {
 		}
 	}
 	
-	//檢視前台所有顧客
-	@RequestMapping(value = "/memberSystem/allCustomer")
-	public String getAllCustomers(Model model, HttpSession session) {
-		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
-		if(mem == null) {
-			return "memberSystem/login";
-		}
-		
-		if(mem.getPrivilegeId()!=2) {
-			return "index";
-		}
-		
-		List<MembersBean> allCustomers = service.getAllCustomers();
-		model.addAttribute("Customers", allCustomers);
-		return "memberSystem/allCustomer";
-	}
+
 
 	// 新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	// 最後會拿到Bean
@@ -207,7 +192,7 @@ public class CustomerController {
 	public String doResetPwd(@RequestParam(value = "email") String email, 
 							@RequestParam(value = "newPwd") String newPwd) {
 		if (service.resetPwd(email, newPwd)) {
-			return "memberSystem/resetSuccess";
+			return "memberSystem/login";
 		} else {
 			return "memberSystem/resetFail";
 		}

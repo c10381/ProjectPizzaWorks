@@ -30,6 +30,7 @@
 			<ul class="nav navbar-nav ml-auto">
 				<li class="nav-item active"><a href='<spring:url value="/shop/cart" />'
 					class="nav-link"> <i class="fas fa-shopping-cart"></i>
+					<span class="badge badge-pill count-notif"></span> 
 				</a></li>
 				<li class="nav-item"><a href="<spring:url value='/memberSystem/login' />" class="nav-link">登入 / 註冊 </a>
 				</li>

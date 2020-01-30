@@ -7,22 +7,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>顧客資料檢視</title>
+<title>會員資料檢視</title>
 </head>
 <body>
 	<div align="center">
-		<h2>顧客資料</h2>
+		<h2>會員資料</h2>
 		<table id="Table" class="display">
 			<thead>
 				<th>帳號</th>
 				<th>姓</th>
 				<th>名</th>
 				<th>性別</th>
+				<th>身分</th>
 				<th>生日</th>
 				<th>電話</th>
 				<th>地址</th>
 				<th>狀態</th>
 			</thead>
+			<tbody></tbody>
 		</table>
 	</div>
 	<script>
@@ -30,7 +32,7 @@
 				.DataTable(
 						{
 							ajax : {
-								url : "${pageContext.request.contextPath}/memberSystem/getAllCustomer",
+								url : "${pageContext.request.contextPath}/memberSystem/getAllMember",
 								//默認不使用Key,直接讀取的Object Array
 								dataSrc : "",
 							},
@@ -50,6 +52,23 @@
 									}
 								},
 							},{
+								data: 'privilegeId',
+								render : function(data){
+									if(data==2){
+										return "網站後台管理員";
+									}else if(data==3){
+										return "銷貨負責人";
+									}else if(data==4){
+										return "進貨負責人";
+									}else if(data==5){
+										return "存貨負責人";
+									}else if(data==6){
+										return "客服人員";
+									}else if(data==7){
+										return "管理者";
+									}
+								},
+							}, {
 								data : "birthDate"
 							}, {
 								data : "cellphone"
