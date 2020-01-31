@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -43,8 +44,8 @@ public class PurchaseRequestBean implements Serializable{
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
 		this.readTime = readTime;
+		this.requestStatus = requestStatus;
 		this.totalPrice = totalPrice;
-		this.setRequestStatus(requestStatus);
 	}
 
 	@Id
@@ -129,7 +130,8 @@ public class PurchaseRequestBean implements Serializable{
 		this.requestStatus = requestStatus;
 	}
 
-	@OneToMany(mappedBy="purchaseRequest", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name="pRequestId", referencedColumnName="pRequestId")
 	public List<PurchaseRequestDetailBean> getPurchaseRequestDetails() {
 		return purchaseRequestDetails;
 	}

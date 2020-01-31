@@ -162,12 +162,12 @@
             $('#table_recipes tbody').on('click', '[id*=btnRemoveToAddR]', function () {
                 var nowRow = table.row($(this).parents('tr'));
             	var data = nowRow.data();
-                console.log(data);
+                //console.log(data);
             	var new_row = new Object();
             	new_row['materialsId'] = data[1];
             	new_row['materialsName'] = data[2];
             	new_row['unit'] = data[4];
-            	console.log(new_row);
+            	//console.log(new_row);
             	$('#table_materials').DataTable().row.add([
             		"<button id='btn_RemoveToAdd' class='btn btn-success'>添加至食譜</button>",
             		data[1],
@@ -219,7 +219,7 @@
 						loadingPage("${request.contextPath}/"+data);
 						//alert("食譜儲存"+data);
 					}
-				});
+			});
 		}
 	</script>
 </body>
