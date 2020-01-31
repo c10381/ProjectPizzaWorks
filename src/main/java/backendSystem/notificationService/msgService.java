@@ -1,10 +1,10 @@
-package backendSystem.msgService;
+package backendSystem.notificationService;
 
 import java.util.List;
 
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
-import backendSystem.msgDao.msgDao;
+import backendSystem.notificationDao.msgDao;
 
 public interface msgService {
 	

@@ -1,4 +1,4 @@
-package backendSystem.msgService.impl;
+package backendSystem.notificationService.impl;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import _model.SalesOrderBean;
-import backendSystem.msgDao.msgDao;
-import backendSystem.msgService.msgService;
+import backendSystem.notificationDao.msgDao;
+import backendSystem.notificationService.msgService;
 
 @Service
 public class msgServiceImpl implements msgService {

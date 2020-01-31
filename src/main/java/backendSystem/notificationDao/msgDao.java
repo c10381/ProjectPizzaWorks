@@ -1,4 +1,4 @@
-package backendSystem.msgDao;
+package backendSystem.notificationDao;
 
 import java.util.List;
 

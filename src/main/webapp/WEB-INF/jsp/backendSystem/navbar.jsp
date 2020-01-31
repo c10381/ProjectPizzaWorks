@@ -136,28 +136,110 @@
 	<!-- Notifications Dropdown Menu -->
 	<li class="nav-item dropdown"><a class="nav-link"
 		data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-			class="badge badge-warning navbar-badge">15</span>
+			class="badge badge-warning navbar-badge" id='note'></span>
 	</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-			<span class="dropdown-item dropdown-header">15 Notifications</span>
+			<span class="dropdown-item dropdown-header" id='note1'></span>
 			<div class="dropdown-divider"></div>
-			<a href="#" class="dropdown-item"> <i
-				class="fas fa-envelope mr-2"></i> 4 new messages <span
-				class="float-right text-muted text-sm">3 mins</span>
-			</a>
+
+			<div id='notification_container'>
+				<!-- 第一個box starts -->
+				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+					box1 <span class="float-right text-muted text-sm">box1 time</span>
+				</a>
+				<div class="dropdown-divider"></div>
+				<!-- 第一個box ends -->
+
+				<!-- 第二個box starts -->
+				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+					box2 <span class="float-right text-muted text-sm">box2 time</span>
+				</a>
+				<div class="dropdown-divider"></div>
+				<!-- 第二個box ends -->
+
+
+				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+					box3 <span class="float-right text-muted text-sm">box3 time</span>
+				</a>
+			</div>
+			
 			<div class="dropdown-divider"></div>
-			<a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i>
-				8 friend requests <span class="float-right text-muted text-sm">12
-					hours</span>
-			</a>
-			<div class="dropdown-divider"></div>
-			<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-				3 new reports <span class="float-right text-muted text-sm">2
-					days</span>
-			</a>
-			<div class="dropdown-divider"></div>
-			<a href="backendSystem/getOrders" class="dropdown-item dropdown-footer">See All
-				Notifications</a>
+			
+			<a href="#" class="dropdown-item dropdown-footer">See All Orders</a>
 		</div></li>
 </ul>
+
+
+<script type="text/javascript">
+	var header = ' New Order';
+	
+	function getOrders(){		
+		$.ajax({
+		url:'${pageContext.request.contextPath}/backendSystem/getOrders',
+		type: 'GET',
+		error: function(data){
+			console.log("error");
+		},
+		success: function(data){
+			var time = new Date($.now());
+			var UTC = time.toUTCString();
+			var orderTime = new Date(data[0].orderTime);
+			var millseconds = (time-orderTime);
+			var days = Math.floor(millseconds/86400000);
+			var hours = Math.floor((millseconds-(days*86400000))/3600000);
+			var minutes = Math.floor((millseconds-(days*86400000)-(hours*3600000))/60000);
+			var seconds = Math.floor((millseconds-(days*86400000)-(hours*3600000)-(minutes*60000))/1000);
+							
+			console.log('距離:'+days+'天'+hours+'小時'+minutes+'分'+seconds+'秒');
+			
+				
+			
+			if(data.length<1){
+				$('#note').hide();
+			}else{
+				$('#note').show();
+			}
+						
+			$('#note').html(data.length);
+			
+			if(data.length==0){
+				$('#note1').html(0+header);	
+			}else{
+				$('#note1').html(data.length+header);
+			}
+							
+			reseter();
+						
+			},			
+		});	
+	}
+	getOrders();
+	setInterval(getOrders,30000);
+	
+	$('.nav-link').click(function(){
+		$('#note').hide();
+	})
+	
+	function reseter(datalength){
+		$('#notification_container').remove();
+		if (datalength ==1){
+			var temp_link = "#";
+			var temp_msgTitle = "Yee";
+			var temp_msgTime = "";
+			var a_html = "<a href='"+temp_link+"' class='dropdown-item'> <i class='fas fa-file mr-2'></i>";
+			a_html += temp_msgTitle + "<span class='float-right text-muted text-sm'>";
+			a_html += temp_msgTime + "</span></a><div class='dropdown-divider'></div>";
+		}
+	}
+	
+	<!--
+		<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+		box1 <span class="float-right text-muted text-sm">box1 time</span>
+		</a>
+		<div class="dropdown-divider"></div>
+	-->
+	
+	
+	
+</script>
 </nav>

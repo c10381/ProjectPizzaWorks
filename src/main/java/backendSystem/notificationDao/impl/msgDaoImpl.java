@@ -1,4 +1,4 @@
-package backendSystem.msgDao.impl;
+package backendSystem.notificationDao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import _model.MembersBean;
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
-import backendSystem.msgDao.msgDao;
+import backendSystem.notificationDao.msgDao;
 
 @Repository
 public class msgDaoImpl implements msgDao {
@@ -29,10 +29,9 @@ public class msgDaoImpl implements msgDao {
 	public List<SalesOrderBean> get_unchecked_Orders() {
 		List<SalesOrderBean> uncheckedOrders = new ArrayList<SalesOrderBean>();
 		Session session = factory.getCurrentSession();
-		uncheckedOrders = session.createQuery("FROM SalesOrderBean where orderStatus =: orderStatus")
+		uncheckedOrders = session.createQuery("FROM SalesOrderBean where orderStatus =: orderStatus ORDER BY orderTime DESC")
 								 .setParameter("orderStatus", 0)
 								 .getResultList();
-		System.out.println(uncheckedOrders.isEmpty());
 		return uncheckedOrders;
 	}
 

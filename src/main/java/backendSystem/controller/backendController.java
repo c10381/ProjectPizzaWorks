@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+
 import _model.SalesOrderBean;
-import backendSystem.msgService.msgService;
+import _model.SalesOrderDetailBean;
+import backendSystem.notificationService.msgService;
 
 
 @RestController
@@ -24,6 +27,14 @@ public class backendController {
 
 	@GetMapping(value = "/backendSystem/getOrders" , produces = "application/json")
 	public List<SalesOrderBean> getOrders() {
-		return service.getOrders();
+
+		List<SalesOrderBean> salesOrders = service.getOrders();
+//		for(SalesOrderBean salesOrder : salesOrders) {
+//			//salesOrders.setSalesOrderDetails(null);
+//			for(SalesOrderDetailBean saleOrderDetail : salesOrder.getSalesOrderDetails()) {
+//				saleOrderDetail.setSalesOrder(null);
+//			}
+//		}
+		return salesOrders;
 	}
 }

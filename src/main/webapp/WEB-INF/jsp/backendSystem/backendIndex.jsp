@@ -31,6 +31,18 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+
+<!-- jQuery -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
+	<!-- jQuery-ui 1.12.1 -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+	<!-- jQuery.csv(Api)-->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
+
+
 </head>
 <body class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
@@ -103,15 +115,7 @@
 	</footer>
 	<!-- /footer -->
 
-	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
-	<!-- jQuery-ui 1.12.1 -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
-	<!-- jQuery.csv(Api)-->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
+	
 	<!-- Bootstrap 4 -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
@@ -156,7 +160,9 @@
 			}
 
 		}
-
+		
+		//navbar ajax request for order
+		
 	</script>
 </body>
 </html>

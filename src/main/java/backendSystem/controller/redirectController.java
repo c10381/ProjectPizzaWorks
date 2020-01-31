@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _model.MembersBean;
-import backendSystem.msgService.msgService;
+import backendSystem.notificationService.msgService;
 
 @Controller
 @SessionAttributes("Mem_LoginOK")
