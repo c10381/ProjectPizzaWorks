@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 
 import _model.MaterialsBean;
 import _model.PurchaseRequestBean;
+import _model.PurchaseRequestDetailBean;
 import _model.SupplierBean;
 
 public interface PurchaseDao {
@@ -22,6 +23,7 @@ public interface PurchaseDao {
 	//修改請購單(依請購單ID)
 	void updateOnePurchaseRequest(Integer pRequestId, String purchaseReason, Integer requestStatus, Integer quantity, Double unitPrice);
 	//新增請購單
-	void insertOnePurchaseRequest(PurchaseRequestBean prb);
-
+	PurchaseRequestBean insertOnePurchaseRequest(PurchaseRequestBean prb);
+	//新增請購單明細
+	void insertOnePurchaseRequestDetail(PurchaseRequestDetailBean list);
 }

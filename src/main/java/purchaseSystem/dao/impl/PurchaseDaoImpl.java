@@ -59,10 +59,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		SupplierBean sb = session.get(SupplierBean.class, supplierId);
 		return sb;
 	}
-	
-
-	//從請購單中取出廠商ID，再關聯至廠商名稱
-
 
 	//修改請購單(依請購單號)
 	@Override
@@ -91,9 +87,20 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	
 	//新增請購單
 	@Override
-	public void insertOnePurchaseRequest(PurchaseRequestBean prb) {
+	public PurchaseRequestBean insertOnePurchaseRequest(PurchaseRequestBean prb) {
 		Session session = factory.getCurrentSession();
-		session.save(prb);
+		Integer pRequestId = (Integer)session.save(prb);
+		//把新的請購單Id再set進Bean中？因為剛剛前端傳來的Bean中還沒有Id，現在set給它
+		prb.setpRequestId(pRequestId);
+		return prb;
+	}
+	
+	//新增請購單明細
+	@Override
+	public void insertOnePurchaseRequestDetail(PurchaseRequestDetailBean purchaseRequestDetail) {
+		Session session = factory.getCurrentSession();
+		session.save(purchaseRequestDetail);
+		
 	}
 
 }

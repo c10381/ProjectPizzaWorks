@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,12 +21,12 @@ public class PurchaseRequestBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pRequestId;
 	private Integer proposalerId;
-	private Timestamp requestTime;
+	private String requestTime;
 	private String purchaseReason;
 	private Integer approverId;
 	private String responseComment;
-	private Timestamp responseTime;
-	private Timestamp readTime;
+	private String responseTime;
+	private String readTime;
 	private Integer requestStatus;
 	private Double totalPrice;
 	private List<PurchaseRequestDetailBean> purchaseRequestDetails = new ArrayList<>();
@@ -33,8 +34,8 @@ public class PurchaseRequestBean implements Serializable{
 	public PurchaseRequestBean() {
 	}
 
-	public PurchaseRequestBean(Integer proposalerId, Timestamp requestTime, String purchaseReason, Integer approverId,
-			String responseComment, Timestamp responseTime, Timestamp readTime, Integer requestStatus, Double totalPrice) {
+	public PurchaseRequestBean(Integer proposalerId, String requestTime, String purchaseReason, Integer approverId,
+			String responseComment, String responseTime, String readTime, Integer requestStatus, Double totalPrice) {
 		super();
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
@@ -64,12 +65,12 @@ public class PurchaseRequestBean implements Serializable{
 	public void setProposalerId(Integer proposalerId) {
 		this.proposalerId = proposalerId;
 	}
-
-	public Timestamp getRequestTime() {
+	@Column(name="requestTime", columnDefinition="datetime")
+	public String getRequestTime() {
 		return requestTime;
 	}
 
-	public void setRequestTime(Timestamp requestTime) {
+	public void setRequestTime(String requestTime) {
 		this.requestTime = requestTime;
 	}
 
@@ -88,20 +89,20 @@ public class PurchaseRequestBean implements Serializable{
 	public void setResponseComment(String responseComment) {
 		this.responseComment = responseComment;
 	}
-
-	public Timestamp getResponseTime() {
+	@Column(name="responseTime", columnDefinition="datetime") 
+	public String getResponseTime() {
 		return responseTime;
 	}
 
-	public void setResponseTime(Timestamp responseTime) {
+	public void setResponseTime(String responseTime) {
 		this.responseTime = responseTime;
 	}
-
-	public Timestamp getReadTime() {
+	@Column(name="readTime", columnDefinition="datetime")
+	public String getReadTime() {
 		return readTime;
 	}
 
-	public void setReadTime(Timestamp readTime) {
+	public void setReadTime(String readTime) {
 		this.readTime = readTime;
 	}
 
