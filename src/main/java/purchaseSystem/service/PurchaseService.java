@@ -1,7 +1,10 @@
 package purchaseSystem.service;
 
 
+import java.util.List;
+
 import _model.PurchaseRequestBean;
+import _model.PurchaseRequestDetailBean;
 import purchaseSystem.dao.PurchaseDao;
 
 public interface PurchaseService {
@@ -12,5 +15,5 @@ public interface PurchaseService {
 	//修改請購單(依請購單號)
 	void updateOnePurchaseRequest(Integer pRequestId, String purchaseReason, Integer requestStatus, Integer quantity, Double unitPrice);
 	//新增請購單
-	void insertOnePurchaseRequest(PurchaseRequestBean prb);
+	void saveOnePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> list);
 }
