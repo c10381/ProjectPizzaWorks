@@ -248,4 +248,33 @@ public class ProductController {
 		return materials;
 	}
 	
+	@RequestMapping(value="/shopManageSystem/updateProductStatus", method=RequestMethod.POST)
+	public @ResponseBody String updateProductStatus(@RequestParam(value="product")String product_str, Model model){
+		System.out.println(product_str);
+		ProductBean product = null;
+		JSONObject jsonObject = new JSONObject(product_str);
+		if(jsonObject!=null && jsonObject.length()!=0) {
+				product = new ProductBean();
+				product.setProductId(jsonObject.getInt("productId"));
+				product.setActiveStatus(jsonObject.getInt("activeStatus"));
+			service.updateOneProductStatus(product);
+			return "OK!";
+		}		
+		return "";
+	}
+	
+	@RequestMapping(value="/shopManageSystem/updateSalesOrderStatus", method=RequestMethod.POST)
+	public @ResponseBody String updateSalesOrderStatus(@RequestParam(value="salesOrder")String salesOrder_str, Model model){
+		System.out.println(salesOrder_str);
+		SalesOrderBean salesOrder = null;
+		JSONObject jsonObject = new JSONObject(salesOrder_str);
+		if(jsonObject!=null && jsonObject.length()!=0) {
+			salesOrder = new SalesOrderBean();
+			salesOrder.setSalesOrderId(jsonObject.getInt("salesOrderId"));
+			salesOrder.setOrderStatus(jsonObject.getInt("orderStatus"));
+			service.updateOneSalesOrderStatus(salesOrder);
+			return "OK!";
+		}		
+		return "";
+	}
 }

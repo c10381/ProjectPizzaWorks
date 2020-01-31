@@ -119,4 +119,31 @@ public class ProductServiceImpl implements ProductService {
 		output.add(crusts);
 		return output;
 	}
+	
+	@Transactional
+	@Override
+	public void updateOneSalesOrder(SalesOrderBean salesOrder) {
+		if(salesOrder.getOrderStatus() == null) {
+			salesOrder.setOrderStatus(0);
+		}
+		dao.updateOneSalesOrder(salesOrder);
+	}
+	
+	@Transactional
+	@Override
+	public void updateOneSalesOrderStatus(SalesOrderBean salesOrder) {
+		if(salesOrder.getOrderStatus() == null) {
+			salesOrder.setOrderStatus(0);
+		}
+		dao.updateSalesOrderStatus(salesOrder);
+	}
+	
+	@Transactional
+	@Override
+	public void updateOneProductStatus(ProductBean product) {
+		if(product.getActiveStatus() == null) {
+			product.setActiveStatus(0);
+		}
+		dao.updateProductStatus(product);
+	}
 }

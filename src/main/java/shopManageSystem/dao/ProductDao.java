@@ -38,4 +38,10 @@ public interface ProductDao {
 	void InsertRecipe(RecipeBean recipe);
 
 	List<CrustBean> getCrustByTypeId(Integer crustTypeId);
+
+	void updateOneSalesOrder(SalesOrderBean salesOrder);
+
+	void updateProductStatus(ProductBean product);
+
+	void updateSalesOrderStatus(SalesOrderBean salesOrder);
 }

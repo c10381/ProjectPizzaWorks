@@ -33,4 +33,10 @@ public interface ProductService {
 	List<MaterialsBean> getAllMaterials();
 
 	List<Object> getSalesOrderDetails(Integer salesOrderId);
+
+	void updateOneSalesOrder(SalesOrderBean salesOrder);
+
+	void updateOneSalesOrderStatus(SalesOrderBean salesOrder);
+
+	void updateOneProductStatus(ProductBean product);
 }

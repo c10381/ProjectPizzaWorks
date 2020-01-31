@@ -1,6 +1,5 @@
 package shopManageSystem.dao.impl;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +42,14 @@ public class ProductDaoImpl implements ProductDao {
 		session = factory.getCurrentSession();
 		ProductBean originalProduct = session.get(ProductBean.class, pb.getProductId());
 		if (pb.getProductName() != null) {
-			originalProduct.setProductName(pb.getProductName());
+			if (!pb.getProductName().equals("")) {
+				originalProduct.setProductName(pb.getProductName());
+			}
 		}
 		if (pb.getBriefInfo() != null) {
-			originalProduct.setBriefInfo(pb.getBriefInfo());
+			if (!pb.getBriefInfo().equals("")) {
+				originalProduct.setBriefInfo(pb.getBriefInfo());
+			}
 		}
 		if (pb.getUnitPrice() != null) {
 			originalProduct.setUnitPrice(pb.getUnitPrice());
@@ -73,10 +76,53 @@ public class ProductDaoImpl implements ProductDao {
 			originalProduct.setChicken(pb.getChicken());
 		}
 		if (pb.getImagePath() != null) {
-			originalProduct.setImagePath(pb.getImagePath());
+			if (!pb.getImagePath().equals("")) {
+				originalProduct.setImagePath(pb.getImagePath());
+			}
 		}
-		if(pb.getCoverImage() != null) {
+		if (pb.getCoverImage() != null) {
 			originalProduct.setCoverImage(pb.getCoverImage());
+		}
+	}
+
+	@Override
+	public void updateOneSalesOrder(SalesOrderBean salesOrder) {
+		Session session = factory.getCurrentSession();
+		SalesOrderBean original_salesOrder = session.get(SalesOrderBean.class, salesOrder.getSalesOrderId());
+		if (salesOrder.getMemberId() != null) {
+			original_salesOrder.setMemberId(salesOrder.getMemberId());
+		}
+		if (salesOrder.getOrderTime() != null) {
+			if (!salesOrder.getOrderTime().equals("")) {
+				original_salesOrder.setOrderTime(salesOrder.getOrderTime());
+			}
+		}
+		if (salesOrder.getRequireTime() != null) {
+			if (!salesOrder.getRequireTime().equals("")) {
+				original_salesOrder.setRequireTime(salesOrder.getRequireTime());
+			}
+		}
+		if (salesOrder.getNeedDelivery() != null) {
+			original_salesOrder.setNeedDelivery(salesOrder.getNeedDelivery());
+		}
+		if (salesOrder.getDeliverAddress() != null) {
+			if (!salesOrder.getDeliverAddress().equals("")) {
+				original_salesOrder.setDeliverAddress(salesOrder.getDeliverAddress());
+			}
+		}
+		if (salesOrder.getTotalSales() != null) {
+			original_salesOrder.setTotalSales(salesOrder.getTotalSales());
+		}
+		if (salesOrder.getOrderStatus() != null) {
+			original_salesOrder.setOrderStatus(salesOrder.getOrderStatus());
+		}
+		if (salesOrder.getNote() != null) {
+			if (!salesOrder.getNote().equals("")) {
+				original_salesOrder.setNote(salesOrder.getNote());
+			}
+		}
+		if (salesOrder.getSalesOrderDetails() != null) {
+			original_salesOrder.setSalesOrderDetails(salesOrder.getSalesOrderDetails());
 		}
 	}
 
@@ -156,12 +202,26 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		session.save(recipe);
 	}
-	
+
 	@Override
 	public List<CrustBean> getCrustByTypeId(Integer crustTypeId) {
 		String hql = "FROM CrustBean WHERE crustTypeId = :crustTypeId";
 		Session session = factory.getCurrentSession();
 		List<CrustBean> crusts = session.createQuery(hql).setParameter("crustTypeId", crustTypeId).getResultList();
 		return crusts;
+	}
+	
+	@Override
+	public void updateProductStatus(ProductBean product) {
+		Session session = factory.getCurrentSession();
+		ProductBean pb = session.get(ProductBean.class, product.getProductId());
+		pb.setActiveStatus(product.getActiveStatus());
+	}
+	
+	@Override
+	public void updateSalesOrderStatus(SalesOrderBean salesOrder) {
+		Session session = factory.getCurrentSession();
+		SalesOrderBean sob = session.get(SalesOrderBean.class, salesOrder.getSalesOrderId());
+		sob.setOrderStatus(salesOrder.getOrderStatus());
 	}
 }

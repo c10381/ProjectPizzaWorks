@@ -22,9 +22,7 @@
 		</div>
 	</section>
 	<section class="content">
-
 		<div class="row">
-
 			<div class="col-md-8">
 				<div class="card card-default">
 					<div class="card-header">
@@ -54,8 +52,11 @@
 								class="btn btn-success float-right" />
 						</p>
 					</div>
+					<!-- card-body -->
 				</div>
+				<!-- card -->
 			</div>
+			<!-- col end -->
 			<div class="col-md-4">
 				<div class="card card-default">
 					<div class="card-header">
@@ -78,13 +79,16 @@
 							<tfoot>
 							</tfoot>
 						</table>
-
 					</div>
+					<!-- card-body -->
 				</div>
+				<!-- card -->
 			</div>
+			<!-- col end -->
 		</div>
+		<!-- row end -->
 	</section>
-
+	<!-- content end -->
 	<script type="text/javascript">
 		var products = [
 			<c:forEach var="material" items="${materials}" varStatus='status'>
