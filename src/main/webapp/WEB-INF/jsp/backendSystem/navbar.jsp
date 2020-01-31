@@ -232,12 +232,7 @@
 		}
 	}
 	
-	<!--
-		<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-		box1 <span class="float-right text-muted text-sm">box1 time</span>
-		</a>
-		<div class="dropdown-divider"></div>
-	-->
+
 	
 	
 	

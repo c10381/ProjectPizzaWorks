@@ -53,7 +53,8 @@ public class ShopServiceImpl implements ShopService {
         System.out.println(SOB.getOrderTime());
         
 		for (SalesOrderDetailBean sd : list) {
-			sd.setSalesOrder(SOB);
+//			sd.setSalesOrder(SOB);
+			sd.setSalesOrderId(SOB.getSalesOrderId());
 			//進銷存用 ，先預設塞值為0
 			sd.setSalesListId(0);
 		}
