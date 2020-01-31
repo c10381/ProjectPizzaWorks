@@ -139,7 +139,7 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 
 		session.createQuery(hql).setParameter("quantity", recipe.getQuantity())
-				.setParameter("productId", recipe.getProduct().getProductId())
+				.setParameter("productId", recipe.getProductId())
 				.setParameter("materialsId", recipe.getMaterial().getMaterialsId()).executeUpdate();
 	}
 

@@ -68,6 +68,5 @@ public class PurchaseOrderDetailBean implements Serializable{
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
-
 	
 }

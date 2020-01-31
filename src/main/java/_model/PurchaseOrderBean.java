@@ -55,6 +55,7 @@ public class PurchaseOrderBean implements Serializable {
 	public void setProposalerId(Integer proposalerId) {
 		this.proposalerId = proposalerId;
 	}
+	
 	@Column(name="requestTime", columnDefinition="datetime")
 	public String getRequestTime() {
 		return requestTime;

@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,7 +22,7 @@ public class RecipeBean implements Serializable{
 	private Double quantity;
 	private String unit;
 	
-	private ProductBean product;
+//	private ProductBean product;
 	
 	private MaterialsBean material;
 	
@@ -50,7 +49,7 @@ public class RecipeBean implements Serializable{
 		this.recipeId = recipeId;
 	}
 	
-	@Transient
+//	@Transient
 	public Integer getProductId() {
 		return productId;
 	}
@@ -84,15 +83,15 @@ public class RecipeBean implements Serializable{
 		this.unit = unit;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name="productId", nullable=false)
-	public ProductBean getProduct() {
-		return product;
-	}
-
-	public void setProduct(ProductBean product) {
-		this.product = product;
-	}
+//	@ManyToOne
+//	@JoinColumn(name="productId", nullable=false)
+//	public ProductBean getProduct() {
+//		return product;
+//	}
+//
+//	public void setProduct(ProductBean product) {
+//		this.product = product;
+//	}
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="materialsId")

@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -181,7 +182,8 @@ public class ProductBean implements Serializable{
 				+ ", chicken=" + chicken + ", imagePath=" + imagePath + ", recipes=" + recipes + "]";
 	}
 
-	@OneToMany(mappedBy="product", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name="productId", referencedColumnName="productId")
 	public List<RecipeBean> getRecipes() {
 		return recipes;
 	}

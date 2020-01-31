@@ -91,7 +91,7 @@
 	                render: function(data, type, row, meta){
 	                	var op_val = data[7];
 	                	var op_text = ["未接單","拒絕該單", "已接單", "可取餐", "運送中", "已結單"];
-	                	var select_html = "<select id='sltStatus'>";
+	                	var select_html = "<select id='sltStatus' class='form-control'>";
 	                	for(var i = 0; i<6; i++){
 	                		if(i==op_val){
 	                			select_html += "<option value="+i+" selected >"+op_text[i]+"</option>";
@@ -106,7 +106,7 @@
 				}, {
 	                targets: -1,
 	                data: null,
-	                defaultContent: "<button id='btnDetails'>詳細資料</button>"
+	                defaultContent: "<button id='btnDetails' class='btn btn-success'>詳細資料</button>"
 				}]
             });
             

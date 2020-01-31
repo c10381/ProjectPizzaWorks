@@ -16,21 +16,21 @@ import javax.persistence.Table;
 public class PurchaseRequestDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pRequestDetailId;
-//	private Integer pRequestId;
+	private Integer pRequestId;
 	private Integer materialsId;
 	private Double unitPrice;
 	private Integer quantity;
 	private Integer actualQuantity;
-	private PurchaseRequestBean purchaseRequest;
+//	private PurchaseRequestBean purchaseRequest;
 	
 	public PurchaseRequestDetailBean() {}
 
-//	public PurchaseRequestDetailBean(Integer pRequestId, Integer materialsId, double unitPrice, Integer quantity) {
-//		this.pRequestId = pRequestId;
-//		this.materialsId = materialsId;
-//		this.unitPrice = unitPrice;
-//		this.quantity = quantity;
-//	}
+	public PurchaseRequestDetailBean(Integer pRequestId, Integer materialsId, double unitPrice, Integer quantity) {
+		this.pRequestId = pRequestId;
+		this.materialsId = materialsId;
+		this.unitPrice = unitPrice;
+		this.quantity = quantity;
+	}
 	public PurchaseRequestDetailBean(Integer materialsId, Double unitPrice, Integer quantity, Integer actualQuantity) {
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
@@ -48,13 +48,14 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.pRequestDetailId = pRequestDetailId;
 	}
 	
-//	public Integer getpRequestId() {
-//		return pRequestId;
-//	}
-//
-//	public void setpRequestId(Integer pRequestId) {
-//		this.pRequestId = pRequestId;
-//	}
+//	@Transient
+	public Integer getpRequestId() {
+		return pRequestId;
+	}
+
+	public void setpRequestId(Integer pRequestId) {
+		this.pRequestId = pRequestId;
+	}
 
 	public Integer getMaterialsId() {
 		return materialsId;
@@ -80,15 +81,15 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.quantity = quantity;
 	}
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="pRequestId", nullable=false)
-	public PurchaseRequestBean getPurchaseRequest() {
-		return purchaseRequest;
-	}
-
-	public void setPurchaseRequest(PurchaseRequestBean purchaseRequest) {
-		this.purchaseRequest = purchaseRequest;
-	}
+//	@ManyToOne(cascade=CascadeType.PERSIST)
+//	@JoinColumn(name="pRequestId", nullable=false)
+//	public PurchaseRequestBean getPurchaseRequest() {
+//		return purchaseRequest;
+//	}
+//
+//	public void setPurchaseRequest(PurchaseRequestBean purchaseRequest) {
+//		this.purchaseRequest = purchaseRequest;
+//	}
 
 	public Integer getActualQuantity() {
 		return actualQuantity;

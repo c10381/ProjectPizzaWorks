@@ -7,9 +7,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -75,7 +77,9 @@ public class SalesListBean implements Serializable{
 	public void setSalesOrderId(Integer salesOrderId) {
 		this.salesOrderId = salesOrderId;
 	}
-	@OneToMany(mappedBy="salesList", cascade= {CascadeType.ALL})
+	
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name="salesListId", referencedColumnName="salesListId")
 	public List<SalesListDetailBean> getSalesListDetails() {
 		return salesListDetails;
 	}

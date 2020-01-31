@@ -32,5 +32,5 @@ public interface MemberService {
 
 	Boolean changePWrequestCommit(Boolean Answer, Integer vRequestId, MembersBean admin, String responseComment);
 
-
+	
 }

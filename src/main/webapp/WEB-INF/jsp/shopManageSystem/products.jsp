@@ -75,9 +75,9 @@
 	                data: null,
 	                render: function(data, type, row, meta){
 						if(data[2]== "1"){
-							return "<select id='sltStatus'><option value=0 >未上架</option><option value=1 selected>已上架</option></select>";
+							return "<select id='sltStatus' class='form-control'><option value=0 >未上架</option><option value=1 selected>已上架</option></select>";
 	                	}else if(data[2] == "0"){
-	                		return "<select id='sltStatus'><option value=0 selected>未上架</option><option value=1>已上架</option></select>";
+	                		return "<select id='sltStatus' class='form-control'><option value=0 selected>未上架</option><option value=1>已上架</option></select>";
 	                	}
 	                	return data;
 	                },
@@ -85,7 +85,7 @@
 				}, {
 	                targets: -1,
 	                data: null,
-	                defaultContent: "<button id='btnDetails' value='Get Details' >詳細資料</button>"
+	                defaultContent: "<button id='btnDetails' class='btn btn-success' >詳細資料</button>"
 				}]
             });
             
