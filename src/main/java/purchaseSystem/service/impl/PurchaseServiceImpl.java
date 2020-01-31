@@ -79,12 +79,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void saveOnePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> list) {
 		//將在controller處理過後的prb新增至資料庫，至此請購單Bean被更新，此處之載有資訊之請購單Bean(prb)，其中被更新的東西不包含Detail這個list
 		//因為本例為雙向一對多，FK在明細(多)方，資料表中請購單表中未有FK及參照。
-		PurchaseRequestBean purchaseRequest = dao.insertOnePurchaseRequest(prb);
+		Integer pRequestId = dao.insertOnePurchaseRequest(prb);
 		//將在Controller處理過後的list新增置資料庫，該list包含新的諸Detail Bean
 		for(PurchaseRequestDetailBean purchaseRequestDetail: list ) {
 			//因第一行所述，請購單Bean中之明細List尚未被更新，此處反先對請購明細Bean更新，將帶有新的Id的前端傳來的請購單Bean，放進Detail Bean中
 			//purchaseRequestDetail中有Controller中處理過的detail資訊，尚差還有Id之新請購單Bean，現在補足
-			purchaseRequestDetail.setPurchaseRequest(purchaseRequest);
+			purchaseRequestDetail.setpRequestId(pRequestId);
 			//把完整的purchaseRequestDetail放進資料庫中。
 			dao.insertOnePurchaseRequestDetail(purchaseRequestDetail);
 		} 

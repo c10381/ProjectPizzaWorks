@@ -25,7 +25,7 @@ public interface PurchaseDao {
 	//修改請購單(依請購單ID)
 	void updatePurchaseRequest(PurchaseRequestBean prb);
 	//新增請購單
-	PurchaseRequestBean insertOnePurchaseRequest(PurchaseRequestBean prb);
+	Integer insertOnePurchaseRequest(PurchaseRequestBean prb);
 	//新增請購單明細
 	void insertOnePurchaseRequestDetail(PurchaseRequestDetailBean list);
 }

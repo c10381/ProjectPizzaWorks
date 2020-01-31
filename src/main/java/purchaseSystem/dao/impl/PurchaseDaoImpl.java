@@ -62,12 +62,12 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	
 	//新增請購單
 	@Override
-	public PurchaseRequestBean insertOnePurchaseRequest(PurchaseRequestBean prb) {
+	public Integer insertOnePurchaseRequest(PurchaseRequestBean prb) {
 		Session session = factory.getCurrentSession();
 		Integer pRequestId = (Integer)session.save(prb);
 		//把新的請購單Id再set進Bean中？因為剛剛前端傳來的Bean中還沒有Id，現在set給它
 		prb.setpRequestId(pRequestId);
-		return prb;
+		return pRequestId;
 	}
 	
 	//新增請購單明細
@@ -84,7 +84,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		Session session = factory.getCurrentSession();
 		String hql="from PurchaseRequestDetailBean where pRequestId=:pRequestId and materialsId=:materialsId";
 		List<PurchaseRequestDetailBean> list = session.createQuery(hql)
-				.setParameter("pRequestId", prdb.getPurchaseRequest().getpRequestId())
+				.setParameter("pRequestId", prdb.getpRequestId())
 				.setParameter("materialsId", prdb.getMaterialsId())
 				.getResultList();
 		for(PurchaseRequestDetailBean oldBean:list) {
