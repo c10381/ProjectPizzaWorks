@@ -65,4 +65,10 @@ public class redirectController {
 	public String AllCustomer(Model model) {
 		return "memberSystem/allCustomer";
 	}
+	
+	//客服系統
+	@GetMapping(value = "/customerService")
+    public String getChat(Model model) {
+        return "messageSystem/customerService";
+    }
 }

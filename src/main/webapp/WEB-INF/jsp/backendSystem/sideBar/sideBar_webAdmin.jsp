@@ -134,7 +134,7 @@
 				
 
 				<!-- customerService -->
-				<li class="nav-item has-treeview" onclick="loadingPage('')"><div class="nav-link">
+				<li class="nav-item has-treeview" onclick="loadingPage('/customerService')"><div class="nav-link">
 						<i class="nav-icon fas fa-microphone"></i>
 						<p>
 							客服系統
