@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.json.JSONArray;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
 import _model.SalesOrderBean;
@@ -231,10 +235,17 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
-			return "getProductById?id="+product.getProductId();
-		}		
+			return "shopManageSystem/getProductById?id="+product.getProductId();
+		}
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
+	}
+	
+	@RequestMapping(value = "/getAllMaterialsJSON", method = RequestMethod.GET, 
+			produces = {"application/json"})
+	public @ResponseBody List<MaterialsBean> getAllMaterialsJSON(Model model) {
+		List<MaterialsBean> materials = service.getAllMaterials();
+		return materials;
 	}
 	
 }

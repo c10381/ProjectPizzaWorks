@@ -98,6 +98,9 @@ public class MemberServiceImpl implements MemberService {
 	public boolean memberFPWrequest(String email) {
 		if(Custdao.emailExists(email)) {
 			MembersBean mem=Custdao.getCustomer(email);
+			if(mem==null) {
+				return false;
+			}
 			ValidationRequestBean vrm=new ValidationRequestBean();
 			//把ActiveStatus 3->2(已啟用改成變更密碼狀態)
 			mem.setActiveStatus(2);
@@ -108,7 +111,7 @@ public class MemberServiceImpl implements MemberService {
 			//紀錄ValidationRequest表單
 			vrm.setEmail(mem.getEmail());
 			vrm.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
-			vrm.setRequestStatus(3);//1-未驗證,2-已驗證,3-申請修改密碼,4-已修改密碼
+			vrm.setRequestStatus(3);//1-未驗證,2-已驗證,3-申請修改密碼,4-核准修改密碼,5-拒絕修改密碼
 			Custdao.addCustomerValidationRequest(vrm);
 			return true;
 		}else {
@@ -120,6 +123,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MembersBean coworkerUpdPwd(String email,String newPW) {
 		MembersBean mem=Custdao.getCustomer(email);
+		if(mem==null) {
+			return null;
+		}
 		if(encrypter.getMD5Endocing(newPW).equals(mem.getPassword())) {
 			return null;
 		}
@@ -137,7 +143,7 @@ public class MemberServiceImpl implements MemberService {
 		return mem;
 	}
 	
-	//這個是要利用requestStatus拿到ValidationRequestBeans
+	//利用requestStatus拿到ValidationRequestBeans
 	@Transactional
 	@Override
 	public List<ValidationRequestBean> SearchValidationRequestBeans(Integer... requestStatus) {
@@ -145,4 +151,52 @@ public class MemberServiceImpl implements MemberService {
 		
 		return lvrm;
 	}
+	//允許會員變更密碼(更改ValidationRequestBeans與MembersBean)
+	@Transactional
+	@Override
+	public Boolean changePWrequestCommit(Boolean Answer,Integer vRequestId,MembersBean admin,String responseComment) {
+		List<ValidationRequestBean> lvrb=Memdao.getValidationRequestById(vRequestId);
+		if(lvrb.isEmpty()) {
+			return false;
+		}else {
+			//更改ValidationRequestBean狀態
+			ValidationRequestBean vrb=lvrb.get(0);
+			if(Answer) {
+				vrb.setRequestStatus(4);
+			}else {
+				vrb.setRequestStatus(5);
+			}
+			vrb.setApprover(admin);
+			vrb.setResponseComment(responseComment);
+			vrb.setResponseTime(String.valueOf(new Timestamp(new Date().getTime())));
+			Memdao.updateValidationRequest(vrb);
+			
+			//更改MembersBean狀態，並更改ActiveStatus為3
+			MembersBean mem=Custdao.getCustomer(vrb.getEmail());
+			if(mem==null) {
+				return false;
+			}
+			if(mem.getActiveStatus()==1||mem.getActiveStatus()==3) {
+				return false;
+			}
+			if(Answer) {
+				mem.setActiveStatus(1);
+			}else {
+				mem.setActiveStatus(3);
+			}
+			Custdao.updateCustomerStatus(mem);
+			
+			return true;
+		}
+	}
+	
+	//拿到全部的後台會員資料
+	@Transactional
+	@Override
+	public String getAllMembers() {
+		Gson gson=new Gson();
+		return gson.toJson(Memdao.getAllMembers());
+	}
+	
+	
 }

@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${CLoginOK == null}">
+	<c:redirect url="/memberSystem/login" />
+</c:if>
 <title>結帳 - Pizza Sim</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
@@ -58,7 +62,7 @@
 						</div>
 						<div class="form-group">
 							<label>備註</label>
-							<textarea name="" id="" cols="30" rows="3" class="form-control"
+							<textarea name="note" id="note" cols="30" rows="3" class="form-control"
 								placeholder="[邀您一同愛護地球] 即日起，不再主動提供餐巾紙及辣椒包。"></textarea>
 						</div>
 						<div class="form-group">

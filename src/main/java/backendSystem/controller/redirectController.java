@@ -9,16 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _model.MembersBean;
+import backendSystem.notificationService.msgService;
 
 @Controller
 @SessionAttributes("Mem_LoginOK")
 public class redirectController {
+	
+	private msgService service;
+		
 	// 轉址(Login page)
 	@RequestMapping("/backendSystem/coworkerLogin")
 	public String LoginPage(Model model) {
 		return "backendSystem/coworkerLogin";
 	}
-
 	// 轉址(navbar)
 	@PostMapping(value = "/backendSystem/navbar")
 	public String navbar(Model model) {
@@ -30,6 +33,7 @@ public class redirectController {
 	public String coworkerForgetPW(Model model) {
 		return "memberSystem/coworkerforgetPWPage";
 	}
+
 	// 轉址(忘記密碼)
 	@GetMapping(value = "/memberSystem/memberPW")
 	public String memberPW(Model model) {
@@ -57,4 +61,5 @@ public class redirectController {
 			return "backendSystem/coworkerLogin";
 		}
 	}
+	
 }

@@ -11630,6 +11630,17 @@ textarea.form-control {
   border-radius: 9999px;
 }
 
+.count-notif{
+  vertical-align:middle;
+  border: solid 2px #fac564;
+  color: #fac564; 
+  margin-left: -8px;
+  margin-top: -24px;
+  font-size: 13px;
+  font-weight: 300;
+  z-index: -1;
+}
+
 
 
 @-webkit-keyframes loader-rotate {

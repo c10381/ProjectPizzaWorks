@@ -13,7 +13,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
 <!-- DataTable -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
@@ -30,6 +31,18 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+
+<!-- jQuery -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
+	<!-- jQuery-ui 1.12.1 -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+	<!-- jQuery.csv(Api)-->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
+
+
 </head>
 <body class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
@@ -63,7 +76,7 @@
 							style="margin: 0; padding: 0px; text-align: center; width: 100%; color: white; font-size: 40px; line-height: 1;"></li>
 
 						<li class="nav-header"
-							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.firstName}
+							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}
 							您好</li>
 						<!-- 待辦事項 -->
 						<li class="nav-item has-treeview" onclick="loadingPage('')"><div
@@ -85,10 +98,8 @@
 
 
 		<!-- Main content ,use jQuery load() to load page-->
-		<div class="content-wrapper">
-
-
-		</div>
+		<div class="content-wrapper"
+			style="box-sizing: border-box; padding: 10px 15px"></div>
 		<!-- Main content -->
 	</div>
 	<!-- ./wrapper -->
@@ -104,20 +115,13 @@
 	</footer>
 	<!-- /footer -->
 
-	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
-	<!-- jQuery-ui 1.12.1 -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
-	<!-- jQuery.csv(Api)-->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
+	
 	<!-- Bootstrap 4 -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- DataTable(Api) -->
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
@@ -149,13 +153,15 @@
 		function loadingPage(requestPage) {
 			if (requestPage == '') {
 				console.log("還沒做，加油R");
-			} else{
+			} else {
 				$('.content-wrapper').empty();
 				$('.content-wrapper').load(
 						"${pageContext.request.contextPath}" + requestPage);
 			}
 
 		}
+		
+		//navbar ajax request for order
 		
 	</script>
 </body>

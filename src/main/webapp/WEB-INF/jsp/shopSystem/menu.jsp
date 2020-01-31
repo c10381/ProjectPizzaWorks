@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
 						<div class="col-lg-4 col-md-6 mt-5 text-center ">
 							<div class="menu-wrap">
 								<a href="#" class="menu-img img mb-4"
-									style="background-image: url(${pageContext.request.contextPath}/images/Products/${product.imagePath });"></a>
+									style="background-image: url(${pageContext.request.contextPath}/picture/${product.productId});"></a>
 								<div class="text">
 									<h3>
 										<%  %>

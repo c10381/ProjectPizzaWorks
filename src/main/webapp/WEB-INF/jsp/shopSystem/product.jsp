@@ -16,6 +16,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
 </head>
 <body>
 
@@ -26,11 +27,11 @@
 	<section class="ftco-section contact-section">
 		<div class="container mt-5">
 			<div class="row staff">
-				<c:forEach items="${ products}" var="item" varStatus="status">
+				<c:forEach items="${products}" var="item" varStatus="status">
 					<c:if test="${status.first }">
 						<div class="col-md-6 ftco-animate">
 							<img
-								src="${pageContext.request.contextPath}/images/Products/${item.imagePath }"
+								src="${pageContext.request.contextPath}/picture/${products[status.index].productId}"
 								class="img-fluid" />
 						</div>
 					</c:if>
@@ -39,7 +40,7 @@
 
 				<div class="col-md-4 product-info ftco-animate">
 					<div class="row">
-						<c:forEach items="${ products}" var="item" varStatus="status">
+						<c:forEach items="${products}" var="item" varStatus="status">
 							<c:if test="${status.first }">
 								<div class="col-md-12 mb-4">
 									<%-- 	<h2 class="h4 mt-sm-3" id="productName">${item.productName }</h2> --%>
@@ -89,5 +90,6 @@
 	<script
 		src="${pageContext.request.contextPath }/js/shopSystem/product.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
 </body>
 </html>

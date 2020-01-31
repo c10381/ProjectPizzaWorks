@@ -58,6 +58,7 @@ public class ShopServiceImpl implements ShopService {
 			sd.setSalesListId(0);
 		}
 		SOB.setMemberId(6);
+		SOB.setOrderStatus(0);
 		dao.saveOrder(SOB);
 
 	}

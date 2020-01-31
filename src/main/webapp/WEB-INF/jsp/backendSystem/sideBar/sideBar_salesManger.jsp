@@ -20,7 +20,11 @@
 								</p>
 							</div>
 							<ul class="nav nav-treeview" style="display: block;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllMaterials')"><div class="nav-link">
+										<i class="far fa-dot-circle nav-icon"></i>
+										<p>庫存查詢</p>
+									</div></li>
+								<li class="nav-item" onclick="loadingPage('/purchase/FormPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>請購單</p>
 									</div></li>

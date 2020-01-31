@@ -2,10 +2,13 @@ package _model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Table
@@ -13,18 +16,26 @@ import javax.persistence.Table;
 public class PurchaseRequestDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pRequestDetailId;
-	private Integer pRequestId;
+//	private Integer pRequestId;
 	private Integer materialsId;
-	private double unitPrice;
+	private Double unitPrice;
 	private Integer quantity;
+	private Integer actualQuantity;
+	private PurchaseRequestBean purchaseRequest;
 	
 	public PurchaseRequestDetailBean() {}
 
-	public PurchaseRequestDetailBean(Integer pRequestId, Integer materialsId, double unitPrice, Integer quantity) {
-		this.pRequestId = pRequestId;
+//	public PurchaseRequestDetailBean(Integer pRequestId, Integer materialsId, double unitPrice, Integer quantity) {
+//		this.pRequestId = pRequestId;
+//		this.materialsId = materialsId;
+//		this.unitPrice = unitPrice;
+//		this.quantity = quantity;
+//	}
+	public PurchaseRequestDetailBean(Integer materialsId, Double unitPrice, Integer quantity, Integer actualQuantity) {
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
+		this.actualQuantity = actualQuantity;
 	}
 	
 	@Id
@@ -37,13 +48,13 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.pRequestDetailId = pRequestDetailId;
 	}
 	
-	public Integer getpRequestId() {
-		return pRequestId;
-	}
-
-	public void setpRequestId(Integer pRequestId) {
-		this.pRequestId = pRequestId;
-	}
+//	public Integer getpRequestId() {
+//		return pRequestId;
+//	}
+//
+//	public void setpRequestId(Integer pRequestId) {
+//		this.pRequestId = pRequestId;
+//	}
 
 	public Integer getMaterialsId() {
 		return materialsId;
@@ -53,11 +64,11 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.materialsId = materialsId;
 	}
 
-	public double getUnitPrice() {
+	public Double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
@@ -67,5 +78,23 @@ public class PurchaseRequestDetailBean implements Serializable{
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="pRequestId", nullable=false)
+	public PurchaseRequestBean getPurchaseRequest() {
+		return purchaseRequest;
+	}
+
+	public void setPurchaseRequest(PurchaseRequestBean purchaseRequest) {
+		this.purchaseRequest = purchaseRequest;
+	}
+
+	public Integer getActualQuantity() {
+		return actualQuantity;
+	}
+
+	public void setActualQuantity(Integer actualQuantity) {
+		this.actualQuantity = actualQuantity;
 	}
 }

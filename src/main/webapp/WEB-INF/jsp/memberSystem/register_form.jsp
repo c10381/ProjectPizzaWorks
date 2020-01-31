@@ -7,8 +7,7 @@
 <head>
 
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
 <style type="text/css">
 </style>
 <title>會員註冊</title>
@@ -65,7 +64,7 @@
 
 					<br> <label>手機 ：</label>
 					<form:input id="cellphone" path="cellphone" type="text" 
-						pattern='' required='required' />
+						 required='required' />
 
 					<br>
 					<form:hidden path="activeStatus" value="1" />
@@ -98,8 +97,8 @@
 			$("#address").val("新北市板橋區信義路74巷5弄1號3樓");
 			$("#cellphone").val("0922123233");				
 			$("#btnAdd").prop("disabled", false);
-		}
-	}
+		})
+	})
 	</script>
 </body>
 </html>

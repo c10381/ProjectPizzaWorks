@@ -11,11 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 @Entity
-@Table(name="SalesOrder")
-public class SalesOrderBean implements Serializable{
+@Table(name = "SalesOrder")
+public class SalesOrderBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderId;
 	private Integer memberId;
@@ -28,8 +30,9 @@ public class SalesOrderBean implements Serializable{
 	private String note;
 	private List<SalesOrderDetailBean> salesOrderDetails = new ArrayList<>();
 
-	public SalesOrderBean() {}
-	
+	public SalesOrderBean() {
+	}
+
 	public SalesOrderBean(Integer memberId, String orderTime, String requireTime, Integer needDelivery,
 			String deliverAddress, Integer totalSales, Integer orderStatus, String note) {
 		this.memberId = memberId;
@@ -41,9 +44,9 @@ public class SalesOrderBean implements Serializable{
 		this.orderStatus = orderStatus;
 		this.setNote(note);
 	}
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSalesOrderId() {
 		return salesOrderId;
 	}
@@ -59,7 +62,8 @@ public class SalesOrderBean implements Serializable{
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
-	@Column(name="orderTime", columnDefinition="datetime")
+
+	@Column(name = "orderTime", columnDefinition = "datetime")
 	public String getOrderTime() {
 		return orderTime;
 	}
@@ -67,7 +71,8 @@ public class SalesOrderBean implements Serializable{
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
-	@Column(name="requireTime", columnDefinition="datetime")
+
+	@Column(name = "requireTime", columnDefinition = "datetime")
 	public String getRequireTime() {
 		return requireTime;
 	}
@@ -99,8 +104,11 @@ public class SalesOrderBean implements Serializable{
 	public void setTotalSales(Integer totalSales) {
 		this.totalSales = totalSales;
 	}
-	
-	@OneToMany(mappedBy="salesOrder", cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+
+//	@OneToMany(mappedBy = "salesOrder", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+//			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name="salesOrderId", referencedColumnName="salesOrderId")
 	public List<SalesOrderDetailBean> getSalesOrderDetails() {
 		return salesOrderDetails;
 	}
@@ -124,6 +132,5 @@ public class SalesOrderBean implements Serializable{
 	public void setNote(String note) {
 		this.note = note;
 	}
-	
-	
+
 }

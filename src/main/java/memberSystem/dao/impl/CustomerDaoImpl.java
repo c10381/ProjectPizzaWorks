@@ -49,10 +49,14 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public MembersBean getCustomer(String email) {
 		String hql = "from MembersBean where email = :email";
-		MembersBean member = null;
 		Session session = factory.getCurrentSession();
-//		Integer ipk = Integer.valueOf(pk);
-		member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
+		MembersBean member =null;
+		try {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
+		}catch (Exception e) {
+			return null;
+		}
+		
 		return member;
 	}
 
@@ -78,8 +82,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	public boolean updateInfo(MembersBean mem) {
 		String hql = "from MembersBean where email = :email";
 		Session session = factory.getCurrentSession();
-		MembersBean member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
-				.getSingleResult();
+		MembersBean member=null;
+		try {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", mem.getEmail())
+					.getSingleResult();
+		}catch (Exception e) {
+			return false;
+		}
 		//
 		if (mem.getAddress() != null) {
 			member.setAddress(mem.getAddress());

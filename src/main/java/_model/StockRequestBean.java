@@ -35,7 +35,7 @@ public class StockRequestBean implements Serializable {
 		this.responseComment = responseComment;
 		this.responseTime = responseTime;
 		this.readTime = readTime;
-		this.setRequestStatus(requestStatus);
+		this.requestStatus = requestStatus;
 	}
 
 	@Id

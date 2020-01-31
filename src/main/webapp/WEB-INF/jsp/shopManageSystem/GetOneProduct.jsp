@@ -9,110 +9,178 @@
 <!-- <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <title>Product</title>
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/styles.css'
-	type="text/css" />
-<script>
-	
-</script>
 </head>
 <body>
-	<section>
-		<div align="left">
-			<div class="container" style="text-align: center">
+	<section class="content-header">
+		<div class="container-fluid row">
+			<div class="col-md-1">
+				<button
+					onclick="loadingPage('${request.contextPath}/shopManageSystem/products')"
+					class="btn btn-block btn-secondary">返回</button>
+			</div>
+			<!-- col end -->
+			<div class="col-md-4"></div>
+			<!-- col end -->
+			<div class="col-md-2">
 				<h2>產品資料</h2>
 			</div>
+			<!-- col end -->
 		</div>
+		<!-- row end -->
 	</section>
-	<section class="container">
+	<!-- content-header end -->
+	<section class="content">
 		<form:form method='POST' modelAttribute="product"
 			class='form-horizontal' enctype="multipart/form-data">
 			<fieldset>
-				<div class="row">
-					<div class="col-md-5">
-						<h3>
-							名稱：
-							<form:input id="productName" type='text' path="productName"
-								value="${product.productName}" class='form:input-large' />
-						</h3>
-						<p>
-							簡述：
-							<textarea id="briefInfo" name="briefInfo" cols=50 rows=5
-								style="resize: none">${product.briefInfo}</textarea>
-						</p>
-						<p>
-							單價：
-							<form:input type="text" path="unitPrice"
-								value="${product.unitPrice}" class='form:input-large' />
-						</p>
-						<p>
-							辣度：
-							<form:input type="text" path="spicyLevel"
-								value="${product.spicyLevel}" class='form:input-large' />
-						</p>
-						<p>
-							<label>純素食：<form:checkbox id="vegetableOnly"
-									path="vegetableOnly" class='form:input-large' value='1' /></label>
-						</p>
-						<p>
-							<label>有無海鮮：<form:checkbox id="seafood" value='1'
-									path="seafood" class='form:input-large' /></label>
-						</p>
-						<p>
-							<label>有無豬肉：<form:checkbox id="pork" value='1'
-									path="pork" class='form:input-large' /></label>
-						</p>
-						<p>
-							<label>有無牛肉：<form:checkbox id="beef" value='1'
-									path="beef" class='form:input-large' /></label>
-						</p>
-						<p>
-							<label>有無雞肉：<form:checkbox id="chicken" value='1'
-									path="chicken" class='form:input-large' /></label>
-						</p>
-						<p><label>上架狀態：<form:checkbox id="activeStatus" value='1'
-									path="activeStatus" class='form:input-large' /></label>
-						</p>
-						<p>
-							圖片路徑：<input type="text" name="imagePath"
-								value="${product.imagePath}">
-						</p>
-
-						<p>
-							<strong>商品編號: </strong> <span class='label label-warning'>
-								${product.productId} </span>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="form-group">
+							<strong>商品編號: </strong> <span>${product.productId} </span>
 							<form:input type="hidden" path="productId"
 								value="${product.productId}" />
-						</p>
-						
-						<form:input id="productImage" path="productImage" type='file'
-							class='form:input-large' onchange="readURL(this)"
-							targetID="${request.contextPath}/images/Products/${product.imagePath}"
-							accept="image/gif, image/jpeg, image/png" /> <img
-							id="${request.contextPath}/images/Products/${product.imagePath}"
-							src="<c:url value='/picture/${product.productId}'/>" />
-							
-						<p>
-							<a href="<spring:url value='/shopManageSystem/products' />"
-								class="btn btn-default"> <span
-								class="glyphicon-hand-left glyphicon"></span>返回
-							</a> <a href='#' class='btn btn-warning btn-large'> <input
-								id="btnUpdate" type='submit'
-								class='glyphicon-shopping-cart glyphicon' value="提交修改" />
-							</a>
-						</p>					
+						</div>
+						<!-- form-group end -->
 					</div>
+					<!-- row end -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<h4>
+									<label>名稱：</label>
+									<form:input id="productName" type='text' path="productName"
+										value="${product.productName}" class='form-control' />
+								</h4>
+							</div>
+							<!-- form-group end -->
+							<div class="form-group">
+								<label>簡述：</label>
+								<textarea id="briefInfo" name="briefInfo" cols=50 rows=5
+									class='form-control' style="resize: none">${product.briefInfo}</textarea>
+							</div>
+							<!-- form-group end -->
+						</div>
+						<!-- col end -->
+						<div class="col-md-6">
+							<img
+								id="${request.contextPath}/images/Products/${product.imagePath}"
+								src="<c:url value='/picture/${product.productId}'/>" />
+							<form:input id="productImage" path="productImage" type='file'
+								class='form:input-large' onchange="readURL(this)"
+								targetID="${request.contextPath}/images/Products/${product.imagePath}"
+								accept="image/gif, image/jpeg, image/png" />
+						</div>
+						<!-- col end -->
+					</div>
+					<!-- row end -->
+					<p></p>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>辣度：</label>
+								<form:input type="text" path="spicyLevel"
+									value="${product.spicyLevel}" class='form-control' />
+							</div>
+							<!-- form-group end -->
+							<div class="form-group">
+								<div class="custom-control custom-checkbox">
+									<label for="vegetableOnly">純素食：</label>
+									<form:checkbox id="vegetableOnly" path="vegetableOnly"
+										value='1' />
+								</div>
+								<div class="custom-control custom-checkbox">
+									<label for="seafood">有無海鮮：</label>
+									<form:checkbox id="seafood" value='1' path="seafood" />
+								</div>
+								<div class="custom-control custom-checkbox">
+									<label for="pork">有無豬肉：</label>
+									<form:checkbox id="pork" value='1' path="pork" />
+								</div>
+								<div class="custom-control custom-checkbox">
+									<label for="beef">有無牛肉：</label>
+									<form:checkbox id="beef" value='1' path="beef" />
+								</div>
+								<div class="custom-control custom-checkbox">
+									<label for="chicken">有無雞肉：</label>
+									<form:checkbox id="chicken" value='1' path="chicken" />
+								</div>
+							</div>
+							<!-- form-group end -->
+						</div>
+						<!-- col end -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>單價：</label>
+								<form:input type="text" path="unitPrice"
+									value="${product.unitPrice}" class='form-control' />
+							</div>
+							<!-- form-group end -->
+							<div class="form-group">
+								<div class="custom-control custom-checkbox">
+									<label for="activeStatus">上架狀態：</label>
+									<form:checkbox id="activeStatus" value='1' path="activeStatus" />
+								</div>
+							</div>
+							<!-- form-group end -->
+						</div>
+						<!-- col end -->
+					</div>
+					<!-- row end -->
+					<div class="row">
+						<p></p>
+						<div class="col-sm-2">
+						
+						</div>
+						<!-- col end -->
+						<div class="col-sm-6"></div>
+						<!-- col end -->
+						<div class="col-sm-2">
+							<button
+								onclick="loadingPage('${request.contextPath}/shopManageSystem/updateRecipeById?id=${product.productId}')"
+								class="btn btn-block btn-info">查詢BOM</button>
+						</div>
+						<!-- col end -->
+						<div class="col-sm-2">
+							<input id="btnUpdate" type='submit' value="提交修改"
+								class="btn btn-block btn-warning float-right" />
+						</div>
+						<!-- col end -->
+					</div>
+					<!-- row end -->
 				</div>
+				<!-- col end -->
 			</fieldset>
 		</form:form>
-		<a
-			href="<spring:url value='/shopManageSystem/updateRecipeById?id=${product.productId}' />"
-			class='btn btn-warning btn-large'> <input id="btnRecipeGet"
-			type='button' class='glyphicon-shopping-cart glyphicon' value="查詢BOM" />
-		</a>
-
 	</section>
+	<!-- content end -->
 	<script>
+		//將form資料塞入
+		//function formSubmit(requestURL, requestMethod, formName) {
+		$(document).ready(function(){
+			$("#product").submit(function(e){
+				e.preventDefault();
+				console.log($("#product")[0]);
+				var formData = new FormData($("#product")[0]);
+				
+				$.ajax({
+					url:$("#product").attr('action'),
+					method:$("#product").attr('method'),
+					data:formData,
+					contentType: false,
+                    processData: false,
+					//url : "${pageContext.request.contextPath}" + requestURL,
+					//method : requestMethod,
+					//data : $('form[name=' + formName + ']').serialize(),
+					error : function(error) {
+						console.log(error)
+					},
+					success : function(data) {
+						$('.content-wrapper').empty();
+						$('.content-wrapper').load("${pageContext.request.contextPath}/shopManageSystem/products");
+					}
+				});
+			});
+		});
 		function readURL(input){
 			if(input.files && input.files[0]){
 				var imageTagID = input.getAttribute("targetID");
@@ -123,30 +191,8 @@
 				}
 			reader.readAsDataURL(input.files[0]);
 			}
-		}												
-		$("#btnUpdatePicture").click(function(){
-			getRecipesTable();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/shopManageSystem/updateRecipeById",
-				data: {"recipes":JSON.stringify(recipes)},
-				type: "POST",
-				error:function(){
-					console.log(JSON.stringify({recipes: recipes}));
-					console.log("Error");
-				},
-				success: function(data){
-					//console.log(recipes);
-					console.log(data);
-				}
-			})
-		})
-						
-		$("#btnUpdate").click(function(){
-			getRecipesTable();
-			recipe_str=recipes.toString();			
-		})
-	</script>
-	<script>
+		}
+		
 	function scanCheckBoxStatus(){		
 		if(${product.vegetableOnly}==1){
 			document.getElementsByName("vegetableOnly").checked = true;
@@ -167,7 +213,9 @@
 			document.getElementById("activeStatus").checked = true;
 		}
 	}
+		
 	scanCheckBoxStatus();
+	
 	</script>
 </body>
 </html>

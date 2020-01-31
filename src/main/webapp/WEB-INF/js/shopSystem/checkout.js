@@ -1,11 +1,11 @@
-let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
 // 還沒做 先用插入的
 
-cart.deliverAddress = "店取";
-cart.requireTime = "2020-01-22 19:00:15";
+//if(cart.deliverAddress==undefined){
+//	cart.deliverAddress = "店取";
+//}
 cart.totalSales = 8888;
-console.log(cart)
+console.log(cart);
 
 $(function () {
 	updateList();
@@ -13,6 +13,7 @@ $(function () {
 	
 	$(":button").click(function(e){
 		e.preventDefault();
+		cart.note = $("#note").val();
 		if(confirm("是否送出訂單?")){
 			
 			$.ajax({
@@ -73,9 +74,6 @@ function updateList() {
 
 			str +=`</div ></div ></div >`
 		}
-		
-
-		
 	}		
 	$(".cartList").html(str);
 }

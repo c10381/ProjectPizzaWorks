@@ -2,21 +2,19 @@ package _model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="SalesOrderDetail")
 public class SalesOrderDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer salesOrderDetailId;
-//	private Integer salesOrderId;
+	private Integer salesOrderId;
 	private Integer salesListId;
 	private Integer productId;
 	private double unitPrice;
@@ -24,7 +22,7 @@ public class SalesOrderDetailBean implements Serializable{
 	private Integer doubleCheese;
 	private Integer crustTypeId;
 	private double discount;
-	private SalesOrderBean salesOrder;
+//	private SalesOrderBean salesOrder;
 	
 	public SalesOrderDetailBean() {} 
 	
@@ -60,13 +58,14 @@ public class SalesOrderDetailBean implements Serializable{
 		this.salesOrderDetailId = salesOrderDetailId;
 	} 
 	
-//	public Integer getSalesOrderId() {
-//		return salesOrderId;
-//	}
-//
-//	public void setSalesOrderId(Integer salesOrderId) {
-//		this.salesOrderId = salesOrderId;
-//	}
+	//@Transient
+	public Integer getSalesOrderId() {
+		return salesOrderId;
+	}
+
+	public void setSalesOrderId(Integer salesOrderId) {
+		this.salesOrderId = salesOrderId;
+	}
 
 	public Integer getProductId() {
 		return productId;
@@ -116,15 +115,15 @@ public class SalesOrderDetailBean implements Serializable{
 		this.discount = discount;
 	}
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="salesOrderId", nullable=false)
-	public SalesOrderBean getSalesOrder() {
-		return salesOrder;
-	}
-
-	public void setSalesOrder(SalesOrderBean salesOrder) {
-		this.salesOrder = salesOrder;
-	}
+//	@ManyToOne(cascade=CascadeType.PERSIST)
+//	@JoinColumn(name="salesOrderId", nullable=false)
+//	public SalesOrderBean getSalesOrder() {
+//		return salesOrder;
+//	}
+//
+//	public void setSalesOrder(SalesOrderBean salesOrder) {
+//		this.salesOrder = salesOrder;
+//	}
 
 	public Integer getSalesListId() {
 		return salesListId;

@@ -7,15 +7,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import _model.MembersBean;
 import memberSystem.service.CustomerService;
@@ -38,6 +43,14 @@ public class MemberController {
 		this.memService = memService;
 	}
 
+	// ==此Controller,Spring預設忽略空白==
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+	// ==/此Controller,Spring預設忽略空白/==
+
 	// ==登入區==
 	// 驗證密碼
 	// 驗證成功進入後端頁面
@@ -53,13 +66,13 @@ public class MemberController {
 			return "backendSystem/coworkerLogin";
 		}
 		MembersBean bean = Custservice.login(email, password);
-		
-		if (bean==null||bean.getPrivilegeId() == 1) {
+
+		if (bean == null || bean.getPrivilegeId() == 1) {
 			model.addAttribute("errorMessage", "此帳號不存在，請重新輸入！");
 			return "backendSystem/coworkerLogin";
 		} else if (bean.getActiveStatus() == 1) {
 			// 這裡要member強迫更改密碼，導向變更密碼畫面，並重新登入
-			model.addAttribute("email",bean.getEmail());
+			model.addAttribute("email", bean.getEmail());
 			return "memberSystem/coworkerChangePWPage";
 		} else if (bean.getActiveStatus() == 2) {
 			// 這裡要等待Admin更改回原始密碼
@@ -119,41 +132,72 @@ public class MemberController {
 	// 送出更改密碼請求
 	@GetMapping(value = "memberSystem/coworkforgetPWrequest")
 	public @ResponseBody String coworkforgetPWrequest(@RequestParam(value = "email") String email) {
-		if(memService.memberFPWrequest(email)) {
+		if (memService.memberFPWrequest(email)) {
 			return "ok";
-		}else{
+		} else {
 			return "Error";
-		}	
+		}
 	}
 	// ==/忘記密碼區/==
-	
+
 	// ==變更密碼區==
-	//User變更密碼(要傳入String,變更完後重新登入)
+	// User變更密碼(要傳入String,變更完後重新登入)
 	@PostMapping(value = "memberSystem/coworkerchangePW")
-	public String coworkerchangePW(@RequestParam(value = "email") String email,@RequestParam(value = "password") String newPW,@RequestParam(value = "comfirmPassword") String comfirmPassword,Model model) {
-		if(!newPW.equals(comfirmPassword)) {
-			model.addAttribute("errorMessage","確認密碼不相符");
+	public String coworkerchangePW(@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String newPW,
+			@RequestParam(value = "comfirmPassword") String comfirmPassword, Model model) {
+		if (!newPW.equals(comfirmPassword)) {
+			model.addAttribute("errorMessage", "確認密碼不相符");
+			model.addAttribute("email", email);
 			return "memberSystem/coworkerChangePWPage";
 		}
-		MembersBean mem=memService.coworkerUpdPwd(email, newPW);
-		if(mem==null) {
-			model.addAttribute("errorMessage","密碼與原先密碼相同");
+		MembersBean mem = memService.coworkerUpdPwd(email, newPW);
+		if (mem == null) {
+			model.addAttribute("errorMessage", "密碼與原先密碼相同");
+			model.addAttribute("email", email);
 			return "memberSystem/coworkerChangePWPage";
 		}
-		model.addAttribute("Mem_LoginOK",mem);
+		model.addAttribute("Mem_LoginOK", mem);
 		return "backendSystem/coworkerLogin";
 	}
-	
+
 	// ==/變更密碼區/==
 
-	// ==拿ValidationRequest==
-	
-	@GetMapping(value = "memberSystem/searchCoworkerStatus")
+	// ==忘記密碼請求==
+	// 拿ValidationRequest
+	@GetMapping(value = "memberSystem/searchCoworkerPWRequest")
 	public String coworkerchangePW(Model model) {
-		model.addAttribute("List", memService.SearchValidationRequestBeans(1,3));
+		model.addAttribute("List", memService.SearchValidationRequestBeans(1, 2, 3, 4,5));
 		return "memberSystem/coworkerCPWReq";
 	}
-	
-	// ==/變更密碼區/==
+
+	// 允許變更密碼(直接變更為預設密碼)
+	@PostMapping(value = "memberSystem/CoworkerPWRequest")
+	public @ResponseBody Boolean requestCommit(@RequestParam("Answer") Boolean Answer, @RequestParam("id") Integer vRequestId,
+			@RequestParam("responseComment") String responseComment, @ModelAttribute("Mem_LoginOK") MembersBean Admin) {
+		if (Answer) {
+			return memService.changePWrequestCommit(Answer,vRequestId, Admin, responseComment);
+		} else {
+			return memService.changePWrequestCommit(Answer,vRequestId, Admin, responseComment);
+		}
+	}
+
+	// ==/忘記密碼請求/==
+
+	// 查詢全部員工
+	// produces="text/html;charset=UTF-8;" 可以對@ResponseBody強制轉成繁體編碼
+	@GetMapping(value = "memberSystem/getAllMember",produces="text/html;charset=UTF-8;")
+	public @ResponseBody String getAllMember() {
+		
+		return memService.getAllMembers();
+	}
+	// 檢視前台所有顧客
+	@GetMapping(value = "/memberSystem/getAllCustomer",produces="text/html;charset=UTF-8;")
+	public @ResponseBody String getAllCustomers() {
+
+		return Custservice.getAllCustomers();
+	}
+
+	// ==/查詢全部會員/==
 	
 }
