@@ -148,11 +148,13 @@ public class MemberController {
 			@RequestParam(value = "comfirmPassword") String comfirmPassword, Model model) {
 		if (!newPW.equals(comfirmPassword)) {
 			model.addAttribute("errorMessage", "確認密碼不相符");
+			model.addAttribute("email", email);
 			return "memberSystem/coworkerChangePWPage";
 		}
 		MembersBean mem = memService.coworkerUpdPwd(email, newPW);
 		if (mem == null) {
 			model.addAttribute("errorMessage", "密碼與原先密碼相同");
+			model.addAttribute("email", email);
 			return "memberSystem/coworkerChangePWPage";
 		}
 		model.addAttribute("Mem_LoginOK", mem);

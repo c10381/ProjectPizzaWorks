@@ -98,6 +98,9 @@ public class MemberServiceImpl implements MemberService {
 	public boolean memberFPWrequest(String email) {
 		if(Custdao.emailExists(email)) {
 			MembersBean mem=Custdao.getCustomer(email);
+			if(mem==null) {
+				return false;
+			}
 			ValidationRequestBean vrm=new ValidationRequestBean();
 			//把ActiveStatus 3->2(已啟用改成變更密碼狀態)
 			mem.setActiveStatus(2);
@@ -120,6 +123,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MembersBean coworkerUpdPwd(String email,String newPW) {
 		MembersBean mem=Custdao.getCustomer(email);
+		if(mem==null) {
+			return null;
+		}
 		if(encrypter.getMD5Endocing(newPW).equals(mem.getPassword())) {
 			return null;
 		}
@@ -167,6 +173,9 @@ public class MemberServiceImpl implements MemberService {
 			
 			//更改MembersBean狀態，並更改ActiveStatus為3
 			MembersBean mem=Custdao.getCustomer(vrb.getEmail());
+			if(mem==null) {
+				return false;
+			}
 			if(mem.getActiveStatus()==1||mem.getActiveStatus()==3) {
 				return false;
 			}
