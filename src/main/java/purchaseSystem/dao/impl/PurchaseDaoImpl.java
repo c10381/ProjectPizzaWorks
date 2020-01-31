@@ -59,31 +59,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		SupplierBean sb = session.get(SupplierBean.class, supplierId);
 		return sb;
 	}
-
-	//修改請購單(依請購單號)
-	@Override
-	public void updateOnePurchaseRequest(Integer pRequestId, String purchaseReason, Integer requestStatus, Integer quantity, Double unitPrice) {
-		Session session = null;
-		session = factory.getCurrentSession();
-		
-		PurchaseRequestBean oldPurchaseRequest = session.get(PurchaseRequestBean.class, pRequestId);
-		if(purchaseReason!=null){
-			oldPurchaseRequest.setPurchaseReason(purchaseReason);
-		}
-		
-		String hql = "from PurchaseRequestDetailBean where pRequestId = :pRequestId";
-		//取得一列值(PurchaseRequest v.s. PurchaseRequestDetail : 一對多)
-		List<PurchaseRequestDetailBean> list = session.createQuery(hql).setParameter("pRequestId", pRequestId).getResultList();
-		for(PurchaseRequestDetailBean oldprdb : list) {
-			session.save(oldprdb);
-			if(unitPrice!=null) {
-				oldprdb.setUnitPrice(unitPrice);
-			}
-			if(quantity!=null) {
-				oldprdb.setQuantity(quantity);
-			}
-		}
-	}
 	
 	//新增請購單
 	@Override
@@ -101,6 +76,42 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		Session session = factory.getCurrentSession();
 		session.save(purchaseRequestDetail);
 		
+	}
+	
+	//修改請購單明細
+	@Override
+	public void updatePurchaseRequestDetail(PurchaseRequestDetailBean prdb) {
+		Session session = factory.getCurrentSession();
+		String hql="from PurchaseRequestDetailBean where pRequestId=:pRequestId and materialsId=:materialsId";
+		List<PurchaseRequestDetailBean> list = session.createQuery(hql)
+				.setParameter("pRequestId", prdb.getPurchaseRequest().getpRequestId())
+				.setParameter("materialsId", prdb.getMaterialsId())
+				.getResultList();
+		for(PurchaseRequestDetailBean oldBean:list) {
+			session.save(oldBean);
+			
+			if(prdb.getMaterialsId()!=null) {
+				oldBean.setMaterialsId(prdb.getMaterialsId());
+			}
+			if(prdb.getUnitPrice()!=null) {
+				oldBean.setUnitPrice(prdb.getUnitPrice());
+			}
+			if(prdb.getQuantity()!=null) {
+				oldBean.setQuantity(prdb.getQuantity());
+			}
+		}
+	}
+	//修改請購單
+	@Override
+	public void updatePurchaseRequest(PurchaseRequestBean prb) {
+		Session session = factory.getCurrentSession();
+		PurchaseRequestBean oldPrb = session.get(PurchaseRequestBean.class, prb.getpRequestId());
+		if(prb.getPurchaseReason()!=null) {
+			oldPrb.setPurchaseReason(prb.getPurchaseReason());
+		}
+		if(prb.getTotalPrice()!=null) {
+			oldPrb.setTotalPrice(prb.getTotalPrice());
+		}
 	}
 
 }

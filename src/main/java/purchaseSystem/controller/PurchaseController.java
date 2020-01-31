@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +56,6 @@ public class PurchaseController {
 		//2. 將前端傳來的json字串轉成JSON物件(裏頭為一筆請購單內容，一列請購單內容+多筆請購單明細)
 		JSONObject jsonobject = new JSONObject(jsonStr);
 		if(jsonobject != null && jsonobject.length()!=0) {
-			
 			prb.setProposalerId(jsonobject.getInt("proposalerId"));
 			prb.setPurchaseReason(jsonobject.getString("purchaseReason"));
 			prb.setTotalPrice(jsonobject.getDouble("totalPrice"));
@@ -86,27 +86,58 @@ public class PurchaseController {
 		return "OK";
 	}
 	
-	//修改請購單
-	@RequestMapping(value = "/updateOnePurchaseRequestJSON", method = RequestMethod.POST)
-	public @ResponseBody String updateOnePurchaseRequest
-	(@RequestParam(value = "purchaseRequest") String purchaseRequest_str, 
-			@RequestParam(value = "purchaseRequestDetails") String purchaseRequestDetails_str, Model model) {
-		JSONObject object = new JSONObject(purchaseRequest_str);
-		
-		Integer pRequestId = object.getInt("pRequestId");
-		String purchaseReason = object.getString("purchaseReason");
-		Integer requestStatus = object.getInt("requestStatus");
-		
-		JSONArray jsonArray = new JSONArray(purchaseRequestDetails_str);
-		if (jsonArray != null && jsonArray.length() != 0) {
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				Integer quantity = jsonObject.getInt("quantity");
-				Double unitPrice = jsonObject.getDouble("unitPrice");
-				service.updateOnePurchaseRequest(pRequestId, purchaseReason, requestStatus, quantity, unitPrice);
-			}
-		}
+	//修改請購單2
+	@RequestMapping(value = "/updateOnePurchaseRequestJSON2", method = RequestMethod.POST, 
+			produces = {"application/json"})
+	public String updateOnePurchaseRequest2(@RequestBody PurchaseRequestBean prb) {
+		List<PurchaseRequestDetailBean> prdbList = prb.getPurchaseRequestDetails();
+		service.updatePurchaseRequest(prb, prdbList);
+//		
+//		
+//		JSONObject jsonObjFromClient = new JSONObject(jsonStr);
+//		if(jsonObjFromClient!=null&&jsonObjFromClient.length()!=0) {
+//			Integer pRequestId = jsonObjFromClient.getInt("pRequestId");
+//			String purchaseReason = jsonObjFromClient.getString("purchaseReason");
+//			Double totalPrice = jsonObjFromClient.getDouble("totalPrice");
+//			Integer requestStatus = jsonObjFromClient.getInt("requestStatus");
+//			JSONArray detailJsonArrayFromClient = jsonObjFromClient.getJSONArray("purchaseRequestDetails");
+//			service.updateOnePurchaseRequestById(pRequestId, purchaseReason, totalPrice, requestStatus);
+//			
+//			for(int i=0;i<detailJsonArrayFromClient.length();i++) {
+//				JSONObject detailJsonObjFromClient = detailJsonArrayFromClient.getJSONObject(i);
+//				PurchaseRequestDetailBean newPrdb = new PurchaseRequestDetailBean();
+//				Integer materialsId = detailJsonObjFromClient.getInt("materialsId");
+//				Integer quantity = detailJsonObjFromClient.getInt("quantity");
+//				Double unitPrice = detailJsonObjFromClient.getDouble("unitPrice");
+//				
+//				service.updateOnePurchaseRequestDetailById(pRequestId, materialsId, unitPrice, quantity);
+//			}
+//			
+//		}
 		return "OK";
 	}
 	
+//	//修改請購單
+//	@RequestMapping(value = "/updateOnePurchaseRequestJSON", method = RequestMethod.POST)
+//	public @ResponseBody String updateOnePurchaseRequest
+//	(@RequestParam(value = "purchaseRequest") String purchaseRequest_str, 
+//			@RequestParam(value = "purchaseRequestDetails") String purchaseRequestDetails_str, Model model) {
+//		JSONObject object = new JSONObject(purchaseRequest_str);
+//		
+//		Integer pRequestId = object.getInt("pRequestId");
+//		String purchaseReason = object.getString("purchaseReason");
+//		Integer requestStatus = object.getInt("requestStatus");
+//		
+//		JSONArray jsonArray = new JSONArray(purchaseRequestDetails_str);
+//		if (jsonArray != null && jsonArray.length() != 0) {
+//			for (int i = 0; i < jsonArray.length(); i++) {
+//				JSONObject jsonObject = jsonArray.getJSONObject(i);
+//				Integer quantity = jsonObject.getInt("quantity");
+//				Double unitPrice = jsonObject.getDouble("unitPrice");
+//				service.updateOnePurchaseRequest(pRequestId, purchaseReason, requestStatus, quantity, unitPrice);
+//			}
+//		}
+//		return "OK";
+//	}
+
 }

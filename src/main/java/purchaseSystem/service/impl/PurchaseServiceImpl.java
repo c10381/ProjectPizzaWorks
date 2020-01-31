@@ -24,12 +24,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void setDao(PurchaseDao dao) {
 		this.dao = dao;
 	}
-
+	//查詢請購單(加入食材名稱)
 	@Override
 	public String getAllPurchaseRequest() {			
 		List<PurchaseRequestBean> list = dao.getAllPurchaseRequest();
 		JSONObject purchaseRequestJsonObj = null;
-		JSONArray combinationJson = new JSONArray();
+		JSONArray combinationJsonArray = new JSONArray();
 		for(PurchaseRequestBean prb:list) {
 			purchaseRequestJsonObj = new JSONObject();
 			purchaseRequestJsonObj.put("pRequestId", prb.getpRequestId());
@@ -56,17 +56,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 				jsonArray.put(purchaseRequestDetailJsonObj);
 			}
 			purchaseRequestJsonObj.put("PurchaseRequestDetail", jsonArray);
-			combinationJson.put(purchaseRequestJsonObj);
+			combinationJsonArray.put(purchaseRequestJsonObj);
 		}
 		
-		String jsonString = combinationJson.toString();
+		String jsonString = combinationJsonArray.toString();
 		return jsonString;
 	}
 
 	@Override
-	public void updateOnePurchaseRequest(Integer pRequestId, String purchaseReason, Integer requestStatus, Integer quantity, Double unitPrice) {
-		if(requestStatus==0) {
-			dao.updateOnePurchaseRequest(pRequestId, purchaseReason, requestStatus, quantity, unitPrice);
+	public void updatePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> prdbList) {
+		if(prb.getRequestStatus()==0) {
+			dao.updatePurchaseRequest(prb);
+			for(PurchaseRequestDetailBean prdb:prdbList) {
+				dao.updatePurchaseRequestDetail(prdb);
+			}
 		}else {
 			System.out.println("請購已被核准，無法修改");
 		}

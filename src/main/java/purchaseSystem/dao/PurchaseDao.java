@@ -20,8 +20,10 @@ public interface PurchaseDao {
 	MaterialsBean getOneMaterialsById(Integer MaterialId);
 	//查詢所有供應商資料(依廠商ID)
 	SupplierBean getOneSupplierById(Integer supplierId);
+	//修改請購單
+	void updatePurchaseRequestDetail(PurchaseRequestDetailBean prdb);
 	//修改請購單(依請購單ID)
-	void updateOnePurchaseRequest(Integer pRequestId, String purchaseReason, Integer requestStatus, Integer quantity, Double unitPrice);
+	void updatePurchaseRequest(PurchaseRequestBean prb);
 	//新增請購單
 	PurchaseRequestBean insertOnePurchaseRequest(PurchaseRequestBean prb);
 	//新增請購單明細
