@@ -146,4 +146,12 @@ public class ProductServiceImpl implements ProductService {
 		}
 		dao.updateProductStatus(product);
 	}
+	
+	@Transactional
+	@Override
+	public void updateRecipes(List<RecipeBean> recipes) {
+		for(RecipeBean recipe: recipes) {
+			dao.updateOneRecipe(recipe);
+		}
+	}
 }

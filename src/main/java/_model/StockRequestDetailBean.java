@@ -15,12 +15,12 @@ public class StockRequestDetailBean implements Serializable{
 	private Integer sRequestDetailId;
 	private Integer sRequestId;
 	private Integer materialsId;
-	private double unitPrice;
+	private Double unitPrice;
 	private Integer quantity;
 	
 	public StockRequestDetailBean() {}
 
-	public StockRequestDetailBean(Integer sRequestId, Integer materialsId, double unitPrice, Integer quantity) {
+	public StockRequestDetailBean(Integer sRequestId, Integer materialsId, Double unitPrice, Integer quantity) {
 		this.sRequestId = sRequestId;
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
@@ -53,11 +53,11 @@ public class StockRequestDetailBean implements Serializable{
 		this.materialsId = materialsId;
 	}
 
-	public double getUnitPrice() {
+	public Double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 

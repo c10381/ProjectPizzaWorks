@@ -39,4 +39,6 @@ public interface ProductService {
 	void updateOneSalesOrderStatus(SalesOrderBean salesOrder);
 
 	void updateOneProductStatus(ProductBean product);
+
+	void updateRecipes(List<RecipeBean> recipes);
 }

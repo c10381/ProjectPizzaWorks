@@ -6,13 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.json.JSONArray;
@@ -27,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,7 +52,7 @@ public class ProductController {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
-	
+
 	@RequestMapping("/shopManageSystem/products")
 	public String productsList(Model model) {
 		List<ProductBean> list = service.getAllProducts();
@@ -203,6 +201,15 @@ public class ProductController {
 		return "OK!";
 	}
 
+	@RequestMapping(value = "/shopManageSystem/updateRecipeBean", method = RequestMethod.POST)
+	public @ResponseBody String updateRecipeBean(@RequestBody List<RecipeBean> recipes, Model model) {
+		for(RecipeBean recipe : recipes) {
+			System.out.println(recipe.getProductId()+", "+recipe.getMaterialsId()+", "+recipe.getQuantity());
+		}
+		service.updateRecipes(recipes);
+		return "OK!";
+	}
+
 	@RequestMapping(value = "/shopManageSystem/getSalesOrder", method = RequestMethod.GET)
 	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
 		List<Object> output = service.getSalesOrderDetails(salesOrderId);
@@ -211,20 +218,20 @@ public class ProductController {
 		model.addAttribute("crusts", output.get(2));
 		return "shopManageSystem/GetSalesOrder";
 	}
-	
-	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/shopManageSystem/AddNewProduct", method = RequestMethod.GET)
 	public String getAllMaterials(Model model) {
 		model.addAttribute("materials", service.getAllMaterials());
 		return "shopManageSystem/AddNewProduct";
 	}
-	
-	@RequestMapping(value="/shopManageSystem/AddNewProduct", method=RequestMethod.POST)
-	public @ResponseBody String addProductRecipes(@RequestParam(value="recipes")String recipe_str, Model model){
+
+	@RequestMapping(value = "/shopManageSystem/AddNewProduct", method = RequestMethod.POST)
+	public @ResponseBody String addProductRecipes(@RequestParam(value = "recipes") String recipe_str, Model model) {
 		System.out.println(recipe_str);
 		List<RecipeBean> recipes = new ArrayList<>();
 		JSONArray jsonArray = new JSONArray(recipe_str);
-		if(jsonArray!=null && jsonArray.length()!=0) {
-			for(int i = 0;i < jsonArray.length();i++) {
+		if (jsonArray != null && jsonArray.length() != 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				RecipeBean recipe = new RecipeBean();
 //				recipe.setProductId(jsonObject.getInt("productId"));
@@ -235,46 +242,46 @@ public class ProductController {
 			}
 			ProductBean product = service.addRecipes(recipes);
 			model.addAttribute("product", product);
-			return "shopManageSystem/getProductById?id="+product.getProductId();
+			return "shopManageSystem/getProductById?id=" + product.getProductId();
 		}
 		return "";
 //		return "shopManageSystem/updateRecipeById?id="+product.getProductId();
 	}
-	
-	@RequestMapping(value = "/getAllMaterialsJSON", method = RequestMethod.GET, 
-			produces = {"application/json"})
+
+	@RequestMapping(value = "/getAllMaterialsJSON", method = RequestMethod.GET, produces = { "application/json" })
 	public @ResponseBody List<MaterialsBean> getAllMaterialsJSON(Model model) {
 		List<MaterialsBean> materials = service.getAllMaterials();
 		return materials;
 	}
-	
-	@RequestMapping(value="/shopManageSystem/updateProductStatus", method=RequestMethod.POST)
-	public @ResponseBody String updateProductStatus(@RequestParam(value="product")String product_str, Model model){
+
+	@RequestMapping(value = "/shopManageSystem/updateProductStatus", method = RequestMethod.POST)
+	public @ResponseBody String updateProductStatus(@RequestParam(value = "product") String product_str, Model model) {
 		System.out.println(product_str);
 		ProductBean product = null;
 		JSONObject jsonObject = new JSONObject(product_str);
-		if(jsonObject!=null && jsonObject.length()!=0) {
-				product = new ProductBean();
-				product.setProductId(jsonObject.getInt("productId"));
-				product.setActiveStatus(jsonObject.getInt("activeStatus"));
+		if (jsonObject != null && jsonObject.length() != 0) {
+			product = new ProductBean();
+			product.setProductId(jsonObject.getInt("productId"));
+			product.setActiveStatus(jsonObject.getInt("activeStatus"));
 			service.updateOneProductStatus(product);
 			return "OK!";
-		}		
+		}
 		return "";
 	}
-	
-	@RequestMapping(value="/shopManageSystem/updateSalesOrderStatus", method=RequestMethod.POST)
-	public @ResponseBody String updateSalesOrderStatus(@RequestParam(value="salesOrder")String salesOrder_str, Model model){
+
+	@RequestMapping(value = "/shopManageSystem/updateSalesOrderStatus", method = RequestMethod.POST)
+	public @ResponseBody String updateSalesOrderStatus(@RequestParam(value = "salesOrder") String salesOrder_str,
+			Model model) {
 		System.out.println(salesOrder_str);
 		SalesOrderBean salesOrder = null;
 		JSONObject jsonObject = new JSONObject(salesOrder_str);
-		if(jsonObject!=null && jsonObject.length()!=0) {
+		if (jsonObject != null && jsonObject.length() != 0) {
 			salesOrder = new SalesOrderBean();
 			salesOrder.setSalesOrderId(jsonObject.getInt("salesOrderId"));
 			salesOrder.setOrderStatus(jsonObject.getInt("orderStatus"));
 			service.updateOneSalesOrderStatus(salesOrder);
 			return "OK!";
-		}		
+		}
 		return "";
 	}
 }
