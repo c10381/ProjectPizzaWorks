@@ -14,30 +14,19 @@ import backendSystem.notificationService.msgService;
 @Controller
 @SessionAttributes("Mem_LoginOK")
 public class redirectController {
-	
+
 	private msgService service;
-		
+
 	// 轉址(Login page)
 	@RequestMapping("/backendSystem/coworkerLogin")
 	public String LoginPage(Model model) {
 		return "backendSystem/coworkerLogin";
 	}
+
 	// 轉址(navbar)
 	@PostMapping(value = "/backendSystem/navbar")
 	public String navbar(Model model) {
 		return "backendSystem/navbar";
-	}
-
-	// 轉址(Login 忘記密碼請求)
-	@GetMapping(value = "/memberSystem/coworkerfPW")
-	public String coworkerForgetPW(Model model) {
-		return "memberSystem/coworkerforgetPWPage";
-	}
-
-	// 轉址(忘記密碼)
-	@GetMapping(value = "/memberSystem/memberPW")
-	public String memberPW(Model model) {
-		return "memberSystem/MemberPWPage";
 	}
 
 	// 轉址(sidebar,判斷權限)
@@ -61,5 +50,35 @@ public class redirectController {
 			return "backendSystem/coworkerLogin";
 		}
 	}
-	
+
+	// 轉址(Login 忘記密碼請求)
+	@GetMapping(value = "/memberSystem/coworkerfPW")
+	public String coworkerForgetPW(Model model) {
+		return "memberSystem/coworkerforgetPWPage";
+	}
+
+	// 轉址(忘記密碼)
+	@GetMapping(value = "/memberSystem/memberPW")
+	public String memberPW(Model model) {
+		return "memberSystem/MemberPWPage";
+	}
+
+	// 所有員工資料
+	@GetMapping(value = "/memberSystem/allMember")
+	public String AllMember(Model model) {
+		return "memberSystem/allMember";
+	}
+
+	// 所有顧客資料
+	@GetMapping(value = "/memberSystem/allCustomer")
+	public String AllCustomer(Model model) {
+		return "memberSystem/allCustomer";
+	}
+
+	// 客服系統
+	@GetMapping(value = "/customerService")
+	public String getChat(Model model) {
+		return "messageSystem/customerService";
+	}
+
 }
