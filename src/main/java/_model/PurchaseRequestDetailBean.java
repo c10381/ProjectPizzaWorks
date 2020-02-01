@@ -1,7 +1,6 @@
 package _model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table
-@Entity(name="PurchaseRequestDetail")
+@Entity
+@Table(name="PurchaseRequestDetail")
 public class PurchaseRequestDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pRequestDetailId;
@@ -97,5 +96,12 @@ public class PurchaseRequestDetailBean implements Serializable{
 
 	public void setActualQuantity(Integer actualQuantity) {
 		this.actualQuantity = actualQuantity;
+	}
+
+	@Override
+	public String toString() {
+		return "PurchaseRequestDetailBean [pRequestDetailId=" + pRequestDetailId + ", pRequestId=" + pRequestId
+				+ ", materialsId=" + materialsId + ", unitPrice=" + unitPrice + ", quantity=" + quantity
+				+ ", actualQuantity=" + actualQuantity + "]";
 	}
 }

@@ -41,7 +41,7 @@ public class PurchaseController {
 	
 	//查詢所有請購單
 	@RequestMapping(value = "/getAllPurchaseRequestJSON", method = RequestMethod.GET, 
-			produces = {"application/json"})
+			produces = {"application/json;charset=UTF-8"})
 	public @ResponseBody String getAllPurchaseRequestJSON(Model model) {
 		String PurchaseRequest = service.getAllPurchaseRequest();
 		return PurchaseRequest;
@@ -88,7 +88,7 @@ public class PurchaseController {
 	
 	//修改請購單2
 	@RequestMapping(value = "/updateOnePurchaseRequestJSON2", method = RequestMethod.POST, 
-			produces = {"application/json"})
+			produces = {"application/json;charset=UTF-8"})
 	public String updateOnePurchaseRequest2(@RequestBody PurchaseRequestBean prb) {
 		List<PurchaseRequestDetailBean> prdbList = prb.getPurchaseRequestDetails();
 		service.updatePurchaseRequest(prb, prdbList);
@@ -139,5 +139,29 @@ public class PurchaseController {
 //		}
 //		return "OK";
 //	}
+	
+	//修改請購單
+		@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, 
+				produces = {"application/json;charset=UTF-8"})
+		public @ResponseBody String updateOnePurchaseRequest(@RequestBody PurchaseRequestBean purchaseRequest) {
 
+			Integer flag = service.updateOnePurchaseRequest2(purchaseRequest);
+			if(flag.equals(1)) {
+				return "OK";
+			} else if (flag.equals(0)) {
+				return "Error";
+			}
+			return "";
+		}
+	
+	//新增請購單
+	@RequestMapping(value = "/insertOnePurchaseRequest2", method = RequestMethod.POST)
+	public @ResponseBody String insertOnePurchaseRequest2(@RequestBody PurchaseRequestBean purchaseRequest, Model model) {
+		purchaseRequest.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
+		purchaseRequest.setRequestStatus(0);
+		purchaseRequest.setApproverId(0);
+		service.saveOnePurchaseRequest2(purchaseRequest);
+		return "OK";
+	}
+	
 }

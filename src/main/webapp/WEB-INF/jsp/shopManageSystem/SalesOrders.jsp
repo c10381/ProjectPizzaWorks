@@ -82,6 +82,7 @@
                 searching: false, //關閉filter功能
                 data: salesOrders,
                 responsive: true,
+                order: [[ 2, "desc" ]],
                 columnDefs: [{
                     targets: [1,4,5,6,7,8],
                     orderable: false,

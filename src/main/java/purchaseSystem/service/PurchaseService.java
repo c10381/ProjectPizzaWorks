@@ -16,4 +16,8 @@ public interface PurchaseService {
 	void updatePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> prdbList);
 	//新增請購單
 	void saveOnePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> list);
+	
+	void saveOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
+
+	Integer updateOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
 }

@@ -108,7 +108,7 @@
                 searching: false, //關閉filter功能
                 data: products,
                 responsive: true,
-                
+                order: [[ 1, "asc" ]],
                 columnDefs: [{
                     targets: [0,2,3],
                     orderable: false,
@@ -143,7 +143,7 @@
         	var table = $("#table_recipes").DataTable({
                 searching: false, //關閉filter功能
                 responsive: true,
-                
+                order: [[ 1, "asc" ]],
                 columnDefs: [{
                     targets: [0,2,3,4],
                     orderable: false,
