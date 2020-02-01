@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
-@Entity(name="StockRequestDetail")
+@Entity
+@Table(name="StockRequestDetail")
 public class StockRequestDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestDetailId;

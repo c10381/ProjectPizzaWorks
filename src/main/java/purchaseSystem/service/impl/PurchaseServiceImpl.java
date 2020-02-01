@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import _model.MaterialsBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import purchaseSystem.dao.PurchaseDao;
@@ -98,5 +99,43 @@ public class PurchaseServiceImpl implements PurchaseService {
 			return 0;
 		}
 		return 1;
+	}
+	
+	@Override
+	public PurchaseRequestBean getOnePurchaseRequest(Integer pRequestId) {
+		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
+		return purchaseRequest;
+	}
+	
+	@Override
+	public String getOnePurchaseRequestJson(Integer pRequestId) {
+		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
+		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
+		JSONArray pRequestDetail_jsa = new JSONArray();
+		for(PurchaseRequestDetailBean purchaseRequestDetail: purchaseRequest.getPurchaseRequestDetails()) {
+			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
+			JSONObject pRequestDetail_jso = new JSONObject(purchaseRequestDetail);
+			pRequestDetail_jso.put("pRequestDetailId", purchaseRequestDetail.getpRequestDetailId());
+			pRequestDetail_jso.put("materialsName", materialsName);
+			pRequestDetail_jsa.put(pRequestDetail_jso);
+		}
+		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
+		
+		String jsonString = pRequest_jso.toString();
+		return jsonString;
+	}
+	
+	@Override
+	public List<MaterialsBean> getAllMaterials() {
+		List<MaterialsBean> materials = dao.getMaterialList();
+		return materials;
+	}
+	
+	@Override
+	public String getAllMaterialsJson() {
+		List<MaterialsBean> materials = dao.getMaterialList();
+		JSONArray materials_jsa = new JSONArray(materials);
+		String jsonString = materials_jsa.toString();
+		return jsonString;
 	}
 }

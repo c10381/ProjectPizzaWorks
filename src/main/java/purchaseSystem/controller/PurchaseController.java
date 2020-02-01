@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import _model.MaterialsBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import purchaseSystem.service.PurchaseService;
@@ -162,6 +163,23 @@ public class PurchaseController {
 		purchaseRequest.setApproverId(0);
 		service.saveOnePurchaseRequest2(purchaseRequest);
 		return "OK";
+	}
+	
+	@RequestMapping(value="/getOnePurchaseRequest", method = RequestMethod.GET)
+	public String getOnePurchaseRequest(@RequestParam(value="id")Integer id, Model model) {
+		String purchaseRequest = service.getOnePurchaseRequestJson(id);
+		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
+		return "placeHolderPage";
+	}
+	
+	@RequestMapping(value="/convertToStockRequestPage", method = RequestMethod.POST)
+	public String ConvertToStockRequestPage(@RequestParam("purchaseRequest_jsonStr")String purchaseRequest, Model model) {
+		List<MaterialsBean> materials = service.getAllMaterials();
+//		String materials_string = service.getAllMaterialsJson();
+		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
+		model.addAttribute("materials", materials);
+		return "placeHolderPage";
+//		return materials_string;
 	}
 	
 }

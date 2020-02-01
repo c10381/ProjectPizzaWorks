@@ -109,5 +109,13 @@ public class PurchaseDaoImpl implements PurchaseDao {
 			oldPrb.setTotalPrice(prb.getTotalPrice());
 		}
 	}
+	
+	@Override
+	public List<MaterialsBean> getMaterialList() {
+		String hql = "FROM MaterialsBean";
+		Session session = factory.getCurrentSession();
+		List<MaterialsBean> materials = session.createQuery(hql).getResultList();
+		return materials;
+	}
 
 }

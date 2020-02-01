@@ -3,6 +3,7 @@ package purchaseSystem.service;
 
 import java.util.List;
 
+import _model.MaterialsBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import purchaseSystem.dao.PurchaseDao;
@@ -20,4 +21,13 @@ public interface PurchaseService {
 	void saveOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
 
 	Integer updateOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
+	
+	PurchaseRequestBean getOnePurchaseRequest(Integer pRequestId);
+	
+	String getOnePurchaseRequestJson(Integer pRequestId);
+	
+	List<MaterialsBean> getAllMaterials();
+	
+	String getAllMaterialsJson();
+	
 }
