@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -45,11 +46,10 @@
 									<c:forEach var='recipe' items='${recipeForm}'
 										varStatus="status">
 										<tr>
-											<td id="materialsId${status.index}">${recipe.material.materialsId}</td>
-											<td id="materialsName${status.index}">${recipe.material.materialsName}</td>
-											<td><input id="quantity${status.index}" type="text"
-												value="${recipe.quantity}" class='form:input-large' /></td>
-											<td id="unit${status.index}">${recipe.unit}</td>
+											<td>${recipe.material.materialsId}</td>
+											<td>${recipe.material.materialsName}</td>
+											<td><input class='form-control' type="text" value="${recipe.quantity}"/></td>
+											<td>${recipe.unit}</td>
 										</tr>
 										<c:set var="totalNumber" value="${status.count}" />
 									</c:forEach>
@@ -82,21 +82,14 @@
 	</section>
 	<!-- content end -->
 	<script>
-		var totalNumber = $
-		{
-			totalNumber
-		};
+		var totalNumber = ${totalNumber};
 		var recipes = [];
 
 		function getRecipesTable() {
 			for (var i = 1; i <= totalNumber; i += 1) {
 				var table_row = document.getElementById("recipeList").rows[i]
 				var recipe = new Object();
-				recipe["productId"] = $
-				{
-					productId
-				}
-				;
+				recipe["productId"] = ${productId};
 				recipe["materialsId"] = table_row.cells[0].innerHTML;
 				recipe["quantity"] = table_row.cells[2].children[0].value;
 				recipe["unit"] = table_row.cells[3].innerHTML;
@@ -105,35 +98,34 @@
 			//console.log(recipes);
 		}
 
-		$("#btnUpdate")
-				.click(
-						function() {
-							getRecipesTable();
-							$
-									.ajax({
-										url : "${pageContext.request.contextPath}/shopManageSystem/updateRecipeById",
-										data : {
-											"recipes" : JSON.stringify(recipes)
-										},
-										type : "POST",
-
-										error : function() {
-											console.log(JSON.stringify({
-												recipes : recipes
-											}));
-											console.log("Error");
-										},
-										success : function(data) {
-											//console.log(recipes);
-											console.log(data);
-										}
-									})
-						})
+		$("#btnUpdate").click(function() {
+			getRecipesTable();
+			$.ajax({
+				//url : "${pageContext.request.contextPath}/shopManageSystem/updateRecipeById",
+				//data : {"recipes" : JSON.stringify(recipes)},
+				url : "${pageContext.request.contextPath}/shopManageSystem/updateRecipeBean",
+				data : JSON.stringify(recipes),
+				type : "POST",
+			    contentType: "application/json",
+			    
+				error : function(data) {
+					console.log(JSON.stringify({
+					recipes : recipes
+				}));
+				console.log("Error");
+				console.log(data);
+				},
+				success : function(data) {
+					//console.log(recipes);
+					console.log(data);
+				}
+			});
+		});
 
 		$("#btnUpdate").click(function() {
 			getRecipesTable();
 			recipe_str = recipes.toString();
-		})
+		});
 	</script>
 </body>
 </html>

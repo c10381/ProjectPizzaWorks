@@ -1,7 +1,6 @@
 package _model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +18,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="PurchaseRequest")
 public class PurchaseRequestBean implements Serializable{
-	@Override
-	public String toString() {
-		return "PurchaseRequestBean [pRequestId=" + pRequestId + ", proposalerId=" + proposalerId + ", requestTime="
-				+ requestTime + ", purchaseReason=" + purchaseReason + ", approverId=" + approverId
-				+ ", responseComment=" + responseComment + ", responseTime=" + responseTime + ", readTime=" + readTime
-				+ ", requestStatus=" + requestStatus + ", totalPrice=" + totalPrice + ", purchaseRequestDetails="
-				+ purchaseRequestDetails + "]";
-	}
-
 	private static final long serialVersionUID = 1L;
 	private Integer pRequestId;
 	private Integer proposalerId;
@@ -148,5 +138,14 @@ public class PurchaseRequestBean implements Serializable{
 
 	public void setPurchaseRequestDetails(List<PurchaseRequestDetailBean> purchaseRequestDetails) {
 		this.purchaseRequestDetails = purchaseRequestDetails;
+	}
+	
+	@Override
+	public String toString() {
+		return "PurchaseRequestBean [pRequestId=" + pRequestId + ", proposalerId=" + proposalerId + ", requestTime="
+				+ requestTime + ", purchaseReason=" + purchaseReason + ", approverId=" + approverId
+				+ ", responseComment=" + responseComment + ", responseTime=" + responseTime + ", readTime=" + readTime
+				+ ", requestStatus=" + requestStatus + ", totalPrice=" + totalPrice + ", purchaseRequestDetails="
+				+ purchaseRequestDetails + "]";
 	}
 }
