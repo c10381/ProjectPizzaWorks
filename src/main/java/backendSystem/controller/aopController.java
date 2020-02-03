@@ -1,5 +1,6 @@
 package backendSystem.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,17 +18,20 @@ public class aopController {
 
 	@Autowired
 	private HttpSession session;
-
+	@Autowired
+	private HttpServletRequest request;
+	
 	@Around("execution(* redirectController.*(..))")
-	public void before(ProceedingJoinPoint pjp)throws Throwable{
+	public Object before(ProceedingJoinPoint pjp)throws Throwable{
 		//System.out.println("AAAAAAAAAAAA");
 		//request.getSession().invalidate();
 		try {
-			pjp.proceed();
 			MembersBean mem = (MembersBean) session.getAttribute("Mem_LoginOK");
 			System.out.println(mem.getEmail() + "已確認登入");
+			return pjp.proceed();
 		} catch (Exception e) {
 			throw new NotLoginException();
 		}
+		
 	}
 }

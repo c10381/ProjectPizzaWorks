@@ -26,7 +26,7 @@ public class ChatController {
         return new OutputMessage(time, message);
     }
     
-    
+    //客服直接傳給指定顧客
     @MessageMapping("/customerService/{chatID}")
     public OutputMessage broadcast(@DestinationVariable String chatID, Message message) throws Exception {
     	OutputMessage outputMessage = new OutputMessage(new Date().toString(), message);
