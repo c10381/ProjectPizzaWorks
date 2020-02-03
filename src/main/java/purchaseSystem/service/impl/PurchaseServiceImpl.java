@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import _model.MaterialsBean;
+import _model.MembersBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import memberSystem.dao.MemberDao;
 import purchaseSystem.dao.PurchaseDao;
 import purchaseSystem.service.PurchaseService;
 
@@ -19,21 +21,34 @@ import purchaseSystem.service.PurchaseService;
 public class PurchaseServiceImpl implements PurchaseService {
 	
 	PurchaseDao dao;
+	MemberDao memberDao;
 	
 	@Override
 	@Autowired
 	public void setDao(PurchaseDao dao) {
 		this.dao = dao;
 	}
+	
+	@Override
+	@Autowired
+	public void setMemberDao(MemberDao memberDao) {
+		this.memberDao = memberDao;
+	}
+	
 	//查詢請購單(加入食材名稱)
 	@Override
-	public String getAllPurchaseRequest() {			
+	public String getAllPurchaseRequest() {
 		List<PurchaseRequestBean> purchaseRequests = dao.getAllPurchaseRequest();
 		JSONObject pRequest_jso = null;
 		JSONArray output_jsa = new JSONArray();
 		for(PurchaseRequestBean prb:purchaseRequests) {
 			pRequest_jso = new JSONObject(prb);
 			pRequest_jso.put("pRequestId", prb.getpRequestId());
+			MembersBean member = memberDao.getMember(prb.getProposalerId());
+			String lastName = member.getLastName();
+			String firstName = member.getFirstName();
+			String fullName = lastName + firstName;
+			
 			JSONArray pRequestDetail_jsa = new JSONArray();
 			List<PurchaseRequestDetailBean> list2 = prb.getPurchaseRequestDetails();
 			for(PurchaseRequestDetailBean prdb:list2) {
@@ -43,6 +58,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 				pRequestDetail_jso.put("materialsName", materialsName);
 				pRequestDetail_jsa.put(pRequestDetail_jso);
 			}
+			pRequest_jso.put("fullName", fullName);
 			pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
 			output_jsa.put(pRequest_jso);
 		}

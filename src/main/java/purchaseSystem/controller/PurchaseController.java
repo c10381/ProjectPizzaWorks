@@ -52,6 +52,7 @@ public class PurchaseController {
 	@RequestMapping(value = "/insertOnePurchaseRequest", method = RequestMethod.POST)
 	public @ResponseBody String insertOnePurchaseRequest(@RequestParam(value="purchaseRequests")String jsonStr, Model model) {
 		//1. new一個請購單Bean
+		String timeStrNoMillisec = null;
 		PurchaseRequestBean prb = new PurchaseRequestBean();
 		System.out.println("yeeeeeeeeeeee");
 		//2. 將前端傳來的json字串轉成JSON物件(裏頭為一筆請購單內容，一列請購單內容+多筆請購單明細)
@@ -61,7 +62,9 @@ public class PurchaseController {
 			prb.setPurchaseReason(jsonobject.getString("purchaseReason"));
 			prb.setTotalPrice(jsonobject.getDouble("totalPrice"));
 			//new一個Date物件，取出當下時間，放入時間戳記，變成字串，set進請購單Bean中
-			prb.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())) );
+			String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
+			timeStrNoMillisec = timeStr.substring(0, timeStr.length()-4);
+			prb.setRequestTime(timeStrNoMillisec);
 			prb.setApproverId(0);
 			prb.setRequestStatus(0);
 			//從一開始的json物件中，取出Detail的JSON陣列(裏頭包含各種食材的json物件)
