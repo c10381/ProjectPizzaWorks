@@ -1,4 +1,4 @@
-package backendSystem.notificationDao.impl;
+package notificationSystem.dao.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +8,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import _model.MembersBean;
 import _model.SalesOrderBean;
-import _model.SalesOrderDetailBean;
-import backendSystem.notificationDao.msgDao;
+import notificationSystem.dao.MsgDao;
 
 @Repository
-public class msgDaoImpl implements msgDao {
+public class MsgDaoImpl implements MsgDao {
 	
 	private SessionFactory factory;
 	

@@ -134,44 +134,48 @@
 
 
 	<!-- Notifications Dropdown Menu -->
-	<li class="nav-item dropdown"><a class="nav-link"
-		data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
-			class="badge badge-warning navbar-badge" id='note'></span>
-	</a>
+	<li class="nav-item dropdown">
+		<a class="nav-link" data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> 
+			<span class="badge badge-warning navbar-badge" id='note'></span>
+		</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 			<span class="dropdown-item dropdown-header" id='note1'></span>
-			<div class="dropdown-divider"></div>
-
-			<div id='notification_container'>
-				<!-- 第一個box starts -->
-				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-					box1 <span class="float-right text-muted text-sm">box1 time</span>
-				</a>
 				<div class="dropdown-divider"></div>
-				<!-- 第一個box ends -->
-
-				<!-- 第二個box starts -->
-				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-					box2 <span class="float-right text-muted text-sm">box2 time</span>
-				</a>
-				<div class="dropdown-divider"></div>
-				<!-- 第二個box ends -->
-
-
-				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
-					box3 <span class="float-right text-muted text-sm">box3 time</span>
-				</a>
-			</div>
-			
-			<div class="dropdown-divider"></div>
-			
-			<a href="#" class="dropdown-item dropdown-footer">See All Orders</a>
-		</div></li>
+				
+				<div id='notification_container'>
+					<!-- 第一個box starts -->
+					<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+						box1 <span class="float-right text-muted text-sm">box1 time</span>
+					</a>
+					
+					<div class="dropdown-divider"></div>
+					<!-- 第一個box ends -->
+	
+					<!-- 第二個box starts -->
+					<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+						box2 <span class="float-right text-muted text-sm">box2 time</span>
+					</a>
+					<div class="dropdown-divider"></div>
+					<!-- 第二個box ends -->
+	
+					
+					<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+						box3 <span class="float-right text-muted text-sm">box3 time</span>
+					</a>
+				</div>
+				
+				<div class="dropdown-divider" id='test_yee'></div>
+				
+				<a href="#" class="dropdown-item dropdown-footer">See All Orders</a>
+		</div>
+	</li>
 </ul>
 
 
 <script type="text/javascript">
 	var header = ' New Order';
+	var divider="<div class='dropdown-divider'></div>"
+	
 	
 	function getOrders(){		
 		$.ajax({
@@ -190,9 +194,7 @@
 			var minutes = Math.floor((millseconds-(days*86400000)-(hours*3600000))/60000);
 			var seconds = Math.floor((millseconds-(days*86400000)-(hours*3600000)-(minutes*60000))/1000);
 							
-			console.log('距離:'+days+'天'+hours+'小時'+minutes+'分'+seconds+'秒');
-			
-				
+			console.log('距離:'+days+'天'+hours+'小時'+minutes+'分'+seconds+'秒');				
 			
 			if(data.length<1){
 				$('#note').hide();
@@ -205,10 +207,11 @@
 			if(data.length==0){
 				$('#note1').html(0+header);	
 			}else{
+				$('.dropdown-divider').remove();
 				$('#note1').html(data.length+header);
 			}
 							
-			reseter();
+			reseter(3);
 						
 			},			
 		});	
@@ -221,15 +224,29 @@
 	})
 	
 	function reseter(datalength){
-		$('#notification_container').remove();
-		if (datalength ==1){
+		$('#notification_container').children().remove();
+		
+		if(datalength===1){
+			var temp_link1 = "#";
+			var temp_msgTitle1 = "Yee";
+			var temp_msgTime = "";
+			var a_html = "<a href='"+temp_link+"' class='dropdown-item'> <i class='fas fa-file mr-2'></i>";
+			a_html += temp_msgTitle + "<span class='float-right text-muted text-sm'>";
+			a_html += temp_msgTime + "</span></a>" + divider;
+			$('#notification_container').append(a_html);		
+		}else if (datalength===2){
 			var temp_link = "#";
 			var temp_msgTitle = "Yee";
 			var temp_msgTime = "";
 			var a_html = "<a href='"+temp_link+"' class='dropdown-item'> <i class='fas fa-file mr-2'></i>";
 			a_html += temp_msgTitle + "<span class='float-right text-muted text-sm'>";
-			a_html += temp_msgTime + "</span></a><div class='dropdown-divider'></div>";
-		}
+			a_html += temp_msgTime + "</span></a>" + divider;
+			$('#notification_container').append(a_html);
+		}else if (datalegth>=3){
+			
+		}	
+		
+		
 	}
 	
 

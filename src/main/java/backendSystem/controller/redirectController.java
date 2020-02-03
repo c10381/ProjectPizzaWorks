@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _model.MembersBean;
-import backendSystem.notificationService.msgService;
 
 @Controller
 @SessionAttributes("Mem_LoginOK")
 public class redirectController {
 
-	private msgService service;
 
 	// 轉址(Login page)
 	@RequestMapping("/backendSystem/coworkerLogin")

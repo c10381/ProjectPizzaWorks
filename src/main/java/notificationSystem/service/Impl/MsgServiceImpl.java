@@ -1,4 +1,4 @@
-package backendSystem.notificationService.impl;
+package notificationSystem.service.Impl;
 
 import java.util.List;
 
@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import _model.SalesOrderBean;
-import backendSystem.notificationDao.msgDao;
-import backendSystem.notificationService.msgService;
+import notificationSystem.dao.MsgDao;
+import notificationSystem.service.MsgService;
 
 @Service
-public class msgServiceImpl implements msgService {
+public class MsgServiceImpl implements MsgService {
 	
-	msgDao dao;
+	MsgDao dao;
 	
 	@Autowired
-	public void setDao(msgDao dao) {
+	public void setDao(MsgDao dao) {
 		this.dao = dao;
 	}
 	

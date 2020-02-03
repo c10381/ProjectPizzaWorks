@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @Configuration
 @EnableWebMvc
 @ComponentScan({"shopManageSystem","shopSystem","memberSystem","purchaseSystem",
-	"stockSystem","_model","_global.config","backendSystem","messageSystem"})
+	"stockSystem","_model","_global.config","backendSystem","messageSystem","notificationSystem"})
 @EnableAspectJAutoProxy
 public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
