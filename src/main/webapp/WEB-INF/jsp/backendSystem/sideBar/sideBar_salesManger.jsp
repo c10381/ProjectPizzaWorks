@@ -20,15 +20,15 @@
 								</p>
 							</div>
 							<ul class="nav nav-treeview" style="display: block;">
-								<li class="nav-item" onclick="loadingPage('/purchase/GetAllMaterials')"><div class="nav-link">
+								 <li class="nav-item" onclick="loadingPage('/purchase/GetAllMaterials')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>庫存查詢</p>
-									</div></li>
+									</div></li> 
 								<li class="nav-item" onclick="loadingPage('/purchase/FormPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>請購單</p>
 									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢請購單</p>
 									</div></li>
@@ -36,8 +36,7 @@
 							</ul>
 						</li>
 
-
-						<li class="nav-item has-treeview menu-open">
+						<!-- <li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
 								<p>
@@ -59,7 +58,7 @@
 										<p>訂貨單狀況修改</p>
 									</div></li>
 							</ul>
-						</li>
+						</li> -->
 						
 						<li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
@@ -83,6 +82,7 @@
 						
 					</ul>
 				</li>
+					
 				<!-- /SalesSystem -->
 				
 				<!-- customerService -->

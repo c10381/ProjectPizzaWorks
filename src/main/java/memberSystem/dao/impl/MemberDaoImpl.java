@@ -25,7 +25,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	// ===後台會員CRUD===
 	// (Create)新增會員、(Read)拿會員資料、(Update)更新會員資料 與CustomerDao共用
-
+	
 //	@Override
 //	public int addMember(MembersBean mem) {
 //		Session session = factory.getCurrentSession();
@@ -73,14 +73,14 @@ public class MemberDaoImpl implements MemberDao {
 //		return member;
 //	}
 
-	// 經由Session介面的get()查詢資料庫內的紀錄
-//	@Override
-//	public MembersBean getMember(String email) {
-//		MembersBean member = null;
-//		Session session = factory.getCurrentSession();
-//		member = (MembersBean) session.get(MembersBean.class, email);
-//		return member;
-//	}
+	// 經由ID的get()查詢資料庫內的紀錄
+	@Override
+	public MembersBean getMember(Integer id) {
+		MembersBean member = null;
+		Session session = factory.getCurrentSession();
+		member = (MembersBean) session.get(MembersBean.class, id);
+		return member;
+	}
 
 	// ==ValidationRequest(後台忘記密碼)部分==
 

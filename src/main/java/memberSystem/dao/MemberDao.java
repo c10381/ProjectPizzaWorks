@@ -18,8 +18,8 @@ public interface MemberDao {
 	// 經由Session介面的load()查詢資料庫內的紀錄
 //	MembersBean loadMember(String email);
 
-	// 經由Session介面的get()查詢資料庫內的紀錄
-//	MembersBean getMember(String email);
+
+	MembersBean getMember(Integer id);
 
 	// 更新紀錄(給使用者註冊資料用)
 //	boolean updateMember(MembersBean mem);	
@@ -33,5 +33,7 @@ public interface MemberDao {
 	List<ValidationRequestBean> getValidationRequestById(Integer vRequestId);
 	
 	Boolean updateValidationRequest(ValidationRequestBean vrb);
+
+
 
 }
