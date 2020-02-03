@@ -3,11 +3,11 @@ package notificationSystem.service;
 import java.util.List;
 
 import _model.SalesOrderBean;
-import notificationSystem.dao.MsgDao;
+import notificationSystem.dao.NotificationDao;
 
-public interface MsgService {
+public interface NotificationService {
 	
-	public void setDao(MsgDao dao);
+	public void setDao(NotificationDao dao);
 
 	public List<SalesOrderBean> getOrders();
 

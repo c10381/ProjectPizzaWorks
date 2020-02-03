@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.SalesOrderBean;
-import notificationSystem.dao.MsgDao;
+import notificationSystem.dao.NotificationDao;
 
 @Repository
-public class MsgDaoImpl implements MsgDao {
+public class NotificationDaoImpl implements NotificationDao {
 	
 	private SessionFactory factory;
 	

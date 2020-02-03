@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import _model.SalesOrderBean;
 //import _model.SalesOrderDetailBean;
 
-public interface MsgDao {
+public interface NotificationDao {
 	
 	public void setFactory(SessionFactory factory);
 	

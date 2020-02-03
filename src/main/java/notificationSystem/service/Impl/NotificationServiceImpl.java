@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import _model.SalesOrderBean;
-import notificationSystem.dao.MsgDao;
-import notificationSystem.service.MsgService;
+import notificationSystem.dao.NotificationDao;
+import notificationSystem.service.NotificationService;
 
 @Service
-public class MsgServiceImpl implements MsgService {
+public class NotificationServiceImpl implements NotificationService {
 	
-	MsgDao dao;
+	NotificationDao dao;
 	
 	@Autowired
-	public void setDao(MsgDao dao) {
+	public void setDao(NotificationDao dao) {
 		this.dao = dao;
 	}
 	

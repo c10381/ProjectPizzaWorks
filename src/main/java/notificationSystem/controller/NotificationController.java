@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import _model.SalesOrderBean;
-import notificationSystem.service.MsgService;
+import notificationSystem.service.NotificationService;
 
 
 @RestController
 @SessionAttributes("Mem_LoginOK")
-public class MsgController {
+public class NotificationController {
 	
-	MsgService service;
+	NotificationService service;
 	
 	@Autowired
-	public void setService(MsgService service) {
+	public void setService(NotificationService service) {
 		this.service = service;
 	}
 
