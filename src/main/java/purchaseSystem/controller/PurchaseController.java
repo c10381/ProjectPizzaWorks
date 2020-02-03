@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import _model.MaterialsBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import purchaseSystem.service.PurchaseService;
@@ -41,7 +42,7 @@ public class PurchaseController {
 	
 	//查詢所有請購單
 	@RequestMapping(value = "/getAllPurchaseRequestJSON", method = RequestMethod.GET, 
-			produces = {"application/json"})
+			produces = {"application/json;charset=UTF-8"})
 	public @ResponseBody String getAllPurchaseRequestJSON(Model model) {
 		String PurchaseRequest = service.getAllPurchaseRequest();
 		return PurchaseRequest;
@@ -51,6 +52,7 @@ public class PurchaseController {
 	@RequestMapping(value = "/insertOnePurchaseRequest", method = RequestMethod.POST)
 	public @ResponseBody String insertOnePurchaseRequest(@RequestParam(value="purchaseRequests")String jsonStr, Model model) {
 		//1. new一個請購單Bean
+		String timeStrNoMillisec = null;
 		PurchaseRequestBean prb = new PurchaseRequestBean();
 		System.out.println("yeeeeeeeeeeee");
 		//2. 將前端傳來的json字串轉成JSON物件(裏頭為一筆請購單內容，一列請購單內容+多筆請購單明細)
@@ -60,7 +62,9 @@ public class PurchaseController {
 			prb.setPurchaseReason(jsonobject.getString("purchaseReason"));
 			prb.setTotalPrice(jsonobject.getDouble("totalPrice"));
 			//new一個Date物件，取出當下時間，放入時間戳記，變成字串，set進請購單Bean中
-			prb.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())) );
+			String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
+			timeStrNoMillisec = timeStr.substring(0, timeStr.length()-4);
+			prb.setRequestTime(timeStrNoMillisec);
 			prb.setApproverId(0);
 			prb.setRequestStatus(0);
 			//從一開始的json物件中，取出Detail的JSON陣列(裏頭包含各種食材的json物件)
@@ -88,7 +92,7 @@ public class PurchaseController {
 	
 	//修改請購單2
 	@RequestMapping(value = "/updateOnePurchaseRequestJSON2", method = RequestMethod.POST, 
-			produces = {"application/json"})
+			produces = {"application/json;charset=UTF-8"})
 	public String updateOnePurchaseRequest2(@RequestBody PurchaseRequestBean prb) {
 		List<PurchaseRequestDetailBean> prdbList = prb.getPurchaseRequestDetails();
 		service.updatePurchaseRequest(prb, prdbList);
@@ -139,5 +143,46 @@ public class PurchaseController {
 //		}
 //		return "OK";
 //	}
+	
+	//修改請購單
+		@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, 
+				produces = {"application/json;charset=UTF-8"})
+		public @ResponseBody String updateOnePurchaseRequest(@RequestBody PurchaseRequestBean purchaseRequest) {
 
+			Integer flag = service.updateOnePurchaseRequest2(purchaseRequest);
+			if(flag.equals(1)) {
+				return "OK";
+			} else if (flag.equals(0)) {
+				return "Error";
+			}
+			return "";
+		}
+	
+	//新增請購單
+	@RequestMapping(value = "/insertOnePurchaseRequest2", method = RequestMethod.POST)
+	public @ResponseBody String insertOnePurchaseRequest2(@RequestBody PurchaseRequestBean purchaseRequest, Model model) {
+		purchaseRequest.setRequestTime(String.valueOf(new Timestamp(new Date().getTime())));
+		purchaseRequest.setRequestStatus(0);
+		purchaseRequest.setApproverId(0);
+		service.saveOnePurchaseRequest2(purchaseRequest);
+		return "OK";
+	}
+	
+	@RequestMapping(value="/getOnePurchaseRequest", method = RequestMethod.GET)
+	public String getOnePurchaseRequest(@RequestParam(value="id")Integer id, Model model) {
+		String purchaseRequest = service.getOnePurchaseRequestJson(id);
+		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
+		return "placeHolderPage";
+	}
+	
+	@RequestMapping(value="/convertToStockRequestPage", method = RequestMethod.POST)
+	public String ConvertToStockRequestPage(@RequestParam("purchaseRequest_jsonStr")String purchaseRequest, Model model) {
+		List<MaterialsBean> materials = service.getAllMaterials();
+//		String materials_string = service.getAllMaterialsJson();
+		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
+		model.addAttribute("materials", materials);
+		return "placeHolderPage";
+//		return materials_string;
+	}
+	
 }

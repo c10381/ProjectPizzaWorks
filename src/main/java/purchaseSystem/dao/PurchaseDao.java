@@ -28,4 +28,6 @@ public interface PurchaseDao {
 	Integer insertOnePurchaseRequest(PurchaseRequestBean prb);
 	//新增請購單明細
 	void insertOnePurchaseRequestDetail(PurchaseRequestDetailBean list);
+	
+	List<MaterialsBean> getMaterialList();
 }

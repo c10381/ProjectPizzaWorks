@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
-@Entity(name="SalesListDetail")
+@Entity
+@Table(name="SalesListDetail")
 public class SalesListDetailBean {
 	private Integer salesListDetailId;
 	private Integer salesListId;
