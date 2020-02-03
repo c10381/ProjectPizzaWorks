@@ -156,7 +156,56 @@
 			}
 
 		}
+		function loadingPageWithData(requestPage,data) {
+			if (requestPage == '') {
+				console.log("還沒做，加油R");
+			} else {
+				$('.content-wrapper').empty();
+				$('.content-wrapper').load(
+						"${pageContext.request.contextPath}" + requestPage,data);
+			}
 
+		}
+		
+		
+		function test(){
+			var purchaseRequest_jsonStr = {
+			    "purchaseReason": "庶材不足",
+			    "proposalerId": 5,
+			    "totalPrice": 5050,
+			    "approverId": 0,
+			    "pRequestId": 1002,
+			    "requestStatus": 0,
+			    "purchaseRequestDetails": [
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 250,
+			            "quantity": 4,
+			            "materialsId": 1
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 250,
+			            "quantity": 1,
+			            "materialsId": 2
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 500,
+			            "quantity": 4,
+			            "materialsId": 5
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 300,
+			            "quantity": 6,
+			            "materialsId": 6
+			        }
+			    ]
+			};
+			loadingPageWithData("/convertToStockRequestPage",{"purchaseRequest_jsonStr":JSON.stringify(purchaseRequest_jsonStr)});
+
+		}
 	</script>
 </body>
 </html>
