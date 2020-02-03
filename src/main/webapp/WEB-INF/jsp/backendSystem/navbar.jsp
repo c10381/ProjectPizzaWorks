@@ -155,28 +155,23 @@
 					<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
 						box2 <span class="float-right text-muted text-sm">box2 time</span>
 					</a>
-					<div class="dropdown-divider"></div>
 					<!-- 第二個box ends -->
 	
 					
-					<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
+					<div href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i>
 						box3 <span class="float-right text-muted text-sm">box3 time</span>
-					</a>
+					</div>
 				</div>
 				
-				<div class="dropdown-divider" id='test_yee'></div>
-				
-				<a href="#" class="dropdown-item dropdown-footer">See All Orders</a>
+				<div onclick= "loadingPage('/shopManageSystem/salesOrders')" 
+					 class="dropdown-item dropdown-footer" style="cursor: pointer">查看所有訂單</div>
 		</div>
 	</li>
 </ul>
 
 
 <script type="text/javascript">
-	var header = ' New Order';
-	var divider="<div class='dropdown-divider'></div>"
-	
-	
+	var divider="<div class='dropdown-divider'></div>"	
 	function getOrders(){		
 		$.ajax({
 		url:'${pageContext.request.contextPath}/backendSystem/getOrders',
@@ -185,34 +180,15 @@
 			console.log("error");
 		},
 		success: function(data){
-			var time = new Date($.now());
-			var UTC = time.toUTCString();
-			var orderTime = new Date(data[0].orderTime);
-			var millseconds = (time-orderTime);
-			var days = Math.floor(millseconds/86400000);
-			var hours = Math.floor((millseconds-(days*86400000))/3600000);
-			var minutes = Math.floor((millseconds-(days*86400000)-(hours*3600000))/60000);
-			var seconds = Math.floor((millseconds-(days*86400000)-(hours*3600000)-(minutes*60000))/1000);
-							
-			console.log('距離:'+days+'天'+hours+'小時'+minutes+'分'+seconds+'秒');				
-			
-			if(data.length<1){
+			if(data.length==0){
 				$('#note').hide();
+				$('#note1').html('目前沒有新訂單');	
 			}else{
 				$('#note').show();
-			}
-						
-			$('#note').html(data.length);
-			
-			if(data.length==0){
-				$('#note1').html(0+header);	
-			}else{
-				$('.dropdown-divider').remove();
-				$('#note1').html(data.length+header);
-			}
-							
-			reseter(3);
-						
+				$('#note').html(data.length);
+				$('#note1').html('有 '+data.length+' 筆新訂單');
+			}									
+			notifier(data);						
 			},			
 		});	
 	}
@@ -223,35 +199,66 @@
 		$('#note').hide();
 	})
 	
-	function reseter(datalength){
+	//動態生成點擊小鈴鐺後會生成的下拉欄位，最多三欄
+	function notifier(data){
+		//先清掉#notification_container下的全部子元素，即全部的下拉欄位
 		$('#notification_container').children().remove();
 		
-		if(datalength===1){
-			var temp_link1 = "#";
-			var temp_msgTitle1 = "Yee";
-			var temp_msgTime = "";
-			var a_html = "<a href='"+temp_link+"' class='dropdown-item'> <i class='fas fa-file mr-2'></i>";
-			a_html += temp_msgTitle + "<span class='float-right text-muted text-sm'>";
-			a_html += temp_msgTime + "</span></a>" + divider;
-			$('#notification_container').append(a_html);		
-		}else if (datalength===2){
-			var temp_link = "#";
-			var temp_msgTitle = "Yee";
-			var temp_msgTime = "";
-			var a_html = "<a href='"+temp_link+"' class='dropdown-item'> <i class='fas fa-file mr-2'></i>";
-			a_html += temp_msgTitle + "<span class='float-right text-muted text-sm'>";
-			a_html += temp_msgTime + "</span></a>" + divider;
-			$('#notification_container').append(a_html);
-		}else if (datalegth>=3){
-			
-		}	
+		//呼叫後台controller需要給予的路徑值，因為是由get做request，所以下面跑迴圈的後面還要加上"?id="以及
+		var orderLink = "/shopManageSystem/getSalesOrder?id="
+		var orderId = "單號："
+		var orderLength = 3;
 		
-		
+		if(data.length<4){			
+			orderLength = data.length;
+		}
+		for (i=0 ; i<orderLength; i++){
+			orderId += data[i].salesOrderId;
+			var timeResult = timeReader(data[i].orderTime);
+			var div_html = "<div onclick=\"loadingPage('"+orderLink+data[i].salesOrderId+"')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
+			div_html += orderId;
+			div_html += "<span class='float-right text-muted text-sm'>";
+			div_html += timeResult + "</span></div>" + divider;			
+			$('#notification_container').append(div_html);	
+		}
 	}
-	
-
-	
-	
+		
+	//顯示訂單是多久前下單的，會根據距離現在多久而回傳相對應的result，需給一個固定格式的時間字串
+	function timeReader(data){
+				
+		var time = new Date($.now());
+		var UTC = time.toUTCString();
+		var orderTime = new Date(data);
+		var millseconds = (time-orderTime);
+		var days = Math.floor(millseconds/86400000);
+		var hours = Math.floor((millseconds-(days*86400000))/3600000);
+		var minutes = Math.floor((millseconds-(days*86400000)-(hours*3600000))/60000);
+		var seconds = Math.floor((millseconds-(days*86400000)-(hours*3600000)-(minutes*60000))/1000);
+						
+		console.log('距離:'+days+'天'+hours+'小時'+minutes+'分'+seconds+'秒');
+		
+		if(days!=0){
+			var result ='天前';
+			days += result;
+			return days;
+		}else{
+			if(hours!=0){
+				var result ='小時前';
+				hours += result;
+				return hours;
+			}else{
+				if(minutes!=0){
+					var result = '分鐘前';
+					minutes += result;
+					return minutes;
+				}else{
+					var result ='秒鐘前';
+					seconds += result;
+					return seconds;
+				}
+			}
+		}		
+	}
 	
 </script>
 </nav>
