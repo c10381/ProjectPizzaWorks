@@ -1,11 +1,9 @@
 package backendSystem.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.stereotype.Controller;
 
 
-@RestController
-@SessionAttributes("Mem_LoginOK")
+@Controller
 public class backendController {
-		
+	
 }
