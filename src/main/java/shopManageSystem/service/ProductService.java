@@ -41,4 +41,6 @@ public interface ProductService {
 	void updateOneProductStatus(ProductBean product);
 
 	void updateRecipes(List<RecipeBean> recipes);
+
+	List<ProductBean> getAllActiveProducts();
 }

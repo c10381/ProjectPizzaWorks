@@ -37,6 +37,14 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
+	public List<ProductBean> getAllActiveProducts(){
+		String hql = "FROM ProductBean WHERE activeStatus = 1";
+		Session session = factory.getCurrentSession();
+		List<ProductBean> list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@Override
 	public void updateOneProduct(ProductBean pb) {
 		Session session = null;
 		session = factory.getCurrentSession();

@@ -44,4 +44,6 @@ public interface ProductDao {
 	void updateProductStatus(ProductBean product);
 
 	void updateSalesOrderStatus(SalesOrderBean salesOrder);
+
+	List<ProductBean> getAllActiveProducts();
 }

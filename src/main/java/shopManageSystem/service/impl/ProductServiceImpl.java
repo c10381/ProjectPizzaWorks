@@ -35,6 +35,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Transactional
 	@Override
+	public List<ProductBean> getAllActiveProducts(){
+		return dao.getAllActiveProducts();
+	}
+	
+	@Transactional
+	@Override
 	public ProductBean getProductById(Integer productId) {
 		return dao.getProductById(productId);
 	}
