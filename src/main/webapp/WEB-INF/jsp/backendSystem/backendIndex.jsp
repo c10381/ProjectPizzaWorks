@@ -31,6 +31,17 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+<!-- 後台chatroom css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/backendSystem/chatroomstyle.css" />
+
+	<!-- jQuery -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
+	<!-- jQuery-ui 1.12.1 -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+
+
 </head>
 <body class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
@@ -92,6 +103,30 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<!-- Backend chatroom -->
+	<div class="chat_box">
+      <div class="chat_header">
+        <h1 class="chat_heading">Pizza Message</h1>
+      	<div class="btn btn-default btn-sm">離線</div>
+      </div>
+      <hr />
+      <div class="chat_content">
+        <div class="chatuser">
+          <!-- <img src="" class="user_icon" /> -->
+          <h5 class="chatusername">Kamal Teja</h5>
+          <!-- 有上線就會是藍色圈圈 -->
+          <i class="fas fa-circle online"></i>
+        </div>
+        <div class="chatuser">
+          <!-- <img src="" class="user_icon" /> -->
+          <h5 class="chatusername">Kamal Teja</h5>
+          <!-- 有上線就會是藍色圈圈 -->
+          <i class="fas fa-circle online"></i>
+        </div>
+      </div>
+    </div>
+	
+	<!-- Backend chatroom -->
 
 	<!-- footer -->
 	<footer class="main-footer">
@@ -103,12 +138,7 @@
 	</footer>
 	<!-- /footer -->
 
-	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
-	<!-- jQuery-ui 1.12.1 -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+	
 	<!-- jQuery.csv(Api)-->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
@@ -121,10 +151,17 @@
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
-	<%-- <!-- AdminLTE for demo purposes -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/demo.js"></script> --%>
+	
+	<!-- WebSocket用套件 -->
+	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
+    <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
+    
+    
 	<script>
+		//紀錄email
+		var customerEmail="${CLoginOK.email}";
+		var memberEmail="${Mem_LoginOK.email}";
+		var contextPath="${pageContext.request.contextPath}";
 		//小時鐘功能
 		function clock() {
 			var today = new Date();
@@ -207,5 +244,8 @@
 
 		}
 	</script>
+
+		<!-- chatroom Js (放最後面)-->
+		<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
 </body>
 </html>
