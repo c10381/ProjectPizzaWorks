@@ -161,7 +161,6 @@
 
 		}
 		
-		//navbar ajax request for order
 		
 	</script>
 </body>

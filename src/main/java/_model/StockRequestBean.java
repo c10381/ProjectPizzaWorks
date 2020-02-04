@@ -15,8 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Table
-@Entity(name = "StockRequest")
+@Entity
+@Table(name = "StockRequest")
 public class StockRequestBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestId;

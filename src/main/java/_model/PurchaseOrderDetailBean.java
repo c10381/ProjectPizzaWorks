@@ -8,8 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table
-@Entity(name="PurchaseOrderDetail")
+
+@Entity
+@Table(name="PurchaseOrderDetail")
 public class PurchaseOrderDetailBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pOrderDetailId;

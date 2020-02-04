@@ -13,14 +13,14 @@ import javax.persistence.Table;
 public class MaterialsUnitBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer materialsUnitId;
-	private Integer materials;
+	private Integer materialsId;
 	private double quantityPerUnit;
 	private String unit;
 	
 	public MaterialsUnitBean() {}
 	
-	public MaterialsUnitBean(Integer materials, double quantityPerUnit, String unit) {
-		this.materials = materials;
+	public MaterialsUnitBean(Integer materialsId, double quantityPerUnit, String unit) {
+		this.setMaterialsId(materialsId);
 		this.quantityPerUnit = quantityPerUnit;
 		this.unit = unit;
 	}
@@ -34,12 +34,12 @@ public class MaterialsUnitBean implements Serializable{
 		this.materialsUnitId = materialsUnitId;
 	}
 
-	public Integer getMaterials() {
-		return materials;
+	public Integer getMaterialsId() {
+		return materialsId;
 	}
 
-	public void setMaterials(Integer materials) {
-		this.materials = materials;
+	public void setMaterialsId(Integer materialsId) {
+		this.materialsId = materialsId;
 	}
 
 	public double getQuantityPerUnit() {

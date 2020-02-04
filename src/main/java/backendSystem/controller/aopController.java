@@ -19,13 +19,14 @@ public class aopController {
 	private HttpSession session;
 
 	@Around("execution(* redirectController.*(..))")
-	public void before(ProceedingJoinPoint pjp)throws Throwable{
+	public Object before(ProceedingJoinPoint pjp)throws Throwable{
 		//System.out.println("AAAAAAAAAAAA");
 		//request.getSession().invalidate();
 		try {
-			pjp.proceed();
+//			pjp.proceed();
 			MembersBean mem = (MembersBean) session.getAttribute("Mem_LoginOK");
 			System.out.println(mem.getEmail() + "已確認登入");
+			return pjp.proceed();
 		} catch (Exception e) {
 			throw new NotLoginException();
 		}

@@ -30,7 +30,9 @@ public class redirectController {
 	// 轉址(sidebar,判斷權限)
 	@PostMapping(value = "/backendSystem/sidebar")
 	public String sidebarSelect(@ModelAttribute("Mem_LoginOK") MembersBean mem, Model model) {
-
+		
+		System.out.println("idddddddddddddddddd"+mem.getPrivilegeId());
+		
 		switch (mem.getPrivilegeId()) {
 		case 2:
 			return "backendSystem/sideBar/sideBar_webAdmin";
