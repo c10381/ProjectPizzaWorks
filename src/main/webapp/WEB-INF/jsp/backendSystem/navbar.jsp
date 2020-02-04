@@ -203,7 +203,7 @@
 	});
 	
 	function getNotification() {
-		//由identity判斷登入者的身分，之後用相對應的ajax取/放值
+		//由identity判斷登入者的身分，之後用相對應的ajax取/放值，目前只有網管人員及客服人員沒有通知
 		if(identity === 3){
 			//銷貨人員通知
 			getSalesOrderNotification();
@@ -212,8 +212,7 @@
 			getPurchaseRequestNotification();
 		}else if (identity === 5){
 			//存貨人員通知
-			getStockRequestNotification();
-			
+			getStockRequestNotification();			
 		}else if (identity === 7){
 			//admin通知
 			getPwdChangeRequestNotification();			
