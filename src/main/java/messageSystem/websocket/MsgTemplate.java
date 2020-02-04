@@ -23,9 +23,9 @@ public class MsgTemplate {
     public void sendMsgToSession(String sessionId, Object msg) {
         template.convertAndSendToUser(sessionId, USER_TOPIC, msg);
     }
-
-    public void sendMsgToUser(String user, Object msg) {
-        sessions.getSessionIds(user).forEach(sessionId -> {
+    //送訊息給員工
+    public void sendMsgToCoworker(String user, Object msg) {
+        sessions.getCoworkerSessionIds(user).forEach(sessionId -> {
             template.convertAndSendToUser(sessionId, USER_TOPIC, msg);
         });
     }

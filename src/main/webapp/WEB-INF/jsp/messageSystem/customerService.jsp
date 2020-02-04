@@ -76,7 +76,7 @@
                 if(text != ''){
                     /* stompClient.send("/app/chat", {}, JSON.stringify({'from':userName, 'text':text}));
                     document.getElementById('text').value = ''; */
-                    stompClient.send("/app/customerService/"+"service@pizza.com", {}, JSON.stringify({'from':userName, 'text':text}));
+                    stompClient.send("/app/coworkerchat/"+"service@pizza.com", {}, JSON.stringify({'from':userName, 'text':text}));
                     document.getElementById('text').value = '';
                   //土砲暫時的回應(沒時間XD)
 					p.appendChild(document.createTextNode(userName +": "+ text));
