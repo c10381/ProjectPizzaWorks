@@ -13,7 +13,7 @@ import messageSystem.websocket.WebSocketSessions;
 
 @Controller
 public class ChatController {
-
+//本方法利用WebSocket送訊息
     @Autowired
     private WebSocketSessions sessions;
     @Autowired
@@ -26,11 +26,11 @@ public class ChatController {
         return new OutputMessage(time, message);
     }
     
-    //客服直接傳給指定顧客
-    @MessageMapping("/customerService/{chatID}")
-    public OutputMessage broadcast(@DestinationVariable String chatID, Message message) throws Exception {
+    //後台聊天室使用
+    @MessageMapping("/coworkerchat/{chatID}")
+    public OutputMessage toCoworker(@DestinationVariable String chatID, Message message) throws Exception {
     	OutputMessage outputMessage = new OutputMessage(new Date().toString(), message);
-        template.sendMsgToUser(chatID, outputMessage);
+        template.sendMsgToCoworker(chatID, outputMessage);
         return outputMessage;
     }
 

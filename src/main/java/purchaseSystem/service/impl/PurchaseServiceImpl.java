@@ -107,8 +107,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Integer updateOnePurchaseRequest2(PurchaseRequestBean purchaseRequest) {
 		if(purchaseRequest.getRequestStatus()==0) {
 			dao.updatePurchaseRequest(purchaseRequest);
+			PurchaseRequestBean original_pRequest = dao.getOnePurchaseRequestById(purchaseRequest.getpRequestId());
+			List<PurchaseRequestDetailBean> original_pRequestDetails = original_pRequest.getPurchaseRequestDetails();
 			for(PurchaseRequestDetailBean prdb:purchaseRequest.getPurchaseRequestDetails()) {
-				dao.updatePurchaseRequestDetail(prdb);
+				boolean flag = false;
+				for(int i=0; i<original_pRequestDetails.size() || !flag; i++) {
+					if(original_pRequestDetails.get(i).getpRequestDetailId() == prdb.getpRequestDetailId()) {
+						flag = true;
+						dao.updatePurchaseRequestDetail(prdb);
+						original_pRequestDetails.remove(i);
+					}
+				}
+				if(!flag) {
+					dao.insertOnePurchaseRequestDetail(prdb);
+				}
+			}
+			if(original_pRequestDetails.size()>0) {
+				for(PurchaseRequestDetailBean oprdb:  original_pRequestDetails) {
+					dao.deleteOnePurchaseDetail(oprdb);
+				}
 			}
 		}else {
 			System.out.println("請購已被核准，無法修改");

@@ -30,4 +30,6 @@ public interface PurchaseDao {
 	void insertOnePurchaseRequestDetail(PurchaseRequestDetailBean list);
 	
 	List<MaterialsBean> getMaterialList();
+	
+	void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb);
 }
