@@ -37,7 +37,7 @@
 				<p class="login-box-msg">${errorMessage}</p>
 				<form action="${pageContext.request.contextPath}/backendSystem/" method="post">
 					<div class="input-group mb-3">
-						<input type="email" class="form-control" placeholder="Email" name="email" value="admin@pizza.com">
+						<input type="email" class="form-control" placeholder="Email" name="email" value="" id="email">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
@@ -45,7 +45,7 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="Password" name="password" value="P@ssw0rd">
+						<input type="password" class="form-control" placeholder="Password" name="password" value="" id="password">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -55,8 +55,9 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="icheck-primary">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> Remember Me </label>
+								<!-- <input type="checkbox" id="remember"> <label
+									for="remember"> Remember Me </label>  -->
+								<a href="${pageContext.request.contextPath}/memberSystem/coworkerfPW">忘記密碼</a>
 							</div>
 						</div>
 						<!-- /.col -->
@@ -71,14 +72,25 @@
 				<!-- /.social-auth-links -->
 
 				<p class="mb-1">
-					<a href="${pageContext.request.contextPath}/memberSystem/coworkerfPW">忘記密碼</a>
 				</p>
 
 			<!-- /.login-card-body -->
 		</div>
 	</div>
 	<!-- /.login-box -->
+	<!-- Login Demo btns-->
+		<footer class="footer fixed-bottom">
+			<div>
+				<div id="admin" class="btn btn-default btn-sm">管理員</div>
+				<div id="webadmin" class="btn btn-default btn-sm">網站管理員</div>
+				<div id="Service" class="btn btn-default btn-sm">客服人員</div>
+				<div id="purchase" class="btn btn-default btn-sm">進貨人員</div>
+				<div id="sales" class="btn btn-default btn-sm">銷貨人員</div>
+				<div id="stock" class="btn btn-default btn-sm">存貨人員</div>
+			</div>
 
+		</footer>
+	</div>
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
@@ -87,6 +99,33 @@
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
-
+	<script>
+		$().ready(function(){
+			$("#admin").click(function(){
+				$("#email").val("admin@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+			$("#webadmin").click(function(){
+				$("#email").val("webadmin@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+			$("#Service").click(function(){
+				$("#email").val("service@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+			$("#purchase").click(function(){
+				$("#email").val("purchase@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+			$("#sales").click(function(){
+				$("#email").val("sales@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+			$("#stock").click(function(){
+				$("#email").val("stock@pizza.com");
+				$("#password").val("P@ssw0rd");
+			});
+		});
+	</script>
 </body>
 </html>

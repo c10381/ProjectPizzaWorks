@@ -50,7 +50,7 @@
 
                     // 廣播
                     stompClient.subscribe('/topic/messages', function(messageOutput) {
-                        showMessageOutput(JSON.parse(messageOutput.body));
+                    	showOnline(JSON.parse(messageOutput.body));
                     });
                     
                     // 私人
@@ -100,7 +100,9 @@
                     response.append(p);
                 }
             }
-			
+			function showOnline(messageOutput){
+				console.log(messageOutput)	
+			}
             function showMessageOutput(messageOutput) {
                 //response與p是廣域變數,
                 //var response = document.getElementById('response');
