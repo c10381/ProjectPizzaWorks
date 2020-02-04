@@ -32,4 +32,5 @@ public interface PurchaseDao {
 	List<MaterialsBean> getMaterialList();
 	
 	void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb);
+	void updateReadTime(PurchaseRequestBean purchaseRq);
 }

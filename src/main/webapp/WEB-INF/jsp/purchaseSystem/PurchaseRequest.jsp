@@ -21,7 +21,7 @@ textarea {
 					<div class="card">
 						<div class="card-header bg-light">請購單</div>
 						<div class="card-body">
-							<form>
+							<form class="needs-validation" novalidate>
 								<div class="form-group row ">
 									<label for="requestTime" class="col-sm-2 col-form-label">日期</label>
 									<div class='col-sm-4' id='requestTime'>
@@ -40,14 +40,15 @@ textarea {
 									<label for="purchaseReason" class="col-sm-2 col-form-label">請購理由</label>
 									<div class='col-sm-4' id='purchaseReason'>
 										<textarea cols="50" rows="3" name = "purchaseReason" maxlength="100"
-											class="form-control" placeholder="請簡述本次請購理由..."></textarea>
+											class="form-control" placeholder="請簡述本次請購理由..." required></textarea>
+										<div class="invalid-feedback">請輸入請購理由</div>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="unitPrice" class="col-sm-2 col-form-label">請購總額</label>
 									<div class='col-sm-4' id='unitPrice'>
 										<input type='text' name="totalPrice" id="totalPrice" class="form-control"
-											value="" disabled />
+											value="" disabled required/>
 									</div>
 								</div>
 
@@ -115,7 +116,6 @@ textarea {
 
 	</section>
 	<script>
-		
 		$(document).ready(function() {
 			var date = new Date();
 			$("#requestTime input").val(date.yyyymmdd());
@@ -144,11 +144,8 @@ textarea {
 		var insert_Item = function(){
 				$("#prRequest").on("click","#insert",function(e){
 				e.preventDefault();
-				
-				// 判斷是否都有輸入資料
-				if($(".new_item td:not(:first)").html()==""){
-					alert("!!!!!!!!!!!!")
-				}else{
+
+				if(validationInsert()){
 					var totalPrice = $("#totalPrice").val();
 					
 					/* 塞到dateTables */
@@ -176,10 +173,43 @@ textarea {
 					
 					// 更動material的按鈕
 					$("#btnAddToRemove").remove();
-				}
+				} 
 			})
 		}
 		
+		var validationInsert = function(){
+			let td4= $('.new_item td:nth-of-type(4)').html();
+			let td5= $('.new_item td:nth-of-type(5)').html();
+			if($(".new_item td:not(:first)").html()==""){
+				alert("請從品項表添加項目");
+				return false;
+			}
+			if(td4==""){
+				alert("請求數量需填入");
+				$('.new_item td:nth-of-type(4)').focus();
+				return false;
+			}
+			if(isNaN(td4)){
+				alert("請求數量需為數字");
+				return false;
+			}
+			if(td5==""){
+				alert("請求單價需填入");
+				$('.new_item td:nth-of-type(5)').focus();
+				return false;
+			}
+			if(isNaN(td5)){
+				alert("請求單價需為數字");
+				return false;
+			}
+			if(td4<1||td5<1){
+				alert("數量/單價不可小於0");
+				return false;
+			}
+			
+			
+			return true; 
+		}
 		
 		  // 對於品項表的操作
 		var materials_table = function(){
@@ -208,9 +238,9 @@ textarea {
 				}]
 			});
 			
-			 
+			let flag = false;
 			$('#table_materials tbody').on('click', '[id*=btnRemoveToAdd]', function () {
-				let flag = false;
+				
 				// 當有點擊過，要先將被點擊過的按鈕狀態改回來
 				if(flag ==true){
 					$("#btnAddToRemove").children().removeClass("fa-minus").addClass("fa-plus");
@@ -222,6 +252,7 @@ textarea {
 	        	var data = table.row($(this).parents('tr')).data();
 	        	$('.new_item td:nth-of-type(2)').html(data.materialsId);
 	        	$('.new_item td:nth-of-type(3)').html(data.materialsName);
+	        	$('.new_item td:nth-of-type(4)').focus();
 	        	
 	        	// 更改按鈕狀態
 	        	$(this).attr("id","btnAddToRemove");
@@ -237,6 +268,7 @@ textarea {
 				"language": {
 				      "emptyTable": "尚未有請購項目",
 				},
+				lengthChange: false,
 				columnDefs: {
 	                targets: [0],
 	                orderable: false,
@@ -256,8 +288,8 @@ textarea {
 			   html += '<td data-col="2"></td>';
 			   html += '<td contenteditable data-col="3" v></td>';
 			   html += '<td contenteditable data-col="4"></td>';
-			   html += '<td><a href="#" id="insert" class="text-info"><i class="fas fa-check"></i></a>';
-			   html += '<a href="#" id="cancle"><i class="fas fa-trash-alt"></i></a></td>';
+			   html += '<td><a href="#" id="insert" class="text-info mr-1"><i class="fas fa-check"></i></a>';
+			   html += '<a href="#" id="cancle" class="text-danger"><i class="fas fa-times"></i></a></td>';
 			   html += '</tr>';
 			   $('#prRequest').prepend(html);
 		  };
@@ -269,32 +301,44 @@ textarea {
 					(dd > 9 ? '' : '0') + dd ].join('-');
 		};
 		
-		// 取得要送出的資料
+		// 要送出的資料至後端
 		var getSubmitData= function (){
 			$("#to_submit").click(function(){
-				let new_purchaseRequests = {};
-				// 取得上方主檔內容
-				$("form input, form textarea").each(function(){
-					var input = $(this);
-					if(input.attr("name")!= undefined){
-						new_purchaseRequests[input.attr("name")] = input.val();
-					}
-				})
-				// 取得dataTable的明細內容
+				// 資料檢查
+				var forms = document.getElementsByClassName('needs-validation');
 				var table = $('#prRequest').DataTable();
-				new_purchaseRequests.purchaseRequestDetails = [];
-				// 從頭開始讀起
-				table.rows().eq(0).each( function ( index ) {
-					//取得每列的資料陣列 
-			    	var data = table.row(index).data();
-					var detail = {}
-					detail["materialsId"] = data[1];
-					detail["quantity"] = data[3];
-					detail["unitPrice"] = data[4];
-					new_purchaseRequests.purchaseRequestDetails.push(detail);
-				} );
-				/* console.log(new_purchaseRequests); */
-				 sendData(new_purchaseRequests)
+			    // Loop over them and prevent submission
+			    var validation = Array.prototype.filter.call(forms, function(form) {
+			        if (form.checkValidity() === false) {
+			        	 form.classList.add('was-validated');
+			        }else if(table.data().length==0){
+			        	alert("每筆請購單至少要有一品項");
+			        }else{
+			        	let new_purchaseRequests = {};
+						// 取得上方主檔內容
+						$("form input, form textarea").each(function(){
+							var input = $(this);
+							if(input.attr("name")!= undefined){
+								new_purchaseRequests[input.attr("name")] = input.val();
+							}
+						})
+						// 取得dataTable的明細內容
+						new_purchaseRequests.purchaseRequestDetails = [];
+						// 從頭開始讀起
+						table.rows().eq(0).each( function ( index ) {
+							//取得每列的資料陣列 
+					    	var data = table.row(index).data();
+							var detail = {}
+							detail["materialsId"] = data[1];
+							detail["quantity"] = data[3];
+							detail["unitPrice"] = data[4];
+							new_purchaseRequests.purchaseRequestDetails.push(detail);
+						} );
+						if(confirm("確定送出請購單?")){
+						 sendData(new_purchaseRequests)
+						 }
+			        }
+			     })
 			})
 		}();
 		

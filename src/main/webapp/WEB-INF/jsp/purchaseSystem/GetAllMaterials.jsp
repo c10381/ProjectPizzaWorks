@@ -52,7 +52,7 @@
 	<script>
 		$(document).ready(function() {
 			let count = 0;
-			$("#materials").dataTable(
+			$("#materials").DataTable(
 							{
 								"ajax" : {
 									"url" : "../getAllMaterialsJSON",

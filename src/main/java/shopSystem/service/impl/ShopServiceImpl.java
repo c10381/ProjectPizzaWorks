@@ -44,24 +44,26 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void saveOrder(SalesOrderBean SOB) {
 		List<SalesOrderDetailBean> list = SOB.getSalesOrderDetails();
+		SOB.setSalesOrderDetails(null);
 		
 		//設定訂單時間
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formatDateTime = now.format(formatter);
         SOB.setOrderTime(formatDateTime);
-        System.out.println(SOB.getOrderTime());
+        SOB.setOrderStatus(0);
+        
+        Integer salesOrderId = dao.saveOrder(SOB);
         
 		for (SalesOrderDetailBean sd : list) {
 //			sd.setSalesOrder(SOB);
-			sd.setSalesOrderId(SOB.getSalesOrderId());
+			System.out.println(salesOrderId);
+			sd.setSalesOrderId(salesOrderId);
 			//進銷存用 ，先預設塞值為0
 			sd.setSalesListId(0);
+			dao.insertOneSalesOrderDetail(sd);
 		}
-		SOB.setMemberId(6);
-		SOB.setOrderStatus(0);
-		dao.saveOrder(SOB);
-
+//		SOB.setSalesOrderDetails(list);
 	}
 
 	@Override

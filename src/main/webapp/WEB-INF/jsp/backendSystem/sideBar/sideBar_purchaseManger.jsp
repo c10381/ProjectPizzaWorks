@@ -29,7 +29,7 @@
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢採購單</p>
 									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢請購單</p>
 									</div></li>

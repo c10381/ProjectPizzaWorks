@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -96,6 +98,14 @@ public class PurchaseController {
 //		return output.toString();
 		return "purchaseSystem/AddNewStockRequest";
 //		return materials_string;
+	}
+	
+	
+	@PutMapping("/purchase/updateReadTime")
+	public @ResponseBody String updateReadTime(@RequestBody PurchaseRequestBean purchaseRequest) {
+		String time = service.updateReadTime(purchaseRequest);
+		System.out.println(time);
+		return time;
 	}
 	
 }

@@ -32,4 +32,6 @@ public interface PurchaseService {
 	
 	String getAllMaterialsJson();
 	
+	String updateReadTime(PurchaseRequestBean purchaseRequest);
+	
 }
