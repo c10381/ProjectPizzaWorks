@@ -25,11 +25,11 @@
 </style>
 </head>
 <body>
-<!-- ----- -->
+	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-<!-- ----- -->
+	<!-- ----- -->
 
-<!-- 把東西放到section / container div -->  
+	<!-- 把東西放到section / container div -->
 	<section class="ftco-section">
 		<div id='container justify-content-center'>
 
@@ -37,53 +37,108 @@
 				<h1 style="text-align: center">新會員註冊</h1>
 			</div>
 
-			<form method='POST' id="register" class='col-md-4 mx-auto align-items-center'
-				action="${pageContext.request.contextPath}/memberSystem/register">
-				<div class="form-group">
-					<label for="#">* 請輸入註冊信箱：</label> <input id="email" name="email"
-						type='email' placeholder='請輸入信箱' required='required' />
-				</div>
-				<div class="form-group">
-					<label for="password">* 請輸入密碼：</label> <input id="password"
+			<form method='POST' id="register" class='col-md-6 mx-auto align-items-center needs-validation'
+				novalidate action="${pageContext.request.contextPath}/memberSystem/register">
+				<div class='row form-group'>
+                		<label for="email" class="col-form-label col-sm-3">* 請輸入註冊信箱：</label>
+                		<!-- col end-->
+                		<input id="email" name="email" class="form-control col-sm-6" type='email' placeholder='請輸入註冊信箱'  required />
+            			<!-- col end-->
+            			<div class='col-sm-3' id='emailerrbox' >
+            				errbox
+            			</div>
+            			<!-- col end-->
+    			</div>
+    			<!-- row form-group end-->	
+						
+				<div class="row form-group">
+					<label for="password" class="col-form-label col-sm-3">* 請輸入密碼：</label> 
+					<!-- col end-->
+					<input id="password"
 						name="password" type="password" placeholder='請輸入密碼'
 						required='required' maxlength='20'
 						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-						title="密碼請符合輸入格式!" /> <small id="passwordHelpBlock"
-						class="form-text text-muted">
+						title="密碼請符合輸入格式!"   class="form-control col-sm-6"/> 
+						<!-- col end-->
+						<small id="passwordHelpBlock" class="form-text text-muted col-sm-3">
 						(至少8碼，最多20碼，需包含大小寫英數字且不可含特殊字元) </small>
+						<!-- col end-->
 				</div>
-				<div class="form-group">
-					<label for="validpwd">* 請再次輸入密碼 ：</label> <input id='validpwd' name="validpwd"
-						type="password" placeholder='請再次輸入密碼' required='required'
-						maxlength='20'
-						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" />
-					<div id="errbox"></div>
+    			<!-- row form-group end-->	
+				<div class="row form-group">
+					<label for="validpwd" class="col-form-label col-sm-3">* 請再次輸入密碼 ：</label> 
+					<!-- col end-->
+					<input id='validpwd'
+						name="validpwd" type="password" placeholder='請再次輸入密碼'
+						required='required' maxlength='20'
+						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"  class="form-control col-sm-6"/>
+					<!-- col end-->
+					<div id="errbox" class='col-sm-3' ></div>
+					<!-- col end-->
 				</div>
-				<br> <input id='btnAdd' type="submit" value="送出" disabled /> <input
-					id='btnReset' type="reset" value="重填" />
-				<input type='button' id='btnAuto' value="一鍵輸入" />
+    			<!-- row form-group end-->	
+				<br> 
+				<div class="row">
+					<input type='button' id='btnAuto' value="一鍵輸入"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<!-- col end-->
+					<div class="col-sm-6"></div>
+					<!-- col end-->
+					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-2"/> 
+					<!-- col end-->
+					<input id='btnAdd' type="submit" value="送出" disabled class="btn btn-primary col-sm-2"/>
+					<!-- col end-->
+				</div> 
+				<!-- row end -->
 			</form>
 		</div>
 	</section>
 
 
-<!-- ----- -->
+	<!-- ----- -->
 
 	<jsp:include page="../shopSystem/fragment/footer.jsp" />
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
-	
-<!-- ----- -->
+
+	<!-- ----- -->
 	<script type="text/javascript">
+		function checkEmail() {
+			var email = $('#email').val();
+
+		}
+
 		$(function() {
+			var email = $('#email').val();
+			$('#email').change(function() {
+				if (email == null || email === '') {
+
+					$('#emailerrbox').text(' 請輸入帳號');
+					$('#emailerrbox').css('font-color', 'red');
+
+				} else {
+
+					$('#emailerrbox').empty();
+				}
+			})
+
+			$('#email').mouseleave(function() {
+				if (email == null || email === '') {
 					
-			$("#btnAuto").click(function(){
+					$('#emailerrbox').text(' 請輸入帳號');
+					$('#emailerrbox').css('font-color', 'red');
+				} else {
+					
+					$('#emailerrbox').empty();
+				}
+			})
+
+			$("#btnAuto").click(function() {
 				$("#email").val("iiiedujava@gmail.com");
-				$("#password").val("Andy8104");
-				$("#validpwd").val("Andy8104");
+				$("#password").val("Java8888");
+				$("#validpwd").val("Java8888");
 				$("#btnAdd").prop("disabled", false);
 			})
-						
+
 			$("#password").change(function() {
 				var pwd1 = $("#password").val();
 				var pwd2 = $("#validpwd").val();
@@ -102,7 +157,7 @@
 					$("#btnAdd").prop("disabled", false);
 				}
 			})
-						
+
 			$("#validpwd").change(function() {
 				var pwd1 = $("#password").val();
 				var pwd2 = $("#validpwd").val();
@@ -121,7 +176,7 @@
 					$("#btnAdd").prop("disabled", false);
 				}
 			})
-			
+
 			$("#register").submit(function() {
 				var pwd1 = $("#password").val();
 				var pwd2 = $("#validpwd").val();
@@ -139,7 +194,7 @@
 					$("#errMsg").remove();
 					$("#btnAdd").prop("disabled", false);
 				}
-			})			
+			})
 		})
 	</script>
 </body>

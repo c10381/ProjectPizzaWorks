@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.resource.HttpResource;
 
+import com.google.gson.Gson;
+
 import _model.MembersBean;
 import memberSystem.service.CustomerService;
 import memberSystem.service.MemberService;
@@ -188,8 +190,8 @@ public class MemberController {
 	// produces="text/html;charset=UTF-8;" 可以對@ResponseBody強制轉成繁體編碼
 	@GetMapping(value = "memberSystem/getAllMember",produces="text/html;charset=UTF-8;")
 	public @ResponseBody String getAllMember() {
-		
-		return memService.getAllMembers();
+		Gson gson=new Gson();
+		return gson.toJson(memService.getAllMembers(2,3,4,5,6,7));
 	}
 	// 檢視前台所有顧客
 	@GetMapping(value = "/memberSystem/getAllCustomer",produces="text/html;charset=UTF-8;")

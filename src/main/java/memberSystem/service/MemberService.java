@@ -28,9 +28,9 @@ public interface MemberService {
 
 	List<ValidationRequestBean> SearchValidationRequestBeans(Integer... requestStatus);
 
-	String getAllMembers();
-
 	Boolean changePWrequestCommit(Boolean Answer, Integer vRequestId, MembersBean admin, String responseComment);
+
+	List<MembersBean> getAllMembers(Integer... privilegeId);
 
 	
 }

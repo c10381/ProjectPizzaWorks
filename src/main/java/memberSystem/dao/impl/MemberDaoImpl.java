@@ -130,11 +130,10 @@ public class MemberDaoImpl implements MemberDao {
 	// (Read)查詢後台所有員工
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<MembersBean> getAllMembers() {
+	public List<MembersBean> getAllMembers(Integer[] privilegeId) {
 		List<MembersBean> allMembers = new ArrayList<MembersBean>();
 		Session session = factory.getCurrentSession();
-		allMembers = session.createQuery("FROM MembersBean where privilegeId BETWEEN :startId AND :endId")
-				.setParameter("startId", 2).setParameter("endId", 7).list();
+		allMembers = session.createQuery("FROM MembersBean where privilegeId  in (:privilegeId)").setParameterList("privilegeId", privilegeId).getResultList();
 		return allMembers;
 	}
 
