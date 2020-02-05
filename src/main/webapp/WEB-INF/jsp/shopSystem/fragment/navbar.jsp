@@ -9,7 +9,7 @@
 	id="ftco-navbar">
 	<div class="container">
 		<a class="navbar-brand"
-			href="${pageContext.request.contextPath}/shop/ "><span
+			href="${pageContext.request.contextPath}/ "><span
 			class="flaticon-pizza-1 mr-1"></span>Pizza<br /> <small>Sim</small></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"

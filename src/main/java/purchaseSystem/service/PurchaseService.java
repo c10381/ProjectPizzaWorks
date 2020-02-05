@@ -34,4 +34,5 @@ public interface PurchaseService {
 	
 	String updateReadTime(PurchaseRequestBean purchaseRequest);
 	
+	String updateResponse(PurchaseRequestBean purchaseRequest);
 }

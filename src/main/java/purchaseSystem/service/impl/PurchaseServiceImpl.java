@@ -187,4 +187,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		return localTime;
 	}
+
+	@Override
+	public String updateResponse(PurchaseRequestBean purchaseRequest) {
+		// 取得現在時間
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime time = LocalDateTime.now();
+		String localTime = df.format(time);
+		purchaseRequest.setResponseTime(localTime);
+		dao.updateResponse(purchaseRequest);
+		return null;
+	}
 }

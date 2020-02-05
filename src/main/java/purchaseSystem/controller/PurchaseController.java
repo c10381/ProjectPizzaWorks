@@ -107,5 +107,10 @@ public class PurchaseController {
 		System.out.println(time);
 		return time;
 	}
+	@PutMapping("/purchase/updateResponse")
+	public @ResponseBody String updateResponse(@RequestBody PurchaseRequestBean purchaseRequest) {
+		service.updateResponse(purchaseRequest);
+		return "OK";
+	}
 	
 }
