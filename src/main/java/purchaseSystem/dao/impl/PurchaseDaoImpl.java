@@ -153,13 +153,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	}
 	
 	@Override
-	public void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb) {
-		Session session = factory.getCurrentSession();
-		session.delete(oprdb);
-		System.out.println("已刪除欲刪之請購單品項");
-	}
-	
-	@Override
 	public void updateReadTime(PurchaseRequestBean purchaseRq) {
 		Session session = factory.getCurrentSession();
 		PurchaseRequestBean PRB = session.get(PurchaseRequestBean.class, purchaseRq.getpRequestId());

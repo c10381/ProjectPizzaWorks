@@ -41,6 +41,5 @@ public interface PurchaseDao {
 	
 	void insertOnePurchaseOrderDetail(PurchaseOrderDetailBean purchaseOrderDetail);
 	
-	void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb);
 	void updateReadTime(PurchaseRequestBean purchaseRq);
 }
