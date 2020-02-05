@@ -127,7 +127,7 @@ public class CustomerController {
 	//
 	@RequestMapping(value = "/memberSystem/doupdate")
 	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, HttpSession session) {
-
+		
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
 		if (mem1 == null) {
 			return "memberSystem/login";
