@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import _model.MaterialsBean;
+import _model.PurchaseOrderBean;
 import _model.MaterialsUnitBean;
 import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
@@ -30,9 +31,9 @@ import purchaseSystem.service.PurchaseService;
 
 @Controller
 public class PurchaseController {
-	
+
 	PurchaseService service;
-	
+
 	@Autowired
 	public void setService(PurchaseService service) {
 		this.service = service;
@@ -44,15 +45,44 @@ public class PurchaseController {
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
-	
-	//查詢所有請購單
-	@RequestMapping(value = "/getAllPurchaseRequestJSON", method = RequestMethod.GET, 
-			produces = {"application/json;charset=UTF-8"})
+
+	// 1-1.查詢所有請購單
+	@RequestMapping(value = "/getAllPurchaseRequestJSON", method = RequestMethod.GET, produces = {
+			"application/json;charset=UTF-8" })
 	public @ResponseBody String getAllPurchaseRequestJSON(Model model) {
 		String PurchaseRequest = service.getAllPurchaseRequest();
 		return PurchaseRequest;
 	}
 	
+	// 1-2.查詢單張請購單
+	@RequestMapping(value = "/getOnePurchaseRequest", method = RequestMethod.GET)
+	public String getOnePurchaseRequest(@RequestParam(value = "id") Integer id, Model model) {
+		String purchaseRequest = service.getOnePurchaseRequestJson(id);
+		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
+		return "placeHolderPage";
+	}
+
+	// 2.新增單張請購單
+	@RequestMapping(value = "/insertOnePurchaseRequest2", method = RequestMethod.POST)
+	public @ResponseBody String insertOnePurchaseRequest2(@RequestBody PurchaseRequestBean purchaseRequest,
+			Model model) {
+		String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
+		String timeStrNoMillisec = timeStr.substring(0, timeStr.length() - 4);
+		purchaseRequest.setRequestTime(timeStrNoMillisec);
+		purchaseRequest.setRequestStatus(0);
+		purchaseRequest.setApproverId(0);
+		service.saveOnePurchaseRequest2(purchaseRequest);
+		return "OK";
+	}
+
+	// 3.修改請購單2
+	@RequestMapping(value = "/updateOnePurchaseRequestJSON2", method = RequestMethod.POST, produces = {
+			"application/json;charset=UTF-8" })
+	public String updateOnePurchaseRequest2(@RequestBody PurchaseRequestBean prb) {
+		List<PurchaseRequestDetailBean> prdbList = prb.getPurchaseRequestDetails();
+		service.updatePurchaseRequest(prb, prdbList);
+		return "OK";
+	}
 	//修改請購單
 		@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, 
 				produces = {"application/json;charset=UTF-8"})
@@ -66,28 +96,45 @@ public class PurchaseController {
 			}
 			return "";
 		}
+		
+		// 1.查詢所有採購單
+		@RequestMapping(value = "/getAllPurchaseOrderJSON", method = RequestMethod.GET, produces = {
+				"application/json;charset=UTF-8" })
+		public @ResponseBody String getAllPurchaseOrderJSON(Model model) {
+			String PurchaseOrder = service.getAllPurchaseOrder();
+			return PurchaseOrder;
+		}
+
+		// 2.新增單張請購單
+		@RequestMapping(value = "/insertOnePurchaseOrder", method = RequestMethod.POST)
+		public @ResponseBody String insertOnePurchaseOrder(@RequestBody PurchaseOrderBean purchaseOrder,
+				Model model) {
+			String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
+			String timeStrNoMillisec = timeStr.substring(0, timeStr.length() - 4);
+			purchaseOrder.setRequestTime(timeStrNoMillisec);
+			purchaseOrder.setApproverId(0);
+			service.saveOnePurchaseOrder(purchaseOrder);
+			return "OK";
+		}
+
 	
-	//新增請購單
-	@RequestMapping(value = "/insertOnePurchaseRequest2", method = RequestMethod.POST)
-	public @ResponseBody String insertOnePurchaseRequest2(@RequestBody PurchaseRequestBean purchaseRequest, Model model) {
-		String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
-		String timeStrNoMillisec = timeStr.substring(0, timeStr.length() - 4);
-		purchaseRequest.setRequestTime(timeStrNoMillisec);
-		purchaseRequest.setRequestStatus(0);
-		purchaseRequest.setApproverId(0);
-		service.saveOnePurchaseRequest2(purchaseRequest);
-		return "OK";
-	}
-	
-	@RequestMapping(value="/getOnePurchaseRequest", method = RequestMethod.GET)
-	public String getOnePurchaseRequest(@RequestParam(value="id")Integer id, Model model) {
-		String purchaseRequest = service.getOnePurchaseRequestJson(id);
-		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
-		return "placeHolderPage";
-	}
-	
-	@RequestMapping(value="/convertToStockRequestPage", method = RequestMethod.POST)
-	public String ConvertToStockRequestPage(@RequestParam("purchaseRequest_jsonStr")String purchaseRequest, Model model) {
+//	// 修改請購單
+//	@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, produces = {
+//			"application/json;charset=UTF-8" })
+//	public @ResponseBody String updateOnePurchaseRequest(@RequestBody PurchaseRequestBean purchaseRequest) {
+//		Integer flag = service.updateOnePurchaseRequest2(purchaseRequest);
+//		if (flag.equals(1)) {
+//			return "OK";
+//		} else if (flag.equals(0)) {
+//			return "Error";
+//		}
+//		return "";
+//	}
+
+
+	@RequestMapping(value = "/convertToStockRequestPage", method = RequestMethod.POST)
+	public String ConvertToStockRequestPage(@RequestParam("purchaseRequest_jsonStr") String purchaseRequest,
+			Model model) {
 		List<MaterialsBean> materials = service.getAllMaterials();
 //		String materials_string = service.getAllMaterialsJson();
 		List<MaterialsUnitBean> materialUnits = service.getAllMaterialsUnits();

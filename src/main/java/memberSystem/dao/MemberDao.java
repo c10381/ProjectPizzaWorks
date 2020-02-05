@@ -25,7 +25,7 @@ public interface MemberDao {
 //	boolean updateMember(MembersBean mem);	
 	
 	// 查詢所有紀錄
-	public List<MembersBean> getAllMembers();
+	List<MembersBean> getAllMembers(Integer[] privilegeId);
 
 	//拿ValidationRequestBean的三種方式
 	List<ValidationRequestBean> getValidationRequestByrequestStatus(Integer[] requestStatus);
@@ -33,6 +33,8 @@ public interface MemberDao {
 	List<ValidationRequestBean> getValidationRequestById(Integer vRequestId);
 	
 	Boolean updateValidationRequest(ValidationRequestBean vrb);
+
+
 
 
 

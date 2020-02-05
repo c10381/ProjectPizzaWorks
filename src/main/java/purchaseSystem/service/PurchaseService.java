@@ -35,6 +35,10 @@ public interface PurchaseService {
 	
 	String getAllMaterialsJson();
 	
+	String getAllPurchaseOrder();
+	
+	void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder);
+	
 	String updateReadTime(PurchaseRequestBean purchaseRequest);
 	
 	List<MaterialsUnitBean> getAllMaterialsUnits();

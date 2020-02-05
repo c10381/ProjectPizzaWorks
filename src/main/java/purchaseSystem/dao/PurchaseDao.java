@@ -5,8 +5,9 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import _model.MaterialsBean;
-import _model.MaterialsUnitBean;
 import _model.PurchaseOrderBean;
+import _model.PurchaseOrderDetailBean;
+import _model.MaterialsUnitBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import _model.SupplierBean;
@@ -35,6 +36,12 @@ public interface PurchaseDao {
 	List<MaterialsBean> getMaterialList();
 	
 	void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb);
+	
+	List<PurchaseOrderBean> getAllPurchaseOrder();
+	
+	Integer insertOnePurchaseOrder(PurchaseOrderBean pob);
+	
+	void insertOnePurchaseOrderDetail(PurchaseOrderDetailBean purchaseOrderDetail);
 	
 	void updateReadTime(PurchaseRequestBean purchaseRq);
 	
