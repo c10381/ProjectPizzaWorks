@@ -53,19 +53,19 @@ public class ProductController {
 		this.context = context;
 	}
 
-	@RequestMapping("/shopManageSystem/products")
-	public String productsList(Model model) {
-		List<ProductBean> list = service.getAllProducts();
-		model.addAttribute("products", list);
-		return "shopManageSystem/products";
-	}
-
-	// 按下首頁超連結後來此，再跳出oneProduct.jsp
-	@RequestMapping(value = "/shopManageSystem/getProductById", method = RequestMethod.GET)
-	public String getProductById(@RequestParam("id") Integer id, Model model) {
-		model.addAttribute("product", service.getProductById(id));
-		return "shopManageSystem/GetOneProduct";
-	}
+//	@RequestMapping("/shopManageSystem/products")
+//	public String productsList(Model model) {
+//		List<ProductBean> list = service.getAllProducts();
+//		model.addAttribute("products", list);
+//		return "shopManageSystem/products";
+//	}
+//
+//	// 按下首頁超連結後來此，再跳出oneProduct.jsp
+//	@RequestMapping(value = "/shopManageSystem/getProductById", method = RequestMethod.GET)
+//	public String getProductById(@RequestParam("id") Integer id, Model model) {
+//		model.addAttribute("product", service.getProductById(id));
+//		return "shopManageSystem/GetOneProduct";
+//	}
 
 	@RequestMapping(value = "/shopManageSystem/getProductById", method = RequestMethod.POST)
 	public String UpdateOneProduct(@ModelAttribute("product") ProductBean pb, Model model)
@@ -162,27 +162,20 @@ public class ProductController {
 		return result;
 	}
 
-	@RequestMapping("/shopManageSystem/products2")
-	public String productsList2(Model model) {
-		List<ProductBean> list = service.getAllProducts();
-		model.addAttribute("products", list);
-		return "shopManageSystem/products2";
-	}
-
-	@RequestMapping("/shopManageSystem/salesOrders")
-	public String salesOrdersList(Model model) {
-		List<SalesOrderBean> list = service.getAllSalesOrders();
-		model.addAttribute("salesOrders", list);
-		return "shopManageSystem/SalesOrders";
-	}
-
-	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.GET)
-	public String getRecipeById(@RequestParam("id") Integer productId, Model model) {
-		List<RecipeBean> list = service.getRecipeById(productId);
-		model.addAttribute("recipeForm", list);
-		model.addAttribute("productId", productId);
-		return "shopManageSystem/RecipeByProductId";
-	}
+//	@RequestMapping("/shopManageSystem/salesOrders")
+//	public String salesOrdersList(Model model) {
+//		List<SalesOrderBean> list = service.getAllSalesOrders();
+//		model.addAttribute("salesOrders", list);
+//		return "shopManageSystem/SalesOrders";
+//	}
+//
+//	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.GET)
+//	public String getRecipeById(@RequestParam("id") Integer productId, Model model) {
+//		List<RecipeBean> list = service.getRecipeById(productId);
+//		model.addAttribute("recipeForm", list);
+//		model.addAttribute("productId", productId);
+//		return "shopManageSystem/RecipeByProductId";
+//	}
 
 	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.POST)
 	public @ResponseBody String updateRecipeById(@RequestParam(value = "recipes") String recipe_str, Model model) {
@@ -210,20 +203,20 @@ public class ProductController {
 		return "OK!";
 	}
 
-	@RequestMapping(value = "/shopManageSystem/getSalesOrder", method = RequestMethod.GET)
-	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
-		List<Object> output = service.getSalesOrderDetails(salesOrderId);
-		model.addAttribute("salesOrder", output.get(0));
-		model.addAttribute("products", output.get(1));
-		model.addAttribute("crusts", output.get(2));
-		return "shopManageSystem/GetSalesOrder";
-	}
-
-	@RequestMapping(value = "/shopManageSystem/AddNewProduct", method = RequestMethod.GET)
-	public String getAllMaterials(Model model) {
-		model.addAttribute("materials", service.getAllMaterials());
-		return "shopManageSystem/AddNewProduct";
-	}
+//	@RequestMapping(value = "/shopManageSystem/getSalesOrder", method = RequestMethod.GET)
+//	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
+//		List<Object> output = service.getSalesOrderDetails(salesOrderId);
+//		model.addAttribute("salesOrder", output.get(0));
+//		model.addAttribute("products", output.get(1));
+//		model.addAttribute("crusts", output.get(2));
+//		return "shopManageSystem/GetSalesOrder";
+//	}
+//
+//	@RequestMapping(value = "/shopManageSystem/AddNewProduct", method = RequestMethod.GET)
+//	public String getAllMaterials(Model model) {
+//		model.addAttribute("materials", service.getAllMaterials());
+//		return "shopManageSystem/AddNewProduct";
+//	}
 
 	@RequestMapping(value = "/shopManageSystem/AddNewProduct", method = RequestMethod.POST)
 	public @ResponseBody String addProductRecipes(@RequestParam(value = "recipes") String recipe_str, Model model) {

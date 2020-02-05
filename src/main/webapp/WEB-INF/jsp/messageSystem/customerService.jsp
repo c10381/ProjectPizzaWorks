@@ -50,7 +50,7 @@
 
                     // 廣播
                     stompClient.subscribe('/topic/messages', function(messageOutput) {
-                        showMessageOutput(JSON.parse(messageOutput.body));
+                    	showOnline(JSON.parse(messageOutput.body));
                     });
                     
                     // 私人
@@ -76,7 +76,7 @@
                 if(text != ''){
                     /* stompClient.send("/app/chat", {}, JSON.stringify({'from':userName, 'text':text}));
                     document.getElementById('text').value = ''; */
-                    stompClient.send("/app/customerService/"+"service@pizza.com", {}, JSON.stringify({'from':userName, 'text':text}));
+                    stompClient.send("/app/coworkerchat/"+"service@pizza.com", {}, JSON.stringify({'from':userName, 'text':text}));
                     document.getElementById('text').value = '';
                   //土砲暫時的回應(沒時間XD)
 					p.appendChild(document.createTextNode(userName +": "+ text));
@@ -100,7 +100,9 @@
                     response.append(p);
                 }
             }
-			
+			function showOnline(messageOutput){
+				console.log(messageOutput)	
+			}
             function showMessageOutput(messageOutput) {
                 //response與p是廣域變數,
                 //var response = document.getElementById('response');

@@ -51,13 +51,13 @@
 						<div class="d-md-flex">
 							<div class="form-group">
 							<label>送達地點</label>
-								<input type="text" name="deliverAddress" class="form-control" placeholder="First Name">
+								<input type="text" name="deliverAddress" class="form-control" placeholder="">
 							</div>
 						</div>
 						<div class="d-me-flex">
 							<div class="form-group">
 							<label>預定取餐時間</label>
-								<input type="text" name="requireTime" class="form-control" placeholder="Last Name">
+								<input type="text" name="requireTime" class="form-control" placeholder="">
 							</div>
 						</div>
 						<div class="form-group">

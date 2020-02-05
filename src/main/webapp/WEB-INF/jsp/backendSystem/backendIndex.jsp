@@ -31,6 +31,17 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
 	rel="stylesheet">
+<!-- 後台chatroom css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/backendSystem/chatroomstyle.css" />
+
+	<!-- jQuery -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
+	<!-- jQuery-ui 1.12.1 -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+
+
 </head>
 <body class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
@@ -92,6 +103,19 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<!-- Backend chatroom -->
+	<div id ="chatroom">
+	<div class="chat_box">
+      <div class="chat_header">
+        <h1 class="chat_heading">Pizza Message</h1>
+      	<div class="btn btn-default btn-sm">離線</div>
+      </div>
+      <hr />
+      <div class="chat_content"></div>
+    </div>
+    <!-- <div id="chatmessageContent"></div> -->
+	</div>
+	<!-- Backend chatroom -->
 
 	<!-- footer -->
 	<footer class="main-footer">
@@ -103,12 +127,7 @@
 	</footer>
 	<!-- /footer -->
 
-	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
-	<!-- jQuery-ui 1.12.1 -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
+	
 	<!-- jQuery.csv(Api)-->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery.csv.min.js"></script>
@@ -121,10 +140,17 @@
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
-	<%-- <!-- AdminLTE for demo purposes -->
-	<script
-		src="${pageContext.request.contextPath}/js/backendSystem/demo.js"></script> --%>
+	
+	<!-- WebSocket用套件 -->
+	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
+    <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
+    
+    
 	<script>
+		//紀錄email
+		var customerEmail="${CLoginOK.email}";
+		var memberEmail="${Mem_LoginOK.email}";
+		var contextPath="${pageContext.request.contextPath}";
 		//小時鐘功能
 		function clock() {
 			var today = new Date();
@@ -143,7 +169,12 @@
 			}
 			return i;
 		}
-		//小時鐘功能
+		//LogOut功能
+		function LogOut(){
+			//WebSocket登出
+			disconnect();
+			window.location.replace("${pageContext.request.contextPath}/logout");
+		}
 
 		//Loading 頁面功能
 		function loadingPage(requestPage) {
@@ -156,7 +187,59 @@
 			}
 
 		}
+		function loadingPageWithData(requestPage,data) {
+			if (requestPage == '') {
+				console.log("還沒做，加油R");
+			} else {
+				$('.content-wrapper').empty();
+				$('.content-wrapper').load(
+						"${pageContext.request.contextPath}" + requestPage,data);
+			}
 
+		}
+		
+		
+		function test(){
+			var purchaseRequest_jsonStr = {
+			    "purchaseReason": "庶材不足",
+			    "proposalerId": 5,
+			    "totalPrice": 5050,
+			    "approverId": 0,
+			    "pRequestId": 1002,
+			    "requestStatus": 0,
+			    "purchaseRequestDetails": [
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 250,
+			            "quantity": 4,
+			            "materialsId": 1
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 250,
+			            "quantity": 1,
+			            "materialsId": 2
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 500,
+			            "quantity": 4,
+			            "materialsId": 5
+			        },
+			        {
+						"pRequestId": 1002,
+			            "unitPrice": 300,
+			            "quantity": 6,
+			            "materialsId": 6
+			        }
+			    ]
+			};
+			loadingPageWithData("/convertToStockRequestPage",{"purchaseRequest_jsonStr":JSON.stringify(purchaseRequest_jsonStr)});
+
+		}
 	</script>
+
+		<!-- chatroom Js (放最後面)-->
+		<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
 </body>
 </html>

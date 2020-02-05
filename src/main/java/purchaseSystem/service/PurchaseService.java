@@ -37,4 +37,6 @@ public interface PurchaseService {
 	
 	void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder);
 	
+	String updateReadTime(PurchaseRequestBean purchaseRequest);
+	
 }

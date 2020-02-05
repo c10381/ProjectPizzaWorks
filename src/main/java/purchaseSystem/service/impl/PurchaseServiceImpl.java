@@ -1,6 +1,8 @@
 package purchaseSystem.service.impl;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -247,5 +249,19 @@ public class PurchaseServiceImpl implements PurchaseService {
 		JSONArray materials_jsa = new JSONArray(materials);
 		String jsonString = materials_jsa.toString();
 		return jsonString;
+	}
+	
+	@Override
+	// 插入讀取時間
+	public String updateReadTime (PurchaseRequestBean purchaseRequest) { 
+		// 取得現在時間
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime time = LocalDateTime.now();
+		String localTime = df.format(time);
+		// 傳遞要更新的bean
+		purchaseRequest.setReadTime(localTime);
+		dao.updateReadTime(purchaseRequest);
+		
+		return localTime;
 	}
 }

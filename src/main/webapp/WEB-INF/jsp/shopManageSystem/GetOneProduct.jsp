@@ -66,7 +66,7 @@
 								id="${request.contextPath}/images/Products/${product.imagePath}"
 								src="<c:url value='/picture/${product.productId}'/>" />
 							<form:input id="productImage" path="productImage" type='file'
-								class='form:input-large' onchange="readURL(this)"
+								class="custom-file-input" onchange="readURL(this)"
 								targetID="${request.contextPath}/images/Products/${product.imagePath}"
 								accept="image/gif, image/jpeg, image/png" />
 						</div>

@@ -36,7 +36,6 @@ public class ShopController {
 	}
 	
 	
-	
 	@RequestMapping("/menu")
 	public String getMenu(Model model) {
 		List<ProductBean> products = pdService.getAllProducts();

@@ -193,9 +193,9 @@ public class MemberServiceImpl implements MemberService {
 	//拿到全部的後台會員資料
 	@Transactional
 	@Override
-	public String getAllMembers() {
-		Gson gson=new Gson();
-		return gson.toJson(Memdao.getAllMembers());
+	public List<MembersBean> getAllMembers(Integer... privilegeId) {
+		
+		return Memdao.getAllMembers(privilegeId);
 	}
 	
 	

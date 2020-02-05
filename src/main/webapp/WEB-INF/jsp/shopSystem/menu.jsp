@@ -45,12 +45,9 @@
 									style="background-image: url(${pageContext.request.contextPath}/picture/${product.productId});"></a>
 								<div class="text">
 									<h3>
-										<%  %>
-									
 										<c:set var="originalName" value="${product.productName }" />
-										<c:set var="length" value="${fn:length(originalName) }" />
 										<c:set var="showName"
-											value="${fn:substring(originalName,0,6) }" />
+											value="${fn:split(originalName,'//(')[0] }" />
 										<a href="#">${showName }</a>
 									</h3>
 									<p class="price">

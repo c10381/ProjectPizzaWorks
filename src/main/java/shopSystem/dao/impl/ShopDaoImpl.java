@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import _model.CrustBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
+import _model.SalesOrderDetailBean;
 import shopSystem.dao.ShopDao;
 
 @Repository
@@ -38,9 +39,10 @@ public class ShopDaoImpl implements ShopDao {
 
 
 	@Override
-	public void saveOrder(SalesOrderBean SOB) {
+	public Integer saveOrder(SalesOrderBean SOB) {
 		Session session = factory.getCurrentSession();
-		session.save(SOB);
+		Integer salesOrderId = (Integer)session.save(SOB);
+		return  salesOrderId;
 	}
 
 
@@ -76,5 +78,11 @@ public class ShopDaoImpl implements ShopDao {
 			crusts = session.createQuery(hql).getResultList();
 			return crusts;
 		} 
+		
+		@Override
+		public void insertOneSalesOrderDetail(SalesOrderDetailBean salesOrderDetail) {
+			Session session = factory.getCurrentSession();
+			session.save(salesOrderDetail);
+		}
 		
 }
