@@ -52,12 +52,7 @@ function openchatmessagebox(Email,Name){
 				"<hr />"+
 				"<div class='chatmessage_content'>"+
 				"<div class='chatmessages' id='"+Email+"chatbox'>"+
-				"<div class='comeMessage'>"+
-				"<p>他送回來的</p>"+
-				"</div>"+
-				"<div class='myMessage'>"+
-				"<p>這是我送出去的</p>"+
-				"</div>"+
+				
 				"<div class='chatnew_messages myMessage'></div>"+
 				"</div>"+
 				"<div class='chatinput_box'>"+
@@ -144,7 +139,6 @@ function disconnect() {
     if(stompClient != null) {
         stompClient.disconnect();
     }
-    setConnected(false);
     userName = null;
     console.log("Disconnected");
 }
@@ -158,6 +152,7 @@ function sendMessage(To , obj) {
         stompClient.send("/app/coworkerchat/"+To, {}, JSON.stringify({'from':userName, 'text':text}));
         $(obj).parent().parent().children(".chatmessages").append("<div class='myMessage'><p>"+text+"</p></div>");
     }
+    $(obj).parent().children(".chatmessage_input").val("");
 }
 //一登入就送會員List
 //如果改寫controller要改寫的地方
@@ -172,7 +167,7 @@ function showOnline(messageOutput){
 	}
 	$(".chat_content").append("<br><hr><br>");
 	for(let i=0;i<coworkerOfflineList.length;i++){
-		$(".chat_content").append("<div class='chatuser' id='"+coworkerOfflineList[i].Email+"'><h5 class='chatusername'>"+coworkerOfflineList[i].Name+"</h5></div>");
+		$(".chat_content").append("<div class='chatuser' id='"+coworkerOfflineList[i].Email+"'><h5 class='chatusername offline'>"+coworkerOfflineList[i].Name+"</h5></div>");
 	}
 }
 //私底下送過來的東西

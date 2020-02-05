@@ -9,32 +9,33 @@
 h1, h3, p, hr {
 	margin: 0;
 }
-#chatroom{
-	position:fixed;
-	bottom:3%;
-	right:1%;
-	display:flex;
-	flex-direction : row-reverse ;
+
+#chatroom {
+	position: fixed;
+	bottom: 0;
+	right: 1%;
+	display: flex;
+	flex-direction: row-reverse;
 }
 /* Main Contacts */
 .chat_box {
 	background: #fff;
 	width: 20rem;
-	align-self:flex-end;
+	align-self: flex-end;
 	border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .chat_header {
 	background: #5e5e5e;
 	border-radius: 0.5rem 0.5rem 0 0;
-	color: white; padding : 0.5rem;
-	cursor: pointer;
+	color: white;
 	padding: 0.5rem;
+	cursor: pointer;
 	display: grid;
 	grid-template-columns: 80% 20%;
 }
 
-.chat_heading{
+.chat_heading {
 	font-size: 1.5rem;
 }
 
@@ -44,11 +45,15 @@ h1, h3, p, hr {
 }
 
 .chat_content {
-	/* display: none;  */
-	display: block; 
-	height : 30rem;
+	/* 要不要先把聊天室隱藏起來的地方 */
+	display: none;
+	/* display: block; */
+	
+	height: 30rem;
 	padding: 0.5rem 0;
 	height: 30rem;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .chatuser {
@@ -76,18 +81,19 @@ h1, h3, p, hr {
 	color: #52de97;
 	justify-self: end;
 }
+
 .offline {
 	color: #cacaca;
-	justify-self: end;
+	justify-self: start;
 }
 
 /* Message box */
 .chatmessage_box {
 	background: #fff;
 	width: 15rem;
-	align-self:flex-end;
+	align-self: flex-end;
 	border-radius: 0.5rem 0.5rem 0 0;
-	margin:0 0.5rem 0 0;
+	margin: 0 0.5rem 0 0;
 }
 
 .chatmessage_header {
