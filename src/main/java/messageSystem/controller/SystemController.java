@@ -43,7 +43,7 @@ public class SystemController {
 	}
 
 	// 給員工現在登入帳號(有使用排程自動更新)
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	@PostMapping("/messageSystem/getOnline")
 	public void getOnline() {
 		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String, String>>>();

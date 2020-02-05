@@ -86,15 +86,15 @@ var userName = null;
 var coworkerOnlineList=null;
 var coworkerOfflineList=null;
 
-if(customerEmail!=""){
-	console.log("顧客身分:"+customerEmail);
-	userName = customerEmail;
-}else if(memberEmail!=""){
-	console.log("員工身分:"+memberEmail);
-	userName = memberEmail;
-}else{
-	console.log("???????????")
-}
+//if(customerEmail!=""){
+//	console.log("顧客身分:"+customerEmail);
+//	userName = customerEmail;
+//}else if(memberEmail!=""){
+//	console.log("員工身分:"+memberEmail);
+//	userName = memberEmail;
+//}else{
+//	console.log("???????????")
+//}
 
 
 function connect() {
@@ -113,6 +113,7 @@ function connect() {
     
     stompClient.connect({user:userName}, function(frame) {
         //setConnected(true);
+    	//下面是看websocket訊息用的
         console.log('Connected: ' + frame);
         // 廣播
         stompClient.subscribe('/topic/messages', function(messageOutput) {
@@ -186,10 +187,8 @@ function showMessageOutput(messageOutput) {
     
     var p = document.createElement('p');
     p.appendChild(document.createTextNode(messageOutput.message.text)); 
-    console.log(p);
     var div=document.createElement('div');
     div.setAttribute("class","comeMessage"); 
-    console.log(div);
     div.appendChild(p);
     
     response=document.getElementById(messageOutput.message.from+'chatbox');
