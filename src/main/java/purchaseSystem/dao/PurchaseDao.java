@@ -5,9 +5,12 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import _model.SupplierBean;
+import _model.SuppliersProvisionBean;
 
 public interface PurchaseDao {
 	
@@ -32,5 +35,12 @@ public interface PurchaseDao {
 	List<MaterialsBean> getMaterialList();
 	
 	void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb);
+	
 	void updateReadTime(PurchaseRequestBean purchaseRq);
+	
+	List<MaterialsUnitBean> getAllMaterialsUnits();
+	
+	List<SuppliersProvisionBean> getAllSuppliersProvisions();
+	
+	List<PurchaseOrderBean> getAllPurchaseOrder();
 }

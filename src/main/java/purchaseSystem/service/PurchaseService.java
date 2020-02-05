@@ -4,8 +4,11 @@ package purchaseSystem.service;
 import java.util.List;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
 import purchaseSystem.dao.PurchaseDao;
 
@@ -33,5 +36,11 @@ public interface PurchaseService {
 	String getAllMaterialsJson();
 	
 	String updateReadTime(PurchaseRequestBean purchaseRequest);
+	
+	List<MaterialsUnitBean> getAllMaterialsUnits();
+	
+	List<SuppliersProvisionBean> getAllSuppliersProvisions();
+	
+	List<PurchaseOrderBean> getAllPurchaseOrder();
 	
 }

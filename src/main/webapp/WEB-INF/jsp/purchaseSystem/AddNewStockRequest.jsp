@@ -82,10 +82,12 @@
 								<table id="table_requestDetails" class="display">
 									<thead>
 										<tr>
-											<th>食材編號</th>
-											<th>食材名稱</th>
-											<th>需求數</th>
-											<th>單價</th>
+											<th>貨品編號</th>
+											<th>貨品名稱</th>
+											<th>需求箱數</th>
+											<th>每箱單價</th>
+											<th>每箱數量</th>
+											<th>每箱單位</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -109,7 +111,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-box-open"></i>食材
+							<i class="fas fa-box-open"></i>貨品列表
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -121,8 +123,11 @@
 									<thead>
 										<tr>
 											<th>&nbsp;</th>
-											<th>食材編號</th>
-											<th>食材名稱</th>
+											<th>貨品編號</th>
+											<th>貨品名稱</th>
+											<th>每箱單價</th>
+											<th>每箱數量</th>
+											<th>每箱單位</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -157,9 +162,13 @@
 	</script>
 
 	<script type="text/javascript">
+	
+		var materialsUnits = ${materialsUnits};
+		var suppliersProvisions = ${suppliersProvisions};
+		
 		var materials = [
 		<c:forEach var="material" items="${materials}" varStatus='status'>
-			["","${material.materialsId}","${material.materialsName}"]
+			["","${material.materialsId}","${material.materialsName}",suppliersProvisions[parseInt('${material.materialsId}')-1].unitPrice,materialsUnits[parseInt('${material.materialsId}')-1].quantityPerUnit,materialsUnits[parseInt('${material.materialsId}')-1].unit]
 			<c:if test="${!status.last}">,</c:if>
 		</c:forEach>
 		];
@@ -170,12 +179,24 @@
 		for(var i=0; i<purchaseRequest_json.purchaseRequestDetails.length; i++){
 			var srDetail = purchaseRequest_json.purchaseRequestDetails[i];
 			var sRequestDetail = [];
+			var mid = srDetail.materialsId;
 			sRequestDetail.push(srDetail.materialsId);
 			sRequestDetail.push(srDetail.materialsName);
 			sRequestDetail.push("");
-			sRequestDetail.push(srDetail.unitPrice);
+			sRequestDetail.push(suppliersProvisions[mid-1].unitPrice);
+			sRequestDetail.push(materialsUnits[mid-1].quantityPerUnit);
+			sRequestDetail.push(materialsUnits[mid-1].unit);
 			sRequestDetail.push("");
 			sRequestDetails.push(sRequestDetail);
+		}
+		
+		for(var i = 0; i<sRequestDetails.length; i++){
+			for(var j = 0; j<materials.length;j++){
+				if(sRequestDetails[i][0]===parseInt(materials[j][1])){
+					materials.splice(j,1);
+					j--;
+				}
+			}
 		}
 		
         $(function () {
@@ -185,7 +206,7 @@
                 responsive: true, 
                 order: [[ 1, "asc" ]],
                 columnDefs: [{
-                    targets: [0,2],
+                    targets: [0,2,3,4,5],
                     orderable: false,
                 }, {
 	                targets: 0,
@@ -206,8 +227,10 @@
             		data[1],
             		data[2],
             		"<input type='text id=txt_quantity'/>",
-            		"",
-            		"<button id='btn_RemoveToAddR'>移除至請求</button>"
+            		data[3],
+            		data[4],
+            		data[5],
+            		"<button id='btn_RemoveToAddR' class='btn btn-success'>移除至請求</button>"
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -220,10 +243,10 @@
                 responsive: true,
                 order: [[ 0, "asc" ]],
                 columnDefs: [{
-                    targets: [1,2,3,4],
+                    targets: [1,2,3,4,5,6],
                     orderable: false,
                 }, {
-	                targets: 4,
+	                targets: -1,
 	                data: null,
 	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-success'>移除至食譜</button>"
 				}, {
@@ -246,7 +269,10 @@
             	$('#table_materials').DataTable().row.add([
             		"<button id='btn_RemoveToAdd' class='btn btn-success'>添加至請求</button>",
             		data[0],
-            		data[1]
+            		data[1],
+            		data[3],
+            		data[4],
+            		data[5]
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -268,6 +294,8 @@
 				pRequestDetails["materialsId"] = table_row.cells[0].innerHTML;
 				pRequestDetails["quantity"] = table_row.cells[2].children[0].value;
 				pRequestDetails["unitPrice"] = table_row.cells[3].innerHTML;
+				pRequestDetails["quantityPerUnit"] = table_row.cells[4].innerHTML;
+				pRequestDetails["unit"] = table_row.cells[5].innerHTML;
 				requestDetails.push(pRequestDetails);
 			}
 			pRequest["purchaseRequestDetails"] = requestDetails;

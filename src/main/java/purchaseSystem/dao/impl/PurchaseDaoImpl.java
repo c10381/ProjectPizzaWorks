@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import _model.SupplierBean;
+import _model.SuppliersProvisionBean;
 import purchaseSystem.dao.PurchaseDao;
 
 @Repository
@@ -130,6 +133,30 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		Session session = factory.getCurrentSession();
 		PurchaseRequestBean PRB = session.get(PurchaseRequestBean.class, purchaseRq.getpRequestId());
 		PRB.setReadTime(purchaseRq.getReadTime());
+	}
+
+	@Override
+	public List<MaterialsUnitBean> getAllMaterialsUnits() {
+		String hql = "FROM MaterialsUnitBean";
+		Session session = factory.getCurrentSession();
+		List<MaterialsUnitBean> materialsUnits = session.createQuery(hql).getResultList();
+		return materialsUnits;
+	}
+
+	@Override
+	public List<SuppliersProvisionBean> getAllSuppliersProvisions() {
+		String hql = "FROM SuppliersProvisionBean";
+		Session session = factory.getCurrentSession();
+		List<SuppliersProvisionBean> suppliersProvisions = session.createQuery(hql).getResultList();
+		return suppliersProvisions;
+	}
+
+	@Override
+	public List<PurchaseOrderBean> getAllPurchaseOrder() {
+		String hql = "FROM PurchaseOrderBean";
+		Session session = factory.getCurrentSession();
+		List<PurchaseOrderBean> purchaseOrders = session.createQuery(hql).getResultList();
+		return purchaseOrders;
 	}
 
 }

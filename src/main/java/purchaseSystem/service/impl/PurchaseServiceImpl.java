@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
 import _model.MembersBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
 import purchaseSystem.dao.PurchaseDao;
 import purchaseSystem.service.PurchaseService;
@@ -154,6 +157,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			pRequestDetail_jso.put("materialsName", materialsName);
 			pRequestDetail_jsa.put(pRequestDetail_jso);
 		}
+		pRequest_jso.put("pRequestId", purchaseRequest.getpRequestId());
 		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
 		
 		String jsonString = pRequest_jso.toString();
@@ -187,4 +191,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		return localTime;
 	}
+
+	@Override
+	public List<MaterialsUnitBean> getAllMaterialsUnits() {
+		return dao.getAllMaterialsUnits();
+	}
+
+	@Override
+	public List<SuppliersProvisionBean> getAllSuppliersProvisions() {
+		return dao.getAllSuppliersProvisions();
+	}
+
+	@Override
+	public List<PurchaseOrderBean> getAllPurchaseOrder() {
+		return dao.getAllPurchaseOrder();
+	}
+	
 }

@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.SuppliersProvisionBean;
 import purchaseSystem.service.PurchaseService;
 
 @Controller
@@ -87,8 +90,12 @@ public class PurchaseController {
 	public String ConvertToStockRequestPage(@RequestParam("purchaseRequest_jsonStr")String purchaseRequest, Model model) {
 		List<MaterialsBean> materials = service.getAllMaterials();
 //		String materials_string = service.getAllMaterialsJson();
+		List<MaterialsUnitBean> materialUnits = service.getAllMaterialsUnits();
+		List<SuppliersProvisionBean> suppliersProvisions = service.getAllSuppliersProvisions();
 		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
 		model.addAttribute("materials", materials);
+		model.addAttribute("materialsUnits", new JSONArray(materialUnits).toString());
+		model.addAttribute("suppliersProvisions", new JSONArray(suppliersProvisions).toString());
 //		model.addAttribute("", );
 //		JSONObject output = new JSONObject();
 //		output.put("purchaseRequest_jsonStr", purchaseRequest);
@@ -100,6 +107,12 @@ public class PurchaseController {
 //		return materials_string;
 	}
 	
+	@RequestMapping(value="/getAllPurchaseOrderJSON", method = RequestMethod.GET, 
+			produces = {"application/json;charset=UTF-8"})
+	public @ResponseBody List<PurchaseOrderBean> getAllPurchaseOrderJSON(Model model) {
+		List<PurchaseOrderBean> purchaseOrders = service.getAllPurchaseOrder();
+		return purchaseOrders;
+	}
 	
 	@PutMapping("/purchase/updateReadTime")
 	public @ResponseBody String updateReadTime(@RequestBody PurchaseRequestBean purchaseRequest) {
