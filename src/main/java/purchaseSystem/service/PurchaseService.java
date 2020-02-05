@@ -4,6 +4,7 @@ package purchaseSystem.service;
 import java.util.List;
 
 import _model.MaterialsBean;
+import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import memberSystem.dao.MemberDao;
@@ -31,5 +32,9 @@ public interface PurchaseService {
 	List<MaterialsBean> getAllMaterials();
 	
 	String getAllMaterialsJson();
+	
+	String getAllPurchaseOrder();
+	
+	void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder);
 	
 }

@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import _model.MaterialsBean;
 import _model.MembersBean;
+import _model.PurchaseOrderBean;
+import _model.PurchaseOrderDetailBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import memberSystem.dao.MemberDao;
@@ -36,7 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		this.memberDao = memberDao;
 	}
 
-	// 1.查詢請購單(前端顯示食材名稱、員工姓名)
+	// 1-1.查詢所有請購單(前端顯示食材名稱、員工姓名)
 	@Override
 	public String getAllPurchaseRequest() {
 		List<PurchaseRequestBean> purchaseRequests = dao.getAllPurchaseRequest();
@@ -67,6 +69,32 @@ public class PurchaseServiceImpl implements PurchaseService {
 			output_jsa.put(pRequest_jso);
 		}
 		String jsonString = output_jsa.toString();
+		return jsonString;
+	}
+	
+	// 1-2.查詢單張請購單
+	@Override
+	public String getOnePurchaseRequestJson(Integer pRequestId) {
+		//+pRequestId、proposalerName、approvalerName
+		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
+		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
+		pRequest_jso.put("pRequestId", pRequestId);
+		MembersBean member = memberDao.getMember(pRequestId);
+		String lastName = member.getLastName();
+		String firstName = member.getFirstName();
+		String fullName = lastName + firstName;
+		JSONArray pRequestDetail_jsa = new JSONArray();
+		for (PurchaseRequestDetailBean purchaseRequestDetail : purchaseRequest.getPurchaseRequestDetails()) {
+			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
+			JSONObject pRequestDetail_jso = new JSONObject(purchaseRequestDetail);
+			pRequestDetail_jso.put("pRequestDetailId", purchaseRequestDetail.getpRequestDetailId());
+			pRequestDetail_jso.put("materialsName", materialsName);
+			pRequestDetail_jsa.put(pRequestDetail_jso);
+		}
+		pRequest_jso.put("fullName", fullName);
+		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
+
+		String jsonString = pRequest_jso.toString();
 		return jsonString;
 	}
 
@@ -118,6 +146,60 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return 1;
 	}
 
+	// 1.查詢採購單(前端新增顯示提案者名稱、核准者名稱、食材名稱)
+	@Override
+	public String getAllPurchaseOrder() {
+		List<PurchaseOrderBean> purchaseOrders = dao.getAllPurchaseOrder();
+		JSONObject pOrder_jso = null;
+		JSONArray output_jsa = new JSONArray();
+		for (PurchaseOrderBean pob : purchaseOrders) {
+			// 將Bean轉為JSON
+			pOrder_jso = new JSONObject(pob);
+			// 不知何原因，JSON中不會有PK，必須重新加入
+			pOrder_jso.put("pOrderId", pob);
+			MembersBean proposaler = memberDao.getMember(pob.getProposalerId());
+			MembersBean approverId = memberDao.getMember(pob.getApproverId());
+			
+			String lastNameP = proposaler.getLastName();
+			String firstNameP = proposaler.getFirstName();
+			String fullNameP = lastNameP + firstNameP;
+			
+			String lastNameA = approverId.getLastName();
+			String firstNameA = approverId.getFirstName();
+			String fullNameA = lastNameA + firstNameA;
+
+			JSONArray pOrderDetail_jsa = new JSONArray();
+			List<PurchaseOrderDetailBean> list2 = pob.getPurchaseOrderDetails();
+			for (PurchaseOrderDetailBean podb : list2) {
+				String materialsName = dao.getOneMaterialsById(podb.getMaterialsId()).getMaterialsName();
+				JSONObject pOrderDetail_jso = new JSONObject(podb);
+				pOrderDetail_jso.put("pOrderDetailId", podb.getpOrderDetailId());
+				pOrderDetail_jso.put("materialsName", materialsName);
+				pOrderDetail_jsa.put(pOrderDetail_jso);
+			}
+			pOrder_jso.put("fullName", fullNameP);
+			pOrder_jso.put("fullName", fullNameA);
+			pOrder_jso.put("purchaseOrderDetails", pOrderDetail_jsa);
+			// 重複將JSON Obj放入JSON Array中
+			output_jsa.put(pOrder_jso);
+		}
+		String jsonString = output_jsa.toString();
+		return jsonString;
+	}
+	
+	// 2.新增單張請購單
+		@Override
+		public void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder) {
+			// 新增請購單資料表，並回傳新產生之PK
+			Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
+			List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
+			for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrderDetails) {
+				// 加入FK至請購單明細中
+				purchaseOrderDetail.setpOrderId(pOrderId);
+				dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
+			}
+		}
+
 	@Override
 	public void updatePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> prdbList) {
 		// 若單子狀態為未核准，才可修改
@@ -151,24 +233,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public PurchaseRequestBean getOnePurchaseRequest(Integer pRequestId) {
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		return purchaseRequest;
-	}
-
-	@Override
-	public String getOnePurchaseRequestJson(Integer pRequestId) {
-		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
-		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
-		JSONArray pRequestDetail_jsa = new JSONArray();
-		for (PurchaseRequestDetailBean purchaseRequestDetail : purchaseRequest.getPurchaseRequestDetails()) {
-			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
-			JSONObject pRequestDetail_jso = new JSONObject(purchaseRequestDetail);
-			pRequestDetail_jso.put("pRequestDetailId", purchaseRequestDetail.getpRequestDetailId());
-			pRequestDetail_jso.put("materialsName", materialsName);
-			pRequestDetail_jsa.put(pRequestDetail_jso);
-		}
-		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
-
-		String jsonString = pRequest_jso.toString();
-		return jsonString;
 	}
 
 	@Override

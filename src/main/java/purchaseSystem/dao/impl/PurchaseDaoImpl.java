@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MaterialsBean;
+import _model.PurchaseOrderBean;
+import _model.PurchaseOrderDetailBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
 import _model.SupplierBean;
@@ -35,7 +37,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
+
 	@Override
 	// 1-2.查詢單一請購單(依請購單ID)
 	public PurchaseRequestBean getOnePurchaseRequestById(Integer pRequestId) {
@@ -64,7 +66,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	// 3-1.修改請購單
 	@Override
 	public void updatePurchaseRequest(PurchaseRequestBean prb) {
-		//請購單僅須被改兩處：PurchaseReason、TotalPrice
+		// 請購單僅須被改兩處：PurchaseReason、TotalPrice
 		Session session = factory.getCurrentSession();
 		PurchaseRequestBean oldPrb = session.get(PurchaseRequestBean.class, prb.getpRequestId());
 		if (prb.getPurchaseReason() != null) {
@@ -80,7 +82,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	// 3-2.修改請購單明細
 	@Override
 	public void updatePurchaseRequestDetail(PurchaseRequestDetailBean prdb) {
-		//請購單明細僅須被改兩處：UnitPrice、Quantity
+		// 請購單明細僅須被改兩處：UnitPrice、Quantity
 		Session session = factory.getCurrentSession();
 		PurchaseRequestDetailBean oldBean = session.get(PurchaseRequestDetailBean.class, prdb.getpRequestDetailId());
 		if (prdb.getUnitPrice() != null) {
@@ -90,7 +92,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 			oldBean.setQuantity(prdb.getQuantity());
 		}
 	}
-	
+
 	// 4.刪除單一請購單明細
 	@Override
 	public void deleteOnePurchaseDetail(PurchaseRequestDetailBean oprdb) {
@@ -99,7 +101,33 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		System.out.println("已刪除欲刪之請購單品項");
 	}
 
-	
+	// 1.查詢所有採購單
+	@Override
+	public List<PurchaseOrderBean> getAllPurchaseOrder() {
+		String hql = "FROM PurchaseOrderBean";
+		Session session = null;
+		List<PurchaseOrderBean> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	// 2-1.新增採購單
+	@Override
+	public Integer insertOnePurchaseOrder(PurchaseOrderBean pob) {
+		Session session = factory.getCurrentSession();
+		Integer pOrderId = (Integer) session.save(pob);
+		// 把新的請購單Id再set進Bean中？因為剛剛前端傳來的Bean中還沒有Id，現在set給它
+		pob.setpOrderId(pOrderId);
+		return pOrderId;
+	}
+
+	// 2-2.新增採購單明細
+	@Override
+	public void insertOnePurchaseOrderDetail(PurchaseOrderDetailBean purchaseOrderDetail) {
+		Session session = factory.getCurrentSession();
+		session.save(purchaseOrderDetail);
+	}
 
 	@Override
 	public MaterialsBean getOneMaterialsById(Integer MaterialId) {
@@ -123,7 +151,5 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		List<MaterialsBean> materials = session.createQuery(hql).getResultList();
 		return materials;
 	}
-
-	
 
 }

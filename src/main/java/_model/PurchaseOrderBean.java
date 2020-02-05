@@ -1,12 +1,18 @@
 package _model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,13 +21,14 @@ public class PurchaseOrderBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer pOrderId;
 	private Integer pRequestId;
-	private Integer proposalerId;
+	private Integer proposalerId;//提案者ID
 	private String requestTime;
 	private String briefInfo;
-	private Integer approverId;
+	private Integer approverId;//核准者ID
 	private String responseComment;
 	private String responseTime;
 	private String readTime;
+	private List<PurchaseOrderDetailBean> purchaseOrderDetails = new ArrayList<>();
 	
 	public PurchaseOrderBean() {
 	}
@@ -111,6 +118,16 @@ public class PurchaseOrderBean implements Serializable {
 
 	public void setpRequestId(Integer pRequestId) {
 		this.pRequestId = pRequestId;
+	}
+	
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name="pOrderId", referencedColumnName="pOrderId")
+	public List<PurchaseOrderDetailBean> getPurchaseOrderDetails() {
+		return purchaseOrderDetails;
+	}
+
+	public void setPurchaseOrderDetails(List<PurchaseOrderDetailBean> purchaseOrderDetails) {
+		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
 
 }
