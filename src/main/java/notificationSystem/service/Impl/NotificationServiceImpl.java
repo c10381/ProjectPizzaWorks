@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
+import _model.StockRequestBean;
+import _model.ValidationRequestBean;
 import notificationSystem.dao.NotificationDao;
 import notificationSystem.service.NotificationService;
 
@@ -22,8 +25,26 @@ public class NotificationServiceImpl implements NotificationService {
 	
 	@Transactional
 	@Override
-	public List<SalesOrderBean> getOrders() {
-		return dao.get_unchecked_Orders();
+	public List<SalesOrderBean> getUncheckedOrders() {
+		return dao.getUncheckedOrders();
+	}
+	
+	@Transactional
+	@Override
+	public List<PurchaseRequestBean> getPurchaseRequests() {	
+		return dao.getPurchaseRequests();
+	}
+	
+	@Transactional
+	@Override
+	public List<StockRequestBean> getStockRequests() {
+		return dao.getStockRequests();
+	}
+	
+	@Transactional
+	@Override
+	public List<ValidationRequestBean> getPwdChangeRequests() {
+		return dao.getPwdChangeRequests();
 	}
 
 //	@Override
