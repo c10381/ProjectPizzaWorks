@@ -54,13 +54,16 @@ public class StatisticalAnalysisController {
 	}
 
 	// 圓餅圖測試JSON
-	@RequestMapping(value = "/PieChartTest_proto", method = RequestMethod.GET, produces = "application/json")
-	public String showPieChartJson(Model model) throws ParseException {
-		service.getOneProductSalesShare(1);
-		service.getOneProductSalesShare(2);
-		service.getOneProductSalesShare(3);
-		System.out.println(service.getOneProductSalesShare(1));
-		return "StatisticalAnalysis/ProductShare";
+	@RequestMapping(value = "/PieChartTest_proto", method = RequestMethod.GET, 
+			produces = "application/json")
+	public List<Double> showPieChartJson(Model model) throws ParseException {
+		List<Double> list = new ArrayList<>();
+		list.add(service.getOneProductSalesShare(1));
+		list.add(service.getOneProductSalesShare(2));
+		list.add(service.getOneProductSalesShare(3));
+		model.addAttribute("list", list);
+		System.out.println(list);
+		return list;
 	}
 
 	@RequestMapping(value = "/addFakeSalesOrders", method = RequestMethod.GET)
