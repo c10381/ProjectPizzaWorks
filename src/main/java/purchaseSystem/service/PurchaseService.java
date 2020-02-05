@@ -45,6 +45,4 @@ public interface PurchaseService {
 	
 	List<SuppliersProvisionBean> getAllSuppliersProvisions();
 	
-	List<PurchaseOrderBean> getAllPurchaseOrder();
-	
 }

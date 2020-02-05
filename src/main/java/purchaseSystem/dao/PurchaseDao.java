@@ -49,5 +49,4 @@ public interface PurchaseDao {
 	
 	List<SuppliersProvisionBean> getAllSuppliersProvisions();
 	
-	List<PurchaseOrderBean> getAllPurchaseOrder();
 }

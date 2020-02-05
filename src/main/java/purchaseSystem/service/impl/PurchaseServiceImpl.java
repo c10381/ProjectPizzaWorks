@@ -95,6 +95,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			pRequestDetail_jso.put("materialsName", materialsName);
 			pRequestDetail_jsa.put(pRequestDetail_jso);
 		}
+		pRequest_jso.put("pRequestId", purchaseRequest.getpRequestId());
 		pRequest_jso.put("fullName", fullName);
 		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
 
@@ -238,25 +239,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		return purchaseRequest;
 	}
-
-	@Override
-	public String getOnePurchaseRequestJson(Integer pRequestId) {
-		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
-		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
-		JSONArray pRequestDetail_jsa = new JSONArray();
-		for(PurchaseRequestDetailBean purchaseRequestDetail: purchaseRequest.getPurchaseRequestDetails()) {
-			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
-			JSONObject pRequestDetail_jso = new JSONObject(purchaseRequestDetail);
-			pRequestDetail_jso.put("pRequestDetailId", purchaseRequestDetail.getpRequestDetailId());
-			pRequestDetail_jso.put("materialsName", materialsName);
-			pRequestDetail_jsa.put(pRequestDetail_jso);
-		}
-		pRequest_jso.put("pRequestId", purchaseRequest.getpRequestId());
-		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
-		
-		String jsonString = pRequest_jso.toString();
-		return jsonString;
-	}
 	
 	@Override
 	public List<MaterialsBean> getAllMaterials() {
@@ -296,9 +278,5 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return dao.getAllSuppliersProvisions();
 	}
 
-	@Override
-	public List<PurchaseOrderBean> getAllPurchaseOrder() {
-		return dao.getAllPurchaseOrder();
-	}
 	
 }

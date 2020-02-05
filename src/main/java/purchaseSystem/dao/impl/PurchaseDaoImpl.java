@@ -178,12 +178,5 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return suppliersProvisions;
 	}
 
-	@Override
-	public List<PurchaseOrderBean> getAllPurchaseOrder() {
-		String hql = "FROM PurchaseOrderBean";
-		Session session = factory.getCurrentSession();
-		List<PurchaseOrderBean> purchaseOrders = session.createQuery(hql).getResultList();
-		return purchaseOrders;
-	}
 
 }

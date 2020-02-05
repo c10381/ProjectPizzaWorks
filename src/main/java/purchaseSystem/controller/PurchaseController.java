@@ -154,13 +154,6 @@ public class PurchaseController {
 //		return materials_string;
 	}
 	
-	@RequestMapping(value="/getAllPurchaseOrderJSON", method = RequestMethod.GET, 
-			produces = {"application/json;charset=UTF-8"})
-	public @ResponseBody List<PurchaseOrderBean> getAllPurchaseOrderJSON(Model model) {
-		List<PurchaseOrderBean> purchaseOrders = service.getAllPurchaseOrder();
-		return purchaseOrders;
-	}
-	
 	@PutMapping("/purchase/updateReadTime")
 	public @ResponseBody String updateReadTime(@RequestBody PurchaseRequestBean purchaseRequest) {
 		String time = service.updateReadTime(purchaseRequest);
