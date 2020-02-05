@@ -66,9 +66,8 @@
 				<i class="fas fa-key"></i> 修改密碼
 			</div>
 			<div class="dropdown-divider"></div>
-			<a href="${pageContext.request.contextPath}/logout"
-				class="dropdown-item"> <i class="fas fa-door-open"></i> 登出
-			</a>
+			<div onclick="LogOut()" class="dropdown-item"> <i class="fas fa-door-open"></i> 登出
+			</div>
 		</div></li>
 
 	<!-- Messages Dropdown Menu -->

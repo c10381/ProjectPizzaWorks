@@ -29,7 +29,7 @@ public class STOMPConnectEventListener implements ApplicationListener<SessionCon
         String sessionId = accessor.getSessionId();
         //抓MembersBean判斷權限，藉此放入WebSocketSessions.java的不同List
         MembersBean mem=customerService.getCustomer(user);
-        
+        System.out.println(user);
         if(mem.getPrivilegeId()==2||mem.getPrivilegeId()==3||mem.getPrivilegeId()==4||mem.getPrivilegeId()==5||mem.getPrivilegeId()==6||mem.getPrivilegeId()==7) {
         	sessions.registerCoworkerSessionId(user, sessionId);
         	System.out.print("Coworker login, Coworker:{"+user+"}, sessionId:{"+sessionId+"}, ");

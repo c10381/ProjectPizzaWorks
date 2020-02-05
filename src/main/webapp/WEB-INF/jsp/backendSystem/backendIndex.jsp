@@ -104,28 +104,17 @@
 	<!-- ./wrapper -->
 
 	<!-- Backend chatroom -->
+	<div id ="chatroom">
 	<div class="chat_box">
       <div class="chat_header">
         <h1 class="chat_heading">Pizza Message</h1>
       	<div class="btn btn-default btn-sm">離線</div>
       </div>
       <hr />
-      <div class="chat_content">
-        <div class="chatuser">
-          <!-- <img src="" class="user_icon" /> -->
-          <h5 class="chatusername">Kamal Teja</h5>
-          <!-- 有上線就會是藍色圈圈 -->
-          <i class="fas fa-circle online"></i>
-        </div>
-        <div class="chatuser">
-          <!-- <img src="" class="user_icon" /> -->
-          <h5 class="chatusername">Kamal Teja</h5>
-          <!-- 有上線就會是藍色圈圈 -->
-          <i class="fas fa-circle online"></i>
-        </div>
-      </div>
+      <div class="chat_content"></div>
     </div>
-	
+    <!-- <div id="chatmessageContent"></div> -->
+	</div>
 	<!-- Backend chatroom -->
 
 	<!-- footer -->
@@ -180,7 +169,12 @@
 			}
 			return i;
 		}
-		//小時鐘功能
+		//LogOut功能
+		function LogOut(){
+			//WebSocket登出
+			disconnect();
+			window.location.replace("${pageContext.request.contextPath}/logout");
+		}
 
 		//Loading 頁面功能
 		function loadingPage(requestPage) {

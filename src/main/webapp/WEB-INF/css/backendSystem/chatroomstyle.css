@@ -9,14 +9,18 @@
 h1, h3, p, hr {
 	margin: 0;
 }
-
+#chatroom{
+	position:fixed;
+	bottom:3%;
+	right:1%;
+	display:flex;
+	flex-direction : row-reverse ;
+}
 /* Main Contacts */
 .chat_box {
 	background: #fff;
 	width: 20rem;
-	position: absolute;
-	bottom: 0;
-	right: 1rem;
+	align-self:flex-end;
 	border-radius: 0.5rem 0.5rem 0 0;
 }
 
@@ -40,7 +44,9 @@ h1, h3, p, hr {
 }
 
 .chat_content {
-	display: none; height : 30rem;
+	/* display: none;  */
+	display: block; 
+	height : 30rem;
 	padding: 0.5rem 0;
 	height: 30rem;
 }
@@ -70,15 +76,18 @@ h1, h3, p, hr {
 	color: #52de97;
 	justify-self: end;
 }
+.offline {
+	color: #cacaca;
+	justify-self: end;
+}
 
 /* Message box */
 .chatmessage_box {
 	background: #fff;
 	width: 15rem;
-	position: absolute;
-	bottom: 0;
-	right: 22rem;
+	align-self:flex-end;
 	border-radius: 0.5rem 0.5rem 0 0;
+	margin:0 0.5rem 0 0;
 }
 
 .chatmessage_header {
@@ -100,9 +109,9 @@ h1, h3, p, hr {
 }*/
 .comeMessage {
 	display: grid;
-	width: 90%;
-	margin: 0.5rem 1.5rem 0.5rem 0.5rem;
-	align-items: center;
+	width: 60%;
+	justify-items: start;
+	margin: 0.5rem 1.5rem 0rem 0.5rem;
 	word-break: break-all;
 }
 
