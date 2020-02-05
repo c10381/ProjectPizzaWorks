@@ -210,24 +210,28 @@
 			    "purchaseRequestDetails": [
 			        {
 						"pRequestId": 1002,
+						"materialsName": "高筋麵粉",
 			            "unitPrice": 250,
 			            "quantity": 4,
 			            "materialsId": 1
 			        },
 			        {
 						"pRequestId": 1002,
+						"materialsName": "低筋麵粉",
 			            "unitPrice": 250,
 			            "quantity": 1,
 			            "materialsId": 2
 			        },
 			        {
 						"pRequestId": 1002,
+						"materialsName": "起司",
 			            "unitPrice": 500,
 			            "quantity": 4,
 			            "materialsId": 5
 			        },
 			        {
 						"pRequestId": 1002,
+						"materialsName": "火腿",
 			            "unitPrice": 300,
 			            "quantity": 6,
 			            "materialsId": 6

@@ -51,7 +51,6 @@ textarea {
 											value="" disabled required/>
 									</div>
 								</div>
-
 								<hr>
 								
 								<div class="row">
@@ -60,8 +59,6 @@ textarea {
 									</div>
 										<button type="button" id="to_submit" class="btn btn-success">送出請購單</button>
 								</div>
-
-								
 								
 								<!-- <div class="alert alert-warning alert-dismissible text-right mt-2 d-none" role="alert">
 									去那邊點選新增喔喔喔喔<i class="fas fa-arrow-right"></i>
@@ -97,7 +94,7 @@ textarea {
 						</div>
 						<!--  card-header end -->
 						<div class="card-body">
-							<table id="table_materials" class="display text-center">
+							<table id="table_materials" class="table table-striped text-center">
 								<thead>
 									<tr>
 										<th>&nbsp;</th>
@@ -105,8 +102,6 @@ textarea {
 										<th>品項名稱</th>
 									</tr>
 								</thead>
-								<tfoot>
-								</tfoot>
 							</table>
 						</div>
 					</div>
@@ -125,6 +120,26 @@ textarea {
 		})	
 			
 		
+		// 對於明細表的操作
+		var fetch_data = function () {
+			var dataTable = $('#prRequest').DataTable({
+				"language": {
+				      "emptyTable": "尚未有請購項目",
+				},
+				lengthChange: false,
+				columnDefs: {
+	                targets: [0],
+	                orderable: false,
+	                data: null,
+	            },
+				"searching" : false,
+				"info" : false,
+			});
+			
+			delete_Item(dataTable);
+		}
+		
+		
 		var toggle_Item = function(){
 			 $("#add").click(function(){ 
 				if($(this).html()=="新增品項"){
@@ -139,6 +154,7 @@ textarea {
 				}
 			})
 		}  
+		
 		
 		// 將填入資料塞入附表表格
 		var insert_Item = function(){
@@ -206,8 +222,6 @@ textarea {
 				alert("數量/單價不可小於0");
 				return false;
 			}
-			
-			
 			return true; 
 		}
 		
@@ -247,7 +261,6 @@ textarea {
 					$("#btnAddToRemove").removeClass("btn-danger").addClass("btn-info");
 					$("#btnAddToRemove").attr("id","btnRemoveToAdd");
 				}
-				
 				var nowRow = table.row($(this).parents('tr'));
 	        	var data = table.row($(this).parents('tr')).data();
 	        	$('.new_item td:nth-of-type(2)').html(data.materialsId);
@@ -263,23 +276,20 @@ textarea {
 		};
 			
 
-		var fetch_data = function () {
-			var dataTable = $('#prRequest').DataTable({
-				"language": {
-				      "emptyTable": "尚未有請購項目",
-				},
-				lengthChange: false,
-				columnDefs: {
-	                targets: [0],
-	                orderable: false,
-	                data: null,
-	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-info'>添加</button>"
-	            },
-				"searching" : false,
-				"info" : false,
-			});
-		}
 		
+		var delete_Item = function(dataTable){
+			$("#prRequest").on("click",".delete",function(e){
+				e.preventDefault();
+				// 刪除明細表的資料
+				var nowRow = dataTable.row($(this).parents('tr'));
+            	var data = dataTable.row($(this).parents('tr')).data();
+            	nowRow.remove().draw();
+            	
+            	console.log(data)
+            	// 還原材料表的狀態
+				
+			})	
+		}
 		// 主表 加新增資料列
 		var new_item_html = function(){
 			   var html = '<tr class="new_item">';
@@ -354,10 +364,8 @@ textarea {
 						loadingPage('/purchase/GetAllPRequest');
 					}).fail(function(){
 						alert("新增失敗");
-					})
-						
-		}
+					});
+			}
 	</script>
-
 </body>
 </html>

@@ -17,7 +17,7 @@
 	<section>
 		<div>
 			<div class="container" style="text-align: center">
-				<h2>新增進貨單</h2>
+				<h2>新增採購單</h2>
 			</div>
 		</div>
 	</section>
@@ -27,7 +27,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-cookie"></i>進貨單
+							<i class="fas fa-cookie"></i>採購單
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -37,10 +37,8 @@
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label for="memberName" class="col-form-label">採購單申請人：</label>
-									<input type="hidden" id="memberId"
-										value="${Mem_LoginOK.memberId}" /> <input id="memberName"
-										type='text'
-										value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}"
+									<input type="hidden" id="memberId" value="${Mem_LoginOK.memberId}" /> 
+									<input id="memberName" type='text' value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}"
 										class='form-control' disabled />
 								</div>
 								<!-- form-group end -->
@@ -60,7 +58,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="form-group">
-									<label for='briefInfo'>進貨單簡述：</label>
+									<label for='briefInfo'>採購單簡述：</label>
 									<!-- <textarea id="briefInfo" class='form-control' style="resize: none" ></textarea> -->
 									<textarea id="briefInfo" class='form-control'></textarea>
 								</div>
@@ -72,22 +70,24 @@
 						<hr>
 						<div class="row">
 							<div class="col-sm-2 col-md-1">
-								<input type="button" value="提交進貨單"  onclick="sumbitDataTable()"
+								<input type="button" value="提交採購單"  onclick="sumbitDataTable()"
 								class="btn btn-success" />
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<h4>進貨細項</h4>
+							<h4>採購細項</h4>
 							<hr>
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<table id="table_requestDetails" class="display">
 									<thead>
 										<tr>
-											<th>食材編號</th>
-											<th>食材名稱</th>
-											<th>需求數</th>
-											<th>單價</th>
+											<th>貨品編號</th>
+											<th>貨品名稱</th>
+											<th>需求箱數</th>
+											<th>每箱單價</th>
+											<th>每箱數量</th>
+											<th>每箱單位</th>
 											<th>&nbsp;</th>
 										</tr>
 									</thead>
@@ -111,7 +111,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-box-open"></i>食材
+							<i class="fas fa-box-open"></i>貨品列表
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -123,8 +123,11 @@
 									<thead>
 										<tr>
 											<th>&nbsp;</th>
-											<th>食材編號</th>
-											<th>食材名稱</th>
+											<th>貨品編號</th>
+											<th>貨品名稱</th>
+											<th>每箱單價</th>
+											<th>每箱數量</th>
+											<th>每箱單位</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -159,9 +162,13 @@
 	</script>
 
 	<script type="text/javascript">
+	
+		var materialsUnits = ${materialsUnits};
+		var suppliersProvisions = ${suppliersProvisions};
+		
 		var materials = [
 		<c:forEach var="material" items="${materials}" varStatus='status'>
-			["","${material.materialsId}","${material.materialsName}"]
+			["","${material.materialsId}","${material.materialsName}",suppliersProvisions[parseInt('${material.materialsId}')-1].unitPrice,materialsUnits[parseInt('${material.materialsId}')-1].quantityPerUnit,materialsUnits[parseInt('${material.materialsId}')-1].unit]
 			<c:if test="${!status.last}">,</c:if>
 		</c:forEach>
 		];
@@ -172,12 +179,24 @@
 		for(var i=0; i<purchaseRequest_json.purchaseRequestDetails.length; i++){
 			var srDetail = purchaseRequest_json.purchaseRequestDetails[i];
 			var sRequestDetail = [];
+			var mid = srDetail.materialsId;
 			sRequestDetail.push(srDetail.materialsId);
+			sRequestDetail.push(srDetail.materialsName);
 			sRequestDetail.push("");
-			sRequestDetail.push("");
-			sRequestDetail.push(srDetail.unitPrice);
+			sRequestDetail.push(suppliersProvisions[mid-1].unitPrice);
+			sRequestDetail.push(materialsUnits[mid-1].quantityPerUnit);
+			sRequestDetail.push(materialsUnits[mid-1].unit);
 			sRequestDetail.push("");
 			sRequestDetails.push(sRequestDetail);
+		}
+		
+		for(var i = 0; i<sRequestDetails.length; i++){
+			for(var j = 0; j<materials.length;j++){
+				if(sRequestDetails[i][0]===parseInt(materials[j][1])){
+					materials.splice(j,1);
+					j--;
+				}
+			}
 		}
 		
         $(function () {
@@ -187,7 +206,7 @@
                 responsive: true, 
                 order: [[ 1, "asc" ]],
                 columnDefs: [{
-                    targets: [0,2],
+                    targets: [0,2,3,4,5],
                     orderable: false,
                 }, {
 	                targets: 0,
@@ -208,8 +227,10 @@
             		data[1],
             		data[2],
             		"<input type='text id=txt_quantity'/>",
-            		"",
-            		"<button id='btn_RemoveToAddR'>移除至請求</button>"
+            		data[3],
+            		data[4],
+            		data[5],
+            		"<button id='btn_RemoveToAddR' class='btn btn-success'>移除至請求</button>"
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -222,10 +243,10 @@
                 responsive: true,
                 order: [[ 0, "asc" ]],
                 columnDefs: [{
-                    targets: [1,2,3,4],
+                    targets: [1,2,3,4,5,6],
                     orderable: false,
                 }, {
-	                targets: 4,
+	                targets: -1,
 	                data: null,
 	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-success'>移除至食譜</button>"
 				}, {
@@ -247,46 +268,60 @@
             	//console.log(new_row);
             	$('#table_materials').DataTable().row.add([
             		"<button id='btn_RemoveToAdd' class='btn btn-success'>添加至請求</button>",
+            		data[0],
             		data[1],
-            		data[2]
+            		data[3],
+            		data[4],
+            		data[5]
             	]).draw();
             	nowRow.remove().draw();
             });
         });
        
-		var recipes = [];
 		
-        function getRecipesTable() {
-			var totalNumber = document.getElementById("table_recipes").rows.length;
+		var purchaseRequest;
+		
+        function getRequestsTable() {
+			var totalNumber = document.getElementById("table_requestDetails").rows.length;
+			var pRequest = new Object();
+			var requestDetails = [];
+			pRequest["pRequestId"] = purchaseRequest_json.pRequestId;
+			pRequest["proposalerId"] = $('#memberId').val();
+			pRequest["briefInfo"] = $("#briefInfo").val();
 			for (var i = 1; i < totalNumber; i += 1) {
-				var table_row = document.getElementById("table_recipes").rows[i];
-				var recipe = new Object();
-				recipe["materialsId"] = table_row.cells[1].innerHTML;
-				recipe["quantity"] = table_row.cells[3].children[0].value;
-				recipes.push(recipe);
+				var table_row = document.getElementById("table_requestDetails").rows[i];
+				var pRequestDetails = new Object();
+				pRequestDetails["materialsId"] = table_row.cells[0].innerHTML;
+				pRequestDetails["quantity"] = table_row.cells[2].children[0].value;
+				pRequestDetails["unitPrice"] = table_row.cells[3].innerHTML;
+				pRequestDetails["quantityPerUnit"] = table_row.cells[4].innerHTML;
+				pRequestDetails["unit"] = table_row.cells[5].innerHTML;
+				requestDetails.push(pRequestDetails);
 			}
+			pRequest["purchaseRequestDetails"] = requestDetails;
+			purchaseRequest = pRequest;
 			//console.log(recipes);
 		}
 
 		// EXTRACT AND SUBMIT TABLE DATA.
 		function sumbitDataTable() {
 			// LOOP THROUGH EACH ROW OF THE TABLE.
-			recipes.length = 0;
-			getRecipesTable();
-			//console.log('Data send:\n' + JSON.stringify({recipes: recipes}));
-			sendData();
+			
+			getRequestsTable();
+			console.log('Data send:\n' + JSON.stringify({purchaseRequest: purchaseRequest}));
+			//sendData();
 		}
 
 		function sendData() {
 			$.ajax({
 					url : "${pageContext.request.contextPath}/shopManageSystem/AddNewProduct",
 					data : {
-						"recipes" : JSON.stringify(recipes)
+						"purchaseRequest" : JSON.stringify(purchaseRequest)
 					},
 					type : "POST",
 					error : function() {
 						console.log(JSON.stringify({
-							recipes : recipes
+							purchaseRequest : purchaseRequest
 						}));
 						console.log("Error");
 					},
