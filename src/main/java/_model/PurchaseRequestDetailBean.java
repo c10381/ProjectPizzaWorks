@@ -29,6 +29,7 @@ public class PurchaseRequestDetailBean implements Serializable{
 		this.materialsId = materialsId;
 		this.unitPrice = unitPrice;
 		this.quantity = quantity;
+		this.actualQuantity = actualQuantity;
 	}
 	public PurchaseRequestDetailBean(Integer materialsId, Double unitPrice, Integer quantity, Integer actualQuantity) {
 		this.materialsId = materialsId;
