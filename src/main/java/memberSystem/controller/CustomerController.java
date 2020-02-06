@@ -44,8 +44,8 @@ public class CustomerController {
 	// 登入轉址
 	@RequestMapping(value = "/memberSystem/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		MembersBean mem = new MembersBean();
-		model.addAttribute("MembersBean", mem);
+		
+		model.addAttribute("MembersBean", new MembersBean());
 		// 登入失敗時，透過此方法取得失敗的值並將對應的訊息塞到下個畫面
 		if (model.getAttribute("errMsg") != null) {
 			if ((int) model.getAttribute("errMsg") == 1) {
@@ -61,39 +61,43 @@ public class CustomerController {
 
 	// 會員資料更新轉址
 	@RequestMapping(value = "/memberSystem/infoUpdate")
-	public String infoUpdate(Model model, HttpSession session) {
+	public String infoUpdate(Model model) {
 
-		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
-		if (mem1 == null) {
+		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
+		if (mem == null) {
 			return "memberSystem/login";
 		}
-
-		MembersBean mem = new MembersBean();
-		model.addAttribute("MembersBean", mem);
+		
+		model.addAttribute("MembersBean", new MembersBean());
 		return "memberSystem/infoUpdate";
 	}
-
+	
+	//註冊信箱判定
 	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
 	public String register(@RequestParam(value = "email") String email,
 			@RequestParam(value = "password") String password, Model model) {
+		
 		if (!service.emailExists(email)) {
+			//如果資料庫沒有該筆信箱的資料，就將使用者輸入的帳號 (信箱) 及密碼丟到
 			MembersBean mem = new MembersBean();
 			mem.setEmail(email);
 			mem.setPassword(password);
 			model.addAttribute("MembersBean", mem);
 			return "memberSystem/register_form";
 		} else {
-			model.addAttribute("errMsg", "4");
-			return "redirect: customer_register";
+			model.addAttribute("errMsg", 4);
+			return "memberSystem/login";
 		}
 	}
-
+	
+	//將頁面導入註冊成功畫面
 	@RequestMapping(value = "/memberSystem/customer_add", method = RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request) {
 		service.addCustomer(request, mem);
 		return "memberSystem/register_complete";
 	}
-
+	
+	//登入審核
 	@RequestMapping(value = "/memberSystem/loginCheck", method = RequestMethod.POST)
 	public String loginCheck(@ModelAttribute("MembersBean") MembersBean mem, Model model, HttpSession session) {
 
@@ -108,13 +112,11 @@ public class CustomerController {
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
 				model.addAttribute("errMsg", 1);
 				return "memberSystem/login";
-
 				// 會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入
 			} else {
 				model.addAttribute("errMsg", 2);
 				return "memberSystem/login";
 			}
-
 			// 因為bean取到空值表示根本不是會員，透過errMsg告知使用者進行註冊
 		} else {
 			model.addAttribute("errMsg", 3);

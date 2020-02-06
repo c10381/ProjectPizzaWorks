@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
+import _model.StockRequestBean;
+import _model.ValidationRequestBean;
 import notificationSystem.service.NotificationService;
 
 
@@ -22,16 +25,28 @@ public class NotificationController {
 		this.service = service;
 	}
 
-	@GetMapping(value = "/backendSystem/getOrders" , produces = "application/json")
-	public List<SalesOrderBean> getOrders() {
-
-		List<SalesOrderBean> salesOrders = service.getOrders();
-//		for(SalesOrderBean salesOrder : salesOrders) {
-//			//salesOrders.setSalesOrderDetails(null);
-//			for(SalesOrderDetailBean saleOrderDetail : salesOrder.getSalesOrderDetails()) {
-//				saleOrderDetail.setSalesOrder(null);
-//			}
-//		}
-		return salesOrders;
+	@GetMapping(value = "/backendSystem/getOrderNotification" , produces = "application/json")
+	public List<SalesOrderBean> getOrderNotification() {
+		List<SalesOrderBean> uncheckedOrders = service.getUncheckedOrders();
+		return uncheckedOrders;
 	}
+	
+	@GetMapping(value = "/backendSystem/getPurchaseNotification" , produces = "application/json")
+	public List<PurchaseRequestBean> getPurchaseNotification() {
+		List<PurchaseRequestBean> requests = service.getPurchaseRequests();
+		return requests;
+	}
+	
+	@GetMapping(value = "/backendSystem/getStockNotification" , produces = "application/json")
+	public List<StockRequestBean> getStockNotification() {
+		List<StockRequestBean> requests = service.getStockRequests();
+		return requests;
+	}
+	
+	@GetMapping(value = "/backendSystem/getPwdChangeNotification" , produces = "application/json")
+	public List<ValidationRequestBean> getPwdChangeNotification() {
+		List<ValidationRequestBean> requests = service.getPwdChangeRequests();
+		return requests;
+	}
+	
 }
