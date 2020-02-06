@@ -68,6 +68,11 @@ public class ShopController {
 		
 		return "shopSystem/cart";
 	}
+	@RequestMapping("/story")
+	public String getStory(Model model) {
+		
+		return "shopSystem/story";
+	}
 	
 	
 

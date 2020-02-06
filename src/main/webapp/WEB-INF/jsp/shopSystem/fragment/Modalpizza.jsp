@@ -13,17 +13,33 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body ">
 				<h5 class="text-dark"></h5>
-
-				<label for="pizzaSize">披薩尺寸:</label> <select name="pizzaSize"
-					id="pizzaSize">
-					<option value="large">大</option>
-					<option value="small">小</option>
-				</select> <label for="qtty">數量</label> <select name="qtty" id="qtty">
-				</select> <label for="crust">請選擇餅皮</label> <select name="crust" id="crust">
-				</select> <label for="doubleCheese"></label> <input type="checkbox">雙倍起司
-				+25
+				<div class="container">
+					<div class="row">
+						<div class="form-group">
+							<label for="pizzaSize">披薩尺寸:</label> 
+							<select name="pizzaSize" id="pizzaSize">
+								<option value="large">大</option>
+								<option value="small">小</option>
+							</select> 
+						</div>
+						<div class="form-group">
+							<label for="qtty">數量</label> 
+							<select name="qtty" id="qtty"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group"> 
+							<label for="crust">請選擇餅皮</label> 
+						 	<select name="crust" id="crust"></select> 
+						 </div>
+						<div class="form-group">
+							<label for="doubleCheese"></label> 
+							<input type="checkbox" name = "doubleCheese" id = "doubleCheese">雙倍起司 +25
+						</div>
+					</div>
+				</div>     
 			</div>
 			<div class="modal-footer">
 				<c:forEach items="${ products}" var="item" varStatus="status">

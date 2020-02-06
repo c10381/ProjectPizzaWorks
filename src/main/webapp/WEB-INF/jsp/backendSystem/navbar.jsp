@@ -430,7 +430,7 @@
 		var seconds = Math.floor((millseconds - (days * 86400000)
 				- (hours * 3600000) - (minutes * 60000)) / 1000);
 
-		console.log('距離:' + days + '天' + hours + '小時' + minutes + '分' + seconds + '秒');
+		/* console.log('距離:' + days + '天' + hours + '小時' + minutes + '分' + seconds + '秒'); */
 
 		if (days != 0) {
 			var result = '天前';

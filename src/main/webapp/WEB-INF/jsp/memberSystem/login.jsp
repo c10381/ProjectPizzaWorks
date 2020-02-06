@@ -88,6 +88,8 @@
 		</div>
 	</div>
 	<!-- /.login-box -->
+	
+	<button id="demo">顧客</button>
 
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
@@ -97,5 +99,12 @@
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
+<script type="text/javascript">
+ $("#demo").click(function(){
+	 $('input[name="email"]').val("user@pizza.com");
+	 $('input[name="password"]').val("P@ssw0rd");
+ })
+</script>
+
 </body>
 </html>
