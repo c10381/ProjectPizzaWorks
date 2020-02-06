@@ -33,7 +33,7 @@ public class CustomerController {
 	}
 
 	//註冊轉址
-	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.GET)
+	@GetMapping(value = "/memberSystem/register")
 	public String register(Model model) {
 		//return jsp 名稱
 		return "memberSystem/register";
@@ -204,8 +204,8 @@ public class CustomerController {
 			return "memberSystem/resetFail";
 		}
 	}
-
-	@RequestMapping(value = "memberSystem/forgetpwd")
+	//忘記密碼頁面，但是他不動耶
+	@GetMapping(value = "/memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
 		return "memberSystem/forgetPWPage";
 	}
