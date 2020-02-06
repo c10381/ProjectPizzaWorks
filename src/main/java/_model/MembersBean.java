@@ -152,6 +152,12 @@ public class MembersBean implements Serializable{
 	public void setActiveStatus(Integer activeStatus) {
 		this.activeStatus = activeStatus;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "MembersBean [memberId=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", password=" + password + ", address=" + address + ", gender=" + gender + ", cellphone="
+				+ cellphone + ", privilegeId=" + privilegeId + ", birthDate=" + birthDate + ", modifiedTime="
+				+ modifiedTime + ", registeredTime=" + registeredTime + ", activeStatus=" + activeStatus + "]";
+	}
 }
