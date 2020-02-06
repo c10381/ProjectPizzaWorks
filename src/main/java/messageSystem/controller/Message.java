@@ -3,9 +3,34 @@ package messageSystem.controller;
 public class Message {
     private String from;
     private String text;
+    private String fromFirstName;
+    private String fromLastName;
 
-    public String getFrom() {
-        return from;
+    public String getFromFirstName() {
+		return fromFirstName;
+	}
+
+	public void setFromFirstName(String fromFirstName) {
+		this.fromFirstName = fromFirstName;
+	}
+
+	public String getFromLastName() {
+		return fromLastName;
+	}
+
+	public void setFromLastName(String fromLastName) {
+		this.fromLastName = fromLastName;
+	}
+	public String getFromName() {
+		if(fromLastName==null) {
+			return "訪客";
+		}else{
+			return fromLastName+fromFirstName;			
+		}
+	}
+
+	public String getFrom() {
+		return from;
     }
 
     public void setFrom(String from) {
