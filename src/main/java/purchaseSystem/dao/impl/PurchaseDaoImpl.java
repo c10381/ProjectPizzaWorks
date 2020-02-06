@@ -15,6 +15,8 @@ import _model.MaterialsUnitBean;
 import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.StockRequestBean;
+import _model.StockRequestDetailBean;
 import _model.SupplierBean;
 import _model.SuppliersProvisionBean;
 import purchaseSystem.dao.PurchaseDao;
@@ -69,7 +71,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	// 3-1.修改請購單
 	@Override
 	public void updatePurchaseRequest(PurchaseRequestBean prb) {
-		// 請購單僅須被改兩處：PurchaseReason、TotalPrice
 		Session session = factory.getCurrentSession();
 		PurchaseRequestBean oldPrb = session.get(PurchaseRequestBean.class, prb.getpRequestId());
 		if (prb.getPurchaseReason() != null) {
@@ -79,6 +80,30 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		}
 		if (prb.getTotalPrice() != null) {
 			oldPrb.setTotalPrice(prb.getTotalPrice());
+		}
+		if (prb.getRequestStatus() != null) {
+			oldPrb.setRequestStatus(prb.getRequestStatus());
+		}
+		if(prb.getApproverId() != null) {
+			oldPrb.setApproverId(prb.getApproverId());
+		}
+		if(prb.getResponseComment() != null) {
+			if(prb.getResponseComment() != "") {
+				oldPrb.setResponseComment(prb.getResponseComment());
+			}
+		}
+		if(prb.getResponseTime() != null) {
+			if(prb.getResponseTime() != "") {
+				oldPrb.setResponseTime(prb.getResponseTime());
+			}
+		}
+		if(prb.getTotalPrice() != null) {
+			oldPrb.setTotalPrice(prb.getTotalPrice());
+		}
+		if(prb.getReadTime() != null) {
+			if(prb.getReadTime() != "") {
+				oldPrb.setReadTime(prb.getReadTime());
+			}
 		}
 	}
 
@@ -94,6 +119,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		if (prdb.getQuantity() != null) {
 			oldBean.setQuantity(prdb.getQuantity());
 		}
+		if (prdb.getActualQuantity() != null) {
+			oldBean.setActualQuantity(prdb.getActualQuantity());
+		} 
 	}
 
 	// 4.刪除單一請購單明細
@@ -120,8 +148,8 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	public Integer insertOnePurchaseOrder(PurchaseOrderBean pob) {
 		Session session = factory.getCurrentSession();
 		Integer pOrderId = (Integer) session.save(pob);
-		// 把新的請購單Id再set進Bean中？因為剛剛前端傳來的Bean中還沒有Id，現在set給它
-		pob.setpOrderId(pOrderId);
+		//// 把新的請購單Id再set進Bean中？因為剛剛前端傳來的Bean中還沒有Id，現在set給它
+		//pob.setpOrderId(pOrderId);
 		return pOrderId;
 	}
 
@@ -187,5 +215,42 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return suppliersProvisions;
 	}
 
+	@Override
+	public void updatePurchaseRequestStatus(Integer pRequestId, Integer requestStatus) {
+		String hql = "UPDATE PurchaseRequestBean SET requestStatus = :requestStatus WHERE pRequestId = :pRequestId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("requestStatus", requestStatus).setParameter("pRequestId", pRequestId).executeUpdate();
+	}
 
+	@Override
+	public Integer insertOneStockRequest(StockRequestBean stockRequest) {
+		Session session = factory.getCurrentSession();
+		Integer sRequestId = (Integer)session.save(stockRequest);
+		return sRequestId;
+	}
+
+	@Override
+	public void insertOneStockRequestDetail(StockRequestDetailBean stockRequestDetail) {
+		Session session = factory.getCurrentSession();
+		session.save(stockRequestDetail);
+	}
+
+	@Override
+	public void updatePurchaseRequestDetailByMaterial(PurchaseRequestDetailBean prdb) {
+		// 請購單明細僅須被改兩處：UnitPrice、Quantity
+		String hql = "FROM PurchaseRequestDetailBean WHERE pRequestId = :pRequestId AND materialsId = :materialsId";
+		Session session = factory.getCurrentSession();
+		List<PurchaseRequestDetailBean> purchaseRequestDetail = session.createQuery(hql).setParameter("pRequestId", prdb.getpRequestId()).setParameter("materialsId", prdb.getMaterialsId()).getResultList();
+//		PurchaseRequestDetailBean oldBean = session.get(PurchaseRequestDetailBean.class, prdb.getpRequestDetailId());
+		PurchaseRequestDetailBean oldBean = purchaseRequestDetail.get(0);
+		if (prdb.getUnitPrice() != null) {
+			oldBean.setUnitPrice(prdb.getUnitPrice());
+		}
+		if (prdb.getQuantity() != null) {
+			oldBean.setQuantity(prdb.getQuantity());
+		}
+		if (prdb.getActualQuantity() != null) {
+			oldBean.setActualQuantity(prdb.getActualQuantity());
+		} 
+	}
 }

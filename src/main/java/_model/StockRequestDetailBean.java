@@ -68,4 +68,11 @@ public class StockRequestDetailBean implements Serializable{
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return "StockRequestDetailBean [sRequestDetailId=" + sRequestDetailId + ", sRequestId=" + sRequestId
+				+ ", materialsId=" + materialsId + ", unitPrice=" + unitPrice + ", quantity=" + quantity + "]";
+	}
+	
 }

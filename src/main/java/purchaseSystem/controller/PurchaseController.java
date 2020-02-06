@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import _model.MaterialsBean;
-import _model.PurchaseOrderBean;
 import _model.MaterialsUnitBean;
 import _model.PurchaseOrderBean;
+import _model.PurchaseOrderDetailBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.StockRequestBean;
+import _model.StockRequestDetailBean;
 import _model.SuppliersProvisionBean;
 import purchaseSystem.service.PurchaseService;
 
@@ -88,7 +89,7 @@ public class PurchaseController {
 				produces = {"application/json;charset=UTF-8"})
 		public @ResponseBody String updateOnePurchaseRequest(@RequestBody PurchaseRequestBean purchaseRequest) {
 
-			Integer flag = service.updateOnePurchaseRequest2(purchaseRequest);
+			Integer flag = service.updateOnePurchaseRequest(purchaseRequest);
 			if(flag.equals(1)) {
 				return "OK";
 			} else if (flag.equals(0)) {
@@ -160,10 +161,89 @@ public class PurchaseController {
 		System.out.println(time);
 		return time;
 	}
+	
 	@PutMapping("/purchase/updateResponse")
 	public @ResponseBody String updateResponse(@RequestBody PurchaseRequestBean purchaseRequest) {
 		service.updateResponse(purchaseRequest);
 		return "OK";
+	}
+	
+	@RequestMapping(value = "/savePurchaseOrder", method = RequestMethod.POST)
+	public @ResponseBody String savePurchaseOrder(@RequestParam("purchaseRequest") String purchaseRequest,
+			Model model) {
+		// Initialize variables
+		JSONObject purchaseRequest_jso = new JSONObject(purchaseRequest);
+		PurchaseOrderBean purchaseOrder = new PurchaseOrderBean();
+		StockRequestBean stockRequest = new StockRequestBean();
+		PurchaseRequestBean newPurchaseRequest = new PurchaseRequestBean();
+		List<PurchaseOrderDetailBean> purchaseOrderDetails = new ArrayList<>();
+		List<StockRequestDetailBean> stockRequestDetails = new ArrayList<>();
+		List<PurchaseRequestDetailBean> purchaseRequestDetails = new ArrayList<>();
+		// Get values to set Beans' property. 
+		Integer pRequestId = purchaseRequest_jso.getInt("pRequestId");
+		String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
+		String timeStrNoMillisec = timeStr.substring(0, timeStr.length() - 4);
+		Integer proposalerId = purchaseRequest_jso.getInt("proposalerId");
+		String briefInfo = purchaseRequest_jso.getString("briefInfo");
+		JSONArray purchaseRequestDetails_jsa = purchaseRequest_jso.getJSONArray("purchaseRequestDetails");
+		// Set purchaseOrder bean.
+		purchaseOrder.setpRequestId(pRequestId);
+		purchaseOrder.setProposalerId(proposalerId);
+		purchaseOrder.setBriefInfo(briefInfo);
+		purchaseOrder.setRequestTime(timeStrNoMillisec);
+		purchaseOrder.setApproverId(4);
+		// Set stockRequest bean.
+		stockRequest.setProposalerId(proposalerId);
+		stockRequest.setBriefInfo(briefInfo);
+		stockRequest.setRequestTime(timeStrNoMillisec);
+		stockRequest.setApproverId(0);
+		stockRequest.setRequestStatus(0);
+		// Set newPurchaseRequest bean.
+		newPurchaseRequest.setpRequestId(pRequestId);
+		newPurchaseRequest.setApproverId(proposalerId);
+		newPurchaseRequest.setResponseComment(briefInfo);
+		newPurchaseRequest.setResponseTime(timeStrNoMillisec);
+		newPurchaseRequest.setTotalPrice(purchaseRequest_jso.getDouble("totalSale"));
+		newPurchaseRequest.setRequestStatus(2);
+		for(int i = 0; i<purchaseRequestDetails_jsa.length(); i++) {
+			// Initialize variables
+			JSONObject purchaseRequestDetails_jso = purchaseRequestDetails_jsa.getJSONObject(i);
+			PurchaseOrderDetailBean purchaseOrderDetail = new PurchaseOrderDetailBean();
+			StockRequestDetailBean stockRequestDetail = new StockRequestDetailBean();
+			PurchaseRequestDetailBean purchaseRequestDetail = new PurchaseRequestDetailBean();
+			// Get values to set Beans' property.
+			Integer materialsId = purchaseRequestDetails_jso.getInt("materialsId");
+			Double quantity = purchaseRequestDetails_jso.getDouble("quantity");
+			Double unitPrice = purchaseRequestDetails_jso.getDouble("unitPrice");
+			// Set purchaseOrderDetail bean.
+			purchaseOrderDetail.setMaterialsId(materialsId);
+			purchaseOrderDetail.setQuantity(quantity);
+			purchaseOrderDetail.setPrice(quantity*unitPrice);
+			purchaseOrderDetails.add(purchaseOrderDetail);
+			// Set stockRequestDetail bean.
+			stockRequestDetail.setMaterialsId(materialsId);
+			stockRequestDetail.setQuantity(quantity.intValue());
+			stockRequestDetail.setUnitPrice(unitPrice);
+			stockRequestDetails.add(stockRequestDetail);
+			// Set purchaseRequestDetail bean.
+			purchaseRequestDetail.setpRequestId(pRequestId);
+			purchaseRequestDetail.setMaterialsId(materialsId);
+			purchaseRequestDetail.setUnitPrice(unitPrice);
+			purchaseRequestDetail.setActualQuantity(quantity.intValue());
+			purchaseRequestDetails.add(purchaseRequestDetail);
+		}
+		// Set purchaseOrderDetails into the purchaseOrder bean.
+		purchaseOrder.setPurchaseOrderDetails(purchaseOrderDetails);
+		// Set stockRequestDetails into the stockRequest bean.
+		stockRequest.setStockRequestDetails(stockRequestDetails);
+		// Set purchaseRequestDetails into the newPurchaseRequest bean.
+		newPurchaseRequest.setPurchaseRequestDetails(purchaseRequestDetails);
+		// Insert two beans and Update one bean
+		service.insertPurchaseOrder(purchaseOrder);
+		service.insertStockRequest(stockRequest);
+		service.updateApprovedPurchaseRequest(newPurchaseRequest);
+		
+		return "/purchase/GetAllSRequest";
 	}
 	
 }

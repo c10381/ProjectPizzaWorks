@@ -18,6 +18,8 @@ import _model.PurchaseOrderBean;
 import _model.PurchaseOrderDetailBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.StockRequestBean;
+import _model.StockRequestDetailBean;
 import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
 import purchaseSystem.dao.PurchaseDao;
@@ -75,11 +77,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		String jsonString = output_jsa.toString();
 		return jsonString;
 	}
-	
+
 	// 1-2.查詢單張請購單
 	@Override
 	public String getOnePurchaseRequestJson(Integer pRequestId) {
-		//+pRequestId、proposalerName、approvalerName
+		// +pRequestId、proposalerName、approvalerName
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
 		pRequest_jso.put("pRequestId", pRequestId);
@@ -107,8 +109,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public void saveOnePurchaseRequest2(PurchaseRequestBean purchaseRequest) {
 		// 新增請購單資料表，並回傳新產生之PK
-		Integer pRequestId = dao.insertOnePurchaseRequest(purchaseRequest);
 		List<PurchaseRequestDetailBean> purchaseRequestDetails = purchaseRequest.getPurchaseRequestDetails();
+		purchaseRequest.setPurchaseRequestDetails(null);
+		Integer pRequestId = dao.insertOnePurchaseRequest(purchaseRequest);
 		for (PurchaseRequestDetailBean purchaseRequestDetail : purchaseRequestDetails) {
 			// 加入FK至請購單明細中
 			purchaseRequestDetail.setpRequestId(pRequestId);
@@ -118,7 +121,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	// 3.修改請購單2
 	@Override
-	public Integer updateOnePurchaseRequest2(PurchaseRequestBean purchaseRequest) {
+	public Integer updateOnePurchaseRequest(PurchaseRequestBean purchaseRequest) {
 		if (purchaseRequest.getRequestStatus() == 0) {
 			dao.updatePurchaseRequest(purchaseRequest);
 			PurchaseRequestBean original_pRequest = dao.getOnePurchaseRequestById(purchaseRequest.getpRequestId());
@@ -164,11 +167,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 			pOrder_jso.put("pOrderId", pob);
 			MembersBean proposaler = memberDao.getMember(pob.getProposalerId());
 			MembersBean approverId = memberDao.getMember(pob.getApproverId());
-			
+
 			String lastNameP = proposaler.getLastName();
 			String firstNameP = proposaler.getFirstName();
 			String fullNameP = lastNameP + firstNameP;
-			
+
 			String lastNameA = approverId.getLastName();
 			String firstNameA = approverId.getFirstName();
 			String fullNameA = lastNameA + firstNameA;
@@ -191,19 +194,19 @@ public class PurchaseServiceImpl implements PurchaseService {
 		String jsonString = output_jsa.toString();
 		return jsonString;
 	}
-	
+
 	// 2.新增單張請購單
-		@Override
-		public void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder) {
-			// 新增請購單資料表，並回傳新產生之PK
-			Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
-			List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
-			for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrderDetails) {
-				// 加入FK至請購單明細中
-				purchaseOrderDetail.setpOrderId(pOrderId);
-				dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
-			}
+	@Override
+	public void saveOnePurchaseOrder(PurchaseOrderBean purchaseOrder) {
+		// 新增請購單資料表，並回傳新產生之PK
+		Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
+		List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
+		for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrderDetails) {
+			// 加入FK至請購單明細中
+			purchaseOrderDetail.setpOrderId(pOrderId);
+			dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
 		}
+	}
 
 	@Override
 	public void updatePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> prdbList) {
@@ -239,7 +242,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		return purchaseRequest;
 	}
-	
+
 	@Override
 	public List<MaterialsBean> getAllMaterials() {
 		List<MaterialsBean> materials = dao.getMaterialList();
@@ -253,10 +256,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		String jsonString = materials_jsa.toString();
 		return jsonString;
 	}
-	
+
 	@Override
 	// 插入讀取時間
-	public String updateReadTime (PurchaseRequestBean purchaseRequest) { 
+	public String updateReadTime(PurchaseRequestBean purchaseRequest) {
 		// 取得現在時間
 		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime time = LocalDateTime.now();
@@ -264,7 +267,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		// 傳遞要更新的bean
 		purchaseRequest.setReadTime(localTime);
 		dao.updateReadTime(purchaseRequest);
-		
+
 		return localTime;
 	}
 
@@ -278,6 +281,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		dao.updateResponse(purchaseRequest);
 		return null;
 	}
+
 	@Override
 	public List<MaterialsUnitBean> getAllMaterialsUnits() {
 		return dao.getAllMaterialsUnits();
@@ -287,5 +291,66 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public List<SuppliersProvisionBean> getAllSuppliersProvisions() {
 		return dao.getAllSuppliersProvisions();
 	}
-	
+
+	@Override
+	public void insertPurchaseOrder(PurchaseOrderBean purchaseOrder) {
+		List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
+		purchaseOrder.setPurchaseOrderDetails(null);
+		Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
+
+		for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrderDetails) {
+			// 加入FK至請購單明細中
+			purchaseOrderDetail.setpOrderId(pOrderId);
+			dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
+		}
+	}
+
+	@Override
+	public void insertStockRequest(StockRequestBean stockRequest) {
+		List<StockRequestDetailBean> stockRequestDetails = stockRequest.getStockRequestDetails();
+		stockRequest.setStockRequestDetails(null);
+		Integer sRequestId = dao.insertOneStockRequest(stockRequest);
+		for (StockRequestDetailBean stockRequestDetail : stockRequestDetails) {
+			// 加入FK至進貨單明細中
+			stockRequestDetail.setsRequestId(sRequestId);
+			dao.insertOneStockRequestDetail(stockRequestDetail);
+		}
+	}
+
+	@Override
+	public Integer updateApprovedPurchaseRequest(PurchaseRequestBean purchaseRequest) {
+
+		dao.updatePurchaseRequest(purchaseRequest);
+		PurchaseRequestBean original_pRequest = dao.getOnePurchaseRequestById(purchaseRequest.getpRequestId());
+		List<PurchaseRequestDetailBean> original_pRequestDetails = original_pRequest.getPurchaseRequestDetails();
+		List<Integer> used_index = new ArrayList<>();
+		for (PurchaseRequestDetailBean prdb : purchaseRequest.getPurchaseRequestDetails()) {
+			boolean flag = false;
+			for (int i = 0; i < original_pRequestDetails.size() && !flag; i++) {
+				if (original_pRequestDetails.get(i).getMaterialsId() == prdb.getMaterialsId()) {
+					flag = true;
+					dao.updatePurchaseRequestDetailByMaterial(prdb);
+					used_index.add(i);
+				}
+			}
+			if (!flag) {
+				dao.insertOnePurchaseRequestDetail(prdb);
+			}
+		}
+		if (original_pRequestDetails.size() != used_index.size() && used_index.size() > 0) {
+			for (PurchaseRequestDetailBean oprdb : original_pRequestDetails) {
+				if (used_index.indexOf(oprdb.getpRequestDetailId()) == -1) {
+					dao.deleteOnePurchaseDetail(oprdb);
+				}
+			}
+		}
+
+		return 1;
+	}
+
+	@Override
+	public void updatePurchaseRequestStatus(Integer pRequestId, Integer requestStatus) {
+		dao.updatePurchaseRequestStatus(pRequestId, requestStatus);
+	}
+
 }
