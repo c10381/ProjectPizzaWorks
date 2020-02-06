@@ -79,7 +79,6 @@
 			</div>
 		</div>
 	</section>
-
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />

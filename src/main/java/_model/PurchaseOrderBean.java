@@ -130,4 +130,11 @@ public class PurchaseOrderBean implements Serializable {
 		this.purchaseOrderDetails = purchaseOrderDetails;
 	}
 
+	@Override
+	public String toString() {
+		return "PurchaseOrderBean [pOrderId=" + pOrderId + ", pRequestId=" + pRequestId + ", proposalerId="
+				+ proposalerId + ", requestTime=" + requestTime + ", briefInfo=" + briefInfo + ", approverId="
+				+ approverId + ", responseComment=" + responseComment + ", responseTime=" + responseTime + ", readTime="
+				+ readTime + ", purchaseOrderDetails=" + purchaseOrderDetails + "]";
+	}
 }

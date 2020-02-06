@@ -11,12 +11,16 @@ public class PurchaseRedirectController {
 	public String fowardMaterials() {
 		return "purchaseSystem/GetAllMaterials";
 	}
-	@RequestMapping("/purchase/FormPurchaseRequest")
+	@RequestMapping("/purchase/AddPurchaseRequest")
 	public String fowardPurchaseRequest() {
-		return "purchaseSystem/PurchaseRequest";
+		return "purchaseSystem/AddPurchaseRequest";
 	}
-	@RequestMapping("/purchase/GetAllPRequest")
-	public String fowardGetAllPRequest() {
+	@RequestMapping("/purchase/GetAllPurchaseRequest")
+	public String fowardGetAllPurchaseRequest() {
 		return "purchaseSystem/GetAllPurchaseRequest";
+	}
+	@RequestMapping("/purchase/GetAllPurchaseOrder")
+	public String forwardGetAllPurchaseOrder() {
+		return "purchaseSystem/GetAllPurchaseOrder";
 	}
 }

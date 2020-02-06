@@ -10,6 +10,8 @@ import _model.PurchaseOrderDetailBean;
 import _model.MaterialsUnitBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.StockRequestBean;
+import _model.StockRequestDetailBean;
 import _model.SupplierBean;
 import _model.SuppliersProvisionBean;
 
@@ -48,6 +50,15 @@ public interface PurchaseDao {
 	List<MaterialsUnitBean> getAllMaterialsUnits();
 	
 	List<SuppliersProvisionBean> getAllSuppliersProvisions();
+	
 	void updateResponse(PurchaseRequestBean purchaseRq);
+	
+	Integer insertOneStockRequest(StockRequestBean stockRequest);
+	
+	void insertOneStockRequestDetail(StockRequestDetailBean stockRequestDetail);
+	
+	void updatePurchaseRequestStatus(Integer pRequestId, Integer requestStatus);
+	
+	void updatePurchaseRequestDetailByMaterial(PurchaseRequestDetailBean prdb);
 	
 }

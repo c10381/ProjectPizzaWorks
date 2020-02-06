@@ -16,8 +16,8 @@ public class PurchaseOrderDetailBean implements Serializable{
 	private Integer pOrderDetailId;
 	private Integer pOrderId;
 	private Integer materialsId;
-	private Double quantity;
 	private Double price;
+	private Double quantity;
 	
 	public PurchaseOrderDetailBean() {}
 
@@ -54,7 +54,7 @@ public class PurchaseOrderDetailBean implements Serializable{
 		this.materialsId = materialsId;
 	}
 
-	public double gePrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -68,6 +68,12 @@ public class PurchaseOrderDetailBean implements Serializable{
 
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "PurchaseOrderDetailBean [pOrderDetailId=" + pOrderDetailId + ", pOrderId=" + pOrderId + ", materialsId="
+				+ materialsId + ", quantity=" + quantity + ", price=" + price + "]";
 	}
 	
 }

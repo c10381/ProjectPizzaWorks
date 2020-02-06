@@ -8,6 +8,7 @@ import _model.MaterialsUnitBean;
 import _model.PurchaseOrderBean;
 import _model.PurchaseRequestBean;
 import _model.PurchaseRequestDetailBean;
+import _model.StockRequestBean;
 import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
 import purchaseSystem.dao.PurchaseDao;
@@ -24,8 +25,6 @@ public interface PurchaseService {
 	void saveOnePurchaseRequest(PurchaseRequestBean prb, List<PurchaseRequestDetailBean> list);
 	
 	void saveOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
-
-	Integer updateOnePurchaseRequest2(PurchaseRequestBean purchaseRequest);
 	
 	PurchaseRequestBean getOnePurchaseRequest(Integer pRequestId);
 	
@@ -42,8 +41,18 @@ public interface PurchaseService {
 	String updateReadTime(PurchaseRequestBean purchaseRequest);
 	
 	String updateResponse(PurchaseRequestBean purchaseRequest);
+	
 	List<MaterialsUnitBean> getAllMaterialsUnits();
 	
 	List<SuppliersProvisionBean> getAllSuppliersProvisions();
 	
+	void insertPurchaseOrder(PurchaseOrderBean purchaseOrder);
+	
+	void insertStockRequest(StockRequestBean stockRequest);
+	
+	Integer updateOnePurchaseRequest(PurchaseRequestBean purchaseRequest);
+	
+	void updatePurchaseRequestStatus(Integer RequestId, Integer requestStatus);
+	
+	Integer updateApprovedPurchaseRequest(PurchaseRequestBean purchaseRequest);
 }

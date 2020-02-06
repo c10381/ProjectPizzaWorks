@@ -29,7 +29,7 @@ public class StockRequestBean implements Serializable {
 	private String readTime;
 	private Integer requestStatus;
 	
-	private List<StockRequestDetailBean> stockRequestDetail = new ArrayList<>();
+	private List<StockRequestDetailBean> stockRequestDetails = new ArrayList<>();
 	
 	public StockRequestBean() {
 	}
@@ -122,12 +122,19 @@ public class StockRequestBean implements Serializable {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name="sRequestId", referencedColumnName="sRequestId")
-	public List<StockRequestDetailBean> getStockRequestDetail() {
-		return stockRequestDetail;
+	public List<StockRequestDetailBean> getStockRequestDetails() {
+		return stockRequestDetails;
 	}
 
-	public void setStockRequestDetail(List<StockRequestDetailBean> stockRequestDetail) {
-		this.stockRequestDetail = stockRequestDetail;
+	public void setStockRequestDetails(List<StockRequestDetailBean> stockRequestDetails) {
+		this.stockRequestDetails = stockRequestDetails;
 	}
 
+	@Override
+	public String toString() {
+		return "StockRequestBean [sRequestId=" + sRequestId + ", proposalerId=" + proposalerId + ", requestTime="
+				+ requestTime + ", briefInfo=" + briefInfo + ", approverId=" + approverId + ", responseComment="
+				+ responseComment + ", responseTime=" + responseTime + ", readTime=" + readTime + ", requestStatus="
+				+ requestStatus + ", stockRequestDetails=" + stockRequestDetails + "]";
+	}
 }

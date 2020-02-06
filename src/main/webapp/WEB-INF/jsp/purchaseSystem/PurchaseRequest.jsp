@@ -37,28 +37,31 @@ textarea {
 									</div>
 								</div>
 								<div class="form-group row">
+									<label for="purchaseReason" class="col-sm-2 col-form-label">請購理由</label>
+									<div class='col-sm-4' id='purchaseReason'>
+										<textarea cols="50" rows="3" name = "purchaseReason" maxlength="100"
+											class="form-control" placeholder="請簡述本次請購理由..." required></textarea>
+										<div class="invalid-feedback">請輸入請購理由</div>
+									</div>
+								</div>
+								<div class="form-group row">
 									<label for="unitPrice" class="col-sm-2 col-form-label">請購總額</label>
 									<div class='col-sm-4' id='unitPrice'>
 										<input type='text' name="totalPrice" id="totalPrice" class="form-control"
 											value="" disabled required/>
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="purchaseReason" class="col-sm-2 col-form-label">請購理由</label>
-									<div class='col-sm-8' id='purchaseReason'>
-										<textarea cols="100" rows="3" name = "purchaseReason" maxlength="500"
-											class="form-control" placeholder="請簡述本次請購理由..." required></textarea>
-										<div class="invalid-feedback">請輸入請購理由</div>
-									</div>
-								</div>
+
 								<hr>
 								
-								<div class="row mt-2">
+								<div class="row">
 									<div class="mr-2">
 										<button type="button" name="add" id="add" class="btn btn-info">新增品項</button>
 									</div>
 										<button type="button" id="to_submit" class="btn btn-success">送出請購單</button>
 								</div>
+
+								
 								
 								<!-- <div class="alert alert-warning alert-dismissible text-right mt-2 d-none" role="alert">
 									去那邊點選新增喔喔喔喔<i class="fas fa-arrow-right"></i>
@@ -68,8 +71,7 @@ textarea {
 								</div> -->
 
 								<br>
-								<!-- <table id="prRequest" class="table table-striped text-center"> -->
-								<table id="prRequest" class="display text-center">
+								<table id="prRequest" class="table table-striped text-center">
 									<thead>
 										<tr>
 											<th></th>
@@ -95,7 +97,7 @@ textarea {
 						</div>
 						<!--  card-header end -->
 						<div class="card-body">
-							<table id="table_materials" class="table table-striped text-center">
+							<table id="table_materials" class="display text-center">
 								<thead>
 									<tr>
 										<th>&nbsp;</th>
@@ -103,6 +105,8 @@ textarea {
 										<th>品項名稱</th>
 									</tr>
 								</thead>
+								<tfoot>
+								</tfoot>
 							</table>
 						</div>
 					</div>
@@ -121,26 +125,6 @@ textarea {
 		})	
 			
 		
-		// 對於明細表的操作
-		var fetch_data = function () {
-			var fetch_data = $('#prRequest').DataTable({
-				"language": {
-				      "emptyTable": "尚未有請購項目",
-				},
-				lengthChange: false,
-				columnDefs: {
-	                targets: [0],
-	                "orderable": false,
-	                data: null,
-	            },
-				"searching" : false,
-				"info" : false,
-			});
-			
-			delete_Item(fetch_data);
-		}
-		
-		// 開關品項表
 		var toggle_Item = function(){
 			 $("#add").click(function(){ 
 				if($(this).html()=="新增品項"){
@@ -150,17 +134,11 @@ textarea {
 					insert_Item();
 				}else{
 					$(this).html("新增品項");
-					// 關閉品項欄
 					$(".materials").addClass("d-none");
 					$(".new_item").remove();
-					// 將所有減號轉回加號
-					$("#btnAddToRemove").children().removeClass("fa-minus").addClass("fa-plus");
-					$("#btnAddToRemove").removeClass("btn-danger").addClass("btn-info");
-					$("#btnAddToRemove").attr("id","btnRemoveToAdd");
 				}
 			})
 		}  
-		
 		
 		// 將填入資料塞入附表表格
 		var insert_Item = function(){
@@ -168,6 +146,8 @@ textarea {
 				e.preventDefault();
 
 				if(validationInsert()){
+					var totalPrice = $("#totalPrice").val();
+					
 					/* 塞到dateTables */
 					var data = [];
 					$(".new_item td:not(:first)").each(function(){
@@ -185,7 +165,6 @@ textarea {
 					new_item_html();
 					
 					// 更新主表總額
-					var totalPrice = $("#totalPrice").val();
 					if(totalPrice!=""){
 						totalPrice = parseInt(totalPrice);
 					}
@@ -227,6 +206,8 @@ textarea {
 				alert("數量/單價不可小於0");
 				return false;
 			}
+			
+			
 			return true; 
 		}
 		
@@ -244,8 +225,8 @@ textarea {
 					{"data" : "materialsId"}, 
 					{"data" : "materialsName"},
 					 ],
-				order: [[ 1, "asc" ]],
-				searching: false,  //關閉filter功能
+				
+				/* searching: false, */ //關閉filter功能
 				lengthChange: false,
 	            responsive: true,
 	            columnDefs: [{
@@ -266,6 +247,7 @@ textarea {
 					$("#btnAddToRemove").removeClass("btn-danger").addClass("btn-info");
 					$("#btnAddToRemove").attr("id","btnRemoveToAdd");
 				}
+				
 				var nowRow = table.row($(this).parents('tr'));
 	        	var data = table.row($(this).parents('tr')).data();
 	        	$('.new_item td:nth-of-type(2)').html(data.materialsId);
@@ -281,33 +263,23 @@ textarea {
 		};
 			
 
-		// 刪除細目表的項目
-		var delete_Item = function(fetch_data){
-			$("#prRequest").on("click",".delete",function(e){
-				e.preventDefault();
-				// 刪除明細表的資料
-				var nowRow = fetch_data.row($(this).parents('tr'));
-            	var data = fetch_data.row($(this).parents('tr')).data();
-            	nowRow.remove().draw();
-            	
-            	var pRequestID = data[1]; 
-            /* 	var index = (pRequestID%10!=0) ? pRequestID%10 : 10;
-            	// 還原材料表的狀態 按鈕
-            	$("#table_materials tr:nth-of-type("+index+") td:eq(0)").html(""); */
-            	
-            	var table = $("#table_materials").DataTable();
-            	table.cell(pRequestID-1,0).data("<button id='btnRemoveToAdd' class='btn btn-info'><i class='fas fa-plus'></i></button>").draw();
-            	
-            	// 刪除總額
-            	var totalPrice = $("#totalPrice").val();
-				if(totalPrice!=""){
-					totalPrice = parseInt(totalPrice);
-				}
-				totalPrice -= (parseInt(data[3])*parseInt(data[4]));
-				$("#totalPrice").val(totalPrice);
-				new_item_html();
-			})	
+		var fetch_data = function () {
+			var dataTable = $('#prRequest').DataTable({
+				"language": {
+				      "emptyTable": "尚未有請購項目",
+				},
+				lengthChange: false,
+				columnDefs: {
+	                targets: [0],
+	                orderable: false,
+	                data: null,
+	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-info'>添加</button>"
+	            },
+				"searching" : false,
+				"info" : false,
+			});
 		}
+		
 		// 主表 加新增資料列
 		var new_item_html = function(){
 			   var html = '<tr class="new_item">';
@@ -317,7 +289,7 @@ textarea {
 			   html += '<td contenteditable data-col="3" v></td>';
 			   html += '<td contenteditable data-col="4"></td>';
 			   html += '<td><a href="#" id="insert" class="text-info mr-1"><i class="fas fa-check"></i></a>';
-/* 			   html += '<a href="#" id="cancle" class="text-danger"><i class="fas fa-times"></i></a></td>'; */
+			   html += '<a href="#" id="cancle" class="text-danger"><i class="fas fa-times"></i></a></td>';
 			   html += '</tr>';
 			   $('#prRequest').prepend(html);
 		  };
@@ -371,18 +343,21 @@ textarea {
 		}();
 		
 		function sendData(new_purchaseRequests) {
-			console.log(new_purchaseRequests);
 			$.ajax({
 					url : "../insertOnePurchaseRequest",
-					data :  JSON.stringify(new_purchaseRequests),
-					contentType : "application/json" ,
+					data : {
+						"purchaseRequests" : JSON.stringify(new_purchaseRequests)
+					},
 					type : "POST"
 					}).done(function(){
-						loadingPage('/purchase/GetAllPurchaseRequest');
+						alert("新增成功"); 
+						loadingPage('/purchase/GetAllPRequest');
 					}).fail(function(){
 						alert("新增失敗");
-					});
-			}
+					})
+						
+		}
 	</script>
+
 </body>
 </html>
