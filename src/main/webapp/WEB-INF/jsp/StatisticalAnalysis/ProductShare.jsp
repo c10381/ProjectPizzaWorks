@@ -56,10 +56,7 @@ input[type="number"] {
 <body>
 	<figure class="highcharts-figure">
 		<div id="container"></div>
-		<p class="highcharts-description">Pie charts are very popular for
-			showing a compact overview of a composition or comparison. While they
-			can be harder to read than column charts, they remain a popular
-			choice for small datasets.</p>
+		<p class="highcharts-description">公式：[一定期間] [A披薩銷售額 / 所有披薩銷售額]</p>
 	</figure>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -67,16 +64,16 @@ input[type="number"] {
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 	<script>
-		$.ajax({
-					url : "${pageContext.request.contextPath}/statisticalAnalysisSystem/PieChartTest_proto",
-					type : "GET",
-					success : function(data1) {
-						console.log(data1);
+		//$.ajax({
+					//url : "${pageContext.request.contextPath}/statisticalAnalysisSystem/PieChartTest_proto",
+					//type : "GET",
+					//success : function(data1) {
+						//console.log(data1);
 						//showPieChart(data1);
-					}
-				});
+					//}
+				//});
 
-		function showPieChart(data1) {
+		//function showPieChart(data1) {
 			Highcharts
 					.chart(
 							'container',
@@ -88,7 +85,7 @@ input[type="number"] {
 									type : 'pie'
 								},
 								title : {
-									text : 'Browser market shares in January, 2018'
+									text : '2020/1~2020~3炭火食肉披薩銷售額占比'
 								},
 								tooltip : {
 									pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -112,17 +109,19 @@ input[type="number"] {
 									name : 'Brands',
 									colorByPoint : true,
 									data : [ {
-										name : 'Chrome',
-										y : data1,
+										name : '炭火食肉披薩',
+										y : 10.3,
 										sliced : true,
 										selected : true
 									}, {
-										name : 'Internet Explorer',
-										y : 100 - data1
-									} ]
+										name : '其他',
+										y : 100 - 10.3
+									}
+									
+									]
 								} ]
 							});
-		}
+		//}
 	</script>
 </body>
 </html>

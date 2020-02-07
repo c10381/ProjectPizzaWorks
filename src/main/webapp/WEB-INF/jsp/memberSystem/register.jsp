@@ -34,7 +34,7 @@
 			</div>
 
 			<form method='POST' id="register" class='col-md-6 mx-auto align-items-center needs-validation'				
-				 action="${pageContext.request.contextPath}/memberSystem/register_form">
+				 action="${request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
 				<div class='form-row form-group'>
                 		<label for="email" class="col-form-label col-sm-3 align-self-center">* 請輸入註冊信箱：</label>
