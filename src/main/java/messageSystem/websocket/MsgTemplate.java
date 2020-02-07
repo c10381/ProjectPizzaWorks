@@ -29,6 +29,12 @@ public class MsgTemplate {
             template.convertAndSendToUser(sessionId, USER_TOPIC, msg);
         });
     }
+    //送訊息給顧客
+    public void sendMsgToCustomer(String user, Object msg) {
+    	sessions.getCustomerSessionIds(user).forEach(sessionId -> {
+    		template.convertAndSendToUser(sessionId, USER_TOPIC, msg);
+    	});
+    }
 
     public void broadcast(Object msg) {
         sendMsgTo(BROADCAST_DESTINATION, msg);
