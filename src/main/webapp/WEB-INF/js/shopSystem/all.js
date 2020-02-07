@@ -1,3 +1,4 @@
+
 let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let freight = 60 ; 
 let priceDoubleCheeese = 25; 

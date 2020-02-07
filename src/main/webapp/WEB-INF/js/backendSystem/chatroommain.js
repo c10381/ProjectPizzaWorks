@@ -135,7 +135,7 @@ function connect() {
         stompClient.subscribe('/user/subscribe', function(messageOutput) {
         	var messageGet=JSON.parse(messageOutput.body);
         	if(messageGet.customerService==true){
-        		getCustomerMessage(messageOutput);
+        		getCustomerMessage(messageGet);
         	}else{
         		showCoworkerMessageOutput(messageGet);        		
         	}
