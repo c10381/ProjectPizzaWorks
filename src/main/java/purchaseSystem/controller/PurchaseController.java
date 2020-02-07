@@ -243,7 +243,7 @@ public class PurchaseController {
 		service.insertStockRequest(stockRequest);
 		service.updateApprovedPurchaseRequest(newPurchaseRequest);
 		
-		return "/purchase/GetAllPRequest";
+		return "/purchase/GetAllPurchaseOrder";
 	}
 	
 }

@@ -34,7 +34,7 @@
 			</div>
 
 			<form method='POST' id="register" class='col-md-6 mx-auto align-items-center needs-validation'				
-				 action="${request.contextPath}/memberSystem/register_form">
+				 action="${pageContext.request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
 				<div class='form-row form-group'>
                 		<label for="email" class="col-form-label col-sm-3 align-self-center">* 請輸入註冊信箱：</label>
@@ -106,7 +106,7 @@
 	})
 	
 	//全域變數，讓form可不可以被送出
-	var flag = false;
+	var flag = true;
 	
 	//檢查使用者輸入的email是否已註冊
 	function emailExists(){
@@ -130,13 +130,13 @@
 						$('#email_errbox').attr({
 							"class" : "text-danger col-sm-3 align-self-center"
 						})
-						flag = false;
+						flag = true;
 					}else{
 						$('#email_errbox').text('該信箱可以使用');
 						$('#email_errbox').attr({
 							"class" : "col-sm-3 align-self-center"
 						})
-						flag = true;
+						flag = false;
 					}
 				}			
 			}) 

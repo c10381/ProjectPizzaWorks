@@ -56,7 +56,7 @@
 					<form:select path="gender" id="gender" class="form-control col-sm-2">
 						<form:option value="0" label="請選擇" class="text-dark"></form:option>
 						<form:option value="1" label="男" class="text-dark"></form:option>
-						<form:option value="2" label="女" ></form:option>
+						<form:option value="2" label="女" class="text-dark"></form:option>
 					</form:select>
 			
 					<label class="col-form-label col-sm-2 align-self-center">生日：</label>
@@ -109,8 +109,6 @@
 		
 		console.log('reach');
 	})
-	
-	
 	
 	</script>
 </body>
