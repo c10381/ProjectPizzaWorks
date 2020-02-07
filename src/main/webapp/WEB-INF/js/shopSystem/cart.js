@@ -14,9 +14,11 @@ $(function () {
 
 
 function updateList() {
-	
 	countnotif();
 	let str = '';
+	if((cart.length==0)||(cart==undefined)){
+		$(".cancellation").hide();
+	}
 	if((cart==undefined)||(cart.length==0)||(salesOrderDetails==undefined)||(salesOrderDetails.length==0)){
 		str = `
 				<p class="h6 text-center ">還未將任何商品加入購物車</p>
@@ -26,19 +28,18 @@ function updateList() {
 								class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
 						</a>
 				</div>
-				<div class="col-md-3">
-					<button class="btn btn-lg btn-outline-light rounded-full mt-3 cancel" >取消本次訂購</button>
-			   </div>`
+				`
 		$(".order-controll").hide();
-//		$(".totalPr").hide();
+		$(".totalPr").hide();
+
 	}else{
 		for (let i = 0; i < salesOrderDetails.length; i++) {
 			str +=
-				`
-				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
-				<div class="img" style="background-image: url(../picture/${salesOrderDetails[i].productId});"></div>
+				`<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
+					<div class="img" style="background-image: url(../picture/${salesOrderDetails[i].productId});">
+				</div>
 				<div class="desc pl-3">
-	      	<div class="d-flex text align-items-center">
+					<div class="d-flex text align-items-center">
 						<div class="col-11">
 							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
 						</div>
@@ -47,16 +48,13 @@ function updateList() {
 							<i class="far fa-trash-alt" data-num="${[i]}"></i>
 						</div>
 				</div>`
-				// 數量部分下拉式選單
-				index = i; 
-				opt = insertQtty (salesOrderDetails[i].quantity, i);
-				index = i; 
-				str += opt ;
-							
-				str +=`<span>${salesOrderDetails[i].crustTypeName}</span> 
+			// 數量部分下拉式選單
+			index = i; 
+			opt = insertQtty (salesOrderDetails[i].quantity, i);
+			str += opt ;
 						
-						<span> / </span>
-			`
+			str +=`<span>${salesOrderDetails[i].crustTypeName}</span> 
+					<span> / </span>`
 			if (salesOrderDetails[i].doubleCheese == 1) {
 				str += `<span>加量一份起司</span> <span>+25</span>`
 			} else {
@@ -66,8 +64,8 @@ function updateList() {
 			$(".order-controll").show();
 				
 		}
-	}		
-	$(".cartList").html(str);
+	}
+	 $(".cartList").html(str);
 	 let cartStr = JSON.stringify(cart);
 	 localStorage.setItem('cartList', cartStr);
 }
@@ -101,9 +99,7 @@ function deleteList(num){
 }
 
 var deleteAll = function (){
-//	$(".ftco-section").on('click', '$(".cancel")', function(){
-		$(".ftco-section").on('click', ".cancel", function(){
-		
+	$(".ftco-section").on('click', ".cancellation", function(){
 		swal({
 			  title: "確定取消購物?",
 			  text: "您的動作將無法回覆",
