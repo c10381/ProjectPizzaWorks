@@ -253,4 +253,11 @@ public class PurchaseDaoImpl implements PurchaseDao {
 			oldBean.setActualQuantity(prdb.getActualQuantity());
 		} 
 	}
+
+	@Override
+	public PurchaseOrderBean getOnePurchaseOrderById(Integer pOrderId) {
+		Session session = factory.getCurrentSession();
+		PurchaseOrderBean purchaseOrder = session.get(PurchaseOrderBean.class, pOrderId);
+		return purchaseOrder;
+	}
 }

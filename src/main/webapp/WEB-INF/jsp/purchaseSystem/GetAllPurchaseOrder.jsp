@@ -27,7 +27,6 @@
 			<table id="poTable" class="text-center display">
 				<thead>
 					<tr>
-						<th></th>
 						<th>RID</th>
 						<th>採購時間</th>
 						<th>採購者</th>
@@ -50,15 +49,10 @@
 	            "lengthMenu": [10, 20],
 	            "searching": false,
 	            "info": false,
-	            "order": [[1, "desc"]],
+	            "order": [[0, "desc"]],
 	           
 	            // 欄位的操作
 	           "columns": [{
-	                "data": null,
-	                "defaultContent": '<i class="fas fa-plus"></i>',
-	                "orderable": false,
-
-	            }, {
 	                "data": "pOrderId"
 	            }, {
 	                "data": "requestTime"
@@ -68,7 +62,7 @@
 	            ],
 	            "columnDefs": [
 	               {
-	                	"targets" : 4,
+	                	"targets" : 3,
 	                	"data" : "pOrderId",
 	                	"width" : "8%",
 	                	"render": function (data, type, row, meta) {
@@ -79,10 +73,10 @@
 	        });
 		
 		// 導向單一產品頁面
-		$('#prTable tbody').on('click', '.detailbtn', function(){
+		$('#poTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
-	    	var pRequestId = table.row(tr).data().pRequestId;		
-	    	loadingPage('${request.contextPath}/getOnePurchaseRequest?id='+pRequestId);
+	    	var pOrderId = table.row(tr).data().pOrderId;		
+	    	loadingPage('${request.contextPath}/getOnePurchaseOrder?id='+pOrderId);
 		}); 
 		
 		/* 表格的開關  */

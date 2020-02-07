@@ -55,4 +55,6 @@ public interface PurchaseService {
 	void updatePurchaseRequestStatus(Integer RequestId, Integer requestStatus);
 	
 	Integer updateApprovedPurchaseRequest(PurchaseRequestBean purchaseRequest);
+	
+	String getOnePurchaseOrderJson(Integer pOrderId);
 }
