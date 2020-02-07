@@ -70,7 +70,7 @@ public class CustomerController {
 	}
 	
 	//前端註冊信箱檢查按鈕判定
-	@RequestMapping(value = "/memberSystem/emailChecker")
+	@RequestMapping(value = "/memberSystem/emailChecker", method=RequestMethod.GET)
 	@ResponseBody
 	public boolean emailChecker(@RequestParam("email")String email) {		
 		boolean emailChecker=false;
@@ -154,6 +154,24 @@ public class CustomerController {
 		}
 		return "memberSystem/updPwd";
 	}
+	
+	//前端修改密碼的舊密碼判定
+	@RequestMapping(value = "/memberSystem/oldPwdChecker", method=RequestMethod.GET)
+	@ResponseBody
+	public boolean oldPwdChecker(@RequestParam("oldPwd")String pwd, HttpSession session) {		
+		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
+		String email = mem.getEmail();
+		boolean pwdChecker=false;
+		if(service.pwdChecker(email, pwd)) {
+			pwdChecker = true;
+			return pwdChecker;
+		}else {			
+			return pwdChecker;
+		}		
+	}
+	
+	
+	
 
 	// 修改密碼
 	@RequestMapping(value = "/memberSystem/doUpdPwd")

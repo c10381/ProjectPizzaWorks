@@ -38,6 +38,8 @@ public interface CustomerService {
 	//導向修改密碼介面
 	
 	MembersBean login(String email , String pwd);
+	
+	boolean pwdChecker(String email, String pwd);
 	boolean updPwd(String email, String oldPwd, String newPwd);
 	boolean resetPwd(String email, String newPwd );
 	
