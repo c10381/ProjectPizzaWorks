@@ -181,7 +181,7 @@
 
 <script type="text/javascript">
 	var divider = "<div class='dropdown-divider'></div>";
-	var time_interval = 3000;
+	var time_interval = 30000;
 	var identity = ${Mem_LoginOK.privilegeId};
 	var intervalId;
 	getNotification();
@@ -283,7 +283,7 @@
 			},
 			success : function(data) {				
 				$('#footer').html('查看所有請購需求');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");				
+				$('#footer').attr("onclick","loadingPage('/purchase/GetAllPurchaseRequest')");				
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('目前沒有請購需求');
@@ -299,8 +299,8 @@
 	
 	function purchaseRequestNotifier(data){		
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getPurchaseRequest?id=";//變更網址
-		var requestId = "採購單號：";
+		var link = "/getOnePurchaseRequest?id=";//變更網址
+		var requestId = "請購單號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {

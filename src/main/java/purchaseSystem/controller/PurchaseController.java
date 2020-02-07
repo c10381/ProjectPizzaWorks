@@ -117,7 +117,13 @@ public class PurchaseController {
 			service.saveOnePurchaseOrder(purchaseOrder);
 			return "OK";
 		}
-
+		
+	@RequestMapping(value = "/getOnePurchaseOrder", method = RequestMethod.GET)
+	public String getOnePurchaseOrder(@RequestParam(value = "id") Integer pOrderId, Model model) {
+		String purchaseOrder = service.getOnePurchaseOrderJson(pOrderId);
+		model.addAttribute("purchaseOrder_jsonStr", purchaseOrder);
+		return "purchaseSystem/GetPurchaseOrder";
+	}
 	
 //	// 修改請購單
 //	@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, produces = {
