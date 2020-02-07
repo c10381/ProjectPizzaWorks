@@ -30,27 +30,33 @@
 				<h1 style="text-align: center">會員資料填寫</h1>
 			</div>
 
-			<hr width="3">
-
 			<form:form method="POST" modelAttribute="MembersBean" class="col-md-4 mx-auto align-items-center" 
-				action="${pageContext.request.contextPath}/memberSystem/submitForm" >
+				action="../memberSystem/submitForm" >
 				<fieldset>
 					<legend style="text-align: center">會員資料填寫</legend>
+					
+				<!--form row starts  -->	
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">帳號：</label>
 					<form:input path="email" value="${MembersBean.email}" type="text" 
 						class="form-control col-sm-6"  readonly='true'/>
 					<form:hidden path="password" value="${MembersBean.password}" />
+				<!--form row ends  -->
 				</div>
+				
+				<!--form row starts  -->
 				<div class='form-row form-group'>	
 					<label class="col-form-label col-sm-2 align-self-center">姓氏：</label>
-					<form:input id="lastName" path="lastName" type="text" required="required" maxlength="15" 
+					<form:input id="lName" path="lastName" type="text" required="required" maxlength="15" 
 								class="form-control col-sm-2"/>
 
 					<label class="col-form-label col-sm-2 align-self-center">名字：</label>
-					<form:input id="firstName" path="firstName" type="text" required="required" maxlength="15" 
+					<form:input id="fName" path="firstName" type="text" required="required" maxlength="15" 
 								class="form-control col-sm-3"/>
+				<!--form row ends  -->				
 				</div>
+				
+				<!--form row starts  -->
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">性別：</label>
 					<form:select path="gender" id="gender" class="form-control col-sm-2">
@@ -60,21 +66,30 @@
 					</form:select>
 			
 					<label class="col-form-label col-sm-2 align-self-center">生日：</label>
-					<form:input id="birthDate" path="birthDate" type="date" 
+					<form:input id="birth" path="birthDate" type="date" 
 						 maxlength="10" required='required' class="form-control col-sm-4"/>
+				<!--form row ends  -->		 
 				</div>
+				
+				<!--form row starts  -->
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">地址 ：</label>
-					<form:input id="address" path="address" type="text" required='required' maxlength="10"
+					<form:input id="addr" path="address" type="text" required='required' maxlength="10"
 								class="form-control col-sm-8"/>
+				<!--form row ends  -->
 				</div>
+				
+				<!--form row starts  -->
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">手機 ：</label>
-					<form:input id="cellphone" path="cellphone" type="text" required='required' 
+					<form:input id="phone" path="cellphone" type="text" required='required' 
 								class="form-control col-sm-3"/>
+				<!--form row ends  -->				
 				</div>
+				
 					<form:hidden path="activeStatus" value="1" />
 					<form:hidden path="privilegeId" value="1" />
+					
 				<div class="row">
 					<input id="btnAuto" type="button" value="一鍵輸入" class="btn btn-white btn-outline-white col-sm-2"/>
 					<div class="col-sm-7"></div>
@@ -94,20 +109,19 @@
 	<script type="text/javascript">
 	
 	$(function(){
-	
+		
 		$("#btnAuto").click(function(){
-			$("#lastName").val("蔡");
-			$("#firstName").val("育承");
-			$("#gender").val("1");
-			$("#birthDate").val("1993-10-01");
-			$("#address").val("復興南路一段390號2樓");
-			$("#cellphone").val("0912345678");				
+			$("#lName").val("艾");
+			$("#fName").val("披莎");
+			$("#gender").val("2");
+			$("#birth").val("2000-10-10");
+			$("#addr").val("復興南路一段390號2樓");
+			$("#phone").val("0912345678");				
 		})
 	})
 	
-	$('form').submit(function(event){
-		
-		console.log('reach');
+	$('form').submit(function(){
+		$('#btnAdd').prop('disabled',true);
 	})
 	
 	</script>

@@ -172,7 +172,7 @@ public class CustomerController {
 			session.setAttribute("CLoginOK", Members);
 			return "memberSystem/updateSuccess";
 		} else {
-			return "memberSystem/updateFail";
+			return "memberSystem/pwdupdateFail";
 		}
 	}
 
