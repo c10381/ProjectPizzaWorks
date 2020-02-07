@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- START footer -->
 <footer class="ftco-footer ftco-section img">
 	<div class="overlay"></div>
@@ -69,3 +69,13 @@
 </footer>
 
 <!-- END footer -->
+ 	<script>
+ 	let contextPath = "${pageContext.request.contextPath}";
+		<c:if test="${CLoginOK!=null }">
+ 		let memCheck = true;
+ 		let customerEmail = "${CLoginOK.email}";
+ 		let fromFirstName = "${CLoginOK.firstName}";
+ 		let fromLastName = "${CLoginOK.lastName}";
+ 		</c:if>
+ 	</script>
+

@@ -40,7 +40,12 @@ public class ChatController {
     @MessageMapping("/customerchat/{chatID}")
     public OutputMessage toCustomer(@DestinationVariable String chatID, Message message) throws Exception {
     	OutputMessage outputMessage = new OutputMessage(new Date().toString(), message,true);
-    	template.sendMsgToCoworker(chatID, outputMessage);
+    	System.out.println("chatID:"+chatID);
+    	if(chatID.equals("service@pizza.com")) {
+    		template.sendMsgToCoworker(chatID, outputMessage);
+    	}else {
+    		template.sendMsgToCustomer(chatID, outputMessage);    		
+    	}
     	return outputMessage;
     }
 

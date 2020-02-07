@@ -15,14 +15,14 @@
 	<div id="cS_container">
 		<div id="tabs">
 			<ul class="cs_MessageContent">
-				<!-- <li><a href="#cs_aaablock" id="aaa">Tab 1</a></li>
-				<li><a href="#tabs-2">Tab 1</a></li> -->
+				<li><a href="#cs_aaablock" id="aaa">Tab 1</a></li>
+				<li><a href="#tabs-2">Tab 1</a></li>
 			</ul>
-			<!-- <div id="cs_aaablock">
+			<div id="cs_aaablock">
 				<div class="cs_comeMessage"><p>111111111</p></div>
 				<div class="cs_myMessage"><p>111111111</p></div>
 			</div>
-			<div id="tabs-2"></div> -->
+			<div id="tabs-2"></div>
 
 		</div>
 		<div style="width: 900px; display: flex;">
