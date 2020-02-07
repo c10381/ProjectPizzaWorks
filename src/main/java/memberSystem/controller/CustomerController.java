@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,13 +32,10 @@ public class CustomerController {
 		this.service = service;
 	}
 
-	// 轉址,未來找地方放? 註冊轉址
-	@RequestMapping(value = "/memberSystem/customer_register", method = RequestMethod.GET)
-	public String emailCheck(Model model) {
-
-		if (model.getAttribute("errMsg") != null) {
-			model.addAttribute("errMsg", "該信箱已註冊，請至登入畫面進行登入");
-		}
+	//註冊轉址
+	@GetMapping(value = "/memberSystem/register")
+	public String register(Model model) {
+		//return jsp 名稱
 		return "memberSystem/register";
 	}
 
@@ -66,33 +64,38 @@ public class CustomerController {
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		if (mem == null) {
 			return "memberSystem/login";
-		}
-		
+		}		
 		model.addAttribute("MembersBean", new MembersBean());
 		return "memberSystem/infoUpdate";
 	}
 	
-	//註冊信箱判定
-	@RequestMapping(value = "/memberSystem/register", method = RequestMethod.POST)
-	public String register(@RequestParam(value = "email") String email,
-			@RequestParam(value = "password") String password, Model model) {
+	//前端註冊信箱檢查按鈕判定
+	@RequestMapping(value = "/memberSystem/emailChecker")
+	@ResponseBody
+	public boolean emailChecker(@RequestParam("email")String email) {		
+		boolean emailChecker=false;
+		if(!service.emailExists(email)) {
+			return emailChecker;
+		}else {
+			emailChecker = true;
+			return emailChecker;
+		}		
+	}
 		
-		if (!service.emailExists(email)) {
-			//如果資料庫沒有該筆信箱的資料，就將使用者輸入的帳號 (信箱) 及密碼丟到
+	//將註冊的信箱及密碼傳到下個頁面
+	@RequestMapping(value = "/memberSystem/register_form", method = RequestMethod.POST)
+	public String register_form(@RequestParam(value = "email") String email, 
+						   @RequestParam(value = "password") String password, Model model) {		
 			MembersBean mem = new MembersBean();
 			mem.setEmail(email);
 			mem.setPassword(password);
-			model.addAttribute("MembersBean", mem);
+			model.addAttribute("MembersBean",mem);
 			return "memberSystem/register_form";
-		} else {
-			model.addAttribute("errMsg", 4);
-			return "memberSystem/login";
-		}
 	}
 	
 	//將頁面導入註冊成功畫面
-	@RequestMapping(value = "/memberSystem/customer_add", method = RequestMethod.POST)
-	public String addCustomer(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request) {
+	@RequestMapping(value = "/memberSystem/submitForm", method = RequestMethod.POST)
+	public String submitForm(@ModelAttribute("MembersBean") MembersBean mem, HttpServletRequest request) {
 		service.addCustomer(request, mem);
 		return "memberSystem/register_complete";
 	}
@@ -124,10 +127,10 @@ public class CustomerController {
 		}
 	}
 
-	//
+	//會員資料更新
 	@RequestMapping(value = "/memberSystem/doupdate")
 	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, HttpSession session) {
-
+		
 		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
 		if (mem1 == null) {
 			return "memberSystem/login";
@@ -201,8 +204,8 @@ public class CustomerController {
 			return "memberSystem/resetFail";
 		}
 	}
-
-	@RequestMapping(value = "memberSystem/forgetpwd")
+	//忘記密碼頁面，但是他不動耶
+	@GetMapping(value = "/memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
 		return "memberSystem/forgetPWPage";
 	}

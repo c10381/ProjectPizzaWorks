@@ -56,14 +56,14 @@ function openchatmessagebox(Email,Name){
 				"<div class='chatnew_messages myMessage'></div>"+
 				"</div>"+
 				"<div class='chatinput_box'>"+
-				"<textarea class='chatmessage_input' placeholder='Type a message...' id='to"+Email+"Message'></textarea>"+
+				"<textarea class='chatmessage_input' placeholder='Type a message...' id='to"+Email+"Message' onkeyup='putEnter(\""+Email+"\",this)'></textarea>"+
 //          "<i class='fas fa-location-arrow chatenter' onclick='sendMessage(\""+Email+"\")'></i>"+
 				"<i class='fas fa-location-arrow chatenter' onclick='sendMessage(\""+Email+"\",this)'></i>"+
 				"</div>"+
 				"</div>"+
 		"</div>");
 	}else{
-		//console.log("AAAAAAAAAAAAAAAA");
+		document.getElementById(Email+"chatbox").parentElement.style.display="block";
 	}
 }
 //縮小視窗
@@ -75,7 +75,17 @@ function hideMessageBox(obj){
 		$(obj).siblings(".chatmessage_content").slideToggle("slow");
 	
 }
-
+//按下enter會送出
+function putEnter(email,obj){
+	 var text = $(obj).val();
+	if(event.keyCode==13 && text!='\n'){
+		sendMessage(email,obj);
+	}
+	//如果只有按下enter會清掉
+	if(text=='\n'){
+		$(obj).val("");
+	}
+}
 
 
 //================ WebSocket =====================
@@ -101,13 +111,12 @@ function connect() {
     var socket = new SockJS(contextPath+'/chatroom');
     stompClient = Stomp.over(socket);
     
-    if(customerEmail!=""){
-    	console.log("顧客身分:"+customerEmail);
-    	userName = customerEmail;
-    }else if(memberEmail!=""){
+    if(memberEmail!=""){
     	console.log("員工身分:"+memberEmail);
     	userName = memberEmail;
     }else{
+    	//這裡可能會有BUG!!!!!如果member沒有資料會強制導向登入畫面
+    	window.location.replace(contextPath+"/logout");
     	console.log("???????????")
     }
     
@@ -124,12 +133,16 @@ function connect() {
         
         // 私人
         stompClient.subscribe('/user/subscribe', function(messageOutput) {
-        	showMessageOutput(JSON.parse(messageOutput.body));
+        	var messageGet=JSON.parse(messageOutput.body);
+        	if(messageGet.customerService==true){
+        		getCustomerMessage(messageOutput);
+        	}else{
+        		showCoworkerMessageOutput(messageGet);        		
+        	}
         });
 
     });
     
-    //$.get(contextPath+"/messageSystem/getOnline");
     
 }
 
@@ -171,8 +184,8 @@ function showOnline(messageOutput){
 		$(".chat_content").append("<div class='chatuser' id='"+coworkerOfflineList[i].Email+"'><h5 class='chatusername offline'>"+coworkerOfflineList[i].Name+"</h5></div>");
 	}
 }
-//私底下送過來的東西
-function showMessageOutput(messageOutput) {
+//員工互相傳送的東西
+function showCoworkerMessageOutput(messageOutput) {
 	var response = document.getElementById(messageOutput.message.from+'chatbox');
 	if(response==undefined){
 		//如果改寫controller要改寫的地方
@@ -194,7 +207,6 @@ function showMessageOutput(messageOutput) {
     response=document.getElementById(messageOutput.message.from+'chatbox');
     response.appendChild(div);
 
-    //var elem = document.getElementById('scroll');
     response.scrollTop = response.scrollHeight;
 }
 

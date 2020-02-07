@@ -3,13 +3,23 @@ package messageSystem.controller;
 public class OutputMessage {
     private String dateStr;
     private Message message;
-
-    public OutputMessage(String dateStr, Message message) {
+    private Boolean customerService;
+    
+    public OutputMessage(String dateStr, Message message,Boolean customerService) {
         this.dateStr = dateStr;
         this.message = message;
+        this.customerService=customerService;
     }
 
-    public String getDateStr() {
+    public Boolean getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(Boolean customerService) {
+		this.customerService = customerService;
+	}
+
+	public String getDateStr() {
         return dateStr;
     }
 

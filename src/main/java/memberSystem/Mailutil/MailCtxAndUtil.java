@@ -12,6 +12,7 @@ public class MailCtxAndUtil {
 	String Context="";
 
 	//新會員註冊的確認信
+	//待改
 	public String ConfirmationMailContext(HttpServletRequest request,MembersBean mem,String CustomerConfirmURL){
 		Context="<html><head><meta charset='utf-8'></head>"
 				+ "<body><h3>嗨，"+mem.getFirstName()+"您好</h3><br><p>感謝您在"+"Pizza"+"上申請了新的帳號，開始訂購美味的Pizza前，我們需要確認是您本人申請此帳號，</p><br>"
