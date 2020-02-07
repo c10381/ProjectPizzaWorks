@@ -7,27 +7,27 @@
 <c:choose>
 	<c:when test="${Mem_LoginOK.privilegeId==2}">
 		<nav
-			class="main-header navbar navbar-expand navbar-light navbar-white">
+			class="main-header navbar navbar-expand navbar-light navbar-white" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==3}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-success">
+			class="main-header navbar navbar-expand navbar-dark navbar-success" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==4}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-danger">
+			class="main-header navbar navbar-expand navbar-dark navbar-danger" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==5}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-primary">
+			class="main-header navbar navbar-expand navbar-dark navbar-primary" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==6}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-lightblue">
+			class="main-header navbar navbar-expand navbar-dark navbar-lightblue" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==7}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-secondary">
+			class="main-header navbar navbar-expand navbar-dark navbar-secondary" style="border:0;">
 	</c:when>
 </c:choose>
 <!-- Left navbar links -->

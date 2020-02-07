@@ -15,6 +15,8 @@ import _model.MembersBean;
 public class backendController {
 	// 這裡放不需登入的轉址
 
+
+	
 	// 轉址(navbar)
 	@PostMapping(value = "/backendSystem/navbar")
 	public String navbar(Model model) {

@@ -43,7 +43,7 @@
 
 
 </head>
-<body class="sidebar-mini layout-fixed" onload="clock()">
+<body  class="sidebar-mini layout-fixed" onload="clock()">
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<!-- import navbar(use request),change the color in Jsp -->
@@ -55,7 +55,7 @@
 
 		<aside class="main-sidebar elevation-4 sidebar-dark-primary">
 			<!-- Brand Logo -->
-			<a href="${pageContext.request.contextPath}/backendSystem/adminIndex"
+			<a href="${pageContext.request.contextPath}/admin"
 				class="brand-link"> <img
 				src="${pageContext.request.contextPath}/images/shopManageSystem/tempLogo.jpg"
 				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -95,12 +95,11 @@
 		</aside>
 
 
-
 		<!-- Main content ,use jQuery load() to load page-->
 		<div class="content-wrapper"
-			style="box-sizing: border-box; padding: 10px 15px"></div>
+			style="box-sizing: border-box; padding: 30px 30px; background: url(${pageContext.request.contextPath}/images/shopSystem/bg_4.jpg) no-repeat fixed;background-size: cover;"></div>
+		</div>
 		<!-- Main content -->
-	</div>
 	<!-- ./wrapper -->
 
 	<!-- Backend chatroom -->
