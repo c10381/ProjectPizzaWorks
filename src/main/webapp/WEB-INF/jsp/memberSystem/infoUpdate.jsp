@@ -6,7 +6,6 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
 <title>會員資料修改</title>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -18,31 +17,38 @@
 <!-- ----- -->
 
 </head>
-<body>
+<body class="hold-transition login-page">
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 	
 	<section class="ftco-section">
 		<div id='container justify-content-center'>
+		
 			<div id='header'>
-				<h1 style="text-align: center">聯絡資料修改</h1>
+				<h1 style="text-align: center">聯絡資料檢視/修改</h1>
 			</div>
 		
 		
 		<form:form method='POST' modelAttribute="MembersBean"
-			class='form-horizontal' action='${pageContext.request.contextPath}/memberSystem/doupdate'>
+			class='col-md-6 mx-auto align-items-center' action='${pageContext.request.contextPath}/memberSystem/doupdate'>
 			<fieldset>
-				<legend>聯絡資料修改</legend>
-
-				<br> <label>地址 ：</label>
+				<legend style="text-align: center">聯絡資料檢視/修改</legend>
+				<div class='form-row form-group'>
+				<label class="col-form-label col-sm-2 align-self-center">地址 ：</label>
 				<form:input id="address" path="address" type="text"
-					value='${CLoginOK.address}'	required='required' />
-
-				<br> <label>連絡電話 ：</label>
+					value='${CLoginOK.address}'	required='required' class="form-control col-sm-6"/>
+				</div>
+				<div class='form-row form-group'>
+				<label class="col-form-label col-sm-2 align-self-center">連絡電話 ：</label>
 				<form:input id="cellphone" path="cellphone" type="text"
-					value='${CLoginOK.cellphone}'	required='required' />
-
-				<br> <input id='btnAdd' type="submit" value="送出" /> 
-					 <input id='btnReset' type="reset" value="重填" />
+					value='${CLoginOK.cellphone}' required='required' class="form-control col-sm-6" />
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-7"></div>
+					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+					<div>&nbsp;</div>
+					<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/> 
+				</div>
 			</fieldset>
 		</form:form>
 		</div>

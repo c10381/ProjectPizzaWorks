@@ -172,13 +172,13 @@ public class CustomerController {
 			session.setAttribute("CLoginOK", Members);
 			return "memberSystem/updateSuccess";
 		} else {
-			return "memberSystem/updateFail";
+			return "memberSystem/pwdupdateFail";
 		}
 	}
 
 	// 新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	// 最後會拿到Bean
-	@RequestMapping(value = "memberSystem/customer_add/{VCode}")
+	@RequestMapping(value = "memberSystem/submitForm/{VCode}")
 	public String validationCode(@PathVariable("VCode") String VCode, Model model) {
 		MembersBean mem = service.confirmvalidationCode(VCode);
 		if (mem != null) {
