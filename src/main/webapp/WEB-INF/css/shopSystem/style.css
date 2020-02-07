@@ -10144,6 +10144,12 @@ h5,
   width: 100%;
   padding: 30px 15px;
 }
+.ftco-about pre{
+	width : inherit;
+	font-size: 15px;
+	color: #6c757d;
+	font-family: "Poppins", "Noto Sans TC", Arial, sans-serif;
+}
 @media (min-width: 768px) {
   .ftco-about .one-half {
     padding: 5%;
