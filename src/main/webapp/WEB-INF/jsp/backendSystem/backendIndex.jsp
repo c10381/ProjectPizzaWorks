@@ -55,7 +55,7 @@
 
 		<aside class="main-sidebar elevation-4 sidebar-dark-primary">
 			<!-- Brand Logo -->
-			<a href="${pageContext.request.contextPath}/backendSystem/adminIndex"
+			<a href="${pageContext.request.contextPath}/backendSystem/admin"
 				class="brand-link"> <img
 				src="${pageContext.request.contextPath}/images/shopManageSystem/tempLogo.jpg"
 				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"

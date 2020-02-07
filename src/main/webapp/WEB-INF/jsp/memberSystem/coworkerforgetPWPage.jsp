@@ -67,6 +67,7 @@
 					</div>
 					<!-- /.col -->
 				</div>
+				<div id="admin" class="btn btn-default btn-sm">員工甲</div>
 			</div>
 		</div>
 	</div>
@@ -82,6 +83,12 @@
 	<script
 		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
 	<script>
+	$().ready(function(){
+		$("#admin").click(function(){
+			$("#email").val("asd@pizza.com");
+			$("#password").val("P@ssw0rd");
+		});
+	}
 		function SendToBack() {
 			$
 					.ajax({

@@ -162,9 +162,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		JSONArray output_jsa = new JSONArray();
 		for (PurchaseOrderBean pob : purchaseOrders) {
 			// 將Bean轉為JSON
-			pOrder_jso = new JSONObject(pob.getpOrderId());
+			pOrder_jso = new JSONObject(pob);
 			// 不知何原因，JSON中不會有PK，必須重新加入
-			pOrder_jso.put("pOrderId", pob);
+			pOrder_jso.put("pOrderId", pob.getpOrderId());
 			MembersBean proposaler = memberDao.getMember(pob.getProposalerId());
 			MembersBean approverId = memberDao.getMember(pob.getApproverId());
 
