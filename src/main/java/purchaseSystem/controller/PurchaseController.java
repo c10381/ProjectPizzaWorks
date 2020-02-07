@@ -60,7 +60,7 @@ public class PurchaseController {
 	public String getOnePurchaseRequest(@RequestParam(value = "id") Integer id, Model model) {
 		String purchaseRequest = service.getOnePurchaseRequestJson(id);
 		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
-		return "placeHolderPage";
+		return "purchaseSystem/GetPurchaseRequest";
 	}
 
 	// 2.新增單張請購單

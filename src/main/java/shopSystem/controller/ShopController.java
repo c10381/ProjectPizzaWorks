@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import _model.ProductBean;
+import _model.WebInfo;
 import shopManageSystem.service.ProductService;
 import shopSystem.service.ShopService;
 
@@ -70,11 +72,27 @@ public class ShopController {
 	}
 	@RequestMapping("/story")
 	public String getStory(Model model) {
-		
 		return "shopSystem/story";
 	}
 	
-	
 
+	@RequestMapping("/redirectWebInfo")
+	public String redirectWebInfo(Model model) {
+		model.addAttribute("Bean", new WebInfo());
+		return "/shopSystem/backEnd/EditInfo";
+	}
+	
+	
+	@RequestMapping("/insertWebInfo")
+	public String insertWebInfo(WebInfo webinfo) {
+		shopService.insertWebInfo(webinfo);
+		return "/shopSystem/SuccessInsertWebInfo";
+	}
+	
+	@RequestMapping("/getWebInfo")
+	public @ResponseBody String getWebInfo() {
+		Gson gson=new Gson();
+		return gson.toJson(shopService.getWebInfo());
+	}
 
 }
