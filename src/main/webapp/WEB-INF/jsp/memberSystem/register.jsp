@@ -17,7 +17,7 @@
 <!-- ----- -->
 
 </head>
-<body class="hold-transition login-page">
+<body>
 	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 	<!-- ----- -->
@@ -104,7 +104,7 @@
 	})
 	
 	//全域變數，讓form可不可以被送出
-	var flag = false;
+	var flag = true;
 	
 	//檢查使用者輸入的email是否已註冊
 	function emailExists(){
@@ -128,13 +128,14 @@
 						$('#email_errbox').attr({
 							"class" : "text-danger col-sm-3 align-self-center"
 						})
-						flag = false;
+						var flag = true;
+						
 					}else{
 						$('#email_errbox').text('該信箱可以使用');
 						$('#email_errbox').attr({
 							"class" : "col-sm-3 align-self-center"
 						})
-						flag = true;
+						flag = false;
 					}
 				}			
 			}) 
@@ -189,7 +190,8 @@
 	}
 	
 	//檢查使用者輸入的帳號/密碼/確認密碼是否有效
-	$('form').submit(function(event){	
+	$('form').submit(function(event){
+		
 		var emailtxt = $('#email').val();
 		var pwd = $('#password').val();
 		var vpwd = $('#validpwd').val();
@@ -236,6 +238,7 @@
 			event.preventDefault();
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認');			
 		}else if(flag){
+			console.log('preventer2');
 			event.preventDefault();
 		}else{
 			return;

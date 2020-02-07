@@ -212,4 +212,20 @@ public class CustomerServiceImpl implements CustomerService {
 		return dao.resetPwd(email, encrypter.getMD5Endocing(newPwd));
 	}
 	
+	@Transactional
+	@Override
+	public boolean pwdChecker(String email, String pwd) {
+		boolean checker = false;
+		String encodedPwd = encrypter.getMD5Endocing(pwd);
+		String dbPwd = dao.pwdLoader(email);
+		if(dbPwd!=null) {
+			if(encodedPwd.equals(dbPwd)) {
+				checker = true;				
+			}
+			return checker;
+		}else {
+			return checker;
+		}		
+	}
+	
 }

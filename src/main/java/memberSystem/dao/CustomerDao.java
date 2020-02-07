@@ -34,6 +34,9 @@ public interface CustomerDao {
 	//登入
 	public MembersBean login(String acct, String pwd);
 	
+	//判斷舊密碼撈的值
+	public String pwdLoader(String email);
+	
 	public boolean updPwd(String email, String oldPwd, String newPwd);	
 	
 	public boolean resetPwd(String email, String newPwd);
