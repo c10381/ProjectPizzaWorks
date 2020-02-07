@@ -85,10 +85,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
 		pRequest_jso.put("pRequestId", pRequestId);
-		MembersBean member = memberDao.getMember(pRequestId);
+		
+		MembersBean member = memberDao.getMember(purchaseRequest.getProposalerId());
+		
 		String lastName = member.getLastName();
 		String firstName = member.getFirstName();
 		String fullName = lastName + firstName;
+		
 		JSONArray pRequestDetail_jsa = new JSONArray();
 		for (PurchaseRequestDetailBean purchaseRequestDetail : purchaseRequest.getPurchaseRequestDetails()) {
 			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
@@ -164,7 +167,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			// 將Bean轉為JSON
 			pOrder_jso = new JSONObject(pob);
 			// 不知何原因，JSON中不會有PK，必須重新加入
-			pOrder_jso.put("pOrderId", pob);
+			pOrder_jso.put("pOrderId", pob.getpOrderId());
 			MembersBean proposaler = memberDao.getMember(pob.getProposalerId());
 			MembersBean approverId = memberDao.getMember(pob.getApproverId());
 
