@@ -14,13 +14,9 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>查詢會員資料</p>
 							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+						<li class="nav-item" onclick="loadingPage('/shop/redirectWebInfo')"><div class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>前台資訊修改</p>
-							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p></p>
 							</div></li>
 					</ul></li>
 				<!-- /frontEnd System -->

@@ -6,90 +6,91 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-
 <title>密碼修改</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- icheck bootstrap -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/icheck-bootstrap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/adminlte.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- ----- -->
+<jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
+<jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
+<!-- ----- -->
 
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-		<div class="login-logo">
-			<a href="../../index2.html"><b>Pizza</b>會員密碼修改</a>
-		</div>
-		<!-- /.login-logo -->
-		<div class="card">
-			<div class="card-body login-card-body">
-				<p class="login-box-msg">${errorMessage}</p>
-				<p class="login-box-msg">${CLoginOK.lastName}</p>
-				<form action="${pageContext.request.contextPath}/memberSystem/doUpdPwd"  method="post">
 
-					<div class="input-group mb-3">
-						<input type='password' class="form-control" placeholder="請輸入舊密碼"  name='oldPwd' id='oldPwd'/>
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-envelope"></span>
-							</div>
-						</div>
+	<!-- ----- -->
+	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
+	<!-- ----- -->
+	<section class="ftco-section">
+		<div id='container justify-content-center'>
+		
+			<div id='header'>
+				<h1 style="text-align: center">會員密碼修改</h1>
+			</div>
+		
+		<!-- /.login-logo -->
+		
+			<div class="card-body login-card-body">				
+				<form action="${pageContext.request.contextPath}/memberSystem/doUpdPwd"  method="post"
+					class='col-md-6 mx-auto align-items-center'>
+
+					<div class="form-row form-group">
+						<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入舊密碼：</label> 
+						<!-- col end-->
+						<input id="oldPwd" name="oldPwd" type="password" placeholder='請輸入舊密碼' required
+					 	       maxlength="15" class="form-control col-sm-6" /> 
+						<!-- col end-->
+						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
+						 6-15字元  
+						</h6>
+						
+						<!-- col end-->
 					</div>
-					<div class="input-group mb-3">
-						<input type='password' class="form-control" placeholder="請輸入新密碼"  name='newPwd' id='newPwd'/>
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-lock"></span>
-							</div>
-						</div>
-					</div>				
-					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="請再次輸入密碼" name="chkPwd" id='chkPwd'>
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-lock"></span>
-							</div>
-						</div>
-					</div>					
+					<div class="form-row form-group">
+						<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入新密碼：</label> 
+						<!-- col end-->
+						<input id="newPwd" name="newPwd" type="password" placeholder='請輸入新密碼' required
+					 	       maxlength="15" class="form-control col-sm-6" /> 
+						<!-- col end-->
+						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
+						 6-15字元  
+						</h6>
+						
+						<!-- col end-->
+					</div>
+					<!-- row form-group end-->					
+					<div class="form-row form-group">
+						<label for="validpwd" class="col-form-label col-sm-3 align-self-center">* 請再次輸入密碼 ：</label> 
+					<!-- col end-->
+						<input id='validpwd' name="validpwd" type="password" placeholder='請再次輸入密碼' required 
+						   maxlength='15' class="form-control col-sm-6"/>
+					<!-- col end-->
+						<div class='col-sm-3 align-self-center' id='validpwd_errbox'></div>					
+					<!-- col end-->
+					</div>
+					<!-- row form-group end-->						
 					<div class="row">
-						<!-- /.col -->
-						<div class="col-4">
-							<button type="submit" class="btn btn-primary btn-block">送出</button>
-						</div>
-						<!-- /.col -->
+					<!-- col end-->
+						<div class="col-sm-7"></div>
+					<!-- col end-->
+						<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+						<div>&nbsp;</div>
+					<!-- col end-->
+						<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
+					<!-- col end-->
 					</div>
 				</form>
-
-				<!-- /.social-auth-links -->
-
-			<!-- /.login-card-body -->
+				
+			</div>
 		</div>
-	</div>
+	</section>
 	<!-- /.login-box -->
-
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
+	
+	<jsp:include page="../shopSystem/fragment/footer.jsp" />
+	<jsp:include page="../shopSystem/fragment/loader.jsp" />
+	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
+	
+	
 </body>
 </html>

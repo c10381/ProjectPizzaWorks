@@ -57,7 +57,7 @@
 								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/infoUpdate"> 
 									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 會員資訊 
 								</a> 
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/updPwd">
 									<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 密碼修改
 								</a>
 								<a class="dropdown-item" href="#">

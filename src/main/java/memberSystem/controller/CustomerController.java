@@ -172,13 +172,13 @@ public class CustomerController {
 			session.setAttribute("CLoginOK", Members);
 			return "memberSystem/updateSuccess";
 		} else {
-			return "memberSystem/updateFail";
+			return "memberSystem/pwdupdateFail";
 		}
 	}
 
 	// 新會員驗證信(所以此Request一開始不會拿到MemberBean)
 	// 最後會拿到Bean
-	@RequestMapping(value = "memberSystem/customer_add/{VCode}")
+	@RequestMapping(value = "memberSystem/submitForm/{VCode}")
 	public String validationCode(@PathVariable("VCode") String VCode, Model model) {
 		MembersBean mem = service.confirmvalidationCode(VCode);
 		if (mem != null) {
@@ -207,7 +207,7 @@ public class CustomerController {
 	//忘記密碼頁面，但是他不動耶
 	@GetMapping(value = "/memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
-		return "memberSystem/forgetPWPage";
+		return "memberSystem/ForgetPWPage";
 	}
 
 	// Customer導入忘記密碼

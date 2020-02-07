@@ -8,7 +8,7 @@
 <c:if test="${CLoginOK == null}">
 	<c:redirect url="/memberSystem/login" />
 </c:if>
-<title>結帳 - Pizza Sim</title>
+<title>Pizza Bite | 結帳 - </title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,37 +18,35 @@
 	rel="stylesheet">
 </head>
 <body>
-	<jsp:include page="fragment/navbar.jsp" />
+<jsp:include page="fragment/navbar.jsp" />
 
 	<!-- MainContent -->
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
+	<div class="container mt-5">
+		<div class="row justify-content-center pt-5">
 				<div class="col-md-7 col-5 heading-section ftco-animate text-center">
-					<h2 class="mb-4">結帳</h2>
-					<p class="line"></p>
+					<h2>結帳</h2>
 				</div>
 			</div>
+	</div>
+	<section class="ftco-about d-md-flex">
+		<div class="one-half">
 			<div class="row justify-content-center">
-				<div class="col-md-8 cartList"></div>
+					<div class="col-md-8 cartList"></div>
+				</div>
 			</div>
-		</div>
-	</section>
-
-	<section class="ftco-appointment">
-		<div class="overlay"></div>
-		<div class="container-wrap">
-			<div class="row no-gutters d-md-flex align-items-center">
-				<div class="col-md-6 appointment ftco-animate">
-					<h3 class="mb-3">訂購資料</h3>
-					<form action="#" class="appointment-form">
+		<div class="one-half ftco-animate">
+			<div class="heading-section ftco-animate ">
+				<h3 class="mb-3">訂購資料</h3>
+			</div>
+			<div class="form-order">
+				<form action="#" class="appointment-form">
 						<div class="d-md-flex">
 							<div class="form-group">
 							<label>取餐方式</label>
 								<input type="text" name="needDelivery" class="form-control" value="" disabled>
 							</div>
 						</div>
-						<div class="d-md-flex">
+						<div class="d-md-flex test">
 							<div class="form-group">
 							<label>送達地點</label>
 								<input type="text" name="deliverAddress" class="form-control" placeholder="">
@@ -66,14 +64,22 @@
 								placeholder="[邀您一同愛護地球] 即日起，不再主動提供餐巾紙及辣椒包。"></textarea>
 						</div>
 						<div class="form-group">
-							<input type="button" value="確認"
+							<input type="button" value="送出訂單"
 								class="btn btn-primary py-3 px-4">
 						</div>
 					</form>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-appointment">
+		<div class="container-wrap">
+			<div class="row no-gutters d-md-flex align-items-center">
+				<div class="col-md-6 appointment ftco-animate">
 				</div>
 				
 				<div class="col-md-6 d-flex align-self-stretch">
-					<div id="map"></div>
+					<div id="map">1516156165156</div>
 				</div>
 				
 			</div>

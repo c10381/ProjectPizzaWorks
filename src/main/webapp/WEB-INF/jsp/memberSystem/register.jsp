@@ -7,8 +7,6 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-
 <title>新會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
@@ -19,7 +17,7 @@
 <!-- ----- -->
 
 </head>
-<body>
+<body class="hold-transition login-page">
 	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 	<!-- ----- -->
@@ -33,15 +31,15 @@
 				<h1 style="text-align: center">新會員註冊</h1>
 			</div>
 
-			<form method='POST' id="register" class='col-md-6 mx-auto align-items-center needs-validation'				
+			<form method="POST" id="register" class="col-md-6 mx-auto align-items-center"			
 				 action="${pageContext.request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
-				<div class='form-row form-group'>
+				<div class="form-row form-group">
                 		<label for="email" class="col-form-label col-sm-3 align-self-center">* 請輸入註冊信箱：</label>
                 		<!-- col end-->
                 		<input id="email" name="email" class="form-control col-sm-6" type='email' placeholder='請輸入註冊信箱' required />
             			<!-- col end-->
-            			<div class='col-sm-3 align-self-center' id='email_errbox'></div>
+            			<div class="col-sm-3 align-self-center" id="email_errbox"></div>
             			<!-- col end-->
     			</div>
     			<!-- row form-group ends-->
@@ -65,23 +63,23 @@
 				<div class="form-row form-group">
 					<label for="validpwd" class="col-form-label col-sm-3 align-self-center">* 請再次輸入密碼 ：</label> 
 					<!-- col end-->
-					<input id='validpwd' name="validpwd" type="password" placeholder='請再次輸入密碼' required 
-						   maxlength='15' class="form-control col-sm-6"/>
+					<input id="validpwd" name="validpwd" type="password" placeholder="請再次輸入密碼" required 
+						   maxlength="15" class="form-control col-sm-6"/>
 					<!-- col end-->
-					<div class='col-sm-3 align-self-center' id='validpwd_errbox'></div>					
+					<div class="col-sm-3 align-self-center" id="validpwd_errbox"></div>					
 					<!-- col end-->
 				</div>
     			<!-- row form-group end-->	
 				<br> 
 				<div class="row">
-					<input type='button' id='btnAuto' value="一鍵輸入"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<input type="button" id="btnAuto" value="一鍵輸入"  class="btn btn-white btn-outline-white col-sm-2"/>
 					<!-- col end-->
 					<div class="col-sm-7"></div>
 					<!-- col end-->
-					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
 					<!-- col end-->
-					<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
+					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
 					<!-- col end-->
 				</div> 
 				<!-- row end -->
@@ -106,7 +104,7 @@
 	})
 	
 	//全域變數，讓form可不可以被送出
-	var flag = false;
+	var flag = true;
 	
 	//檢查使用者輸入的email是否已註冊
 	function emailExists(){
@@ -130,13 +128,13 @@
 						$('#email_errbox').attr({
 							"class" : "text-danger col-sm-3 align-self-center"
 						})
-						flag = false;
+						flag = true;
 					}else{
 						$('#email_errbox').text('該信箱可以使用');
 						$('#email_errbox').attr({
 							"class" : "col-sm-3 align-self-center"
 						})
-						flag = true;
+						flag = false;
 					}
 				}			
 			}) 
