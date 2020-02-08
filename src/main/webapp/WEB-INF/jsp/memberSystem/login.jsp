@@ -75,9 +75,7 @@
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 	
 	<script type="text/javascript">
-	
-	
-	
+		
 	$("#btnAuto").click(function() {
 		console.log('reach');
 		$("#email").val("iiiedujava@gmail.com");

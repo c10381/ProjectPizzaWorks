@@ -160,9 +160,6 @@ public class CustomerServiceImpl implements CustomerService {
 	//導向修改密碼介面(updatePWD)
 	
 	
-	
-	
-	
 	@Transactional
 	@Override
 	public MembersBean loadCustomer(String email) {

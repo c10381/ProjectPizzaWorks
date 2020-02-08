@@ -17,7 +17,6 @@
 
 </head>
 <body>
-
 	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 	<!-- ----- -->
@@ -30,12 +29,11 @@
 					
 			<form action="${pageContext.request.contextPath}/memberSystem/doUpdPwd"  method="post"
 					class='col-md-6 mx-auto align-items-center'>
-				<input type="hidden" value="${CLoginOK.email}" id="email">
 				<div class="form-row form-group">
 					<label for="password" class="col-form-label col-sm-3 align-self-center" >* 請輸入舊密碼：</label> 
 						<!-- col end-->
 					<input id="oldPwd" name="oldPwd" type="password" placeholder="請輸入舊密碼" required
-					 maxlength="15" class="form-control col-sm-6" onblur="pwdChecker()"/> 
+					 maxlength="16" class="form-control col-sm-6" onblur="pwdChecker()"/> 
 						<!-- col end-->
 					<div class="col-sm-3 align-self-center" id="oldpwd_errbox"></div>	
 				</div>
@@ -44,10 +42,11 @@
 					<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入新密碼：</label> 
 					<!-- col end-->
 					<input id="newPwd" name="newPwd" type="password" placeholder="請輸入新密碼" required
-					 	  maxlength="15" class="form-control col-sm-6" /> 
+					 	  maxlength="16" class="form-control col-sm-6" 
+					 	  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"/> 
 					<!-- col end-->
 					<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
-					6-15字元  
+						8-16字元，不含特殊符號   
 					</h6>
 				</div>
 					<!-- row form-group end-->					
@@ -91,7 +90,7 @@
 		}else{
 			$.ajax({
 				url: "${pageContext.request.contextPath}/memberSystem/oldPwdChecker?oldPwd=" + oldpwd,
-				type: "GET",
+				type: "POST",
 				error: function(data){
 					console.log('error');
 				},
@@ -125,7 +124,7 @@
 	$('#newPwd').keypress(function(){
 		var newpwd = $('#newPwd').val();
 		if(newpwd==''){
-			$('h6').text('6-15字元');
+			$('h6').text('8-16字元，不含特殊符號 ');
 		}else{
 			$('h6').text('');	
 		}		
@@ -134,14 +133,12 @@
 	$('#newPwd').keyup(function(){
 		var newpwd = $('#newpwd').val();
 		if(newpwd==''){
-			$('h6').text('6-15字元');
+			$('h6').text('8-16字元，不含特殊符號 ');
 		}else{
 			$('h6').text('');	
 		}
 	})
-	
-	
-	
+		
 	</script>	
 </body>
 </html>
