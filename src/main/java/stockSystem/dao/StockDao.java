@@ -5,9 +5,11 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
 import _model.SupplierBean;
+import _model.SuppliersProvisionBean;
 
 public interface StockDao {
 
@@ -29,5 +31,17 @@ public interface StockDao {
 	void updateStockRequestDetail(StockRequestDetailBean stockRequestDetail);
 
 	void updateStockRequest(StockRequestBean stockRequest);
+
+	List<MaterialsUnitBean> getAllMaterialsUnits();
+
+	List<SuppliersProvisionBean> getAllSuppliersProvisions();
+
+	void updateResponse(StockRequestBean stockRequest);
+
+	List<MaterialsBean> getMaterials();
+
+	void updateReadTime(StockRequestBean stockRequest);
+
+	void updateStockRequestStatus(Integer sRequestId, Integer requestStatus);
 
 }

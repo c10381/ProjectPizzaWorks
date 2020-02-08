@@ -253,7 +253,7 @@
 			// 獲取要更新的資料
 			$("#updateResponse").click(function(){
 				console.log(monitorData);
-				let comment = $(".modal-body textarea").text();
+				let comment = $(".modal-body textarea").val();
 				let status = $("#sltStatus").val();
 				
 				if(status==0){

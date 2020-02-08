@@ -295,7 +295,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void insertPurchaseOrder(PurchaseOrderBean purchaseOrder) {
+	public Integer insertPurchaseOrder(PurchaseOrderBean purchaseOrder) {
 		List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
 		purchaseOrder.setPurchaseOrderDetails(null);
 		Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
@@ -305,6 +305,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			purchaseOrderDetail.setpOrderId(pOrderId);
 			dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
 		}
+		return pOrderId;
 	}
 
 	@Override
@@ -329,20 +330,23 @@ public class PurchaseServiceImpl implements PurchaseService {
 		for (PurchaseRequestDetailBean prdb : purchaseRequest.getPurchaseRequestDetails()) {
 			boolean flag = false;
 			for (int i = 0; i < original_pRequestDetails.size() && !flag; i++) {
-				if (original_pRequestDetails.get(i).getMaterialsId() == prdb.getMaterialsId()) {
+				Integer original_materialsId = original_pRequestDetails.get(i).getMaterialsId();
+				if (original_materialsId == prdb.getMaterialsId()) {
 					flag = true;
 					dao.updatePurchaseRequestDetailByMaterial(prdb);
-					used_index.add(i);
+					used_index.add(original_materialsId);
 				}
 			}
 			if (!flag) {
+				prdb.setQuantity(0);
 				dao.insertOnePurchaseRequestDetail(prdb);
 			}
 		}
 		if (original_pRequestDetails.size() != used_index.size() && used_index.size() > 0) {
 			for (PurchaseRequestDetailBean oprdb : original_pRequestDetails) {
-				if (used_index.indexOf(oprdb.getpRequestDetailId()) == -1) {
-					dao.deleteOnePurchaseDetail(oprdb);
+				if (!used_index.contains(oprdb.getMaterialsId())) {
+					oprdb.setActualQuantity(0);
+					dao.updatePurchaseRequestDetailByMaterial(oprdb);
 				}
 			}
 		}

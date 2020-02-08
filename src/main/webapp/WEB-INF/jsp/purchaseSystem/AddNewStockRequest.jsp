@@ -266,7 +266,7 @@
             	$('#table_requestDetails').DataTable().row.add([
             		data[1],
             		data[2],
-            		"<input type='text' onkeypress='return isNumberKey(event)' id='txt_quantity onblur='getTotalSales()'/>",
+            		"",
             		data[3],
             		data[4],
             		data[5],
@@ -320,6 +320,7 @@
             		data[5]
             	]).draw();
             	nowRow.remove().draw();
+            	getTotalSales();
             });
         });
        
@@ -332,9 +333,14 @@
 			var requestDetails = [];
 			pRequest["pRequestId"] = purchaseRequest_json.pRequestId;
 			pRequest["proposalerId"] = $('#memberId').val();
-			pRequest["briefInfo"] = $("#briefInfo").val();
 			pRequest["totalSale"] = $("#totalSale").val();
 			var flag = false;
+			if(!$("#briefInfo").val()){
+				return true;
+			} else{
+				pRequest["briefInfo"] = $("#briefInfo").val();
+			}
+			
 			for (var i = 1; i < totalNumber; i += 1) {
 				var table_row = document.getElementById("table_requestDetails").rows[i];
 				var pRequestDetails = new Object();
@@ -352,6 +358,7 @@
 			}
 			pRequest["purchaseRequestDetails"] = requestDetails;
 			purchaseRequest = pRequest;
+			
 			return flag;
 			//console.log(recipes);
 		}
@@ -364,7 +371,9 @@
 			if(!flag){
 				//console.log('Data send:\n' + JSON.stringify({purchaseRequest: purchaseRequest}));
 				sendData();
-			} else{
+			} else if($("#briefInfo").val()==""){
+				alert("你必須輸入請購理由!");
+			}else{
 				alert("你必須輸入所有的需求箱數!");
 			}
 		}

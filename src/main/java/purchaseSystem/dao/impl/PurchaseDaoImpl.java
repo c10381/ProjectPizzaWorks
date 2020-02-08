@@ -196,7 +196,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		PurchaseRequestBean PRB = session.get(PurchaseRequestBean.class, purchaseRq.getpRequestId());
 		PRB.setResponseTime(purchaseRq.getResponseTime());
 		PRB.setResponseComment(purchaseRq.getResponseComment());
-		PRB.setRequestStatus(purchaseRq.getRequestStatus());
+		if(purchaseRq.getRequestStatus()!=2) {
+			PRB.setRequestStatus(purchaseRq.getRequestStatus());
+		}
 	}
 
 	@Override

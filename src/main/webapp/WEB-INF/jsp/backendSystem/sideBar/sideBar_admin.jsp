@@ -228,6 +228,21 @@
 						</li>
 					</ul>
 				</li>
+				<li class="nav-item has-treeview">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>
+									進貨單系統<i class="fas fa-angle-left right"></i>
+								</p>
+							</div>
+
+							<ul class="nav nav-treeview" style="display: none;">
+								<li class="nav-item" onclick="loadingPage('/stock/GetAllStockRequest')"><div class="nav-link">
+										<i class="far fa-dot-circle nav-icon"></i>
+										<p>查詢進貨單</p>
+									</div></li>
+							</ul>
+						</li>
 				<!-- /StockSystem -->
 				
 				<!-- customerService -->

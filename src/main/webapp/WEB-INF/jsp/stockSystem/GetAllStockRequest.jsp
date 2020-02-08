@@ -21,25 +21,22 @@
 <body>
 	<section class="py-5">
 		<div class="container-fluid text-center">
-			<h1>請購單清單</h1>
-			<table id="prTable" class="text-center display">
+			<h1>進貨單清單</h1>
+			<table id="srTable" class="text-center display">
 				<thead>
 					<tr>
-						<th></th>
 						<th>RID</th>
-						<th>請購時間</th>
-						<th>請購者</th>
-						<th>請購項目</th>
-						<th>請購總額</th>
+						<th>進貨時間</th>
+						<th>進貨者</th>
+						<th>進貨項目</th>
 						<th>請求狀態</th>
-						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 			</table>
 		</div>
 	</section>
-	<c:if test="${(privilegeId==4)|| (privilegeId==7)}">
+	<c:if test="${(privilegeId==5)|| (privilegeId==7)}">
 		<!-- Modal -->
 		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -47,7 +44,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLongTitle">
-							請購單審核 | 請購單號:<span><span>
+							進貨單審核 | 進貨單號:<span><span>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -63,8 +60,7 @@
 
 						<div class="quickComment mt-2">
 							<button type="button" class="btn btn-outline-secondary btn-sm">如擬辦理</button>
-							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK
-								NOPROBLEM</button>
+							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK NOPROBLEM</button>
 							<button type="button" class="btn btn-outline-secondary btn-sm">不能同意辦理</button>
 						</div>
 					</div>
@@ -79,46 +75,49 @@
 	</c:if>
 	<script>
 	$(document).ready(function () {
-		var table = $("#prTable").DataTable(
+		var table = $("#srTable").DataTable(
 	        {
 	            "ajax": {
-	                "url": "http://localhost:8080/ProjectPizzaWorks/getAllPurchaseRequestJSON",
+	                "url": "http://localhost:8080/ProjectPizzaWorks/getAllStockRequestJSON",
 	                "type": "GET",
 	                "dataSrc": "",
+	                /*
+	                "success": function(data){
+	                	console.log("Yee");
+	                	console.log(data);
+	                },
+	                "error": function(data){
+	                	console.log("oof");
+	                	console.log(data);
+	                },*/
 	            },
 	            "responsive": true, 
 	            "lengthMenu": [10, 20],
 	            "searching": false,
 	            "info": false,
-	            "order": [[1, "desc"]],
+	            "order": [[0, "desc"]],
 	            // 欄位的操作
 	            "columns": [{
-	                "data": null,
-	                "defaultContent": '<i class="fas fa-plus"></i>',
-	                "className": 'details-control',
-	                "orderable": false,
-	                'dom': 'Rlfrtip',
-	            }, {
-	                "data": "pRequestId"
+	                "data": "sRequestId"
 	            }, {
 	                "data": "requestTime"
 	            }, {
 	                "data": "fullName"
 	            }, {
-	                "data": "purchaseRequestDetails", 
+	                "data": "stockRequestDetails", 
 	                "render": function (data, type, row, meta) {
+	                	//console.log(data);
 	                	let size = data.length;
 	                	let firstItem = data[0].materialsName;
 	                	str = firstItem + "等" + size + "項";
+	                	//console.log(str);
 	                	return str;
 	                }
-	            }, {
-	                "data": "totalPrice", render: $.fn.dataTable.render.number(',', '', 0, '')
 	            },],
 	            "columnDefs": [
 	                // 核准狀態
 	                {
-	                    "targets": 6,
+	                    "targets": 4,
 	                    "data": "requestStatus",
 	                    "orderable": true,
 	                    "render": function (data, type, row, meta) {
@@ -136,59 +135,38 @@
 	                        }
 	                    }
 	                },{
-	                	"targets" : 7,
-	                	"data" : "pRequestId",
+	                	"targets" : 5,
+	                	"data" : "sRequestId",
 	                	"width" : "8%",
 	                	"render": function (data, type, row, meta) {
 	                		return "<div><button class='btn btn-success btn-sm detailbtn'>詳細資訊</button></div>"
-                        }
-                    },{
-	                	"targets" : 8,
-	                	"data" : "requestStatus",
-	                	"width" : "8%",
-	                	"render": function (data, type, row, meta) {
-	                		// 對於權限渲染網頁不同
-	                		<c:choose>
-	        					<c:when test="${(privilegeId==4)|| (privilegeId==7)}">
-	        						if(data==0){
-	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">批覆</button></div>';
-	        						}
-	        						return "";
-	        					</c:when>
-	        					<c:otherwise>
-		        					if(data==0||data==1){
-		        						return "<div class='btn btn-primary btn-sm'>修改</div>";
-	        						}
-        						return "";
-	        					</c:otherwise>
-        					</c:choose>
                         }
                     }
                 ],
 	        });
 		
 		// 導向單一產品頁面
-		$('#prTable tbody').on('click', '.detailbtn', function(){
+		$('#srTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
-	    	var pRequestId = table.row(tr).data().pRequestId;		
-	    	loadingPage('${request.contextPath}/getOnePurchaseRequest?id='+pRequestId);
+	    	var sRequestId = table.row(tr).data().sRequestId;		
+	    	loadingPage('${request.contextPath}/getOneStockRequest?id='+sRequestId);
 		});
 		
 		/* 表格的開關  */
 		var lastClick = []; 
-	    $('#prTable tbody').on('click', 'td.details-control', function () {
+	    $('#srTable tbody').on('click', 'td.details-control', function () {
 	    	var tr = $(this).closest('tr');
 	        var row = table.row(tr);
-	    	var pRequestId = table.row(tr).data().pRequestId;
+	    	var sRequestId = table.row(tr).data().sRequestId;
 			
 	     	// 判斷是否讀取過，還沒的話要傳送讀取時間到後台
-	     	<c:if test="${privilegeId==3}">
+	     	<c:if test="${privilegeId==4}">
 	     	var check = function(){
 	     		if (lastClick.length == 0){
 	     			return false; 
 	     		}
 	     		for(var i = 0 ; i < lastClick.length ; i++){
-	     			if(lastClick[i] == pRequestId){
+	     			if(lastClick[i] == sRequestId){
 	     				return true;
     				};
 	     		}
@@ -196,8 +174,8 @@
 	     	}
 	     	if (row.data().readTime == undefined && check() == false){
 	     			/* alert("此筆資料尚未讀取過"); */
-		     		updateReadTime(pRequestId);
-		     		lastClick.push(pRequestId);
+		     		updateReadTime(sRequestId);
+		     		lastClick.push(sRequestId);
 	     	};
 	     	</c:if>
 	        if ( row.child.isShown() ) {
@@ -216,19 +194,19 @@
 	        }
 	    });
 	    
-	    <c:if test="${(privilegeId==4)|| (privilegeId==7)}">
+	    <c:if test="${(privilegeId==5)|| (privilegeId==7)}">
 	    var monitorData;
 		// 當權限為可審核才可以載入此段javascript
-		    $("#prTable tbody").on("click", ".btnResponse" ,function (){
+		    $("#srTable tbody").on("click", ".btnResponse" ,function (){
 				var tr = $(this).closest('tr');
 				monitorData = table.row(tr).data();
 				console.log(monitorData);
-		    	var pRequestId = table.row(tr).data().pRequestId;
+		    	var sRequestId = table.row(tr).data().sRequestId;
 				// 每次點擊都先清空意見欄
 				$(".modal-body textarea").text("");
 				
 				// Modal 標頭
-				$("#exampleModalLongTitle span").html(pRequestId);
+				$("#exampleModalLongTitle span").html(sRequestId);
 				
 				// Modal Option
 				var status = table.row(tr).data().requestStatus;
@@ -253,32 +231,28 @@
 			// 獲取要更新的資料
 			$("#updateResponse").click(function(){
 				console.log(monitorData);
-				let comment = $(".modal-body textarea").text();
+				let comment = $(".modal-body textarea").val();
 				let status = $("#sltStatus").val();
 				
 				if(status==0){
-					alert("若要核准請購單，需更動狀態");
+					alert("若要核准進貨單，需更動狀態");
 					return ;
 				}
 				
 				var updateInfo = {};
 				updateInfo.requestStatus = status;
 				updateInfo.responseComment = comment;
-				updateInfo.pRequestId = monitorData.pRequestId;
+				updateInfo.sRequestId = monitorData.sRequestId;
 				
 				$.ajax({
 		  		    type : "PUT", 
-		  		    url : "../purchase/updateResponse",
+		  		    url : "../stock/updateResponse",
 		  		    data: JSON.stringify(updateInfo),
 		  		    contentType: "application/json; charset=utf-8",
 		   		}).done(function(data){
 		   			alert("成功");
 		   			$('#ModalCenter').one('hidden.bs.modal',function(){
-		   				if(status==2){
-						loadingPageWithData("/convertToStockRequestPage",{"purchaseRequest_jsonStr":JSON.stringify(monitorData)});
-						}else{
-						loadingPage("/purchase/GetAllPurchaseRequest")
-						}
+		   				loadingPage("/stock/GetAllStockRequest")
 					}).modal("hide");
 		   		}).fail(function(){
 		   			console.log("失敗");
@@ -289,16 +263,15 @@
     	</c:if> 
 	
 	});
-	
 
 	
 	// 點擊打開按鈕，會新增讀取時間
-   	function updateReadTime(pRequestId){
+   	function updateReadTime(sRequestId){
      	  $.ajax({
   		    type : "PUT", 
-  		    url : "../purchase/updateReadTime",
+  		    url : "../stock/updateReadTime",
   		    data: JSON.stringify({
-  		    	"pRequestId": pRequestId,
+  		    	"sRequestId": sRequestId,
   		    	}),
   		    contentType: "application/json; charset=utf-8",
   		    dataType : "text"
@@ -310,7 +283,7 @@
    		})
 	};
 	
-     // 下拉式選單的表格
+     /*// 下拉式選單的表格
 	function format (d) {
 		let responseComment = (d.responseComment!=undefined)?  d.responseComment : "尚未回覆";
 		let responseTime = (d.responseTime!=undefined)?  d.responseTime : "尚未回覆";
@@ -322,20 +295,19 @@
 	            '<td>批注：'+responseComment+'</td>'+
 	        '</tr>'
 	        +'</table>'; */
-    	 str += '<table class="table table-bordered text-center mt-2 col-md-8 align-self-center">'+
+    /* str += '<table class="table table-bordered text-center mt-2 col-md-8 align-self-center">'+
      			'<thead class="thead-info"><tr>'+
-     				'<th>產品名稱</th><th>請求數量</th><th>品項單價</th>'+
+     				'<th>產品名稱</th><th>請求數量</th>'+
      			'</tr></thead>';
     	d.purchaseRequestDetails.forEach(function(item, index, array){
     		str += '<tr>'
     		str += '<td>'+ item.materialsName + '</td>';
     		str += '<td>'+ item.quantity + '</td>';
-    		str += '<td>'+ item.unitPrice + '</td>';
     		str += '</tr>';
     	})
 	    return str;
 	    }
-	
+	*/
 	</script>
 </body>
 </html>

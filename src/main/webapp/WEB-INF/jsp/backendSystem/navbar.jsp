@@ -347,7 +347,7 @@
 	function stockRequestNotifier(data){
 		$('#notification_container').children().remove();
 		var link = "/shopManageSystem/getSalesOrder?id=";//變更網址
-		var requestId = "進貨單號：";
+		//var requestId = "進貨單號： ";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -355,7 +355,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].sRequestId;//要改掉salesOrderId
+			var requestId = "進貨單號： "+data[i].sRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
