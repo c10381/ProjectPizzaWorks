@@ -6,6 +6,7 @@ import _model.CrustBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
+import _model.WebInfo;
 
 public interface ShopDao {
 
@@ -20,5 +21,9 @@ public interface ShopDao {
 	List<CrustBean> getCrustError();
 
 	void insertOneSalesOrderDetail(SalesOrderDetailBean salesOrderDetail);
+
+	void insertInfo(WebInfo webinfo);
+
+	List<WebInfo> getInfo();
 
 }

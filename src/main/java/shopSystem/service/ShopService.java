@@ -5,6 +5,7 @@ import java.util.List;
 import _model.CrustBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
+import _model.WebInfo;
 
 public interface ShopService {
 
@@ -18,4 +19,8 @@ public interface ShopService {
 
 	List<CrustBean> getCrustTest();
 
+	void insertWebInfo(WebInfo webinfo);
+
+	WebInfo getWebInfo();
+	
 }

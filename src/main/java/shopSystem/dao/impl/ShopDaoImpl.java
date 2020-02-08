@@ -13,6 +13,7 @@ import _model.CrustBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
+import _model.WebInfo;
 import shopSystem.dao.ShopDao;
 
 @Repository
@@ -85,4 +86,19 @@ public class ShopDaoImpl implements ShopDao {
 			session.save(salesOrderDetail);
 		}
 		
+		@Override
+		public void insertInfo(WebInfo webinfo) {
+			Session session = factory.getCurrentSession();
+			session.save(webinfo);
+		}
+		
+
+		@Override
+		public List<WebInfo> getInfo() {
+			Session session = factory.getCurrentSession();
+			@SuppressWarnings("unchecked")
+			List<WebInfo> list =session.createQuery("from WebInfo").list();
+			return list;
+		}
+	
 }

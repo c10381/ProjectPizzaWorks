@@ -124,7 +124,6 @@
 		$('#btnAdd').prop('disabled',true);
 	})
 	
-	
 	</script>
 </body>
 </html>

@@ -60,7 +60,7 @@ public class PurchaseController {
 	public String getOnePurchaseRequest(@RequestParam(value = "id") Integer id, Model model) {
 		String purchaseRequest = service.getOnePurchaseRequestJson(id);
 		model.addAttribute("purchaseRequest_jsonStr", purchaseRequest);
-		return "placeHolderPage";
+		return "purchaseSystem/GetPurchaseRequest";
 	}
 
 	// 2.新增單張請購單
@@ -117,7 +117,13 @@ public class PurchaseController {
 			service.saveOnePurchaseOrder(purchaseOrder);
 			return "OK";
 		}
-
+		
+	@RequestMapping(value = "/getOnePurchaseOrder", method = RequestMethod.GET)
+	public String getOnePurchaseOrder(@RequestParam(value = "id") Integer pOrderId, Model model) {
+		String purchaseOrder = service.getOnePurchaseOrderJson(pOrderId);
+		model.addAttribute("purchaseOrder_jsonStr", purchaseOrder);
+		return "purchaseSystem/GetPurchaseOrder";
+	}
 	
 //	// 修改請購單
 //	@RequestMapping(value = "/updateOnePurchaseRequest", method = RequestMethod.POST, produces = {
@@ -243,7 +249,7 @@ public class PurchaseController {
 		service.insertStockRequest(stockRequest);
 		service.updateApprovedPurchaseRequest(newPurchaseRequest);
 		
-		return "/purchase/GetAllSRequest";
+		return "/purchase/GetAllPurchaseOrder";
 	}
 	
 }
