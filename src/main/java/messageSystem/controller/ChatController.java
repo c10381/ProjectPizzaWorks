@@ -9,6 +9,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import messageSystem.model.Message;
+import messageSystem.model.OutputMessage;
 import messageSystem.websocket.MsgTemplate;
 import messageSystem.websocket.WebSocketSessions;
 

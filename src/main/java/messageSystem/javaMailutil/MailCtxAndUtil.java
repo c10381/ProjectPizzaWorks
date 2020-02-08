@@ -1,4 +1,4 @@
-package memberSystem.Mailutil;
+package messageSystem.javaMailutil;
 
 import java.util.concurrent.ThreadLocalRandom;
 

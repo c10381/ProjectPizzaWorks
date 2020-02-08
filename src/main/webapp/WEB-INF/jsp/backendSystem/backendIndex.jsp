@@ -97,7 +97,7 @@
 
 		<!-- Main content ,use jQuery load() to load page-->
 		<div class="content-wrapper"
-			style="box-sizing: border-box; padding: 30px 30px; background: url(${pageContext.request.contextPath}/images/shopSystem/bg_4.jpg) no-repeat fixed;background-size: cover;"></div>
+			style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
 		</div>
 		<!-- Main content -->
 	<!-- ./wrapper -->
