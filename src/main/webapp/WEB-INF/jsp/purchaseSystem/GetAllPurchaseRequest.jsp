@@ -232,7 +232,7 @@
 				
 				// Modal Option
 				var status = table.row(tr).data().requestStatus;
-				var op_text = ["尚未審核", "退回", "核准/未進貨", "核准/已進貨", "拒絕"];
+				var op_text = ["尚未審核", "退回", "核准", "拒絕"];
 				var str = "";
 				for(var i = 0; i<op_text.length; i++){
             		if(i==status){

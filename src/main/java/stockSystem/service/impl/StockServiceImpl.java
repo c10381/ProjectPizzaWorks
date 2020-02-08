@@ -83,32 +83,37 @@ public class StockServiceImpl implements StockService{
 	}
 
 	// 1-2.查詢單張進貨單
-	
 	@Override
-	public String getOneStockRequestJson(Integer sRequestId) {
+	public String getOneStockRequestJson(Integer sRequestId, boolean read) {
 		// +sRequestId、proposalerName、approvalerName
-		StockRequestBean StockRequest = dao.getOneStockRequestById(sRequestId);
-		JSONObject pRequest_jso = new JSONObject(StockRequest);
-		pRequest_jso.put("sRequestId", sRequestId);
-
-		MembersBean proposaler = memberDao.getMember(StockRequest.getProposalerId());
-		MembersBean approver = memberDao.getMember(StockRequest.getApproverId());
-		pRequest_jso.put("proposalerName", proposaler.getLastName() + proposaler.getFirstName());
-		if (approver != null) {
-			pRequest_jso.put("approverName", approver.getLastName() + approver.getFirstName());
+		StockRequestBean stockRequest = dao.getOneStockRequestById(sRequestId);
+		if(read && stockRequest.getReadTime() == null) {
+			DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime time = LocalDateTime.now();
+			String localTime = df.format(time);
+			stockRequest.setReadTime(localTime);
 		}
-		JSONArray pRequestDetail_jsa = new JSONArray();
-		for (StockRequestDetailBean StockRequestDetail : StockRequest.getStockRequestDetails()) {
-			String materialsName = dao.getOneMaterialsById(StockRequestDetail.getMaterialsId()).getMaterialsName();
-			JSONObject pRequestDetail_jso = new JSONObject(StockRequestDetail);
-			pRequestDetail_jso.put("sRequestDetailId", StockRequestDetail.getsRequestDetailId());
-			pRequestDetail_jso.put("materialsName", materialsName);
-			pRequestDetail_jsa.put(pRequestDetail_jso);
+		JSONObject sRequest_jso = new JSONObject(stockRequest);
+		sRequest_jso.put("sRequestId", sRequestId);
+
+		MembersBean proposaler = memberDao.getMember(stockRequest.getProposalerId());
+		MembersBean approver = memberDao.getMember(stockRequest.getApproverId());
+		sRequest_jso.put("proposalerName", proposaler.getLastName() + proposaler.getFirstName());
+		if (approver != null) {
+			sRequest_jso.put("approverName", approver.getLastName() + approver.getFirstName());
+		}
+		JSONArray sRequestDetail_jsa = new JSONArray();
+		for (StockRequestDetailBean stockRequestDetail : stockRequest.getStockRequestDetails()) {
+			String materialsName = dao.getOneMaterialsById(stockRequestDetail.getMaterialsId()).getMaterialsName();
+			JSONObject sRequestDetail_jso = new JSONObject(stockRequestDetail);
+			sRequestDetail_jso.put("sRequestDetailId", stockRequestDetail.getsRequestDetailId());
+			sRequestDetail_jso.put("materialsName", materialsName);
+			sRequestDetail_jsa.put(sRequestDetail_jso);
 		}
 //		pRequest_jso.put("sRequestId", StockRequest.getsRequestId());
-		pRequest_jso.put("tockRequestDetails", pRequestDetail_jsa);
+		sRequest_jso.put("stockRequestDetails", sRequestDetail_jsa);
 
-		String jsonString = pRequest_jso.toString();
+		String jsonString = sRequest_jso.toString();
 		return jsonString;
 	}
 

@@ -252,7 +252,7 @@
 		$('#notification_container').children().remove();
 		//呼叫後台controller需要給予的路徑值，因為是由get做request，所以下面跑迴圈的後面還要加上"?id="以及對應的單號
 		var orderLink = "/shopManageSystem/getSalesOrder?id=";
-		var orderId = "單號：";
+		//var orderId = "單號：";
 		var orderLength = 3;
 
 		if (data.length < 4) {
@@ -260,7 +260,7 @@
 		}
 		
 		for (i = 0; i < orderLength; i++) {
-			orderId += data[i].salesOrderId;
+			var orderId = "單號："+data[i].salesOrderId;
 			var timeResult = timeReader(data[i].orderTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ orderLink
@@ -300,7 +300,7 @@
 	function purchaseRequestNotifier(data){		
 		$('#notification_container').children().remove();
 		var link = "/getOnePurchaseRequest?id=";//變更網址
-		var requestId = "請購單號：";
+		//var requestId = "請購單號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -308,7 +308,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].pRequestId;//要改掉salesOrderId
+			var requestId = "請購單號："+data[i].pRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要改掉orderTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
@@ -395,7 +395,7 @@
 	function pwdChangeRequestNotifier(data){
 		$('#notification_container').children().remove();
 		var link = "/shopManageSystem/getSalesOrder?id=";
-		var requestId = "員工編號：";
+		//var requestId = "員工編號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -403,7 +403,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].vRequestId;//要改掉salesOrderId
+			var requestId = "員工編號："+data[i].vRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link

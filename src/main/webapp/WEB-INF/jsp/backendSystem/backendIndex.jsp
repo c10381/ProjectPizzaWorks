@@ -144,7 +144,10 @@
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
     
-    
+    <!-- Datepicker & Timepicker -->
+	<script src="${pageContext.request.contextPath }/js/shopSystem/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath }/js/shopSystem/jquery.timepicker.min.js"></script>
+	
 	<script>
 		//紀錄email
 		var customerEmail="${CLoginOK.email}";
