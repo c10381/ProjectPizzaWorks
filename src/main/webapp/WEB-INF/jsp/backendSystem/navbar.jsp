@@ -7,27 +7,27 @@
 <c:choose>
 	<c:when test="${Mem_LoginOK.privilegeId==2}">
 		<nav
-			class="main-header navbar navbar-expand navbar-light navbar-white">
+			class="main-header navbar navbar-expand navbar-light navbar-white" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==3}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-success">
+			class="main-header navbar navbar-expand navbar-dark navbar-success" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==4}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-danger">
+			class="main-header navbar navbar-expand navbar-dark navbar-danger" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==5}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-primary">
+			class="main-header navbar navbar-expand navbar-dark navbar-primary" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==6}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-lightblue">
+			class="main-header navbar navbar-expand navbar-dark navbar-lightblue" style="border:0;">
 	</c:when>
 	<c:when test="${Mem_LoginOK.privilegeId==7}">
 		<nav
-			class="main-header navbar navbar-expand navbar-dark navbar-secondary">
+			class="main-header navbar navbar-expand navbar-dark navbar-secondary" style="border:0;">
 	</c:when>
 </c:choose>
 <!-- Left navbar links -->
@@ -181,7 +181,7 @@
 
 <script type="text/javascript">
 	var divider = "<div class='dropdown-divider'></div>";
-	var time_interval = 3000;
+	var time_interval = 30000;
 	var identity = ${Mem_LoginOK.privilegeId};
 	var intervalId;
 	getNotification();
@@ -283,7 +283,7 @@
 			},
 			success : function(data) {				
 				$('#footer').html('查看所有請購需求');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");				
+				$('#footer').attr("onclick","loadingPage('/purchase/GetAllPurchaseRequest')");				
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('目前沒有請購需求');
@@ -299,8 +299,8 @@
 	
 	function purchaseRequestNotifier(data){		
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getPurchaseRequest?id=";//變更網址
-		var requestId = "採購單號：";
+		var link = "/getOnePurchaseRequest?id=";//變更網址
+		var requestId = "請購單號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -347,7 +347,7 @@
 	function stockRequestNotifier(data){
 		$('#notification_container').children().remove();
 		var link = "/shopManageSystem/getSalesOrder?id=";//變更網址
-		var requestId = "進貨單號：";
+		//var requestId = "進貨單號： ";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -355,7 +355,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].sRequestId;//要改掉salesOrderId
+			var requestId = "進貨單號： "+data[i].sRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
@@ -430,7 +430,7 @@
 		var seconds = Math.floor((millseconds - (days * 86400000)
 				- (hours * 3600000) - (minutes * 60000)) / 1000);
 
-		console.log('距離:' + days + '天' + hours + '小時' + minutes + '分' + seconds + '秒');
+		/* console.log('距離:' + days + '天' + hours + '小時' + minutes + '分' + seconds + '秒'); */
 
 		if (days != 0) {
 			var result = '天前';

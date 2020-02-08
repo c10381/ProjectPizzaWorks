@@ -9,7 +9,7 @@
 <c:if test="${CLoginOK == null}">
 	<c:redirect url="/memberSystem/login" />
 </c:if>
-<title>Pizza|購物車</title>
+<title>Pizza Bite|購物車</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,22 +28,34 @@
 					<h2 class="mb-1">購物車</h2>
 				</div>
 			</div>
-			<div class="row justify-content-center mb-5 pb-3 order-controll">
+			<!-- 動態載入 -->
+			<div class="row justify-content-center">
+			
+				<div class="col-md-8 cartList mb-4"></div>
+			
+			</div>
+			
+			<div class="row justify-content-end totalPr">
+				<div class="col-md-2 mb-4">
+	              <h2 class="h4">購物金額</h2>
+	            </div>
+				<div class="col-md-4 mb-4">
+	              <h3 id="totalPrice"></h3>
+	            </div>
+				
+			</div>
+			<div class="row justify-content-center order-controll">
+				<div class="col-md-6 ">
+					<button class="btn btn-lg btn-outline-light rounded-full mt-3 cancellation">取消本次訂購</button>
+				</div>
 				<a href="<spring:url value='/shop/menu'/>" class="mt-3">
 					<button type="button"
 						class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
-				</a> <a href="<spring:url value='/shop/checkout'/>" class="mt-3">
+				</a> <a href="<spring:url value='/shop/checkout'/>" class="mt-3 ml-3">
 					<button type="button"
-						class="btn btn-block btn-lg btn-outline-light rounded-full">前往結帳</button>
+						class="btn btn-block btn-lg btn-outline-light rounded-full px-5">前往結帳</button>
 				</a>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-8 cartList mb-4"></div>
-			</div>
-			<div class="row justify-content-end">
-				<p class="line"></p>
-				<button class="btn btn-lg btn-outline-light">取消本次訂購</button>
-			</div>
+			</div> 
 
 		</div>
 	</section>

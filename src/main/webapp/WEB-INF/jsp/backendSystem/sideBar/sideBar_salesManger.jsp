@@ -11,7 +11,21 @@
 					</div>
 
 					<ul class="nav nav-treeview" style="display: block;">
-						
+						<li class="nav-item has-treeview menu-open">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>
+									訂貨單系統<i class="fas fa-angle-left right"></i>
+								</p>
+							</div>
+
+							<ul class="nav nav-treeview" style="display: block;">
+								<li class="nav-item" onclick="loadingPage('/shopManageSystem/salesOrders')"><div class="nav-link">
+										<i class="far fa-dot-circle nav-icon"></i>
+										<p>查詢訂貨單</p>
+									</div></li>
+							</ul>
+						</li>
 						<li class="nav-item has-treeview menu-open">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
@@ -24,7 +38,7 @@
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>庫存查詢</p>
 									</div></li> 
-								<li class="nav-item" onclick="loadingPage('/purchase/FormPurchaseRequest')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/AddPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>請購單</p>
 									</div></li>

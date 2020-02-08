@@ -4,38 +4,61 @@ let salesOrderDetails = cart.salesOrderDetails;
 //if(cart.deliverAddress==undefined){
 //	cart.deliverAddress = "店取";
 //}
-cart.totalSales = 8888;
-console.log(cart);
 
 $(function () {
+	if(cart.needDelivery==0){
+		$("form div.d-md-flex:nth-of-type(2) .form-group").hide();
+	}
 	updateList();
 	formInfo();
-	
 	$(":button").click(function(e){
 		e.preventDefault();
 		cart.note = $("#note").val();
-		if(confirm("是否送出訂單?")){
-			
-			$.ajax({
-			    type : "POST", 
-			    url : "../shop/order",
-			    data : JSON.stringify(cart),
-			    contentType : "application/json",
-			    dataType: "text",
-			}).done(function(result){
-				if(result=="OK"){
-					localStorage.clear();
-					updateList();
-					alert("訂單新建成功");
-					window.location.replace("../shop/");
-				}
+		if(cart.needDelivery==0){
+			cart.deliverAddress = "店取";
+		}
+		
+		swal({
+			  title: "是否送出訂單?",
+			  icon: "info",
+			  buttons: ["取消","送出"],
 			})
-			
-		};
+			.then((willDelete) => {
+			  if (willDelete) {
+				  sendOrder();
+			  
+			} 
+		});
 	})
 });
 
-
+function sendOrder(){
+//	送出訂單
+	$.ajax({
+	    type : "POST", 
+	    url : "../shop/order",
+	    data : JSON.stringify(cart),
+	    contentType : "application/json",
+	    dataType: "text",
+	}).done(function(result){
+		if(result=="OK"){
+			localStorage.clear();
+			updateList();
+			swal({
+				  title: "訂單送出成功",
+				  icon: "success",
+				  timer: 3000,
+				}).then(()=>{
+					 window.location.replace("../shop/");
+				})
+		  
+		}else{
+			swal("訂單送出失敗，請稍後再試")
+		}
+	}).fail(function(){
+		swal("訂單送出失敗，請稍後再試")
+	})
+}
 
 function updateList() {
 	let str = '';
@@ -47,20 +70,17 @@ function updateList() {
 			str +=
 				`
 				<div class="pricing-entry d-flex ftco-animate fadeInUp ftco-animated">
-				<div class="img" style="background-image: url(../images/shopSystem/pizza-3.jpg);"></div>
+				<div class="img" style="background-image: url(../picture/${salesOrderDetails[i].productId});"></div>
 				<div class="desc pl-3">
 	      	<div class="d-flex text align-items-center">
 						<div class="col-11">
 							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
-						</div>
-						<span class="price">${salesOrderDetails[i].unitPrice}</span>
-				</div>
+						</div>`;
+			//當有餅皮或加起司時，價格做變動
+			str += insertPrice(i);
+			str +=`</div>
 					<div class="d-block">
-						<select name="quantity" class="ml-3">
-							<option value="1">1</option>
-								<option value="2">2</option>
-							<option value="3">3</option>
-							</select>
+						<span> 數量： ${salesOrderDetails[i].quantity}</span>
 							
 						<span>${salesOrderDetails[i].crustTypeName}</span> 
 						
@@ -92,6 +112,32 @@ function updateList() {
 	$(":text[name='requireTime']").val(cart.requireTime);
 	
 }
-
+function insertPrice(index){
+	let str = "";
+	let flag = false;
+	let crustTypeId = salesOrderDetails[index].crustTypeId;
+	let cp;
+	$.each(crustPrice,function(index,val){
+		//根據餅皮編號來取得價格
+		if(crustTypeId==index){
+			flag = true;
+			cp = val;
+			return false; 
+		}
+	});
+	if(salesOrderDetails[index].doubleCheese==1) {
+		flag = true;
+	}
+	
+	let price = salesOrderDetails[index].unitPrice + cp + priceDoubleCheeese;
+	if(flag){
+		str += `<span class="price ml-5"><STRIKE> ${salesOrderDetails[index].unitPrice} </STRIKE> ${price}</span>`;
+	} else{
+		str += `<span class="price ml-5">${salesOrderDetails[index].unitPrice}</span>`;
+	}
+	return str;
+	
+	
+}
 
 	

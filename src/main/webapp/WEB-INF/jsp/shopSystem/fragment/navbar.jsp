@@ -10,7 +10,7 @@
 	<div class="container">
 		<a class="navbar-brand"
 			href="${pageContext.request.contextPath}/ "><span
-			class="flaticon-pizza-1 mr-1"></span>Pizza<br /> <small>Sim</small></a>
+			class="flaticon-pizza-1 mr-1"></span>Pizza<br /> <small>BITE</small></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -21,14 +21,15 @@
 			<ul class="nav navbar-nav mr-auto">
 				<li class="nav-item active"><a
 					href="<spring:url value='/shop/menu' />" class="nav-link">精選菜單</a></li>
-				<li class="nav-item"><a href="about.html" class="nav-link">品牌故事</a>
+				<li class="nav-item"><a href="<spring:url value='/shop/story' />" class="nav-link">品牌故事</a>
 				</li>
 				<li class="nav-item"><a href="contact.html" class="nav-link">店面資訊</a>
 				</li>
 			</ul>
 		</div>
-		<div class="collapse navbar-collapse" id="ftco-nav">
+		<div class="collapse navbar-collapse nav-rt" id="ftco-nav">
 			<ul class="nav navbar-nav ml-auto">
+				
 				<li class="nav-item active"><a
 					href='<spring:url value="/shop/cart" />' class="nav-link"> <i
 						class="fas fa-shopping-cart"></i> <span
@@ -53,10 +54,10 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> 
+								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/infoUpdate"> 
 									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 會員資訊 
 								</a> 
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/updPwd">
 									<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 密碼修改
 								</a>
 								<a class="dropdown-item" href="#">
@@ -71,8 +72,6 @@
 					</c:otherwise>
 
 				</c:choose>
-
-
 			</ul>
 		</div>
 	</div>

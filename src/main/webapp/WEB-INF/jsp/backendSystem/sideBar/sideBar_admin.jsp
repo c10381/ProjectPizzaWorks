@@ -18,10 +18,6 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>前台資訊修改</p>
 							</div></li>
-						<li class="nav-item" onclick="loadingPage('/PieChartTest')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>顯示測試圓餅圖</p>
-							</div></li>
 					</ul></li>
 				<!-- /frontEnd System -->
 
@@ -69,10 +65,6 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>新增產品</p>
 							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>修改產品</p>
-							</div></li>
 					</ul></li>
 				<!-- /ProductSystem -->
 
@@ -94,15 +86,15 @@
 								</p>
 							</div>
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="test()"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
-										<p>採購單</p>
+										<p>採購單(測試)</p>
 									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPurchaseOrder')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢採購單</p>
 									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢請購單</p>
 									</div></li>
@@ -119,11 +111,7 @@
 							</div>
 
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>採購單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPurchaseOrder')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢採購單</p>
 									</div></li>
@@ -152,15 +140,14 @@
 								</p>
 							</div>
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('${request.contextPath}/purchase/FormPurchaseRequest')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('${request.contextPath}/purchase/AddPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>請購單</p>
 									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/purchase/GetAllPurchaseRequest')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢請購單</p>
 									</div></li>
-	
 							</ul>
 						</li>
 
@@ -177,10 +164,6 @@
 								<li class="nav-item" onclick="loadingPage('/shopManageSystem/salesOrders')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢訂貨單</p>
-									</div></li>
-								<li class="nav-item" onclick="test()"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>訂貨單狀況修改</p>
 									</div></li>
 							</ul>
 						</li>
@@ -227,8 +210,6 @@
 								</p>
 							</div>
 						</li>
-
-
 						<li class="nav-item has-treeview" onclick="loadingPage('')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
@@ -245,9 +226,23 @@
 								</p>
 							</div>
 						</li>
-						
 					</ul>
 				</li>
+				<li class="nav-item has-treeview">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>
+									進貨單系統<i class="fas fa-angle-left right"></i>
+								</p>
+							</div>
+
+							<ul class="nav nav-treeview" style="display: none;">
+								<li class="nav-item" onclick="loadingPage('/stock/GetAllStockRequest')"><div class="nav-link">
+										<i class="far fa-dot-circle nav-icon"></i>
+										<p>查詢進貨單</p>
+									</div></li>
+							</ul>
+						</li>
 				<!-- /StockSystem -->
 				
 				<!-- customerService -->
@@ -261,7 +256,7 @@
 				<!-- /customerService -->
 				
 				<!-- Analysis -->
-				<li class="nav-item has-treeview" onclick="loadingPage('')"><div class="nav-link">
+				<li class="nav-item has-treeview" onclick="loadingPage('/PieChartTest')"><div class="nav-link">
 						<i class="nav-icon far fa-chart-bar"></i>
 						<p>
 							數據分析

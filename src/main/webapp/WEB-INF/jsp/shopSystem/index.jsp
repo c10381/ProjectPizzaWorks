@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 
@@ -9,8 +11,9 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
+<jsp:include page="fragment/ContentMetaInfo.jsp" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
 <style>
 .carousel .carousel-item {
 	height: 40vh;
@@ -75,16 +78,22 @@
 	</section>
 
 
-
+	
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
+	<jsp:include page="fragment/chatBox.jsp" /> 
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script src="${pageContext.request.contextPath }/js/shopSystem/cart.js"></script>
+	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script> 
+	<script src ="${pageContext.request.contextPath}/js/messageSystem/stomp.js" > </script>
+	<script src ="${pageContext.request.contextPath}/js/shopSystem/WebsocketNeed.js" > </script>
 	<script >
 	$('.carousel').carousel({
 		  interval: 3000
 		})
+	$("#ftco-navbar #ftco-nav:first-of-type .active").removeClass("active");
 	</script>
+	
 </body>
 </html>

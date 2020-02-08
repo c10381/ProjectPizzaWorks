@@ -9745,6 +9745,10 @@ h5,
   color: #fff;
 }
 
+#ftco-nav p.nav-link{
+	color :#fac564;
+}
+
 .navbar-brand {
   font-size: 24px;
   line-height: 1;
@@ -10140,6 +10144,12 @@ h5,
   width: 100%;
   padding: 30px 15px;
 }
+.ftco-about pre{
+	width : inherit;
+	font-size: 15px;
+	color: #6c757d;
+	font-family: "Poppins", "Noto Sans TC", Arial, sans-serif;
+}
 @media (min-width: 768px) {
   .ftco-about .one-half {
     padding: 5%;
@@ -10314,7 +10324,7 @@ h5,
   margin-bottom: 30px;
 }
 .pricing-entry .img {
-  width: 60px;
+  width: 80px;
   height: 60px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

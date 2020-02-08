@@ -67,17 +67,31 @@
 							<!-- col end -->
 						</div>
 						<!-- row end -->
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="totalSale" class="col-form-label">採購單總額：</label>
+									<input id="totalSale" type='text' class='form-control' disabled />
+								</div>
+								<!-- form-group end -->
+							</div>
+							<!-- col end -->
+						</div>
+						<!-- row end -->
 						<hr>
 						<div class="row">
-							<div class="col-sm-2 col-md-1">
+							<br>
+							<div class="col-sm-3">
 								<input type="button" value="提交採購單"  onclick="sumbitDataTable()"
-								class="btn btn-success" />
+								class="btn btn-success " />
 							</div>
+							<br>
 						</div>
+						
 						<hr>
+						<br>
 						<div class="row">
 							<h4>採購細項</h4>
-							<hr>
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<table id="table_requestDetails" class="display">
 									<thead>
@@ -159,6 +173,32 @@
 					var date = new Date();
 					$("#requestTime").val(date.yyyymmdd());
 				});
+		
+		 function isNumberKey(evt)
+	      {
+	         var charCode = (evt.which) ? evt.which : event.keyCode
+	         if (charCode > 31 && (charCode < 48 || charCode > 57))
+	            return false;
+
+	         return true;
+	      }
+		 
+		 function getTotalSales(){
+			 var table_requestDetail = document.getElementById("table_requestDetails");
+			 var totalSales = 0;
+			 for(var i=1; i<table_requestDetail.rows.length; i++){
+				 var unitPrice = parseInt(table_requestDetail.rows[i].cells[3].innerHTML);
+				 var quantity = parseInt(table_requestDetail.rows[i].cells[2].children[0].value);
+				 if(isNaN(quantity)){
+					 quantity = 0;
+				 }
+				 totalSales += unitPrice*quantity;
+			 }
+			 document.getElementById("totalSale").value = totalSales;
+			 //console.log(totalSales);
+			 return totalSales;
+		 } 
+		 
 	</script>
 
 	<script type="text/javascript">
@@ -182,7 +222,7 @@
 			var mid = srDetail.materialsId;
 			sRequestDetail.push(srDetail.materialsId);
 			sRequestDetail.push(srDetail.materialsName);
-			sRequestDetail.push("");
+			sRequestDetail.push(srDetail.quantity);
 			sRequestDetail.push(suppliersProvisions[mid-1].unitPrice);
 			sRequestDetail.push(materialsUnits[mid-1].quantityPerUnit);
 			sRequestDetail.push(materialsUnits[mid-1].unit);
@@ -226,7 +266,7 @@
             	$('#table_requestDetails').DataTable().row.add([
             		data[1],
             		data[2],
-            		"<input type='text id=txt_quantity'/>",
+            		"",
             		data[3],
             		data[4],
             		data[5],
@@ -252,7 +292,12 @@
 				}, {
 					targets: 2,
 	                data: null,
-	                defaultContent: "<input type='text' id='txt_quantity' />"
+	                render: function(data, type, row, meta){
+	                	var quantity = data[2];
+	                	var input_html = "<input type='text' onkeypress='return isNumberKey(event)' id='txt_quantity' onblur='getTotalSales()' value='"+quantity+"'/>";
+	                	return input_html;
+	                },
+	                defaultContent: ""
 				}]
         	
             });
@@ -275,6 +320,7 @@
             		data[5]
             	]).draw();
             	nowRow.remove().draw();
+            	getTotalSales();
             });
         });
        
@@ -287,12 +333,24 @@
 			var requestDetails = [];
 			pRequest["pRequestId"] = purchaseRequest_json.pRequestId;
 			pRequest["proposalerId"] = $('#memberId').val();
-			pRequest["briefInfo"] = $("#briefInfo").val();
+			pRequest["totalSale"] = $("#totalSale").val();
+			var flag = false;
+			if(!$("#briefInfo").val()){
+				return true;
+			} else{
+				pRequest["briefInfo"] = $("#briefInfo").val();
+			}
+			
 			for (var i = 1; i < totalNumber; i += 1) {
 				var table_row = document.getElementById("table_requestDetails").rows[i];
 				var pRequestDetails = new Object();
 				pRequestDetails["materialsId"] = table_row.cells[0].innerHTML;
-				pRequestDetails["quantity"] = table_row.cells[2].children[0].value;
+				var quantity  = table_row.cells[2].children[0].value;
+				if(quantity === ""){
+					flag = true;
+					break;
+				}
+				pRequestDetails["quantity"] = quantity;
 				pRequestDetails["unitPrice"] = table_row.cells[3].innerHTML;
 				pRequestDetails["quantityPerUnit"] = table_row.cells[4].innerHTML;
 				pRequestDetails["unit"] = table_row.cells[5].innerHTML;
@@ -300,6 +358,8 @@
 			}
 			pRequest["purchaseRequestDetails"] = requestDetails;
 			purchaseRequest = pRequest;
+			
+			return flag;
 			//console.log(recipes);
 		}
 
@@ -307,14 +367,20 @@
 		function sumbitDataTable() {
 			// LOOP THROUGH EACH ROW OF THE TABLE.
 			
-			getRequestsTable();
-			console.log('Data send:\n' + JSON.stringify({purchaseRequest: purchaseRequest}));
-			//sendData();
+			var flag = getRequestsTable();
+			if(!flag){
+				//console.log('Data send:\n' + JSON.stringify({purchaseRequest: purchaseRequest}));
+				sendData();
+			} else if($("#briefInfo").val()==""){
+				alert("你必須輸入請購理由!");
+			}else{
+				alert("你必須輸入所有的需求箱數!");
+			}
 		}
 
 		function sendData() {
 			$.ajax({
-					url : "${pageContext.request.contextPath}/shopManageSystem/AddNewProduct",
+					url : "${pageContext.request.contextPath}/savePurchaseOrder",
 					data : {
 						"purchaseRequest" : JSON.stringify(purchaseRequest)
 					},
@@ -331,6 +397,7 @@
 					}
 			});
 		}
+		
 	</script>
 </body>
 </html>

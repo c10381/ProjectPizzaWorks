@@ -37,13 +37,13 @@ public class SystemController {
 
 	@PostMapping("/broadcast")
 	public OutputMessage broadcast(@RequestBody Message message) {
-		OutputMessage outputMessage = new OutputMessage(new Date().toString(), message);
+		OutputMessage outputMessage = new OutputMessage(new Date().toString(), message,false);
 		template.broadcast(outputMessage);
 		return outputMessage;
 	}
 
 	// 給員工現在登入帳號(有使用排程自動更新)
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	@PostMapping("/messageSystem/getOnline")
 	public void getOnline() {
 		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String, String>>>();
@@ -51,8 +51,7 @@ public class SystemController {
 		Map<String, String> memMap = new HashMap<String, String>();
 		List<Map<String, String>> coworkerOnlineList = new ArrayList<>();
 		List<Map<String, String>> coworkerOfflineList = new ArrayList<>();
-		List<Map<String, String>> customerOnlineList = new ArrayList<>();
-		List<Map<String, String>> customerOfflineList = new ArrayList<>();
+
 		ArrayList<String> AllCoworker = session.getAllCoworker();
 		// System.out.println("這是定時廣播，WebSocket用的(30s),目前登入員工為："+AllCoworker.toString()+"目前登入顧客為："+AllCustomer.toString());
 
@@ -89,16 +88,14 @@ public class SystemController {
 //		System.out.println(coworkerOfflineList.toString());
 		map.put("coworkerOnlineList", coworkerOnlineList);
 		map.put("coworkerOfflineList", coworkerOfflineList);
-		map.put("customerOnlineList", customerOnlineList);
-		map.put("customerOfflineList", customerOfflineList);
 
 		template.broadcast(map);
 	}
-
+	//目前未用,利用request送到指定的客戶
 	@PostMapping("/send/{user}")
 	public OutputMessage broadcast(@PathVariable("user") String user, @RequestBody Message message) {
 		System.out.println(message.toString() + " to " + user);
-		OutputMessage outputMessage = new OutputMessage(new Date().toString(), message);
+		OutputMessage outputMessage = new OutputMessage(new Date().toString(), message,false);
 		template.sendMsgToCoworker(user, outputMessage);
 		return outputMessage;
 	}

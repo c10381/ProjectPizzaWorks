@@ -15,6 +15,7 @@ import _model.CrustBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
+import _model.WebInfo;
 import shopSystem.dao.ShopDao;
 import shopSystem.service.ShopService;
 
@@ -86,5 +87,18 @@ public class ShopServiceImpl implements ShopService {
 		return dao.getCrustError();
 	}
 	
+	@Override
+	@Transactional
+	public void insertWebInfo(WebInfo webinfo) {
+		dao.insertInfo(webinfo);
+	}
+
+	@Override
+	@Transactional
+	public WebInfo getWebInfo() {
+		List<WebInfo> list=dao.getInfo();
+		return list.get(list.size()-1);
+	}
+
 	
 }

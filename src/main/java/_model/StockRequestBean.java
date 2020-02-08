@@ -20,6 +20,7 @@ import javax.persistence.Table;
 public class StockRequestBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestId;
+	private Integer pOrderId;
 	private Integer proposalerId;
 	private String requestTime;
 	private String briefInfo;
@@ -29,13 +30,14 @@ public class StockRequestBean implements Serializable {
 	private String readTime;
 	private Integer requestStatus;
 	
-	private List<StockRequestDetailBean> stockRequestDetail = new ArrayList<>();
+	private List<StockRequestDetailBean> stockRequestDetails = new ArrayList<>();
 	
 	public StockRequestBean() {
 	}
 
-	public StockRequestBean(Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
+	public StockRequestBean(Integer pOrderId, Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
 			String responseComment, String responseTime, String readTime ,Integer requestStatus) {
+		this.pOrderId = pOrderId;
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
 		this.briefInfo = briefInfo;
@@ -52,6 +54,14 @@ public class StockRequestBean implements Serializable {
 		return sRequestId;
 	}
 
+	public Integer getpOrderId() {
+		return pOrderId;
+	}
+
+	public void setpOrderId(Integer pOrderId) {
+		this.pOrderId = pOrderId;
+	}
+	
 	public void setsRequestId(Integer sRequestId) {
 		this.sRequestId = sRequestId;
 	}
@@ -122,12 +132,19 @@ public class StockRequestBean implements Serializable {
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name="sRequestId", referencedColumnName="sRequestId")
-	public List<StockRequestDetailBean> getStockRequestDetail() {
-		return stockRequestDetail;
+	public List<StockRequestDetailBean> getStockRequestDetails() {
+		return stockRequestDetails;
 	}
 
-	public void setStockRequestDetail(List<StockRequestDetailBean> stockRequestDetail) {
-		this.stockRequestDetail = stockRequestDetail;
+	public void setStockRequestDetails(List<StockRequestDetailBean> stockRequestDetails) {
+		this.stockRequestDetails = stockRequestDetails;
 	}
 
+	@Override
+	public String toString() {
+		return "StockRequestBean [sRequestId=" + sRequestId + ", pOrderId=" + pOrderId + ", proposalerId="
+				+ proposalerId + ", requestTime=" + requestTime + ", briefInfo=" + briefInfo + ", approverId="
+				+ approverId + ", responseComment=" + responseComment + ", responseTime=" + responseTime + ", readTime="
+				+ readTime + ", requestStatus=" + requestStatus + ", stockRequestDetails=" + stockRequestDetails + "]";
+	}
 }

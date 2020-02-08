@@ -253,7 +253,7 @@
 			// 獲取要更新的資料
 			$("#updateResponse").click(function(){
 				console.log(monitorData);
-				let comment = $(".modal-body textarea").text();
+				let comment = $(".modal-body textarea").val();
 				let status = $("#sltStatus").val();
 				
 				if(status==0){
@@ -322,9 +322,9 @@
 	            '<td>批注：'+responseComment+'</td>'+
 	        '</tr>'
 	        +'</table>'; */
-    	 str += '<table class="table table-bordered text-center mt-2 col-md-8">'+
+    	 str += '<table class="table table-bordered text-center mt-2 col-md-8 align-self-center">'+
      			'<thead class="thead-info"><tr>'+
-     				'<th>產品名稱</th><th>請求數量</th><th>產品名稱</th>'+
+     				'<th>產品名稱</th><th>請求數量</th><th>品項單價</th>'+
      			'</tr></thead>';
     	d.purchaseRequestDetails.forEach(function(item, index, array){
     		str += '<tr>'

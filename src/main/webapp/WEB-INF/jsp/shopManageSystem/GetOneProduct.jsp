@@ -65,18 +65,23 @@
 							<img
 								id="${request.contextPath}/images/Products/${product.imagePath}"
 								src="<c:url value='/picture/${product.productId}'/>" />
-							<form:input id="productImage" path="productImage" type='file'
-								class="custom-file-input" onchange="readURL(this)"
-								targetID="${request.contextPath}/images/Products/${product.imagePath}"
-								accept="image/gif, image/jpeg, image/png" />
+							<div class="input-group mt-3" >
+								<div class="custom-file">
+									<form:input id="productImage" path="productImage" type='file'
+										class="custom-file-input" onchange="readURL(this)"
+										targetID="${request.contextPath}/images/Products/${product.imagePath}"
+										accept="image/gif, image/jpeg, image/png" />
+									<label class="custom-file-label" for="productImage">請選擇圖片</label>
+								 </div>
+							 </div>
 						</div>
 						<!-- col end -->
 					</div>
 					<!-- row end -->
 					<p></p>
-					<div class="row">
+					<div class="row mt-3">
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group ">
 								<label>辣度：</label>
 								<form:input type="text" path="spicyLevel"
 									value="${product.spicyLevel}" class='form-control' />

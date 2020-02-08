@@ -18,6 +18,13 @@ public class HomeController {
 	public String pageNoFound(){
 		return "_global/PageNoFound";
 	}
+	
+	//404 Page
+//	@RequestMapping("/*/*")
+	public String pageNoFound2(){
+		return "_global/PageNoFound";
+	}
+	
 	//轉址到後台登入畫面
 	@GetMapping("/admin")
 	public String directSalesManageIndex() {

@@ -26,8 +26,8 @@
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
-	<div class="login-box">
+<body class="hold-transition login-page" style="background: url(${pageContext.request.contextPath}/images/shopSystem/bg_4.jpg) no-repeat fixed;background-size: cover;">
+	<div class="login-box" style="background:white;">
 		<div class="login-logo">
 			<a href="../../index2.html"><b>Pizza</b>後台登入</a>
 		</div>
@@ -80,13 +80,13 @@
 	<!-- /.login-box -->
 	<!-- Login Demo btns-->
 		<footer class="footer fixed-bottom">
-			<div>
-				<div id="admin" class="btn btn-default btn-sm">管理員</div>
-				<div id="webadmin" class="btn btn-default btn-sm">網站管理員</div>
-				<div id="Service" class="btn btn-default btn-sm">客服人員</div>
-				<div id="purchase" class="btn btn-default btn-sm">進貨人員</div>
-				<div id="sales" class="btn btn-default btn-sm">銷貨人員</div>
-				<div id="stock" class="btn btn-default btn-sm">存貨人員</div>
+			<div style="margin:20px auto;width:530px">
+				<div id="admin" class="btn btn-default btn-sm" style="margin:5px">管理員</div>
+				<div id="webadmin" class="btn btn-default btn-sm" style="margin:5px">網站管理員</div>
+				<div id="Service" class="btn btn-default btn-sm" style="margin:5px">客服人員</div>
+				<div id="purchase" class="btn btn-default btn-sm" style="margin:5px">進貨人員</div>
+				<div id="sales" class="btn btn-default btn-sm" style="margin:5px">銷貨人員</div>
+				<div id="stock" class="btn btn-default btn-sm" style="margin:5px">存貨人員</div>
 			</div>
 
 		</footer>
