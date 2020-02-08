@@ -46,7 +46,7 @@ public interface PurchaseService {
 	
 	List<SuppliersProvisionBean> getAllSuppliersProvisions();
 	
-	void insertPurchaseOrder(PurchaseOrderBean purchaseOrder);
+	Integer insertPurchaseOrder(PurchaseOrderBean purchaseOrder);
 	
 	void insertStockRequest(StockRequestBean stockRequest);
 	

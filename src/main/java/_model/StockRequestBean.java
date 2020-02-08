@@ -20,6 +20,7 @@ import javax.persistence.Table;
 public class StockRequestBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sRequestId;
+	private Integer pOrderId;
 	private Integer proposalerId;
 	private String requestTime;
 	private String briefInfo;
@@ -34,8 +35,9 @@ public class StockRequestBean implements Serializable {
 	public StockRequestBean() {
 	}
 
-	public StockRequestBean(Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
+	public StockRequestBean(Integer pOrderId, Integer proposalerId, String requestTime, String briefInfo, Integer approverId,
 			String responseComment, String responseTime, String readTime ,Integer requestStatus) {
+		this.pOrderId = pOrderId;
 		this.proposalerId = proposalerId;
 		this.requestTime = requestTime;
 		this.briefInfo = briefInfo;
@@ -52,6 +54,14 @@ public class StockRequestBean implements Serializable {
 		return sRequestId;
 	}
 
+	public Integer getpOrderId() {
+		return pOrderId;
+	}
+
+	public void setpOrderId(Integer pOrderId) {
+		this.pOrderId = pOrderId;
+	}
+	
 	public void setsRequestId(Integer sRequestId) {
 		this.sRequestId = sRequestId;
 	}
@@ -132,9 +142,9 @@ public class StockRequestBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "StockRequestBean [sRequestId=" + sRequestId + ", proposalerId=" + proposalerId + ", requestTime="
-				+ requestTime + ", briefInfo=" + briefInfo + ", approverId=" + approverId + ", responseComment="
-				+ responseComment + ", responseTime=" + responseTime + ", readTime=" + readTime + ", requestStatus="
-				+ requestStatus + ", stockRequestDetails=" + stockRequestDetails + "]";
+		return "StockRequestBean [sRequestId=" + sRequestId + ", pOrderId=" + pOrderId + ", proposalerId="
+				+ proposalerId + ", requestTime=" + requestTime + ", briefInfo=" + briefInfo + ", approverId="
+				+ approverId + ", responseComment=" + responseComment + ", responseTime=" + responseTime + ", readTime="
+				+ readTime + ", requestStatus=" + requestStatus + ", stockRequestDetails=" + stockRequestDetails + "]";
 	}
 }

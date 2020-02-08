@@ -35,7 +35,7 @@ textarea {
 									<label for="proposalerName" class="col-sm-2 col-form-label">承辦人</label>
 									<div class='col-sm-4' id='proposalerId'>
 										<input type='text' class="form-control"
-											value="${Mem_LoginOK.firstName }" disabled />
+											value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}" disabled />
 										<input type="hidden" name="proposalerId" value="${Mem_LoginOK.memberId }"/>
 									</div>
 								</div>
