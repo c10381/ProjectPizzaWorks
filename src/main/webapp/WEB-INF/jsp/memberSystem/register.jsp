@@ -9,8 +9,7 @@
 
 <title>新會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- ----- -->
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
@@ -51,10 +50,12 @@
 						<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入密碼：</label> 
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
-					 	       maxlength="15" class="form-control col-sm-6" /> 
+					 	       maxlength="16" class="form-control col-sm-6" 
+					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"
+					 	 	   /> 
 						<!-- col end-->
 						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
-						 6-15字元  
+						 8-16字元，不含特殊符號  
 						</h6>
 						
 						<!-- col end-->
@@ -117,7 +118,7 @@
 		}else{
 			$.ajax({
 				url : "${pageContext.request.contextPath}/memberSystem/emailChecker?email=" + email,
-				type : "GET",
+				type : "POST",
 				error : function(data){
 					console.log('error');
 				},
@@ -156,7 +157,7 @@
 	$('#password').keypress(function(){
 		var pwd = $('#password').val();
 		if(pwd==''){
-			$('h6').text('6-15字元');
+			$('h6').text('8-16字元，不含特殊符號 ');
 		}else{
 			$('h6').text('');	
 		}		
@@ -166,7 +167,7 @@
 	$('#password').keyup(function(){
 		var pwd = $('#password').val();
 		if(pwd==''){
-			$('h6').text('6-15字元');
+			$('h6').text('8-16字元，不含特殊符號 ');
 		}else{
 			$('h6').text('');	
 		}
@@ -237,7 +238,7 @@
 		}else if(vpwd!=pwd){
 			event.preventDefault();
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認');			
-		}else if(flag){
+		}else if(!flag){
 			console.log('preventer2');
 			event.preventDefault();
 		}else{
