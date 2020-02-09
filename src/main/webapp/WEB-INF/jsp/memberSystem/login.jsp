@@ -57,15 +57,21 @@
 				</form>
 
 				<!-- /.social-auth-links -->
-
-				<p class="mb-1">
-					<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
-				</p>
-				
-				<p class="mb-1">
-					<a href="${pageContext.request.contextPath}/memberSystem/register">註冊</a>
-				</p>
-
+				<div class = "container ">
+					<div class="row justify-content-between">
+						<p class="mb-1">
+							<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
+						</p>
+						<input type="button" id="btnAuto" value="一鍵輸入" class="btn btn-white btn-outline-white col-sm-3 mt-1">
+					</div>
+					<!-- /row -->
+					<div class="row" >
+						<p class="mb-1">
+							<a href="${pageContext.request.contextPath}/memberSystem/register">註冊</a>
+						</p>
+					</div>
+					<!-- /row -->
+				</div>
 			<!-- /.login-card-body -->
 		</div>
 	</div>
@@ -74,5 +80,15 @@
 	<jsp:include page="../shopSystem/fragment/footer.jsp" />
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
+	<script>
+	$(function(){
+		$("#btnAuto").click(function(){
+			$("input[name='email']").val("user@pizza.com");
+			$("input[name='password']").val("P@ssw0rd");
+		})
+	})
+	
+	
+	</script>
 </body>
 </html>

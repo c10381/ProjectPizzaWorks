@@ -7,7 +7,8 @@
 	</div>
 
 	<div class="chat-box">
-		<div class="chat-box-header">
+		
+		<div class="chat-box-header"><span class="flaticon-pizza-1 mr-1"></span>
 			Pizza Bite <span class="chat-box-toggle"><i
 				class="icon icon-cancel"></i></span>
 		</div>

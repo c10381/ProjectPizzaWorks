@@ -31,3 +31,4 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/flaticon.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/icomoon.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
