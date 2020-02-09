@@ -18,6 +18,10 @@
 								<i class="far fa-circle nav-icon"></i>
 								<p>前台資訊修改</p>
 							</div></li>
+						<li class="nav-item" onclick="loadingPage('/PieChartTest')"><div class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>測試統計圖表顯示</p>
+							</div></li>
 					</ul></li>
 				<!-- /frontEnd System -->
 

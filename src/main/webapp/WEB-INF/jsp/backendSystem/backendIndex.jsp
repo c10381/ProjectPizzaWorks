@@ -51,7 +51,7 @@
 	<div class="wrapper">
 		<!-- import navbar(use request),change the color in Jsp -->
 		<!--  /backendSystem/navbar-->
-		<jsp:include page="/backendSystem/navbar" />
+		<!--<jsp:include page="/backendSystem/navbar" />-->
 
 
 		<!-- import sidebar(use request),select the jsp in controller(by Bean privilege) -->
@@ -88,7 +88,7 @@
 							</div></li>
 
 						<!-- 依角色變換sidebar(透過controller) -->
-						<jsp:include page="/backendSystem/sidebar" />
+						<!--<jsp:include page="/backendSystem/sidebar" />-->
 
 					</ul>
 				</nav>

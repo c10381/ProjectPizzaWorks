@@ -102,4 +102,11 @@ public class RecipeBean implements Serializable{
 	public void setMaterial(MaterialsBean material) {
 		this.material = material;
 	}
+
+	@Override
+	public String toString() {
+		return "RecipeBean [recipeId=" + recipeId + ", productId=" + productId + ", materialsId=" + materialsId
+				+ ", quantity=" + quantity + ", unit=" + unit + ", material=" + material + "]";
+	}
+	
 }
