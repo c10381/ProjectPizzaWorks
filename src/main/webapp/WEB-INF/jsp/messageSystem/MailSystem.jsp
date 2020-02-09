@@ -71,14 +71,14 @@
     	  	  ]
     	    })
   })
-  
+  //如果要寄給不是會員，要設判別
   function sendEmail(){
 	var mailTo=$("#MailTo").val();
 	var mailsubject=$("#Mailsubject").val();
 	var mailcontext=$("#compose-textarea").summernote("code");
 	console.log(mailTo+" "+mailsubject+" "+mailcontext);
-	$.post("${pageContext.request.contextPath}/messageSystem/SendMail",
-			{"to":mailTo,"subject":mailsubject,"content":mailcontext}
+	$.post("${pageContext.request.contextPath}/messageSystem/SendSalesMail",
+			{"to":mailTo,"subject":mailsubject,"Context":mailcontext}
 			,function(data){
 			if(data==true){
 				//成功要跳通知？

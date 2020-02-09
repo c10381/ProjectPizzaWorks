@@ -2,6 +2,8 @@ package messageSystem.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,7 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import _model.customerRequestBean;
+import memberSystem.dao.MemberDao;
+import memberSystem.service.MemberService;
+import messageSystem.javaMailutil.MailCtxAndUtil;
 import messageSystem.javaMailutil.SpringMailConfig;
 import messageSystem.javaMailutil.SpringMailUtil;
 import messageSystem.service.customerRequestService;
@@ -21,10 +28,14 @@ import messageSystem.service.customerRequestService;
 public class customerRequestController {
 
 	customerRequestService service;
-
+	MemberService mservice;
 	@Autowired
 	public void setService(customerRequestService service) {
 		this.service = service;
+	}
+	@Autowired
+	public void setMservice(MemberService mservice) {
+		this.mservice = mservice;
 	}
 	//操作Spring Mail區
 	ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
@@ -35,13 +46,20 @@ public class customerRequestController {
 	public String toMailSystem() {
 		return "messageSystem/MailSystem";
 	}
-
-	// 寄出信件(一般是促銷信)
+	
+	//查詢會員信箱(利用權限，只會傳出1.全名,2. Email)
+	@GetMapping("/messageSystem/GetMemberEmail")
+	public @ResponseBody String GetMemberEmail(@RequestParam("privilegeId") Integer privilegeId) {
+		Gson gson=new Gson();
+		return gson.toJson(mservice.getAllMembers(privilegeId));
+	}
+	
+	// 寄出信件(一般是促銷信，還要修)
 	@PostMapping("messageSystem/SendMail")
 	public @ResponseBody Boolean sendMail(@RequestParam("to") String to,
-			@RequestParam("subject") String subject, @RequestParam("content") String content) {
-		System.out.println(to+" "+subject+" "+content);
-		return mailUtil.sendMail(SpringMailConfig.MAILUsername, to, subject, content);
+			@RequestParam("subject") String subject, @RequestParam("Context") String Context,HttpServletRequest request) {
+		System.out.println(to+" "+subject+" "+Context);
+		return mailUtil.sendMail(SpringMailConfig.MAILUsername, to, subject, new MailCtxAndUtil().ToCustomerSales(request, Context));
 	}
 
 	// 存入DB 要從前端傳回email跟content

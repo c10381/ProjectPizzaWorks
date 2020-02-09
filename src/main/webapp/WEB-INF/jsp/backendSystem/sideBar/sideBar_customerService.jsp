@@ -36,15 +36,15 @@
 				</li>
 				<!-- /customerService -->
 				
-				<!-- customerService -->
+				<!-- MailService -->
 				<li class="nav-item has-treeview" onclick="floatPage('/messageSystem/MailSystem')"><div class="nav-link">
-						<i class="nav-icon fas fa-microphone"></i>
+						<i class="nav-icon far fa-envelope"></i>
 						<p>
 							信件系統
 						</p>
 					</div>
 				</li>
-				<!-- /customerService -->
+				<!-- /MailService -->
 
 				<!-- ProductSystem -->
 				<li class="nav-item has-treeview menu-open"><div class="nav-link">
