@@ -11,14 +11,14 @@
 		<div class="container-fluid row">
 			<div class="col-md-1">
 				<button
-					onclick="loadingPage('${request.contextPath}/purchase/GetAllPurchaseRequest')"
+					onclick="loadingPage('${request.contextPath}/stock/GetAllStockRequest')"
 					class="btn btn-block btn-secondary">返回</button>
 			</div>
 			<!-- col end -->
 			<div class="col-md-4"></div>
 			<!-- col end -->
 			<div class="col-md-2">
-				<h1>請購單資訊</h1>
+				<h1>進貨單資訊</h1>
 			</div>
 			<!-- col end -->
 		</div>
@@ -32,7 +32,7 @@
 						<fieldset>
 							<div class="row">
 								<div class="col-md-6">
-									<strong>請購單編號: <span id="pRequestId"></span></strong>
+									<strong>進貨單編號: <span id="pRequestId"></span></strong>
 								</div>
 								<!-- col end -->
 								<div class="col-md-6">請求時間：<span id="requestTime"></span></div>
@@ -41,16 +41,14 @@
 							</div>
 							<!-- row end -->
 							<div class="row">
-								<div class="col-md-6">請購者：<span id="proposalerId"></span></div>
+								<div class="col-md-6">採購者：<span id="proposalerId"></span></div>
 								<!-- col end -->
-								<div class="col-md-6">請購單狀態：<span id="requestStatus"></span></div>
+								<div class="col-md-6">進貨單狀態：<span id="requestStatus"></span></div>
 								<!-- col end -->
 							</div>
 							<!-- row end -->
 							<div class="row">
-								<div class="col-md-6">請購原因：<span id="purchaseReason"></span></div>
-								<!-- col end -->
-								<div class="col-md-6">請購總額：<span id="totalPrice"></span></div>
+								<div class="col-md-12">進貨簡述：<span id="briefInfo"></span></div>
 								<!-- col end -->
 							</div>
 							<hr>
@@ -68,14 +66,12 @@
 							</div>
 							<!-- row end -->
 							<div class="table-responsive p-0 mt-4 ">
-								<table id ="prdTable" class="table table-hover text-nowrap text-center">
+								<table id ="srdTable" class="table table-hover text-nowrap text-center">
 									<thead>
 										<tr>
 											<th>品項編號</th>
 											<th>品項名稱</th>
-											<th>請購總數</th>
-											<th>採購總數</th>
-											<th>產品單價</th>
+											<th>進貨總數</th>
 										</tr>
 									</thead>
 								</table>
@@ -94,32 +90,28 @@
 	<script>
 		
 		$(function(){
-			prReq = ${purchaseRequest_jsonStr};
-			dataToHtml(prReq);
+			srReq = ${stockRequest_jsonStr};
+			dataToHtml(srReq);
 			
 			
 		})
 		
 		function dataToHtml(data){
-			$("#pRequestId").html(data.pRequestId);
+			$("#sRequestId").html(data.sRequestId);
 			$("#proposalerId").html(data.proposalerName);
 			$("#requestTime").html(data.requestTime);
 			$("#requestStatus").html(statusCheck(data.requestStatus));
-			$("#purchaseReason").html(data.purchaseReason);
-			totalPrice = formatter.format(data.totalPrice);
-			$("#totalPrice").html(totalPrice);
+			$("#briefInfo").html(data.briefInfo);
 			$("#approverId").html(data.approverName);
 			$("#responseTime").html(data.responseTime);
 			$("#responseComment").html(data.responseComment);
 			
-			$("#prdTable").DataTable({
-				"data" : prReq.purchaseRequestDetails,	
+			$("#srdTable").DataTable({
+				"data" : srReq.stockRequestDetails,	
 	            "columns":[
 	            	{"data" : "materialsId" },
 	            	{"data" : "materialsName" },
 	             	{"data" : "quantity" },
-	             	{"data" : "actualQuantity","defaultContent" : ""},
-	             	{"data" : "unitPrice" },
 	           	],
            		"searching": false,
 	            "lengthChange": false,
@@ -156,11 +148,11 @@
 		        return strInput.replace(/\d(?=(?:\d{3})+\b)/g, '$&,');
 		    }
 		} */
-		var formatter = new Intl.NumberFormat('en-US', {
+		/*var formatter = new Intl.NumberFormat('en-US', {
 			  style: 'currency',
 			  currency: 'TWD',
 			  minimumFractionDigits: 0,
-		});
+		});*/
 		
 	</script>
 </body>

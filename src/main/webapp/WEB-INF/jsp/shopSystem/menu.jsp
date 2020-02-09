@@ -8,14 +8,10 @@
 <html>
 <head>
 <title>Pizza|產品介紹</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
 </head>
 <body>
-
 	<jsp:include page="fragment/navbar.jsp" />
 
 	<!-- MainContent -->
@@ -73,5 +69,6 @@
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
+	
 </body>
 </html>

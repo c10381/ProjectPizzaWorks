@@ -26,17 +26,18 @@ public class ShopRestController {
 	public void setShopService(ShopService service) {
 		this.service = service;
 	}
-
+	
+	// 新增訂單
 	@PostMapping(value = "/order", consumes = "application/json", produces = "application/json")
 	public String saveOrder(@RequestBody SalesOrderBean SOB, HttpSession session) {
-	System.out.println(session.getAttribute("CLoginOK"));
 	MembersBean mb = (MembersBean) session.getAttribute("CLoginOK");
 	SOB.setMemberId(mb.getMemberId());
 	service.saveOrder(SOB);
 		// 可以的話改為新增後的訂單編號
 		return "OK";
 	}
-
+	
+	// 產品下拉式選單
 	@GetMapping(value = "/getCrust" , produces = "application/json")
 	public List<CrustBean> getCrust() {
 		return service.getCrust();

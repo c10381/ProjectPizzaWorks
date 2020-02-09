@@ -67,7 +67,7 @@
 		</div>
 	</div>
 </footer>
-
+<jsp:include page="chatBox.jsp" />
 <!-- END footer -->
  	<script>
  	let contextPath = "${pageContext.request.contextPath}";

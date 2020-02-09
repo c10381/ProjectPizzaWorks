@@ -82,11 +82,18 @@ public class StockController {
 		return stockRequest;
 	}
 		
+//	@RequestMapping(value = "/getOneStockRequest", method = RequestMethod.GET)
+//	public String getOneStockRequest(@RequestParam(value = "id") Integer pOrderId, Model model) {
+//		String StockRequest = service.getOneStockRequestJson(pOrderId);
+//		model.addAttribute("StockRequest_jsonStr", StockRequest);
+//		return "StockSystem/GetStockRequest";
+//	}
+	
 	@RequestMapping(value = "/getOneStockRequest", method = RequestMethod.GET)
-	public String getOneStockRequest(@RequestParam(value = "id") Integer pOrderId, Model model) {
-		String StockRequest = service.getOneStockRequestJson(pOrderId);
-		model.addAttribute("StockRequest_jsonStr", StockRequest);
-		return "StockSystem/GetStockRequest";
+	public String getOneStockRequestRead(@RequestParam(value = "id") Integer pOrderId, @RequestParam(value="read") boolean read, Model model) {
+		String stockRequest = service.getOneStockRequestJson(pOrderId, read);
+		model.addAttribute("stockRequest_jsonStr", stockRequest);
+		return "stockSystem/GetStockRequest";
 	}
 	
 //	// 修改請購單
@@ -102,36 +109,34 @@ public class StockController {
 //		return "";
 //	}
 
-//	@RequestMapping(value = "/convertToStockRequestPage", method = RequestMethod.POST)
-//	public String ConvertToStockRequestPage(@RequestParam("StockRequest_jsonStr") String StockRequest,
-//			Model model) {
-//		List<MaterialsBean> materials = service.getAllMaterials();
-////		String materials_string = service.getAllMaterialsJson();
-//		List<MaterialsUnitBean> materialUnits = service.getAllMaterialsUnits();
-//		List<SuppliersProvisionBean> suppliersProvisions = service.getAllSuppliersProvisions();
-//		model.addAttribute("StockRequest_jsonStr", StockRequest);
-//		model.addAttribute("materials", materials);
-//		model.addAttribute("materialsUnits", new JSONArray(materialUnits).toString());
-//		model.addAttribute("suppliersProvisions", new JSONArray(suppliersProvisions).toString());
-////		model.addAttribute("", );
-////		JSONObject output = new JSONObject();
-////		output.put("StockRequest_jsonStr", StockRequest);
-////		output.put("materials", new JSONArray(materials).toString());
-////		output.put("path", "StockSystem/AddNewStockRequest");
-//		
-////		return output.toString();
-//		return "StockSystem/AddNewStockRequest";
-////		return materials_string;
-//	}
+	@RequestMapping(value = "/convertToStockHistoryPage", method = RequestMethod.POST)
+	public String ConvertToStockHistoryPage(@RequestParam("stockRequest_jsonStr") String stockRequest,
+			Model model) {
+//		String materials_string = service.getAllMaterialsJson();
+		List<MaterialsUnitBean> materialUnits = service.getAllMaterialsUnits();
+		List<SuppliersProvisionBean> suppliersProvisions = service.getAllSuppliersProvisions();
+		model.addAttribute("stockRequest_jsonStr", stockRequest);
+		model.addAttribute("materialsUnits", new JSONArray(materialUnits).toString());
+		model.addAttribute("suppliersProvisions", new JSONArray(suppliersProvisions).toString());
+//		model.addAttribute("", );
+//		JSONObject output = new JSONObject();
+//		output.put("StockRequest_jsonStr", StockRequest);
+//		output.put("materials", new JSONArray(materials).toString());
+//		output.put("path", "StockSystem/AddNewStockRequest");
+		
+//		return output.toString();
+		return "stockSystem/AddNewStockHistory";
+//		return materials_string;
+	}
 	
-	@PutMapping("/Stock/updateReadTime")
+	@PutMapping("/stock/updateReadTime")
 	public @ResponseBody String updateReadTime(@RequestBody StockRequestBean StockRequest) {
 		String time = service.updateReadTime(StockRequest);
 		System.out.println(time);
 		return time;
 	}
 	
-	@PutMapping("/Stock/updateResponse")
+	@PutMapping("/stock/updateResponse")
 	public @ResponseBody String updateResponse(@RequestBody StockRequestBean StockRequest) {
 		service.updateResponse(StockRequest);
 		return "OK";
@@ -213,7 +218,7 @@ public class StockController {
 		service.insertStockRequest(stockRequest);
 		service.updateApprovedStockRequest(newStockRequest);
 		
-		return "/Stock/GetAllStockRequest";
+		return "/stock/GetAllStockRequest";
 	}*/
 	
 }

@@ -14,7 +14,6 @@
 .details-control:hover {
 	color: #FF8040;
 }
-
 </style>
 </head>
 <c:set var="privilegeId" value="${Mem_LoginOK.privilegeId}" />
@@ -30,6 +29,7 @@
 						<th>進貨者</th>
 						<th>進貨項目</th>
 						<th>請求狀態</th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -60,7 +60,8 @@
 
 						<div class="quickComment mt-2">
 							<button type="button" class="btn btn-outline-secondary btn-sm">如擬辦理</button>
-							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK NOPROBLEM</button>
+							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK
+								NOPROBLEM</button>
 							<button type="button" class="btn btn-outline-secondary btn-sm">不能同意辦理</button>
 						</div>
 					</div>
@@ -128,10 +129,6 @@
 	                                return '退回';
 	                            case 2:
 	                                return '核准但未進貨';
-	                            case 3:
-	                                return '核准已進貨';
-	                            case 4:
-	                                return '拒絕';
 	                        }
 	                    }
 	                },{
@@ -141,6 +138,27 @@
 	                	"render": function (data, type, row, meta) {
 	                		return "<div><button class='btn btn-success btn-sm detailbtn'>詳細資訊</button></div>"
                         }
+                    },{
+	                	"targets" : 6,
+	                	"data" : "requestStatus",
+	                	"width" : "8%",
+	                	"render": function (data, type, row, meta) {
+	                		// 對於權限渲染網頁不同
+	                		<c:choose>
+	        					<c:when test="${(privilegeId==5)|| (privilegeId==7)}">
+	        						if(data==0){
+	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">批覆</button></div>';
+	        						}
+	        						return "";
+	        					</c:when>
+	        					<c:otherwise>
+		        					//if(data==0||data==1){
+		        						//return "<div class='btn btn-primary btn-sm'>修改</div>";
+	        						//}
+        							return "";
+	        					</c:otherwise>
+        					</c:choose>
+                        }
                     }
                 ],
 	        });
@@ -148,8 +166,15 @@
 		// 導向單一產品頁面
 		$('#srTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
-	    	var sRequestId = table.row(tr).data().sRequestId;		
-	    	loadingPage('${request.contextPath}/getOneStockRequest?id='+sRequestId);
+	    	var sRequestId = table.row(tr).data().sRequestId;
+	    	<c:choose>
+				<c:when test="${(privilegeId==4)}">
+		    		loadingPage('${request.contextPath}/getOneStockRequest?id='+sRequestId+"&read=true");
+		    	</c:when>
+		    	<c:otherwise>
+		    		loadingPage('${request.contextPath}/getOneStockRequest?id='+sRequestId+"&read=false");
+				</c:otherwise>
+			</c:choose>
 		});
 		
 		/* 表格的開關  */
@@ -210,7 +235,7 @@
 				
 				// Modal Option
 				var status = table.row(tr).data().requestStatus;
-				var op_text = ["尚未審核", "退回", "核准/未進貨", "核准/已進貨", "拒絕"];
+				var op_text = ["尚未審核", "拒絕", "核准"];
 				var str = "";
 				for(var i = 0; i<op_text.length; i++){
             		if(i==status){
@@ -252,12 +277,16 @@
 		   		}).done(function(data){
 		   			alert("成功");
 		   			$('#ModalCenter').one('hidden.bs.modal',function(){
-		   				loadingPage("/stock/GetAllStockRequest")
+		   				if(status==2){
+							loadingPageWithData("/convertToStockHistoryPage",{"stockRequest_jsonStr":JSON.stringify(monitorData)});
+						}else{
+							loadingPage("/stock/GetAllStockRequest")
+							}
 					}).modal("hide");
 		   		}).fail(function(){
 		   			console.log("失敗");
 		   			return false;
-		   		}) 
+		   		});
 				
 			})
     	</c:if> 

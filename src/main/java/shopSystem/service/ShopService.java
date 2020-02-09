@@ -22,5 +22,7 @@ public interface ShopService {
 	void insertWebInfo(WebInfo webinfo);
 
 	WebInfo getWebInfo();
+
+	String getMemberAllOrders(Integer memberId);
 	
 }

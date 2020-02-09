@@ -52,7 +52,7 @@
 									Hi, ${CLoginOK.lastName }${CLoginOK.firstName}</a>
 
 							<div
-								class="dropdown-menu dropdown-menu-right shadow"
+								class="dropdown-menu shadow memberInfo"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/infoUpdate"> 
 									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 會員資訊 
@@ -60,7 +60,7 @@
 								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberSystem/updPwd">
 									<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 密碼修改
 								</a>
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item" href="${pageContext.request.contextPath}/member/orders">
 									<i class="fa fa-outdent fa-sm fa-fw mr-2 text-gray-400"></i> 訂單查詢
 								</a>
 								<div class="dropdown-divider"></div>

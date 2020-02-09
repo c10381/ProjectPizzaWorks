@@ -20,7 +20,7 @@ public interface StockService {
 
 	String getAllStockRequest();
 
-	String getOneStockRequestJson(Integer sRequestId);
+	String getOneStockRequestJson(Integer sRequestId, boolean read);
 
 	void saveOneStockRequest2(StockRequestBean StockRequest);
 
