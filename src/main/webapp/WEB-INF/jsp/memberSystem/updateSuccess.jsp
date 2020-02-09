@@ -7,9 +7,9 @@
 <html>
 <head>
 
+<meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/memberSystem/login">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
 

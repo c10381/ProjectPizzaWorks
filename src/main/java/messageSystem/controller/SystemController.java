@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import _model.MembersBean;
 import memberSystem.service.MemberService;
+import messageSystem.model.Message;
+import messageSystem.model.OutputMessage;
 import messageSystem.websocket.MsgTemplate;
 import messageSystem.websocket.WebSocketSessions;
 

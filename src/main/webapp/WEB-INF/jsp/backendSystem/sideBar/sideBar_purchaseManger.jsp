@@ -80,5 +80,5 @@
 					</div>
 				</li>
 				<!-- /Analysis -->
-				<li class="nav-header" style="margin:0;padding: 0px; text-align: center; font-size: 25px;line-height: 1.5">purchaseManger</li>
+				<li class="nav-header" style="margin:0;padding: 0px; text-align: center; font-size: 25px;line-height: 1.5">purchaseManager</li>
 				

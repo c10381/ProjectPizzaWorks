@@ -1,4 +1,4 @@
-package messageSystem.controller;
+package messageSystem.model;
 
 public class OutputMessage {
     private String dateStr;

@@ -17,14 +17,14 @@ import com.google.gson.Gson;
 import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
-import memberSystem.Mailutil.MailCtxAndUtil;
-import memberSystem.Mailutil.SpringMailConfig;
-import memberSystem.Mailutil.SpringMailUtil;
 //import memberSystem.Mailutil.MailCtxAndUtil;
 //import memberSystem.Mailutil.SpringMailConfig;
 //import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
 import memberSystem.service.CustomerService;
+import messageSystem.javaMailutil.MailCtxAndUtil;
+import messageSystem.javaMailutil.SpringMailConfig;
+import messageSystem.javaMailutil.SpringMailUtil;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -158,9 +158,6 @@ public class CustomerServiceImpl implements CustomerService {
 	//Customer點擊信件忘記密碼連結
 	//要撈出MemberBean
 	//導向修改密碼介面(updatePWD)
-	
-	
-	
 	
 	
 	@Transactional

@@ -6,47 +6,50 @@
 <head>
 <!-- 這個套件的css -->
 <link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/messageSystem/smart_tab_vertical.css'>
-<link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/messageSystem/customerServiceMain.css'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<!-- <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script> -->
+<script type="text/javascript">
+
+</script>
 </head>
 
 <body>
-	<div id="cS_container">
-		<div id="tabs">
-			<ul class="cs_MessageContent">
-				<li><a href="#cs_aaablock" id="aaa">Tab 1</a></li>
-				<li><a href="#tabs-2">Tab 1</a></li>
-			</ul>
-			<div id="cs_aaablock">
-				<div class="cs_comeMessage"><p>111111111</p></div>
-				<div class="cs_myMessage"><p>111111111</p></div>
-			</div>
-			<div id="tabs-2"></div>
-
-		</div>
-		<div style="width: 900px; display: flex;">
-			<div style="width: 160px; height: 1px; flex-direction: row"></div>
-			<div id="customerService_inputArea">
-				<textarea class='customerService_input' placeholder='Type a message...' onKeyup="CsputEnter()"></textarea>
-				<button onclick="sendToCustomerMessage(this)"id="customerService_send" style="margin: 0 5px;" class="btn btn-dark">送出</button>
+	<div class="container">
+		<div class="messaging">
+			<div class="inbox_msg">
+				<div class="inbox_people">
+					<div class="headind_srch">
+						<div class="recent_heading">
+							<h5>Pizza BIT 客服系統 </h5>
+						</div>
+						
+					</div>
+					<div class="inbox_CustomerService">
+						
+					</div>
+				</div>
+				<div class="mesgs">
+					<!-- 每次都隱藏這裡 .msg_history 增加-->
+					<!-- 這裡是佔位的 -->
+					<div class='msg_history'></div>
+					
+					<div class="type_msg">
+						<div class="input_msg_write">
+							<input type="text" class="write_msg" placeholder="請輸入訊息..." onkeyup="CsputEnter(this)"/>
+							<button class="msg_send_btn" type="button" onclick="sendToCustomerMessage(this)">
+								<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+					
+				</div>
 			</div>
 		</div>
 	</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				// Smart Tab
-				$('#tabs').smartTab({
-					autoProgress : false,
-					stopOnFocus : true,
-					transitionEffect : 'vslide',
-					transitionSpeed:'5',
-				});
-			});
-		</script>
-		<script
-			src='${pageContext.request.contextPath}/js/messageSystem/jquery.smartTab.min.js'></script>
-		<script
-			src='${pageContext.request.contextPath}/js/messageSystem/customerServiceMain.js'></script>
+<script
+	src="${pageContext.request.contextPath}/js/messageSystem/customerServiceMain.js"></script>
 </body>
 </html>

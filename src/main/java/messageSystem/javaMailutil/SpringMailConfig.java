@@ -1,4 +1,4 @@
-package memberSystem.Mailutil;
+package messageSystem.javaMailutil;
 
 import java.util.Properties;
 
@@ -9,8 +9,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class SpringMailConfig{
 	//需要的人來找Dennis拿
-	public static String MAILUsername="EEIT11017@outlook.com";
-	private static String Password = "Do!ng123";
+	public static String MAILUsername="";
+	private static String Password = "";
 	@Bean
 	public JavaMailSenderImpl mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
