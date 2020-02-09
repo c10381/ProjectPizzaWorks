@@ -1,104 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html>
 <head>
 
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-
 <title>忘記密碼</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- icheck bootstrap -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/icheck-bootstrap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/backendSystem/adminlte.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- ----- -->
+<jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
+<jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
+<!-- ----- -->
 
 </head>
 
-<body class="hold-transition login-page">
-	<div class="login-box">
-		<div class="login-logo">
-			<a href="../../index2.html"><b>忘記密碼</b></a>
-		</div>
-		<!-- /.login-logo -->
-		<div class="card">
-			<div class="card-body login-card-body">
+<body>
+	<!-- ----- -->
+	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
+	<!-- ----- -->
+	<section class="ftco-section">
+		<div id='container justify-content-center'>
+
+			<div id='header'>
+				<h1 style="text-align: center">忘記密碼</h1>
+			</div>
+
+
+			<!--  
 				<div class="login-box-msg">${errorMessage}</div>
-				<div class="login-box-msg">${CLoginOK.lastName}</div>
-
-				<div class="input-group mb-3">
-					<input type="email" class="form-control" placeholder="請輸入信箱"
-						name="email" id="email">
-					<div class="input-group-append">
-						<div class="input-group-text">
-							<span class="fas fa-envelope"></span>
-						</div>
-					</div>
+				<div class="login-box-msg">${CLoginOK.lastName}</div> -->
+			<div class="col-md-6 mx-auto align-items-center">
+				<div class="form-group form-row justify-content-end">
+					<label for="email" class="col-sm-3 align-self-center justify-content-end">*
+						請輸入信箱：</label>
+					<!-- col end-->
+					<input id="email" name="email" class="form-control col-sm-5"
+						type='email' placeholder="請輸入信箱" required />
+					<!-- col end-->
+					<div class="col-sm-3 align-self-center" id="msg"></div>
 				</div>
-				<!-- 佔位子空格用 -->
-				<div class="login-box-msg"></div>
-				<!-- /.social-auth-links -->
+
 				<div class="row">
-					<div class="col-6">
-						<div class="icheck-primary">
-							<a href="${pageContext.request.contextPath}/memberSystem/login" class="btn btn-primary btn-block" >返回登入畫面</a>
-						</div>
-					</div>
-
-					<div class="col-6">
-						<div id="SendButton">
-							<button class="btn btn-primary btn-block" onclick="SendToBack()">送出驗證信</button>
-						</div>
-					</div>
-					<!-- /.col -->
+					<div class="col-sm-4"></div>
+					<input type="button"
+						onclick="javascript:location.href='${pageContext.request.contextPath}/'"
+						class="btn btn-primary col-sm-2" value="返回上一頁" />
+					<div>&nbsp;</div>
+					<input id="btnSend" type="button" class="btn btn-primary col-sm-2" onclick="SendToBack()"
+						value="送出驗證信" />
 				</div>
+
 			</div>
 		</div>
-	</div>
-	<!-- /.login-box -->
+	</section>
 
+	<jsp:include page="../shopSystem/fragment/footer.jsp" />
+	<jsp:include page="../shopSystem/fragment/loader.jsp" />
+	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
 	<script>
 		function SendToBack() {
-			$
-					.ajax({
-						url : "${pageContext.request.contextPath}/memberSystem/forgetPW",
-						data : {
-							"email" : $("#email").val()
-						},
-						type : "POST",
-						error : function() {
-							alert("Something Wrong.");
-						},
-						success : function(data) {
-							console.log(data);
-							$("#SendButton").empty();
-							$("#SendButton").append("<div class='col-8'>驗證信發送成功</div>");
-						}
-					})
+			var email = $("#email").val();
+			if(email=""){
+				$('#msg').text("請輸入帳號!");
+				$('#msg').attr({
+					"class" : "text-danger col-sm-3 align-self-center"
+				})
+			}else{
+				$.ajax({
+					url : "${pageContext.request.contextPath}/memberSystem/forgetPW",
+					data : {
+						"email" : email
+					},
+					type : "POST",
+					error : function() {
+						alert("Something Wrong.");
+					},
+					success : function(data) {							
+						if(data){
+							$('#msg').attr({
+								"class" : "col-sm-3 align-self-center"
+							})
+							$('#msg').text("驗證信發送成功！");
+							$('#btnSend').prop("disabled",true);
+						}else{
+							$('#msg').text("查無此帳號，請重新輸入!");
+							$('#msg').attr({
+								"class" : "text-danger col-sm-3 align-self-center"
+							})
+						}					
+					}
+				})				
+			}			
 		}
 	</script>
 </body>

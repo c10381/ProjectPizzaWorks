@@ -60,7 +60,7 @@
 				src="${pageContext.request.contextPath}/images/shopManageSystem/tempLogo.jpg"
 				alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 				style="opacity: .8"> <span
-				class="brand-text font-weight-light">PizzaWorks</span>
+				class="brand-text font-weight-light">PizzaBiteManager</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -97,7 +97,7 @@
 
 		<!-- Main content ,use jQuery load() to load page-->
 		<div class="content-wrapper"
-			style="box-sizing: border-box; padding: 30px 30px; background: url(${pageContext.request.contextPath}/images/shopSystem/bg_4.jpg) no-repeat fixed;background-size: cover;"></div>
+			style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
 		</div>
 		<!-- Main content -->
 	<!-- ./wrapper -->
@@ -144,7 +144,10 @@
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
     
-    
+    <!-- Datepicker & Timepicker -->
+	<script src="${pageContext.request.contextPath }/js/shopSystem/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath }/js/shopSystem/jquery.timepicker.min.js"></script>
+	
 	<script>
 		//紀錄email
 		var customerEmail="${CLoginOK.email}";

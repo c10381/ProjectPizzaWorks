@@ -70,7 +70,7 @@ public class CustomerController {
 	}
 	
 	//前端註冊信箱檢查按鈕判定
-	@RequestMapping(value = "/memberSystem/emailChecker")
+	@RequestMapping(value = "/memberSystem/emailChecker", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean emailChecker(@RequestParam("email")String email) {		
 		boolean emailChecker=false;
@@ -109,20 +109,17 @@ public class CustomerController {
 			// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 3) {
 				session.setAttribute("CLoginOK", bean);
-				return "shopSystem/index";
+				return "redirect:/";
 				// 會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
 			}
-			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
-				model.addAttribute("errMsg", 1);
+			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {				
 				return "memberSystem/login";
 				// 會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入
-			} else {
-				model.addAttribute("errMsg", 2);
+			} else {				
 				return "memberSystem/login";
 			}
 			// 因為bean取到空值表示根本不是會員，透過errMsg告知使用者進行註冊
 		} else {
-			model.addAttribute("errMsg", 3);
 			return "memberSystem/login";
 		}
 	}
@@ -154,6 +151,23 @@ public class CustomerController {
 		}
 		return "memberSystem/updPwd";
 	}
+	
+	//前端修改密碼的舊密碼判定
+	@RequestMapping(value = "/memberSystem/oldPwdChecker", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean oldPwdChecker(@RequestParam("oldPwd")String pwd, Model model) {		
+		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
+		boolean pwdChecker=false;
+		if(service.pwdChecker(mem.getEmail(), pwd)) {
+			pwdChecker = true;
+			return pwdChecker;
+		}else {			
+			return pwdChecker;
+		}		
+	}
+	
+	
+	
 
 	// 修改密碼
 	@RequestMapping(value = "/memberSystem/doUpdPwd")
@@ -212,13 +226,16 @@ public class CustomerController {
 
 	// Customer導入忘記密碼
 	// 用AJAX回傳字串，要在回傳物件前加@ResponseBody
+	
 	@PostMapping(value = "/memberSystem/forgetPW")
-	public @ResponseBody String forgetPWRequest(@RequestParam(value = "email") String email, Model model,
+	public @ResponseBody boolean forgetPWRequest(@RequestParam(value = "email") String email, Model model,
 			HttpServletRequest request) {
+		boolean status = false;
 		if (service.userRequestChangePW(request, email)) {
-			return "OK!";
+			status = true;
+			return status;
 		}
-		return "Failure";
+		return status;
 	}
 
 	// Customer點擊忘記密碼連結

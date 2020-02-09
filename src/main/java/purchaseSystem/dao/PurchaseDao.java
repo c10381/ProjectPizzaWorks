@@ -61,4 +61,6 @@ public interface PurchaseDao {
 	
 	void updatePurchaseRequestDetailByMaterial(PurchaseRequestDetailBean prdb);
 	
+	PurchaseOrderBean getOnePurchaseOrderById(Integer pOrderId);
+	
 }

@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.PurchaseRequestBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
 import _model.SupplierBean;
+import _model.SuppliersProvisionBean;
 import stockSystem.dao.StockDao;
 
 @Repository
@@ -44,9 +47,9 @@ public class StockDaoImpl implements StockDao {
 	}
 
 	@Override
-	public MaterialsBean getOneMaterialsById(Integer MaterialId) {
+	public MaterialsBean getOneMaterialsById(Integer materialId) {
 		Session session = factory.getCurrentSession();
-		MaterialsBean mb = session.get(MaterialsBean.class, MaterialId);
+		MaterialsBean mb = session.get(MaterialsBean.class, materialId);
 		return mb;
 	}
 
@@ -98,5 +101,55 @@ public class StockDaoImpl implements StockDao {
 				original_sRequest.setBriefInfo(stockRequest.getBriefInfo());
 			}
 		}
+	}
+
+	@Override
+	public List<MaterialsUnitBean> getAllMaterialsUnits() {
+		String hql = "FROM MaterialsUnitBean";
+		Session session = factory.getCurrentSession();
+		List<MaterialsUnitBean> materialsUnits = session.createQuery(hql).getResultList();
+		return materialsUnits;
+	}
+
+	@Override
+	public List<SuppliersProvisionBean> getAllSuppliersProvisions() {
+		String hql = "FROM SuppliersProvisionBean";
+		Session session = factory.getCurrentSession();
+		List<SuppliersProvisionBean> suppliersProvisions = session.createQuery(hql).getResultList();
+		return suppliersProvisions;
+	}
+
+	@Override
+	public void updateResponse(StockRequestBean stockRequest) {
+		Session session = factory.getCurrentSession();
+		StockRequestBean SRB = session.get(StockRequestBean.class, stockRequest.getsRequestId());
+		SRB.setResponseTime(stockRequest.getResponseTime());
+		SRB.setResponseComment(stockRequest.getResponseComment());
+		if(stockRequest.getRequestStatus()!=2) {
+			SRB.setRequestStatus(stockRequest.getRequestStatus());
+		}
+		
+	}
+
+	@Override
+	public List<MaterialsBean> getMaterials() {
+		String hql = "FROM MaterialsBean";
+		Session session = factory.getCurrentSession();
+		List<MaterialsBean> materials = session.createQuery(hql).getResultList();
+		return materials;
+	}
+
+	@Override
+	public void updateReadTime(StockRequestBean stockRequest) {
+		Session session = factory.getCurrentSession();
+		StockRequestBean SRB = session.get(StockRequestBean.class, stockRequest.getsRequestId());
+		SRB.setReadTime(stockRequest.getReadTime());
+	}
+
+	@Override
+	public void updateStockRequestStatus(Integer sRequestId, Integer requestStatus) {
+		String hql = "UPDATE StockRequestBean SET requestStatus = :requestStatus WHERE sRequestId = :sRequestId";
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql).setParameter("requestStatus", requestStatus).setParameter("sRequestId", sRequestId).executeUpdate();
 	}
 }

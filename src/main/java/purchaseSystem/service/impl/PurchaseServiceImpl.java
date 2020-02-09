@@ -85,13 +85,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 		PurchaseRequestBean purchaseRequest = dao.getOnePurchaseRequestById(pRequestId);
 		JSONObject pRequest_jso = new JSONObject(purchaseRequest);
 		pRequest_jso.put("pRequestId", pRequestId);
-		
-		MembersBean member = memberDao.getMember(purchaseRequest.getProposalerId());
-		
-		String lastName = member.getLastName();
-		String firstName = member.getFirstName();
-		String fullName = lastName + firstName;
-		
+
+		MembersBean proposaler = memberDao.getMember(purchaseRequest.getProposalerId());
+		MembersBean approver = memberDao.getMember(purchaseRequest.getApproverId());
+		pRequest_jso.put("proposalerName", proposaler.getLastName() + proposaler.getFirstName());
+		if (approver != null) {
+			pRequest_jso.put("approverName", approver.getLastName() + approver.getFirstName());
+		}
 		JSONArray pRequestDetail_jsa = new JSONArray();
 		for (PurchaseRequestDetailBean purchaseRequestDetail : purchaseRequest.getPurchaseRequestDetails()) {
 			String materialsName = dao.getOneMaterialsById(purchaseRequestDetail.getMaterialsId()).getMaterialsName();
@@ -100,8 +100,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			pRequestDetail_jso.put("materialsName", materialsName);
 			pRequestDetail_jsa.put(pRequestDetail_jso);
 		}
-		pRequest_jso.put("pRequestId", purchaseRequest.getpRequestId());
-		pRequest_jso.put("fullName", fullName);
+//		pRequest_jso.put("pRequestId", purchaseRequest.getpRequestId());
 		pRequest_jso.put("purchaseRequestDetails", pRequestDetail_jsa);
 
 		String jsonString = pRequest_jso.toString();
@@ -296,7 +295,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void insertPurchaseOrder(PurchaseOrderBean purchaseOrder) {
+	public Integer insertPurchaseOrder(PurchaseOrderBean purchaseOrder) {
 		List<PurchaseOrderDetailBean> purchaseOrderDetails = purchaseOrder.getPurchaseOrderDetails();
 		purchaseOrder.setPurchaseOrderDetails(null);
 		Integer pOrderId = dao.insertOnePurchaseOrder(purchaseOrder);
@@ -306,6 +305,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			purchaseOrderDetail.setpOrderId(pOrderId);
 			dao.insertOnePurchaseOrderDetail(purchaseOrderDetail);
 		}
+		return pOrderId;
 	}
 
 	@Override
@@ -330,20 +330,23 @@ public class PurchaseServiceImpl implements PurchaseService {
 		for (PurchaseRequestDetailBean prdb : purchaseRequest.getPurchaseRequestDetails()) {
 			boolean flag = false;
 			for (int i = 0; i < original_pRequestDetails.size() && !flag; i++) {
-				if (original_pRequestDetails.get(i).getMaterialsId() == prdb.getMaterialsId()) {
+				Integer original_materialsId = original_pRequestDetails.get(i).getMaterialsId();
+				if (original_materialsId == prdb.getMaterialsId()) {
 					flag = true;
 					dao.updatePurchaseRequestDetailByMaterial(prdb);
-					used_index.add(i);
+					used_index.add(original_materialsId);
 				}
 			}
 			if (!flag) {
+				prdb.setQuantity(0);
 				dao.insertOnePurchaseRequestDetail(prdb);
 			}
 		}
 		if (original_pRequestDetails.size() != used_index.size() && used_index.size() > 0) {
 			for (PurchaseRequestDetailBean oprdb : original_pRequestDetails) {
-				if (used_index.indexOf(oprdb.getpRequestDetailId()) == -1) {
-					dao.deleteOnePurchaseDetail(oprdb);
+				if (!used_index.contains(oprdb.getMaterialsId())) {
+					oprdb.setActualQuantity(0);
+					dao.updatePurchaseRequestDetailByMaterial(oprdb);
 				}
 			}
 		}
@@ -356,4 +359,33 @@ public class PurchaseServiceImpl implements PurchaseService {
 		dao.updatePurchaseRequestStatus(pRequestId, requestStatus);
 	}
 
+	@Override
+	public String getOnePurchaseOrderJson(Integer pOrderId) {
+		// 1-2.查詢單張請購單
+		// +pRequestId、proposalerName、approvalerName
+		PurchaseOrderBean purchaseOrder = dao.getOnePurchaseOrderById(pOrderId);
+		JSONObject pOrder_jso = new JSONObject(purchaseOrder);
+		pOrder_jso.put("pOrderId", pOrderId);
+			
+		MembersBean proposaler = memberDao.getMember(purchaseOrder.getProposalerId());
+		MembersBean approver = memberDao.getMember(purchaseOrder.getApproverId());
+		pOrder_jso.put("proposalerName", proposaler.getLastName()+proposaler.getFirstName());
+		if(approver != null) {
+			pOrder_jso.put("approverName", approver.getLastName()+approver.getFirstName());
+		}
+		JSONArray pOrderDetail_jsa = new JSONArray();
+		Double totalPrice = 0.0;
+		for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrder.getPurchaseOrderDetails()) {
+			String materialsName = dao.getOneMaterialsById(purchaseOrderDetail.getMaterialsId()).getMaterialsName();
+			JSONObject pOrderDetail_jso = new JSONObject(purchaseOrderDetail);
+			pOrderDetail_jso.put("pRequestDetailId", purchaseOrderDetail.getpOrderDetailId());
+			pOrderDetail_jso.put("materialsName", materialsName);
+			totalPrice += purchaseOrderDetail.getPrice();
+			pOrderDetail_jsa.put(pOrderDetail_jso);
+		}
+		pOrder_jso.put("totalPrice", totalPrice);
+		pOrder_jso.put("purchaseOrderDetails", pOrderDetail_jsa);
+		String jsonString = pOrder_jso.toString();
+		return jsonString;
+	}
 }

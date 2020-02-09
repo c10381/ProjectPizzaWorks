@@ -17,14 +17,14 @@ import com.google.gson.Gson;
 import _global.config.util.Encrypted;
 import _model.MembersBean;
 import _model.ValidationRequestBean;
-import memberSystem.Mailutil.MailCtxAndUtil;
-import memberSystem.Mailutil.SpringMailConfig;
-import memberSystem.Mailutil.SpringMailUtil;
 //import memberSystem.Mailutil.MailCtxAndUtil;
 //import memberSystem.Mailutil.SpringMailConfig;
 //import memberSystem.Mailutil.SpringMailUtil;
 import memberSystem.dao.CustomerDao;
 import memberSystem.service.CustomerService;
+import messageSystem.javaMailutil.MailCtxAndUtil;
+import messageSystem.javaMailutil.SpringMailConfig;
+import messageSystem.javaMailutil.SpringMailUtil;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -160,9 +160,6 @@ public class CustomerServiceImpl implements CustomerService {
 	//導向修改密碼介面(updatePWD)
 	
 	
-	
-	
-	
 	@Transactional
 	@Override
 	public MembersBean loadCustomer(String email) {
@@ -210,6 +207,22 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public boolean resetPwd(String email, String newPwd) {		
 		return dao.resetPwd(email, encrypter.getMD5Endocing(newPwd));
+	}
+	
+	@Transactional
+	@Override
+	public boolean pwdChecker(String email, String pwd) {
+		boolean checker = false;
+		String encodedPwd = encrypter.getMD5Endocing(pwd);
+		String dbPwd = dao.pwdLoader(email);
+		if(dbPwd!=null) {
+			if(encodedPwd.equals(dbPwd)) {
+				checker = true;				
+			}
+			return checker;
+		}else {
+			return checker;
+		}		
 	}
 	
 }

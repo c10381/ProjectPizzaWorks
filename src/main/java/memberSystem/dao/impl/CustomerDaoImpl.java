@@ -233,4 +233,19 @@ public class CustomerDaoImpl implements CustomerDao {
 			return status;
 		}		
 	}
+
+	@Override
+	public String pwdLoader(String email) {		
+		String hql = "from MembersBean where email = :email ";		
+		Session session = factory.getCurrentSession();
+		String password = null;
+		MembersBean member = null;
+		try {
+			member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
+		} catch (NoResultException nre) {
+			member = null;
+		}		
+		password = member.getPassword();	
+		return password;
+	}
 }

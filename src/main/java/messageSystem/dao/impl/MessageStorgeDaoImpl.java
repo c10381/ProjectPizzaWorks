@@ -1,4 +1,4 @@
-package messageSystem.dao;
+package messageSystem.dao.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MessageBean;
+import messageSystem.dao.MessageStorgeDao;
 
 @Repository
 public class MessageStorgeDaoImpl implements MessageStorgeDao {

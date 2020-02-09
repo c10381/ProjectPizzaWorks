@@ -1,4 +1,4 @@
-package messageSystem.service;
+package messageSystem.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import _model.MessageBean;
 import messageSystem.dao.MessageStorgeDao;
+import messageSystem.service.MessageStorgeService;
 
 @Service
 public class MessageStorgeServiceImpl implements MessageStorgeService {

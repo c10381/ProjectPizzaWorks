@@ -181,7 +181,7 @@
 
 <script type="text/javascript">
 	var divider = "<div class='dropdown-divider'></div>";
-	var time_interval = 3000;
+	var time_interval = 30000;
 	var identity = ${Mem_LoginOK.privilegeId};
 	var intervalId;
 	getNotification();
@@ -252,7 +252,7 @@
 		$('#notification_container').children().remove();
 		//呼叫後台controller需要給予的路徑值，因為是由get做request，所以下面跑迴圈的後面還要加上"?id="以及對應的單號
 		var orderLink = "/shopManageSystem/getSalesOrder?id=";
-		var orderId = "單號：";
+		//var orderId = "單號：";
 		var orderLength = 3;
 
 		if (data.length < 4) {
@@ -260,7 +260,7 @@
 		}
 		
 		for (i = 0; i < orderLength; i++) {
-			orderId += data[i].salesOrderId;
+			var orderId = "單號："+data[i].salesOrderId;
 			var timeResult = timeReader(data[i].orderTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ orderLink
@@ -283,7 +283,7 @@
 			},
 			success : function(data) {				
 				$('#footer').html('查看所有請購需求');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");				
+				$('#footer').attr("onclick","loadingPage('/purchase/GetAllPurchaseRequest')");				
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('目前沒有請購需求');
@@ -299,8 +299,8 @@
 	
 	function purchaseRequestNotifier(data){		
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getPurchaseRequest?id=";//變更網址
-		var requestId = "採購單號：";
+		var link = "/getOnePurchaseRequest?id=";//變更網址
+		//var requestId = "請購單號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -308,7 +308,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].pRequestId;//要改掉salesOrderId
+			var requestId = "請購單號："+data[i].pRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要改掉orderTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
@@ -347,7 +347,7 @@
 	function stockRequestNotifier(data){
 		$('#notification_container').children().remove();
 		var link = "/shopManageSystem/getSalesOrder?id=";//變更網址
-		var requestId = "進貨單號：";
+		//var requestId = "進貨單號： ";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -355,7 +355,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].sRequestId;//要改掉salesOrderId
+			var requestId = "進貨單號： "+data[i].sRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
@@ -395,7 +395,7 @@
 	function pwdChangeRequestNotifier(data){
 		$('#notification_container').children().remove();
 		var link = "/shopManageSystem/getSalesOrder?id=";
-		var requestId = "員工編號：";
+		//var requestId = "員工編號：";
 		var requestLength = 3;
 
 		if (data.length < 4) {
@@ -403,7 +403,7 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			requestId += data[i].vRequestId;//要改掉salesOrderId
+			var requestId = "員工編號："+data[i].vRequestId;//要改掉salesOrderId
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link

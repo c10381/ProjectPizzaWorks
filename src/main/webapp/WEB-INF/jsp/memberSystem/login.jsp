@@ -35,19 +35,23 @@
 				<p class="login-box-msg">${CLoginOK.lastName}</p>
 				<form action="${pageContext.request.contextPath}/memberSystem/loginCheck" method="post">
 					<div class="input-group mb-3">
-						<input type="email" class="form-control" placeholder="請輸入信箱" name="email" required autocomplete="off">
+						<input id='email' type="email" class="form-control" placeholder="請輸入信箱" name="email" required autocomplete="off">
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" class="form-control" placeholder="請輸入密碼" name="password" required>
+						<input id='password' type="password" class="form-control" placeholder="請輸入密碼" name="password" required>
 						
 					</div>
 					<div class="row">
-						<div class="col-8">
+						<div class="col-4">
 							<div class="icheck-primary">
 								<input type="checkbox" id="remember"> <label
 									for="remember"> 記住我 </label>
 							</div>
 						</div>
+						
+						<div class="col-4">
+							<input type="button" id="btnAuto" class="btn btn-white btn-outline-white" value="一鍵輸入" />
+						</div>						
 						<!-- /.col -->
 						<div class="col-4">
 							<button type="submit" class="btn btn-primary btn-block">登入</button>
@@ -55,40 +59,28 @@
 						<!-- /.col -->
 					</div>
 				</form>
-
-				<!-- /.social-auth-links -->
-				<div class = "container ">
-					<div class="row justify-content-between">
-						<p class="mb-1">
-							<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
-						</p>
-						<input type="button" id="btnAuto" value="一鍵輸入" class="btn btn-white btn-outline-white col-sm-3 mt-1">
-					</div>
-					<!-- /row -->
-					<div class="row" >
-						<p class="mb-1">
-							<a href="${pageContext.request.contextPath}/memberSystem/register">註冊</a>
-						</p>
-					</div>
-					<!-- /row -->
-				</div>
-			<!-- /.login-card-body -->
+				<p class="mb-1">
+					<a href="${pageContext.request.contextPath}/memberSystem/forgetpwd">忘記密碼</a>
+				</p>
+				
+				<p class="mb-1">
+					<a href="${pageContext.request.contextPath}/memberSystem/register">註冊</a>
+				</p>			
 		</div>
 	</div>
-	<!-- /.login-box -->
-</section>
+	
+	</section>
 	<jsp:include page="../shopSystem/fragment/footer.jsp" />
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
-	<script>
-	$(function(){
-		$("#btnAuto").click(function(){
-			$("input[name='email']").val("user@pizza.com");
-			$("input[name='password']").val("P@ssw0rd");
-		})
+	
+	<script type="text/javascript">
+		
+	$("#btnAuto").click(function() {
+		console.log('reach');
+		$("#email").val("iiiedujava@gmail.com");
+		$("#password").val("Java8888");
 	})
-	
-	
-	</script>
+	</script>	
 </body>
 </html>
