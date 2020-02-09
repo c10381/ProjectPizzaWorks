@@ -82,8 +82,8 @@
 	function pwdChecker(){
 		var oldpwd = $('#oldPwd').val();
 		if(oldpwd==""){
-			console.log('reach');
 			$('#oldpwd_errbox').text('請輸入密碼!');
+			$("#btnAdd").prop("disabled",true);
 			$('#oldpwd_errbox').attr({
 				"class" : "text-danger col-sm-3 align-self-center"					
 			});
@@ -117,6 +117,9 @@
 		var pwd2 = $("#validPwd").val();				
 		if(pwd1 != pwd2){
 			event.preventDefault();
+			$('#oldpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"					
+			});
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認!');
 		}
 	})

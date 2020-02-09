@@ -129,7 +129,7 @@
 						$('#email_errbox').attr({
 							"class" : "text-danger col-sm-3 align-self-center"
 						})
-						var flag = true;
+						flag = true;
 						
 					}else{
 						$('#email_errbox').text('該信箱可以使用');
@@ -151,6 +151,7 @@
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');
+		flag = false;
 	})
 	
 	//鍵盤點擊開始輸入後將密碼提示清空
@@ -192,7 +193,6 @@
 	
 	//檢查使用者輸入的帳號/密碼/確認密碼是否有效
 	$('form').submit(function(event){
-		
 		var emailtxt = $('#email').val();
 		var pwd = $('#password').val();
 		var vpwd = $('#validpwd').val();
@@ -203,7 +203,7 @@
 		//判斷使用者是否什麼都沒輸入
 		if(emailtxt == ''|| pwd =='' || vpwd ==''){
 			event.preventDefault();
-			flag = false;
+			flag = true;
 			if(emailtxt ==''){
 				//如果帳號沒輸入就跳沒輸入的錯誤
 				$('#email_errbox').text('請輸入帳號');
@@ -238,7 +238,7 @@
 		}else if(vpwd!=pwd){
 			event.preventDefault();
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認');			
-		}else if(!flag){
+		}else if(flag){
 			console.log('preventer2');
 			event.preventDefault();
 		}else{

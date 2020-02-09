@@ -15,7 +15,7 @@ public class MailCtxAndUtil {
 	//待改
 	public String ConfirmationMailContext(HttpServletRequest request,MembersBean mem,String CustomerConfirmURL){
 		Context="<html><head><meta charset='utf-8'></head>"
-				+ "<body><h3>嗨，"+mem.getFirstName()+"您好</h3><br><p>感謝您在"+"Pizza"+"上申請了新的帳號，開始訂購美味的Pizza前，我們需要確認是您本人申請此帳號，</p><br>"
+				+ "<body><h3>嗨，"+mem.getLastName()+mem.getFirstName()+"您好</h3><br><p>感謝您在"+"Pizza"+"上申請了新的帳號，開始訂購美味的Pizza前，我們需要確認是您本人申請此帳號，</p><br>"
 						+ "<p>請點擊下方連結以驗證此信箱</p><br><p>"
 				+request.getRequestURL()+"/"+CustomerConfirmURL+"</p><br>"
 				+ "<p>若不是您本人申請，請忽視本信件</p></body></html>";
