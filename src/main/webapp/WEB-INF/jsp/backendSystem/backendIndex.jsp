@@ -94,14 +94,18 @@
 			<!-- /.sidebar -->
 		</aside>
 
-
-		<!-- Main content ,use jQuery load() to load page-->
-		<div class="content-wrapper"
+		<div style="position:relative">
+			<!-- 浮動視窗 -->
+			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll">
+				<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right;display:none' onclick='floatPageClose()'></i></div>
+			</div>
+			<!-- Main content ,use jQuery load() to load page-->
+			<div class="content-wrapper"
 			style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
 		</div>
 		<!-- Main content -->
 	<!-- ./wrapper -->
-
+		</div>
 	<!-- Backend chatroom -->
 	<div id ="chatroom">
 	<div class="chat_box">
@@ -139,6 +143,9 @@
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
+	<!-- jQuery-UI -->
+	<script
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
 	
 	<!-- WebSocket用套件 -->
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
@@ -196,7 +203,20 @@
 			}
 
 		}
-		
+		/* 浮動分頁打開 */
+		function floatPage(requestPage){
+			$("#floatBlock").show("slide", { direction: "left" }, "slow"); 
+
+			$('#floatBlock').empty();
+			$("#floatBlock").load("${pageContext.request.contextPath}"+requestPage);
+			//插不進去
+			/* $("<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>").insertBefore("#floatBlock > div:first"); */
+			
+		}
+		/* 浮動分頁關閉(隱藏) */
+		function floatPageClose(){
+			$("#floatBlock").hide("slide", { direction: "left" }, "slow");
+		}
 		
 		function test(){
 			var purchaseRequest_jsonStr = {
