@@ -34,7 +34,10 @@ import org.springframework.web.multipart.MultipartFile;
 import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesListBean;
+import _model.SalesListDetailBean;
 import _model.SalesOrderBean;
+import _model.SalesOrderDetailBean;
 import shopManageSystem.service.ProductService;
 
 @Controller
@@ -150,12 +153,10 @@ public class ProductController {
 
 	@RequestMapping(value="/shopManageSystem/getAllSalesOrdersJson", method = RequestMethod.GET, produces = {
 	"application/json;charset=UTF-8" })
-	public String salesOrdersList(Model model) {
-		List<SalesOrderBean> list = service.getAllSalesOrders();
-		JSONArray salesOrder_jsa = new JSONArray(list);
-		//Start From HERE
-		model.addAttribute("salesOrders", list);
-		return "shopManageSystem/SalesOrders";
+	public @ResponseBody String salesOrdersList(Model model) {
+		String salesOrders = service.getAllSalesOrdersJson();
+		//model.addAttribute("salesOrders", list);
+		return salesOrders;
 	}
 
 //	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.GET)
@@ -266,4 +267,10 @@ public class ProductController {
 		}
 		return "";
 	}
+	
+	@RequestMapping(value = "/shopManageSystem/saveSalesList", method=RequestMethod.POST)
+	public @ResponseBody String saveSalesList(@RequestParam(value = "salesOrder_str") SalesOrderBean salesOrder, Model model) {
+		service.saveSalesList(salesOrder);
+		return "/shopManageSystem/GetAllSalesOrder";
+	} 
 }
