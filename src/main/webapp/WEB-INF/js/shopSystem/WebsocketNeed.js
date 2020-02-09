@@ -1,3 +1,11 @@
+//1. 當點擊對話框按鈕會開啟連線，此時會監測客服人員是否在線上
+//2. 當客服不在線上時，會自動出現資訊欄對話框(?)(目前以導向聯絡我們的page)，請他留下email與內容Content，
+//   此時對話欄將會無法送出對話
+//3. 當客服在線上時，即可進行對話，當產生對話時會將資訊與對話分別保留在localStorage內的"CSR_history"＆"CSR_
+//Dialogue"內
+
+
+
 $(function () {
 //    var INDEX = 0;
     
@@ -13,29 +21,18 @@ $(function () {
         
         sendMessage(msg);
         generate_message(msg, 'self');
-//        
-//        var buttons = [
-//            {
-//                name: 'Existing User',
-//                value: 'existing'
-//            },
-//            {
-//                name: 'New User',
-//                value: 'new'
-//            }
-//        ];
-//        setTimeout(function () {
-//            generate_message(msg, 'user');
-//        }, 1000)
-
+        
+        var buttons = [
+            {
+                name: 'Existing User',
+                value: 'existing'
+            },
+            {
+                name: 'New User',
+                value: 'new'
+            }
+        ];
     })
-
-//    $(document).delegate(".chat-btn", "click", function () {
-//        var value = $(this).attr("chat-value");
-//        var name = $(this).html();
-//        $("#chat-input").attr("disabled", false);
-//        generate_message(name, 'self');
-//    })
 
     // 開關聊天
     $("#chat-circle").click(function () {
@@ -50,10 +47,6 @@ $(function () {
     })
 
 })
-
-
-
-
 
 
 //這兩個是全域變數(function內共用)
@@ -73,6 +66,7 @@ function connect() {
         userName = customerEmail;
     } else {
         //請他輸入email或強迫他登入
+    	generate_message(msg, 'self');
 
 //        userName = ;
 //    	
@@ -99,7 +93,7 @@ function connect() {
 //            	showCustomerMessageOutput(messageGet);
             	console.log(messageGet.text);
             	var msg = messageGet.message.text;
-        	    generate_message(msg, 'user');
+        	    generate_message(msg, 'other');
             }
         });
 

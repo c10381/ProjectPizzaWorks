@@ -105,7 +105,11 @@ public class ShopController {
 		model.addAttribute("orders", orders);
 		return "/shopSystem/GetMemberOrders";
 	}
-	
+	// 導向聯絡我們
+		@RequestMapping("/shop/contactUs")
+		public String getStory() {
+			return "shopSystem/ContactUs";
+		}
 	
 
 }
