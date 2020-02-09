@@ -16,12 +16,15 @@ import _model.MaterialsUnitBean;
 import _model.MembersBean;
 import _model.PurchaseOrderBean;
 import _model.PurchaseOrderDetailBean;
+import _model.PurchaseRequestBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
+import _model.StorageHistoryBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
 import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
+import purchaseSystem.dao.PurchaseDao;
 import stockSystem.dao.StockDao;
 import stockSystem.service.StockService;
 
@@ -30,6 +33,7 @@ import stockSystem.service.StockService;
 public class StockServiceImpl implements StockService{
 
 	StockDao dao;
+	PurchaseDao pDao;
 	MemberDao memberDao;
 
 	
@@ -39,7 +43,12 @@ public class StockServiceImpl implements StockService{
 		this.dao = dao;
 	}
 
-	
+	@Override
+	@Autowired
+	public void setpDao(PurchaseDao pDao) {
+		this.pDao = pDao;
+	}
+
 	@Override
 	@Autowired
 	public void setMemberDao(MemberDao memberDao) {
@@ -95,7 +104,6 @@ public class StockServiceImpl implements StockService{
 		}
 		JSONObject sRequest_jso = new JSONObject(stockRequest);
 		sRequest_jso.put("sRequestId", sRequestId);
-
 		MembersBean proposaler = memberDao.getMember(stockRequest.getProposalerId());
 		MembersBean approver = memberDao.getMember(stockRequest.getApproverId());
 		sRequest_jso.put("proposalerName", proposaler.getLastName() + proposaler.getFirstName());
@@ -112,7 +120,6 @@ public class StockServiceImpl implements StockService{
 		}
 //		pRequest_jso.put("sRequestId", StockRequest.getsRequestId());
 		sRequest_jso.put("stockRequestDetails", sRequestDetail_jsa);
-
 		String jsonString = sRequest_jso.toString();
 		return jsonString;
 	}
@@ -270,75 +277,34 @@ public class StockServiceImpl implements StockService{
 			dao.insertOneStockRequestDetail(stockRequestDetail);
 		}
 	}
-
 	
 	@Override
-	public Integer updateApprovedStockRequest(StockRequestBean StockRequest) {
+	public Integer updateApprovedStockRequest(StockRequestBean stockRequest) {
 
-//		dao.updateStockRequest(StockRequest);
-//		StockRequestBean original_pRequest = dao.getOneStockRequestById(StockRequest.getsRequestId());
-//		List<StockRequestDetailBean> original_pRequestDetails = original_pRequest.getStockRequestDetails();
-//		List<Integer> used_index = new ArrayList<>();
-//		for (StockRequestDetailBean prdb : StockRequest.getStockRequestDetails()) {
-//			boolean flag = false;
-//			for (int i = 0; i < original_pRequestDetails.size() && !flag; i++) {
-//				Integer original_materialsId = original_pRequestDetails.get(i).getMaterialsId();
-//				if (original_materialsId == prdb.getMaterialsId()) {
-//					flag = true;
-//					dao.updateStockRequestDetailByMaterial(prdb);
-//					used_index.add(original_materialsId);
-//				}
-//			}
-//			if (!flag) {
-//				prdb.setQuantity(0);
-//				dao.insertOneStockRequestDetail(prdb);
-//			}
-//		}
-//		if (original_pRequestDetails.size() != used_index.size() && used_index.size() > 0) {
-//			for (StockRequestDetailBean oprdb : original_pRequestDetails) {
-//				if (!used_index.contains(oprdb.getMaterialsId())) {
-//					oprdb.setActualQuantity(0);
-//					dao.updateStockRequestDetailByMaterial(oprdb);
-//				}
-//			}
-//		}
-
+		dao.updateStockRequest(stockRequest);
+		PurchaseRequestBean purchaseRequest = pDao.getOnePurchaseRequestById(pDao.getOnePurchaseOrderById(stockRequest.getpOrderId()).getpRequestId());
+		purchaseRequest.setRequestStatus(3);
 		return 1;
 	}
 
-	
 	@Override
 	public void updateStockRequestStatus(Integer sRequestId, Integer requestStatus) {
 		dao.updateStockRequestStatus(sRequestId, requestStatus);
 	}
 
-	/*
-	public String getOnePurchaseOrderJson(Integer pOrderId) {
-		// 1-2.查詢單張進貨單
-		// +sRequestId、proposalerName、approvalerName
-		PurchaseOrderBean purchaseOrder = dao.getOnePurchaseOrderById(pOrderId);
-		JSONObject pOrder_jso = new JSONObject(purchaseOrder);
-		pOrder_jso.put("pOrderId", pOrderId);
-			
-		MembersBean proposaler = memberDao.getMember(purchaseOrder.getProposalerId());
-		MembersBean approver = memberDao.getMember(purchaseOrder.getApproverId());
-		pOrder_jso.put("proposalerName", proposaler.getLastName()+proposaler.getFirstName());
-		if(approver != null) {
-			pOrder_jso.put("approverName", approver.getLastName()+approver.getFirstName());
+	@Override
+	public void updateMaterialsByHistory(List<StorageHistoryBean> storageHistorys) {
+		for(StorageHistoryBean storageHistory:storageHistorys) {
+			dao.updateMaterialsByHistory(storageHistory);
 		}
-		JSONArray pOrderDetail_jsa = new JSONArray();
-		Double totalPrice = 0.0;
-		for (PurchaseOrderDetailBean purchaseOrderDetail : purchaseOrder.getPurchaseOrderDetails()) {
-			String materialsName = dao.getOneMaterialsById(purchaseOrderDetail.getMaterialsId()).getMaterialsName();
-			JSONObject pOrderDetail_jso = new JSONObject(purchaseOrderDetail);
-			pOrderDetail_jso.put("sRequestDetailId", purchaseOrderDetail.getpOrderDetailId());
-			pOrderDetail_jso.put("materialsName", materialsName);
-			totalPrice += purchaseOrderDetail.getPrice();
-			pOrderDetail_jsa.put(pOrderDetail_jso);
+	}
+
+	@Override
+	public void insertStockHistory(List<StorageHistoryBean> storageHistorys) {
+		for(StorageHistoryBean storageHistory:storageHistorys) {
+			dao.InsertOneStorageHistory(storageHistory);
 		}
-		pOrder_jso.put("totalPrice", totalPrice);
-		pOrder_jso.put("purchaseOrderDetails", pOrderDetail_jsa);
-		String jsonString = pOrder_jso.toString();
-		return jsonString;
-	}*/
+	}
+
+	
 }

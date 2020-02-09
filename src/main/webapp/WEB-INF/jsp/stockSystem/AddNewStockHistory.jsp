@@ -9,6 +9,7 @@
 <!-- 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
 <title>New Stock History</title>
+
 <script>
 	
 </script>
@@ -122,6 +123,68 @@
 	         return true;
 	      }
 		 
+		 function insertTime() {
+			flatpickr(".flatpickr", {
+				altInputClass : "form-group",
+				plugins : [ new confirmDatePlugin({
+					confirmText : "確定",
+					showAlways : false,
+					//theme : "light",
+					theme : "dark",
+				}) ],
+				//enableTime : true,
+				//time_24hr : false,
+				minDate : "today",
+				//maxDate : new Date().fp_incr(7),
+				wrap : true,
+			});
+		}
+		 /*
+		function temp_name(){
+			insertTime();
+	 		$(".flatpickr-input").val("");
+	 		$(".flatpickr-input").each(function() {
+	 			console.log($(this).val());
+	 			if($(this).val()!=""){
+	 				cart.requireTime = ($(this).val());
+	 			}
+	 			;
+	 		})
+		 }*/
+		// 外帶方式確認
+		/* function checkDeliver() {
+		 	$("#delieverModal").modal("show");
+		 	$(".delieveryInfo").hide();
+		 	insertTime();
+
+		 	$("select[name='delieverType']").change(function() {
+		 		$(".flatpickr-input").val("");
+		 		$(".takeOutInfo").toggle();
+		 		$(".delieveryInfo").toggle();
+		 	})
+
+		 	$("#delieverModal .next").click(function() {
+		 		var deliverType = $("#delieverModal select").val();
+
+		 		// 取得需求日期
+
+		 		$(".flatpickr-input").each(function() {
+		 			console.log($(this).val());
+		 			if($(this).val()!=""){
+		 				cart.requireTime = ($(this).val());
+		 			}
+		 			;
+		 		})
+
+		 		if (deliverType == "delivery") {
+		 			cart.needDelivery = 1;
+		 			cart.deliverAddress = $("#address").val();
+		 		} else {
+		 			cart.needDelivery = 0;
+		 		}
+		 		checkPizza();
+		 	})
+		 }*/
 	</script>
 
 	<script type="text/javascript">
@@ -161,7 +224,8 @@
 	                data: null,
 	                render: function(data, type, row, meta){
 	                	var quantity = data[2];
-	                	var input_html = "<div class='flatpickr'><input type='text' data-input /> <a class='input-button' title='toggle' data-toggle>  <i class='far fa-calendar-alt'></i></a></div>";
+	                	var input_html = "<div class='flatpickr'><input type='text' data-input/> <a class='input-button' title='toggle' data-toggle><i class='far fa-calendar-alt'></i></a></div>";
+	           		 	insertTime();
 	                	return input_html;
 	                },
 	                defaultContent: ""
@@ -178,27 +242,28 @@
 			var sRequest = new Object();
 			var requestDetails = [];
 			sRequest["sRequestId"] = stockRequest_json.sRequestId;
-			sRequest["proposalerId"] = $('#memberId').val();
+			sRequest["approverId"] = $('#memberId').val();
+			sRequest["pOrderId"] = stockRequest_json.pOrderId;
 			//sRequest["totalSale"] = $("#totalSale").val();
 			var flag = false;
 			for (var i = 1; i < totalNumber; i += 1) {
 				var table_row = document.getElementById("table_requestDetails").rows[i];
 				var sRequestDetails = new Object();
 				sRequestDetails["materialsId"] = table_row.cells[0].innerHTML;
-				var quantity  = table_row.cells[2].children[0].value;
-				if(quantity === ""){
+				var expiryDate  = table_row.cells[2].children[0].children[0].value;
+				if(expiryDate === ""){
 					flag = true;
 					break;
 				}
-				sRequestDetails["quantity"] = quantity;
-				sRequestDetails["unitPrice"] = table_row.cells[3].innerHTML;
-				sRequestDetails["quantityPerUnit"] = table_row.cells[4].innerHTML;
-				sRequestDetails["unit"] = table_row.cells[5].innerHTML;
+				sRequestDetails["expiryDate"] = expiryDate;
+				sRequestDetails["quantity"] = table_row.cells[3].innerHTML;
+				sRequestDetails["unitPrice"] = table_row.cells[4].innerHTML;
+				sRequestDetails["quantityPerUnit"] = table_row.cells[5].innerHTML;
+				sRequestDetails["unit"] = table_row.cells[6].innerHTML;
 				requestDetails.push(sRequestDetails);
 			}
-			sRequest["purchaseRequestDetails"] = requestDetails;
+			sRequest["stockRequestDetails"] = requestDetails;
 			stockRequest = sRequest;
-			
 			return flag;
 			//console.log(recipes);
 		}
@@ -209,16 +274,16 @@
 			
 			var flag = getRequestsTable();
 			if(!flag){
-				console.log('Data send:\n' + JSON.stringify({stockRequest: stockRequest}));
-				//sendData();
+				//console.log('Data send:\n' + JSON.stringify({stockRequest: stockRequest}));
+				sendData();
 			}else{
-				alert("你必須輸入所有的需求箱數!");
+				alert("你必須輸入所有貨品的保存期限!");
 			}
 		}
 
 		function sendData() {
 			$.ajax({
-					url : "${pageContext.request.contextPath}/savePurchaseOrder",
+					url : "${pageContext.request.contextPath}/saveStockHistory",
 					data : {
 						"stockRequest" : JSON.stringify(stockRequest)
 					},

@@ -8,6 +8,7 @@ import _model.MaterialsBean;
 import _model.MaterialsUnitBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
+import _model.StorageHistoryBean;
 import _model.SupplierBean;
 import _model.SuppliersProvisionBean;
 
@@ -43,5 +44,11 @@ public interface StockDao {
 	void updateReadTime(StockRequestBean stockRequest);
 
 	void updateStockRequestStatus(Integer sRequestId, Integer requestStatus);
+
+	void updateStockRequestDetailByMaterial(StockRequestDetailBean stockRequestDetail);
+
+	void updateMaterialsByHistory(StorageHistoryBean storageHistory);
+
+	void InsertOneStorageHistory(StorageHistoryBean storageHistory);
 
 }

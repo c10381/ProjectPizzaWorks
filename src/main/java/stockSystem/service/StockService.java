@@ -8,8 +8,10 @@ import _model.MaterialsBean;
 import _model.MaterialsUnitBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
+import _model.StorageHistoryBean;
 import _model.SuppliersProvisionBean;
 import memberSystem.dao.MemberDao;
+import purchaseSystem.dao.PurchaseDao;
 import stockSystem.dao.StockDao;
 
 public interface StockService {
@@ -50,5 +52,11 @@ public interface StockService {
 	Integer updateApprovedStockRequest(StockRequestBean StockRequest);
 
 	void updateStockRequestStatus(Integer sRequestId, Integer requestStatus);
+
+	void insertStockHistory(List<StorageHistoryBean> storageHistorys);
+
+	void updateMaterialsByHistory(List<StorageHistoryBean> storageHistorys);
+
+	void setpDao(PurchaseDao pDao);
 
 }

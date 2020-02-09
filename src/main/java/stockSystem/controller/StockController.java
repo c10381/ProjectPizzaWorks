@@ -1,12 +1,14 @@
 package stockSystem.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import _model.MaterialsBean;
 import _model.MaterialsUnitBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
+import _model.StorageHistoryBean;
 import _model.SuppliersProvisionBean;
 import stockSystem.service.StockService;
 
@@ -90,8 +93,8 @@ public class StockController {
 //	}
 	
 	@RequestMapping(value = "/getOneStockRequest", method = RequestMethod.GET)
-	public String getOneStockRequestRead(@RequestParam(value = "id") Integer pOrderId, @RequestParam(value="read") boolean read, Model model) {
-		String stockRequest = service.getOneStockRequestJson(pOrderId, read);
+	public String getOneStockRequestRead(@RequestParam(value = "id") Integer pRequestId, @RequestParam(value="read") boolean read, Model model) {
+		String stockRequest = service.getOneStockRequestJson(pRequestId, read);
 		model.addAttribute("stockRequest_jsonStr", stockRequest);
 		return "stockSystem/GetStockRequest";
 	}
@@ -115,7 +118,10 @@ public class StockController {
 //		String materials_string = service.getAllMaterialsJson();
 		List<MaterialsUnitBean> materialUnits = service.getAllMaterialsUnits();
 		List<SuppliersProvisionBean> suppliersProvisions = service.getAllSuppliersProvisions();
-		model.addAttribute("stockRequest_jsonStr", stockRequest);
+		JSONObject stockRequest_jso = new JSONObject(stockRequest);
+		StockRequestBean temp_stockRequest = service.getOneStockRequest(stockRequest_jso.getInt("sRequestId"));
+		stockRequest_jso.put("pOrderId",temp_stockRequest.getpOrderId());
+		model.addAttribute("stockRequest_jsonStr", stockRequest_jso.toString());
 		model.addAttribute("materialsUnits", new JSONArray(materialUnits).toString());
 		model.addAttribute("suppliersProvisions", new JSONArray(suppliersProvisions).toString());
 //		model.addAttribute("", );
@@ -142,83 +148,54 @@ public class StockController {
 		return "OK";
 	}
 	
-	/*
-	@RequestMapping(value = "/saveStockRequest", method = RequestMethod.POST)
-	public @ResponseBody String saveStockRequest(@RequestParam("StockRequest") String StockRequest,
+	
+	@RequestMapping(value = "/saveStockHistory", method = RequestMethod.POST)
+	public @ResponseBody String saveStockRequest(@RequestParam("stockRequest") String stockRequest,
 			Model model) {
 		// Initialize variables
-		JSONObject StockRequest_jso = new JSONObject(StockRequest);
-		StockRequestBean StockRequest = new StockRequestBean();
-		StockRequestBean stockRequest = new StockRequestBean();
+		JSONObject stockRequest_jso = new JSONObject(stockRequest);
 		StockRequestBean newStockRequest = new StockRequestBean();
-		List<StockRequestDetailBean> StockRequestDetails = new ArrayList<>();
-		List<StockRequestDetailBean> stockRequestDetails = new ArrayList<>();
-		List<StockRequestDetailBean> StockRequestDetails = new ArrayList<>();
+		List<StorageHistoryBean> storageHistorys = new ArrayList<>();
 		// Get values to set Beans' property. 
-		Integer sRequestId = StockRequest_jso.getInt("sRequestId");
+		Integer sRequestId = stockRequest_jso.getInt("sRequestId");
 		String timeStr = String.valueOf(new Timestamp(new Date().getTime()));
 		String timeStrNoMillisec = timeStr.substring(0, timeStr.length() - 4);
-		Integer proposalerId = StockRequest_jso.getInt("proposalerId");
-		String briefInfo = StockRequest_jso.getString("briefInfo");
-		JSONArray StockRequestDetails_jsa = StockRequest_jso.getJSONArray("StockRequestDetails");
-		// Set StockRequest bean.
-		StockRequest.setsRequestId(sRequestId);
-		StockRequest.setProposalerId(proposalerId);
-		StockRequest.setBriefInfo(briefInfo);
-		StockRequest.setRequestTime(timeStrNoMillisec);
-		StockRequest.setApproverId(4);
-		// Set stockRequest bean.
-		stockRequest.setProposalerId(proposalerId);
-		stockRequest.setBriefInfo(briefInfo);
-		stockRequest.setRequestTime(timeStrNoMillisec);
-		stockRequest.setApproverId(0);
-		stockRequest.setRequestStatus(0);
+		Integer approverId = stockRequest_jso.getInt("approverId");
+		JSONArray stockRequestDetails_jsa = stockRequest_jso.getJSONArray("stockRequestDetails");
+		Integer total_boxes = 0;
 		// Set newStockRequest bean.
+		newStockRequest.setpOrderId(stockRequest_jso.getInt("pOrderId"));
 		newStockRequest.setsRequestId(sRequestId);
-		newStockRequest.setApproverId(proposalerId);
-//		newStockRequest.setResponseComment(briefInfo);
-//		newStockRequest.setResponseTime(timeStrNoMillisec);
-		newStockRequest.setTotalPrice(StockRequest_jso.getDouble("totalSale"));
+		newStockRequest.setApproverId(approverId);
 		newStockRequest.setRequestStatus(2);
-		for(int i = 0; i<StockRequestDetails_jsa.length(); i++) {
+		for(int i = 0; i<stockRequestDetails_jsa.length(); i++) {
 			// Initialize variables
-			JSONObject StockRequestDetails_jso = StockRequestDetails_jsa.getJSONObject(i);
-			StockRequestDetailBean StockRequestDetail = new StockRequestDetailBean();
-			StockRequestDetailBean stockRequestDetail = new StockRequestDetailBean();
-			StockRequestDetailBean StockRequestDetail = new StockRequestDetailBean();
+			JSONObject stockRequestDetails_jso = stockRequestDetails_jsa.getJSONObject(i);
+			StorageHistoryBean storageHistory = new StorageHistoryBean();
 			// Get values to set Beans' property.
-			Integer materialsId = StockRequestDetails_jso.getInt("materialsId");
-			Double quantity = StockRequestDetails_jso.getDouble("quantity");
-			Double unitPrice = StockRequestDetails_jso.getDouble("unitPrice");
-			// Set StockRequestDetail bean.
-			StockRequestDetail.setMaterialsId(materialsId);
-			StockRequestDetail.setQuantity(quantity);
-			StockRequestDetail.setUnitPrice(quantity*unitPrice);
-			StockRequestDetails.add(StockRequestDetail);
-			// Set stockRequestDetail bean.
-			stockRequestDetail.setMaterialsId(materialsId);
-			stockRequestDetail.setQuantity(quantity.intValue());
-			stockRequestDetail.setUnitPrice(unitPrice);
-			stockRequestDetails.add(stockRequestDetail);
-			// Set StockRequestDetail bean.
-			StockRequestDetail.setsRequestId(sRequestId);
-			StockRequestDetail.setMaterialsId(materialsId);
-			StockRequestDetail.setUnitPrice(unitPrice);
-			StockRequestDetails.add(StockRequestDetail);
+			Integer materialsId = stockRequestDetails_jso.getInt("materialsId");
+			Double quantity = stockRequestDetails_jso.getDouble("quantity");
+			Double unitPrice = stockRequestDetails_jso.getDouble("unitPrice");
+			Integer quantityPerUnit = stockRequestDetails_jso.getInt("quantityPerUnit");
+			Integer preciseQuantity = quantity.intValue()*quantityPerUnit;
+			// Set stockHistory bean.
+			storageHistory.setsRequestId(sRequestId);
+			storageHistory.setMaterialsId(materialsId);
+			storageHistory.setUnitPrice(unitPrice);
+			storageHistory.setQuantity(preciseQuantity);
+			storageHistory.setRemainingQuantity(preciseQuantity);
+			storageHistory.setStockTime(timeStrNoMillisec);
+			storageHistory.setExpiryTime(stockRequestDetails_jso.getString("expiryDate"));
+			storageHistory.setUnit(stockRequestDetails_jso.getString("unit"));
+			storageHistorys.add(storageHistory);
+			total_boxes = total_boxes + quantity.intValue();
 		}
-		// Set StockRequestDetails into the StockRequest bean.
-		StockRequest.setStockRequestDetails(StockRequestDetails);
-		// Set stockRequestDetails into the stockRequest bean.
-		stockRequest.setStockRequestDetails(stockRequestDetails);
-		// Set StockRequestDetails into the newStockRequest bean.
-		newStockRequest.setStockRequestDetails(StockRequestDetails);
-		// Insert two beans and Update one bean
-		Integer pOrderId = service.insertStockRequest(StockRequest);
-		stockRequest.setpOrderId(pOrderId);
-		service.insertStockRequest(stockRequest);
+		newStockRequest.setResponseComment("共有"+total_boxes+"箱貨品已入庫");
+		// 
 		service.updateApprovedStockRequest(newStockRequest);
-		
+		service.insertStockHistory(storageHistorys);
+		service.updateMaterialsByHistory(storageHistorys);
 		return "/stock/GetAllStockRequest";
-	}*/
+	}
 	
 }

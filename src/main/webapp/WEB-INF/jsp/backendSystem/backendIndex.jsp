@@ -34,13 +34,16 @@
 <!-- 後台chatroom css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/backendSystem/chatroomstyle.css" />
 
-	<!-- jQuery -->
+<!-- jQuery -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
-	<!-- jQuery-ui 1.12.1 -->
+<!-- jQuery-ui 1.12.1 -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
-
+<!-- flatpickr -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
 
 </head>
 <body  class="sidebar-mini layout-fixed" onload="clock()">
@@ -144,10 +147,9 @@
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
     
-    <!-- Datepicker & Timepicker -->
-	<script src="${pageContext.request.contextPath }/js/shopSystem/bootstrap-datepicker.js"></script>
-	<script src="${pageContext.request.contextPath }/js/shopSystem/jquery.timepicker.min.js"></script>
-	
+    <!-- flatpickr -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
 	<script>
 		//紀錄email
 		var customerEmail="${CLoginOK.email}";
