@@ -5,19 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 
+import _model.MembersBean;
 import _model.ProductBean;
 import _model.WebInfo;
 import shopManageSystem.service.ProductService;
 import shopSystem.service.ShopService;
 
 @Controller
-@RequestMapping("/shop")
+@SessionAttributes("CLoginOK") 
 public class ShopController {
 	ProductService pdService;
 	ShopService shopService;
@@ -32,13 +36,8 @@ public class ShopController {
 		this.shopService = shopService;
 	}
 
-	@RequestMapping("/")
-	public String getIndex(Model model) {
-		return "shopSystem/index";
-	}
-	
-	
-	@RequestMapping("/menu")
+	// 取得所有產品
+	@RequestMapping("/shop/menu")
 	public String getMenu(Model model) {
 		//List<ProductBean> products = pdService.getAllProducts();
 		List<ProductBean> products = pdService.getAllActiveProducts();
@@ -46,7 +45,8 @@ public class ShopController {
 		return "shopSystem/menu";
 	}
 	
-	@RequestMapping("/checkout")
+	// 導向結帳頁面
+	@RequestMapping("/shop/checkout")
 	public String checkOut(Model model) {
 		return "shopSystem/checkout";
 	}
@@ -58,41 +58,54 @@ public class ShopController {
 //		model.addAttribute(json);
 //		return "shopSystem/product" ;
 //	}
-	
-	@RequestMapping("/product")
+	// 導向單一頁面
+	@RequestMapping("/shop/product")
 	public String getProductById(Model model, @RequestParam("name") String productName) {
 		model.addAttribute("products", shopService.getProductByName(productName));
 		return "shopSystem/product" ;
 	}
-	
-	@RequestMapping("/cart")
+	// 導向購物車頁面
+	@RequestMapping("/shop/cart")
 		public String getCart(Model model) {
-		
 		return "shopSystem/cart";
 	}
-	@RequestMapping("/story")
+	// 導向關於我們頁面
+	@RequestMapping("/shop/story")
 	public String getStory(Model model) {
 		return "shopSystem/story";
 	}
 	
-
-	@RequestMapping("/redirectWebInfo")
+	// 轉址後台修改前台網站頁面
+	@RequestMapping("/shop/redirectWebInfo")
 	public String redirectWebInfo(Model model) {
 		model.addAttribute("Bean", new WebInfo());
 		return "/shopSystem/backEnd/EditInfo";
 	}
 	
-	
+	// 轉址後台修改成功頁面
 	@RequestMapping("/insertWebInfo")
 	public String insertWebInfo(WebInfo webinfo) {
 		shopService.insertWebInfo(webinfo);
 		return "/shopSystem/SuccessInsertWebInfo";
 	}
 	
+	// 取得網站資訊，回傳給前台修改
 	@RequestMapping("/getWebInfo")
 	public @ResponseBody String getWebInfo() {
 		Gson gson=new Gson();
 		return gson.toJson(shopService.getWebInfo());
 	}
+	
+	// 依照顧客登入Bean取得所有訂單
+	@GetMapping("/member/orders")
+	public String getAllOrders(@ModelAttribute("CLoginOK") MembersBean member , Model model) {
+		Integer memberId = member.getMemberId();
+		String orders = shopService.getMemberAllOrders(memberId);
+		System.out.println(orders);
+		model.addAttribute("orders", orders);
+		return "/shopSystem/GetMemberOrders";
+	}
+	
+	
 
 }

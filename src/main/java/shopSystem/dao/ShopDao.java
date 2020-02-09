@@ -26,4 +26,8 @@ public interface ShopDao {
 
 	List<WebInfo> getInfo();
 
+	List<SalesOrderBean> getMemberAllOrders(Integer memberId);
+
+	ProductBean getProductById(Integer productId);
+
 }

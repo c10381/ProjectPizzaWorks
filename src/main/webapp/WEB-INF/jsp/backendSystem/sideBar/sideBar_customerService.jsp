@@ -2,7 +2,49 @@
 	pageEncoding="UTF-8"%>
 
 				<!-- privilegeId=6 -->
-
+		
+				<!-- customerService -->
+				<li class="nav-item has-treeview" onclick="loadingPage('/customerService')"><div class="nav-link">
+						<i class="nav-icon fas fa-microphone"></i>
+						<p>
+							客服系統
+						</p>
+					</div>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"
+							onclick="floatPage('/shopManageSystem/products')">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>填寫報告</p>
+							</div>
+						</li>
+						<li class="nav-item"
+							onclick="floatPage('')">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>未回復客訴</p>
+							</div>
+						</li>
+						<li class="nav-item"
+							onclick="floatPage('')">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>已回復客訴</p>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<!-- /customerService -->
+				
+				<!-- customerService -->
+				<li class="nav-item has-treeview" onclick="floatPage('/messageSystem/MailSystem')"><div class="nav-link">
+						<i class="nav-icon fas fa-microphone"></i>
+						<p>
+							信件系統
+						</p>
+					</div>
+				</li>
+				<!-- /customerService -->
 
 				<!-- ProductSystem -->
 				<li class="nav-item has-treeview menu-open"><div class="nav-link">
@@ -20,14 +62,6 @@
 							</div>
 						</li>
 
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>新增產品</p>
-							</div></li>
-						<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>修改產品</p>
-							</div></li>
 					</ul></li>
 				<!-- /ProductSystem -->
 
@@ -41,26 +75,7 @@
 					</div>
 
 					<ul class="nav nav-treeview" style="display: block;">
-						
-						<li class="nav-item has-treeview menu-open">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>
-									請購單系統<i class="fas fa-angle-left right"></i>
-								</p>
-							</div>
-							<ul class="nav nav-treeview" style="display: block;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>請購單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>查詢請購單</p>
-									</div></li>
-	
-							</ul>
-						</li>
+
 
 
 						<li class="nav-item has-treeview menu-open">
@@ -110,16 +125,7 @@
 					</ul>
 				</li>
 				<!-- /SalesSystem -->
-		
-				<!-- customerService -->
-				<li class="nav-item has-treeview" onclick="loadingPage('/customerService')"><div class="nav-link">
-						<i class="nav-icon fas fa-microphone"></i>
-						<p>
-							客服系統
-						</p>
-					</div>
-				</li>
-				<!-- /customerService -->
+
 				
 				<!-- Analysis -->
 				<li class="nav-item has-treeview" onclick="loadingPage('')"><div class="nav-link">

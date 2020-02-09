@@ -79,7 +79,7 @@
 				</div>
 				
 				<div class="col-md-6 d-flex align-self-stretch">
-					<div id="map">1516156165156</div>
+					<div id="map"></div>
 				</div>
 				
 			</div>
