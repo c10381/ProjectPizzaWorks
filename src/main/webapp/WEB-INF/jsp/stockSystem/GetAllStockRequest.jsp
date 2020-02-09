@@ -36,6 +36,7 @@
 			</table>
 		</div>
 	</section>
+
 	<c:if test="${(privilegeId==5)|| (privilegeId==7)}">
 		<!-- Modal -->
 		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog"
@@ -74,6 +75,7 @@
 			</div>
 		</div>
 	</c:if>
+	
 	<script>
 	$(document).ready(function () {
 		var table = $("#srTable").DataTable(

@@ -1,14 +1,11 @@
 package purchaseSystem.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,7 +51,7 @@ public class PurchaseController {
 		String PurchaseRequest = service.getAllPurchaseRequest();
 		return PurchaseRequest;
 	}
-	
+
 	// 1-2.查詢單張請購單
 	@RequestMapping(value = "/getOnePurchaseRequest", method = RequestMethod.GET)
 	public String getOnePurchaseRequest(@RequestParam(value = "id") Integer id, Model model) {
@@ -151,7 +148,7 @@ public class PurchaseController {
 //		output.put("purchaseRequest_jsonStr", purchaseRequest);
 //		output.put("materials", new JSONArray(materials).toString());
 //		output.put("path", "purchaseSystem/AddNewStockRequest");
-		
+
 //		return output.toString();
 		return "purchaseSystem/AddNewStockRequest";
 //		return materials_string;

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import _model.MaterialsBean;
 import _model.MaterialsUnitBean;
 import _model.PurchaseRequestBean;
+import _model.PurchaseRequestDetailBean;
 import _model.StockRequestBean;
 import _model.StockRequestDetailBean;
+import _model.StorageHistoryBean;
 import _model.SupplierBean;
 import _model.SuppliersProvisionBean;
 import stockSystem.dao.StockDao;
@@ -77,12 +79,23 @@ public class StockDaoImpl implements StockDao {
 	@Override
 	public void updateStockRequestDetail(StockRequestDetailBean stockRequestDetail) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM PurchaseRequestDetailBean WHERE sRequestId=:sRequestId AND materialsId=:materialsId";
+		StockRequestDetailBean oldBean = session.get(StockRequestDetailBean.class, stockRequestDetail.getsRequestDetailId());
+		if (stockRequestDetail.getUnitPrice() != null) {
+			oldBean.setUnitPrice(stockRequestDetail.getUnitPrice());
+		}
+		if (stockRequestDetail.getQuantity() != null) {
+			oldBean.setQuantity(stockRequestDetail.getQuantity());
+		}
+	}
+	
+	@Override
+	public void updateStockRequestDetailByMaterial(StockRequestDetailBean stockRequestDetail) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM StockRequestDetailBean WHERE sRequestId=:sRequestId AND materialsId=:materialsId";
 		List<StockRequestDetailBean> list = session.createQuery(hql).setParameter("sRequestId", stockRequestDetail.getsRequestId())
 				.setParameter("materialsId", stockRequestDetail.getMaterialsId()).getResultList();
 		for (StockRequestDetailBean oldBean : list) {
 			session.save(oldBean);
-
 			if (stockRequestDetail.getUnitPrice() != null) {
 				oldBean.setUnitPrice(stockRequestDetail.getUnitPrice());
 			}
@@ -100,6 +113,22 @@ public class StockDaoImpl implements StockDao {
 			if (!stockRequest.getBriefInfo().equals("")) {
 				original_sRequest.setBriefInfo(stockRequest.getBriefInfo());
 			}
+		}
+		if(stockRequest.getApproverId() != null) {
+			original_sRequest.setApproverId(stockRequest.getApproverId());
+		}
+		if (stockRequest.getResponseComment() != null) {
+			if (!stockRequest.getResponseComment().equals("")) {
+				original_sRequest.setResponseComment(stockRequest.getResponseComment());
+			}
+		}
+		if (stockRequest.getReadTime() != null) {
+			if (!stockRequest.getReadTime().equals("")) {
+				original_sRequest.setReadTime(stockRequest.getReadTime());
+			}
+		}
+		if(stockRequest.getRequestStatus() != null) {
+			original_sRequest.setRequestStatus(stockRequest.getRequestStatus());
 		}
 	}
 
@@ -151,5 +180,19 @@ public class StockDaoImpl implements StockDao {
 		String hql = "UPDATE StockRequestBean SET requestStatus = :requestStatus WHERE sRequestId = :sRequestId";
 		Session session = factory.getCurrentSession();
 		session.createQuery(hql).setParameter("requestStatus", requestStatus).setParameter("sRequestId", sRequestId).executeUpdate();
+	}
+
+	@Override
+	public void updateMaterialsByHistory(StorageHistoryBean storageHistory) {
+		Session session = factory.getCurrentSession();
+		MaterialsBean material = session.get(MaterialsBean.class, storageHistory.getMaterialsId());
+		Double original_quantity = material.getQuantity();
+		material.setQuantity(original_quantity+storageHistory.getQuantity());
+	}
+
+	@Override
+	public void InsertOneStorageHistory(StorageHistoryBean storageHistory) {
+		Session session = factory.getCurrentSession();
+		session.save(storageHistory);
 	}
 }

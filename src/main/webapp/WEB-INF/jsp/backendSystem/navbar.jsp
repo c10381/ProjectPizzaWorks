@@ -330,7 +330,7 @@
 			},
 			success : function(data) {
 				$('#footer').html('查看所有進貨通知');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");
+				$('#footer').attr("onclick","loadingPage('/stock/GetAllStockRequest')");
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('沒有新的進貨通知');
@@ -346,7 +346,7 @@
 	
 	function stockRequestNotifier(data){
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getSalesOrder?id=";//變更網址
+		var link = "/getOneStockRequest?id=";//變更網址
 		//var requestId = "進貨單號： ";
 		var requestLength = 3;
 
@@ -359,7 +359,7 @@
 			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
-					+ data[i].sRequestId
+					+ data[i].sRequestId+"&read=false"
 					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
 			div_html += requestId;
 			div_html += "<span class='float-right text-muted text-sm'>";

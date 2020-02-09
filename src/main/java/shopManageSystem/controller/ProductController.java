@@ -53,20 +53,6 @@ public class ProductController {
 		this.context = context;
 	}
 
-//	@RequestMapping("/shopManageSystem/products")
-//	public String productsList(Model model) {
-//		List<ProductBean> list = service.getAllProducts();
-//		model.addAttribute("products", list);
-//		return "shopManageSystem/products";
-//	}
-//
-//	// 按下首頁超連結後來此，再跳出oneProduct.jsp
-//	@RequestMapping(value = "/shopManageSystem/getProductById", method = RequestMethod.GET)
-//	public String getProductById(@RequestParam("id") Integer id, Model model) {
-//		model.addAttribute("product", service.getProductById(id));
-//		return "shopManageSystem/GetOneProduct";
-//	}
-
 	@RequestMapping(value = "/shopManageSystem/getProductById", method = RequestMethod.POST)
 	public String UpdateOneProduct(@ModelAttribute("product") ProductBean pb, Model model)
 			throws ServletException, IOException {
@@ -162,13 +148,16 @@ public class ProductController {
 		return result;
 	}
 
-//	@RequestMapping("/shopManageSystem/salesOrders")
-//	public String salesOrdersList(Model model) {
-//		List<SalesOrderBean> list = service.getAllSalesOrders();
-//		model.addAttribute("salesOrders", list);
-//		return "shopManageSystem/SalesOrders";
-//	}
-//
+	@RequestMapping(value="/shopManageSystem/getAllSalesOrdersJson", method = RequestMethod.GET, produces = {
+	"application/json;charset=UTF-8" })
+	public String salesOrdersList(Model model) {
+		List<SalesOrderBean> list = service.getAllSalesOrders();
+		JSONArray salesOrder_jsa = new JSONArray(list);
+		//Start From HERE
+		model.addAttribute("salesOrders", list);
+		return "shopManageSystem/SalesOrders";
+	}
+
 //	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.GET)
 //	public String getRecipeById(@RequestParam("id") Integer productId, Model model) {
 //		List<RecipeBean> list = service.getRecipeById(productId);

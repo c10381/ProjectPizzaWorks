@@ -290,8 +290,6 @@
 	
 	});
 	
-
-	
 	// 點擊打開按鈕，會新增讀取時間
    	function updateReadTime(pRequestId){
      	  $.ajax({
