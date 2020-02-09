@@ -151,9 +151,9 @@ public class CustomerServiceImpl implements CustomerService {
 			ms.sendMail(mailCtxAndUtil.UserName,mem.getEmail() , "會員密碼確認信",
 					mailCtxAndUtil.CustomerForgetPW(request,mem,validationCode));
 			return true;
-		};
-		
-		return false;
+		}else{
+			return false;
+		}		
 	}
 	//Customer點擊信件忘記密碼連結
 	//要撈出MemberBean

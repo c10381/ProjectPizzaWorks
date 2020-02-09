@@ -53,13 +53,13 @@
 				</div>	
 									
 				<div class="row">
-						<!-- /.col -->
+					<!-- /.col -->
 					<div class="col-sm-7"></div>
-					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+					<!-- col end-->
+					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
-					<div class="col-4">
-						<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
-					</div>						
+					<!-- col end-->
+					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>					
 				</div>				
 			</form>			
 		</div>
@@ -88,16 +88,7 @@
 		}else{
 			$('h6').text('');	
 		}
-	})
-	
-	$('#newPwd').blur(function(){
-		var pwd = $('#newPwd').val();
-		if(pwd.length < 6){
-			
-		}
-	})
-	
-	
+	})	
 	
 	$('#chkPwd').blur(function(){
 		var pwd1 = $('#newPwd').val();
@@ -113,10 +104,16 @@
 	})
 	
 	$('form').submit(function(){
-		var newpwd = $('#newPwd').val(); 
+		var pwd1 = $('#newPwd').val();
+		var pwd2 = $('#chkPwd').val();
+		if(pwd1 != pwd2){
+			event.preventDefault();
+			$('#validpwd_errbox').text('輸入密碼不一致！');
+			$('#validpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"
+			});
+		}
 	})
-	
-	
 	
 	</script>	
 </body>

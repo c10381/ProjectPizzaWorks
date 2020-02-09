@@ -55,8 +55,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			member = (MembersBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
 		}catch (Exception e) {
 			return null;
-		}
-		
+		}		
 		return member;
 	}
 

@@ -1,7 +1,5 @@
 package memberSystem.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -40,20 +38,8 @@ public class CustomerController {
 	}
 
 	// 登入轉址
-	@RequestMapping(value = "/memberSystem/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/memberSystem/login")
 	public String login(Model model) {
-		
-		model.addAttribute("MembersBean", new MembersBean());
-		// 登入失敗時，透過此方法取得失敗的值並將對應的訊息塞到下個畫面
-		if (model.getAttribute("errMsg") != null) {
-			if ((int) model.getAttribute("errMsg") == 1) {
-				model.addAttribute("errMsg", "登入失敗：請至信箱透過驗證信啟動會員");
-			} else if ((int) model.getAttribute("errMsg") == 2) {
-				model.addAttribute("errMsg", "登入失敗：帳號或密碼錯誤請重新輸入");
-			} else if ((int) model.getAttribute("errMsg") == 3) {
-				model.addAttribute("errMsg", "登入失敗：帳號或密碼錯誤請重新輸入");
-			}
-		}
 		return "memberSystem/login";
 	}
 
@@ -63,10 +49,12 @@ public class CustomerController {
 
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		if (mem == null) {
+			model.addAttribute("email_errMsg","請進行登入！");
 			return "memberSystem/login";
+		}else {
+			model.addAttribute("MembersBean", new MembersBean());
+			return "memberSystem/infoUpdate";
 		}		
-		model.addAttribute("MembersBean", new MembersBean());
-		return "memberSystem/infoUpdate";
 	}
 	
 	//前端註冊信箱檢查按鈕判定
@@ -106,33 +94,46 @@ public class CustomerController {
 
 		MembersBean bean = service.login(mem.getEmail(), mem.getPassword());
 		if (bean != null) {
-			// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
+		//帳密輸入正確	
+		//由bean是否為null判斷使用者輸入的帳號密碼是否有效	
 			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 3) {
+				// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
 				session.setAttribute("CLoginOK", bean);
-				return "redirect:/";
+				return "redirect:/";				
+			}
+			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
 				// 會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
-			}
-			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {				
-				return "memberSystem/login";
+				model.addAttribute("email_errMsg","請先開通會員!");
+				return "memberSystem/login";				
+			} else {
 				// 會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入
-			} else {				
+				model.addAttribute("email_errMsg","帳號或密碼錯誤!");
 				return "memberSystem/login";
-			}
-			// 因為bean取到空值表示根本不是會員，透過errMsg告知使用者進行註冊
+			}			
 		} else {
+		//帳號 或 密碼 輸入不正確	
+			if(service.emailExists(mem.getEmail())){
+				//用帳號是否存在DB來判斷是否有註冊過，若有，則告知使用者密碼錯誤
+				model.addAttribute("email_errMsg","");
+				model.addAttribute("pwd_errMsg", "密碼錯誤");
+			}else {
+				// 用帳號是否存在DB來判斷是否有註冊過，若無，則告知使用者輸入的帳號根本沒註冊過
+				model.addAttribute("email_errMsg","無此帳號");
+				model.addAttribute("email_errMsg","");
+			}			
 			return "memberSystem/login";
 		}
 	}
 
 	//會員資料更新
 	@RequestMapping(value = "/memberSystem/doupdate")
-	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, HttpSession session) {
+	public String doUpdate(@ModelAttribute("MembersBean") MembersBean mem, Model model) {
 		
-		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
+		MembersBean mem1 = (MembersBean) model.getAttribute("CLoginOK");
 		if (mem1 == null) {
+			model.addAttribute("email_errMsg", "請先進行登入！");
 			return "memberSystem/login";
 		}
-
 		mem1.setCellphone(mem.getCellphone());
 		mem1.setAddress(mem.getAddress());
 		if (service.updateInfo(mem1)) {
@@ -144,9 +145,9 @@ public class CustomerController {
 
 	// 修改密碼轉址
 	@RequestMapping(value = "/memberSystem/updPwd")
-	public String updPwd(Model model, HttpSession session) {
-		MembersBean mem1 = (MembersBean) session.getAttribute("CLoginOK");
-		if (mem1 == null) {
+	public String updPwd(Model model) {
+		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
+		if (mem == null) {
 			return "memberSystem/login";
 		}
 		return "memberSystem/updPwd";
@@ -165,16 +166,14 @@ public class CustomerController {
 			return pwdChecker;
 		}		
 	}
-	
-	
-	
 
 	// 修改密碼
 	@RequestMapping(value = "/memberSystem/doUpdPwd")
 	public String doUpdPwd(HttpSession session, @RequestParam(value = "oldPwd") String oldPwd,
-			@RequestParam(value = "newPwd") String newPwd) {
-		MembersBean mem = (MembersBean) session.getAttribute("CLoginOK");
+			@RequestParam(value = "newPwd") String newPwd, Model model) {
+		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		if (mem == null) {
+			model.addAttribute("email_errMsg","請先進行登入！");
 			return "memberSystem/login";
 		}
 
@@ -186,7 +185,7 @@ public class CustomerController {
 			session.setAttribute("CLoginOK", Members);
 			return "memberSystem/updateSuccess";
 		} else {
-			return "memberSystem/pwdupdateFail";
+			return "memberSystem/updateFail";
 		}
 	}
 
@@ -208,7 +207,7 @@ public class CustomerController {
 		return "memberSystem/resetPwd";
 	}
 
-	// 忘記密碼的重設密碼
+	// 忘記密碼的重設密碼動作
 	@RequestMapping(value = "memberSystem/doResetPwd")
 	public String doResetPwd(@RequestParam(value = "email") String email,
 			@RequestParam(value = "newPwd") String newPwd) {
@@ -221,12 +220,11 @@ public class CustomerController {
 	//忘記密碼頁面，但是他不動耶
 	@GetMapping(value = "/memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
-		return "memberSystem/ForgetPWPage";
+		return "memberSystem/forgetPWPage";
 	}
 
 	// Customer導入忘記密碼
-	// 用AJAX回傳字串，要在回傳物件前加@ResponseBody
-	
+	// 用AJAX回傳字串，要在回傳物件前加@ResponseBody	
 	@PostMapping(value = "/memberSystem/forgetPW")
 	public @ResponseBody boolean forgetPWRequest(@RequestParam(value = "email") String email, Model model,
 			HttpServletRequest request) {

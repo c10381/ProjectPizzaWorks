@@ -7,7 +7,7 @@
 
 <html>
 <head>
-<title>Pizza|產品介紹</title>
+<title>Pizza Bite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -82,7 +82,7 @@
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
-	<jsp:include page="fragment/chatBox.jsp" /> 
+	<jsp:include page="fragment/chatBox.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script src="${pageContext.request.contextPath }/js/shopSystem/cart.js"></script>
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script> 

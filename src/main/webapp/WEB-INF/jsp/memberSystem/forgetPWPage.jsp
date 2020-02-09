@@ -45,7 +45,7 @@
 					<div class="col-sm-4"></div>
 					<input type="button"
 						onclick="javascript:location.href='${pageContext.request.contextPath}/'"
-						class="btn btn-primary col-sm-2" value="返回上一頁" />
+						class="btn btn-primary col-sm-2" value="返回上一頁" autocomplete="off"/>
 					<div>&nbsp;</div>
 					<input id="btnSend" type="button" class="btn btn-primary col-sm-2" onclick="SendToBack()"
 						value="送出驗證信" />
@@ -61,23 +61,23 @@
 
 	<script>
 		function SendToBack() {
-			var email = $("#email").val();
 			if(email=""){
 				$('#msg').text("請輸入帳號!");
 				$('#msg').attr({
 					"class" : "text-danger col-sm-3 align-self-center"
 				})
 			}else{
+				$('#btnSend').prop("disabled",true);
 				$.ajax({
 					url : "${pageContext.request.contextPath}/memberSystem/forgetPW",
 					data : {
-						"email" : email
+						"email" : $("#email").val()
 					},
 					type : "POST",
 					error : function() {
 						alert("Something Wrong.");
 					},
-					success : function(data) {							
+					success : function(data) {
 						if(data){
 							$('#msg').attr({
 								"class" : "col-sm-3 align-self-center"

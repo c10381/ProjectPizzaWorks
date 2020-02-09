@@ -30,17 +30,18 @@
 		<!-- /.login-logo -->
 			<div id='container justify-content-center'>
 		<!-- <div class="card">
-			<div class="card-body login-card-body"> -->
-				<p class="login-box-msg">${errorMessage}</p>
-				<p class="login-box-msg">${CLoginOK.lastName}</p>
+			<div class="card-body login-card-body"> -->				
 				<form action="${pageContext.request.contextPath}/memberSystem/loginCheck" method="post">
 					<div class="input-group mb-3">
 						<input id='email' type="email" class="form-control" placeholder="請輸入信箱" name="email" required autocomplete="off">
+						<div class="col-sm-4 align-self-center text-danger" id="email_err">${email_errMsg}</div>
 					</div>
+					
 					<div class="input-group mb-3">
-						<input id='password' type="password" class="form-control" placeholder="請輸入密碼" name="password" required>
-						
+						<input id='password' type="password" class="form-control" placeholder="請輸入密碼" name="password" required>						
+						<div class="col-sm-4 align-self-center text-danger" id="pwd_err">${pwd_errMsg}</div>					
 					</div>
+					
 					<div class="row">
 						<div class="col-4">
 							<div class="icheck-primary">
@@ -81,6 +82,10 @@
 		$("#email").val("iiiedujava@gmail.com");
 		$("#password").val("Java8888");
 	})
+	
+	$()
+	
+	
 	</script>	
 </body>
 </html>
