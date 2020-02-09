@@ -258,7 +258,15 @@
 					</div>
 				</li>
 				<!-- /customerService -->
-				
+				<!-- MailService -->
+				<li class="nav-item has-treeview" onclick="floatPage('/messageSystem/MailSystem')"><div class="nav-link">
+						<i class="nav-icon far fa-envelope"></i>
+						<p>
+							信件系統
+						</p>
+					</div>
+				</li>
+				<!-- /MailService -->
 				<!-- Analysis -->
 				<li class="nav-item has-treeview" onclick="loadingPage('/PieChartTest')"><div class="nav-link">
 						<i class="nav-icon far fa-chart-bar"></i>
