@@ -167,6 +167,8 @@ function sendMessage(To , obj) {
         $(obj).parent().parent().children(".chatmessages").append("<div class='myMessage'><p>"+text+"</p></div>");
     }
     $(obj).parent().children(".chatmessage_input").val("");
+    var response = document.getElementById(To+'chatbox');
+    response.scrollTop = response.scrollHeight;
 }
 //一登入就送會員List
 //如果改寫controller要改寫的地方
@@ -177,6 +179,9 @@ function showOnline(messageOutput){
 	coworkerOfflineList=messageOutput.coworkerOfflineList;
 	
 	for(let i=0;i<coworkerOnlineList.length;i++){
+		if(coworkerOnlineList[i].Email==memberEmail){
+			continue;
+		}
 		$(".chat_content").append("<div class='chatuser' onclick='openchatmessagebox(\""+coworkerOnlineList[i].Email+"\",\""+coworkerOnlineList[i].Name+"\")'><h5 class='chatusername'>"+coworkerOnlineList[i].Name+"</h5><i class='fas fa-circle online'></i></div>");
 	}
 	$(".chat_content").append("<br><hr><br>");

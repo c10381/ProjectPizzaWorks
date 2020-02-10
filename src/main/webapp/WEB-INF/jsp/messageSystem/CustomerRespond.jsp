@@ -19,7 +19,7 @@
 </head>
 <body>
 <!-- 右上角關閉按鈕 -->
-	<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>
+	<div><i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i></div>
 	<section class="py-5">
 		<div class="container-fluid text-center">
 			<h1>客服回應一覽</h1>

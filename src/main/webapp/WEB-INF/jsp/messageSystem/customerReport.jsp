@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div><i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i></div>
 	<div class="card card-warning col-sm-11 h-75 mx-auto mt-5">
 		<div class="card-header">
 			<h3 class="card-title">General Elements</h3>
