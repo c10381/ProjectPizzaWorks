@@ -25,7 +25,7 @@
 
 		<div class='login-box col-lg-4 col-sm-6 col-md-6 mx-auto align-items-center needs-validation'> 
 		<div class="login-logo" id='header'>
-			<a href="#"><b>Pizza</b>會員登入</a>
+			<a href="#"><b>Pizza Bite</b>會員登入</a>
 		</div>
 		<!-- /.login-logo -->
 			<div id='container justify-content-center'>
@@ -43,16 +43,12 @@
 					</div>
 					
 					<div class="row">
-						<div class="col-4">
-							<div class="icheck-primary">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> 記住我 </label>
-							</div>
-						</div>
 						
 						<div class="col-4">
-							<input type="button" id="btnAuto" class="btn btn-white btn-outline-white" value="一鍵輸入" />
-						</div>						
+							<input type="button" id="Demo1" class="btn btn-white btn-outline-white" value="Demo1" />
+							<input type="button" id="Demo2" class="btn btn-white btn-outline-white" value="Demo2" />
+						</div>
+																
 						<!-- /.col -->
 						<div class="col-4">
 							<button type="submit" class="btn btn-primary btn-block">登入</button>
@@ -77,14 +73,16 @@
 	
 	<script type="text/javascript">
 		
-	$("#btnAuto").click(function() {
+	$("#Demo1").click(function() {
 		console.log('reach');
 		$("#email").val("iiiedujava@gmail.com");
 		$("#password").val("Java8888");
 	})
 	
-	$()
-	
+	$("#Demo2").click(function() {
+		$("#email").val("c10381@gmail.com");
+		$("#password").val("Java8888");
+	})
 	
 	</script>	
 </body>
