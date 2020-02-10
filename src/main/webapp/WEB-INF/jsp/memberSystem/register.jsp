@@ -73,9 +73,12 @@
     			<!-- row form-group end-->	
 				<br> 
 				<div class="row">
-					<input type="button" id="btnAuto" value="一鍵輸入"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<div>&nbsp;</div>
 					<!-- col end-->
-					<div class="col-sm-7"></div>
+					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<!-- col end-->					
+					<div class="col-sm-5"></div>
 					<!-- col end-->
 					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
@@ -143,8 +146,8 @@
 		}		
 	}
 	
-	//一鍵輸入功能
-	$("#btnAuto").click(function() {
+	//一鍵輸入功能--ver Leon
+	$("#Demo1").click(function() {
 		$("#email").val("iiiedujava@gmail.com");
 		$("#password").val("Java8888");
 		$("#validpwd").val("Java8888");
@@ -154,6 +157,17 @@
 		flag = false;
 	})
 	
+	//一鍵輸入功能--ver Dennis
+	$("#Demo2").click(function() {
+		$("#email").val("c10381@gmail.com");
+		$("#password").val("Java8888");
+		$("#validpwd").val("Java8888");
+		$('#email_errbox').text('');
+		$('#pwd_errbox').text('');
+		$('#validpwd_errbox').text('');
+		flag = false;
+	})
+
 	//鍵盤點擊開始輸入後將密碼提示清空
 	$('#password').keypress(function(){
 		var pwd = $('#password').val();

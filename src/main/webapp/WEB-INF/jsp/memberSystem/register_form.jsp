@@ -74,7 +74,7 @@
 				<!--form row starts  -->
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">地址 ：</label>
-					<form:input id="addr" path="address" type="text" required='required' maxlength="10"
+					<form:input id="addr" path="address" type="text" required='required'
 								class="form-control col-sm-8"/>
 				<!--form row ends  -->
 				</div>
@@ -82,7 +82,8 @@
 				<!--form row starts  -->
 				<div class='form-row form-group'>
 					<label class="col-form-label col-sm-2 align-self-center">手機 ：</label>
-					<form:input id="phone" path="cellphone" type="text" required='required' 
+					<form:input id="phone" path="cellphone" type="text" required='required' maxlength="10"
+							pattern="/^09\d{8}$/"	
 								class="form-control col-sm-3"/>
 				<!--form row ends  -->				
 				</div>
@@ -91,8 +92,10 @@
 					<form:hidden path="privilegeId" value="1" />
 					
 				<div class="row">
-					<input id="btnAuto" type="button" value="一鍵輸入" class="btn btn-white btn-outline-white col-sm-2"/>
-					<div class="col-sm-7"></div>
+					<input id="Demo1" type="button" value="Demo1" class="btn btn-white btn-outline-white col-sm-2"/>
+					<div>&nbsp;</div>
+					<input id="Demo2" type="button" value="Demo2" class="btn btn-white btn-outline-white col-sm-2"/>				
+					<div class="col-sm-5"></div>
 					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
 					<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/> 
@@ -108,17 +111,25 @@
 
 	<script type="text/javascript">
 	
-	$(function(){
 		
-		$("#btnAuto").click(function(){
-			$("#lName").val("艾");
-			$("#fName").val("披莎");
-			$("#gender").val("2");
-			$("#birth").val("2000-10-10");
-			$("#addr").val("復興南路一段390號2樓");
-			$("#phone").val("0912345678");				
-		})
+	$("#Demo1").click(function(){
+		$("#lName").val("艾");
+		$("#fName").val("披莎");
+		$("#gender").val("2");
+		$("#birth").val("2000-10-10");
+		$("#addr").val("復興南路一段390號2樓");
+		$("#phone").val("0912345678");				
 	})
+	
+	$("#Demo2").click(function(){
+		$("#lName").val("鐘");
+		$("#fName").val("于翔");
+		$("#gender").val("1");
+		$("#birth").val("1991-05-18");
+		$("#addr").val("新北市板橋區文化路一段27號13樓");
+		$("#phone").val("0939916599");				
+	})
+
 	
 	$('form').submit(function(){
 		$('#btnAdd').prop('disabled',true);
