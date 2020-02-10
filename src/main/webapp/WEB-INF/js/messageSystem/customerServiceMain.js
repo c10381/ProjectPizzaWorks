@@ -51,10 +51,12 @@ function openCSbox(Email, Name , content) {
 						"</div>").insertBefore(".type_msg");
 	} else {
 		//換掉content
-		
 		document.getElementById(Email+"Content").innerHTML=content;
 		//標示未讀
-		customerMessageSideBox.setAttribute("class", "CustomerService_list new_MessageInCustomer")
+		if(customerMessageSideBox.getAttribute("class")!="CustomerService_list active_CustomerService"){
+			customerMessageSideBox.setAttribute("class", "CustomerService_list new_MessageInCustomer");
+		}
+		
 	}
 }
 // 收到顧客訊息

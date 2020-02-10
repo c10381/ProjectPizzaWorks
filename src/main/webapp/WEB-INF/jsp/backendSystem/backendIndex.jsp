@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Backend Index</title>
+<title>Pizza Bite Manager</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- jquery-ui -->
@@ -51,7 +51,7 @@
 	<div class="wrapper">
 		<!-- import navbar(use request),change the color in Jsp -->
 		<!--  /backendSystem/navbar-->
-		<!--<jsp:include page="/backendSystem/navbar" />-->
+		<jsp:include page="/backendSystem/navbar" />
 
 
 		<!-- import sidebar(use request),select the jsp in controller(by Bean privilege) -->
@@ -99,11 +99,11 @@
 
 		<div style="position:relative;">
 			<!-- 浮動視窗 -->
-			<div id="floatBlock" style="right:0; height:100%;width:80%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll; box-shadow: 0px 0px 20px #555;z-index: 99;">
-				<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:left ' onclick='floatPageClose()'></i></div>
+			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
 			</div>
 			<!-- Main content ,use jQuery load() to load page-->
-			<div class="content-wrapper" style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
+			<div class="content-wrapper"
+			style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
 		</div>
 		<!-- Main content -->
 	<!-- ./wrapper -->
@@ -209,17 +209,34 @@
 		}
 		/* 浮動分頁打開 */
 		function floatPage(requestPage){
-			$("#floatBlock").show("slide", { direction: "right" }, "slow"); 
+			if(note.length!=0){
+				//編輯器存在
+				for (var i = 0; i < note.length; i++) {
+					note[i].remove();
+					}
+				console.log("AAAAA");
+				}
+			$("#floatBlock").show("slide", { direction: "left" }, "slow"); 
 
 			$('#floatBlock').empty();
 			$("#floatBlock").load("${pageContext.request.contextPath}"+requestPage);
+			
 			//插不進去
 			/* $("<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>").insertBefore("#floatBlock > div:first"); */
 			
 		}
 		/* 浮動分頁關閉(隱藏) */
 		function floatPageClose(){
-			$("#floatBlock").hide("slide", { direction: "right" }, "slow");
+			$('#floatBlock').empty();
+			$("#floatBlock").hide("slide", { direction: "left" }, "slow");
+			var note=document.querySelectorAll(".note-popover");
+			if(note.length!=0){
+				//編輯器存在
+				for (var i = 0; i < note.length; i++) {
+					note[i].remove();
+					}
+				console.log("AAAAA");
+				}
 		}
 		
 		function test(){
