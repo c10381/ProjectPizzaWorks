@@ -306,5 +306,16 @@ public class StockServiceImpl implements StockService{
 		}
 	}
 
-	
+	@Override
+	public String getStorageHistory() {
+		List<StorageHistoryBean> storageHistorys = dao.getStorageHistory();
+		JSONArray storageHistory_jsa = new JSONArray(storageHistorys);
+		for(int i=0;i<storageHistory_jsa.length();i++) {
+			JSONObject storageHistory_jso = storageHistory_jsa.getJSONObject(i);
+			StorageHistoryBean storageHistory = storageHistorys.get(i);
+			storageHistory_jso.put("materialsName", dao.getOneMaterialsById(storageHistory.getMaterialsId()).getMaterialsName());
+			storageHistory_jso.put("sRequestId", storageHistory.getsRequestId());
+		}
+		return storageHistory_jsa.toString();
+	}	
 }

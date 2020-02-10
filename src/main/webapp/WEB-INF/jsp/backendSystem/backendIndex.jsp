@@ -88,7 +88,7 @@
 							</div></li>
 
 						<!-- 依角色變換sidebar(透過controller) -->
-						<!--<jsp:include page="/backendSystem/sidebar" />-->
+						<jsp:include page="/backendSystem/sidebar" />
 
 					</ul>
 				</nav>
