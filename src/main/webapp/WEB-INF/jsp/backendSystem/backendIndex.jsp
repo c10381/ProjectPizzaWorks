@@ -209,17 +209,34 @@
 		}
 		/* 浮動分頁打開 */
 		function floatPage(requestPage){
+			if(note.length!=0){
+				//編輯器存在
+				for (var i = 0; i < note.length; i++) {
+					note[i].remove();
+					}
+				console.log("AAAAA");
+				}
 			$("#floatBlock").show("slide", { direction: "left" }, "slow"); 
 
 			$('#floatBlock').empty();
 			$("#floatBlock").load("${pageContext.request.contextPath}"+requestPage);
+			
 			//插不進去
 			/* $("<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>").insertBefore("#floatBlock > div:first"); */
 			
 		}
 		/* 浮動分頁關閉(隱藏) */
 		function floatPageClose(){
+			$('#floatBlock').empty();
 			$("#floatBlock").hide("slide", { direction: "left" }, "slow");
+			var note=document.querySelectorAll(".note-popover");
+			if(note.length!=0){
+				//編輯器存在
+				for (var i = 0; i < note.length; i++) {
+					note[i].remove();
+					}
+				console.log("AAAAA");
+				}
 		}
 		
 		function test(){

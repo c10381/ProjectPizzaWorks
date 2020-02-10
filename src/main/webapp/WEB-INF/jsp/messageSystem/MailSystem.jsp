@@ -13,6 +13,7 @@
 <body>
 <!-- Main content -->
 <section class="content" style="width:95%; height:90%;margin:5% auto">
+	<!-- 右上角關閉按鈕 -->
 	<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>
     <div class="container-fluid">
         <div class="row">
@@ -68,7 +69,11 @@
     	  	    ['color', ['color']],
     	  	    ['para', ['ul', 'ol', 'paragraph']],
     	  	    ['height', ['height']]
-    	  	  ]
+    	  	  ],
+    	  	onblur: function() {
+                syncSummernoteTextArea($summernoteTextAreas);
+                validate(false);
+            }
     	    })
   })
   //如果要寄給不是會員，要設判別
