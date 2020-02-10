@@ -1,17 +1,24 @@
 package shopManageSystem.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import _model.CrustBean;
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesListBean;
+import _model.SalesListDetailBean;
 import _model.SalesOrderBean;
 import _model.SalesOrderDetailBean;
 import shopManageSystem.dao.ProductDao;
@@ -160,4 +167,54 @@ public class ProductServiceImpl implements ProductService {
 			dao.updateOneRecipe(recipe);
 		}
 	}
+
+	@Transactional
+	@Override
+	public String getAllSalesOrdersJson() {
+		List<SalesOrderBean> salesOrders = dao.getAllSalesOrders();
+		JSONArray salesOrders_jsa = new JSONArray(salesOrders);
+		for(int i=0;i<salesOrders_jsa.length();i++) {
+			JSONObject salesOrders_jso = salesOrders_jsa.getJSONObject(i);
+			salesOrders_jso.put("salesOrderId", salesOrders.get(i).getSalesOrderId());
+			JSONArray salesOrderDetails_jsa = salesOrders_jso.getJSONArray("salesOrderDetails");
+			for(int j=0;j<salesOrderDetails_jsa.length();j++) {
+				JSONObject salesOrderDetails_jso = salesOrderDetails_jsa.getJSONObject(j);
+				salesOrderDetails_jso.put("salesOrderDetails", salesOrders.get(i).getSalesOrderDetails().get(j).getSalesOrderDetailId());
+			}
+		}
+		String salesOrders_str = salesOrders_jsa.toString();
+		return salesOrders_str;
+	}
+	
+	@Transactional
+	@Override
+	public void saveSalesList(SalesOrderBean salesOrder) { 
+		SalesListBean salesList = new SalesListBean();
+		salesList.setSalesOrderId(salesOrder.getSalesOrderId());
+		salesList.setMemberId(salesOrder.getMemberId());
+		salesList.setOrderTime(salesOrder.getOrderTime());
+		salesList.setTotalSales(salesOrder.getTotalSales());
+		List<SalesListDetailBean> salesListDetails = new ArrayList<>();
+		Map<Integer, Integer> materials_cost = new HashMap<>();
+		for(SalesOrderDetailBean salesOrderDetail: salesOrder.getSalesOrderDetails()) {
+			SalesListDetailBean salesListDetail = new SalesListDetailBean();
+			List<CrustBean> crusts = dao.getCrustByTypeId(salesOrderDetail.getCrustTypeId());
+			// Start From HERE
+//			List<MaterialsUnitBean> materialsUnits = dao.getMaterialsUnitsByRecipes(dao.getProductById(salesOrderDetail.getProductId()).getRecipes());
+			for(CrustBean crust: crusts) {
+				if(materials_cost.containsKey(crust.getMaterialsId())) {
+					Integer materials_quantity = materials_cost.get(crust.getMaterialsId())+crust.getQuantity().intValue();
+//					materials_cost.get(crust.getMaterialsId()) = materials_quantity;
+//					materials_cost.
+				} else {
+					materials_cost.put(crust.getMaterialsId(), crust.getQuantity().intValue());
+				}
+			}
+//			if(materials_cost.containsKey(crusts.get(0).getMaterialsId()))
+//			materials_cost.put(key, value)
+//			salesListDetail.setMaterialsId(salesOrderDetail.get);
+		}
+	}
+	
+	
 }

@@ -97,10 +97,9 @@
 			<!-- /.sidebar -->
 		</aside>
 
-		<div style="position:relative">
+		<div style="position:relative;">
 			<!-- 浮動視窗 -->
-			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll">
-				<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right;display:none' onclick='floatPageClose()'></i></div>
+			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
 			</div>
 			<!-- Main content ,use jQuery load() to load page-->
 			<div class="content-wrapper"

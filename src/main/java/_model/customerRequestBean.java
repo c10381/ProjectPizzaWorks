@@ -15,8 +15,7 @@ public class customerRequestBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	public Integer queryId;
 	public String memberEmail;
 	@Column(columnDefinition ="NVARCHAR(MAX)")
@@ -46,7 +45,8 @@ public class customerRequestBean implements Serializable{
 		this.replyContent = replyContent;
 		this.replyDate = replyDate;
 	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getQueryId() {
 		return queryId;
 	}

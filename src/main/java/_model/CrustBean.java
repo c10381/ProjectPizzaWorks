@@ -16,12 +16,12 @@ public class CrustBean implements Serializable{
 	private Integer crustTypeId;
 	private String crustTypeName;
 	private Integer materialsId;
-	private double quantity;
+	private Double quantity;
 	private Integer unitPrice;
 	
 	public CrustBean() {}
 	
-	public CrustBean(Integer crustTypeId, String crustTypeName, Integer materialsId, double quantity,
+	public CrustBean(Integer crustTypeId, String crustTypeName, Integer materialsId, Double quantity,
 			Integer unitPrice) {
 		this.crustTypeId = crustTypeId;
 		this.crustTypeName = crustTypeName;
@@ -64,11 +64,11 @@ public class CrustBean implements Serializable{
 		this.materialsId = materialsId;
 	}
 
-	public double getQuantity() {
+	public Double getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(double quantity) {
+	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
 
