@@ -2,8 +2,6 @@ package stockSystem.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import _model.MaterialsBean;
 import _model.MaterialsUnitBean;
 import _model.StockRequestBean;
@@ -58,5 +56,7 @@ public interface StockService {
 	void updateMaterialsByHistory(List<StorageHistoryBean> storageHistorys);
 
 	void setpDao(PurchaseDao pDao);
+	
+	String getStorageHistory();
 
 }

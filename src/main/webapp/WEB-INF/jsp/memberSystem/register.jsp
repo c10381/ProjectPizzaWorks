@@ -6,23 +6,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>新會員註冊</title>
+<title>Pizza Bite 會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- ----- -->
+
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
-<!-- ----- -->
+
 
 </head>
 <body>
-	<!-- ----- -->
-	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<!-- ----- -->
-
-	<!-- 把東西放到section / container div -->
 	
+	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
+		
 	<section class="ftco-section">
 		<div id='container justify-content-center'>
 
@@ -30,29 +26,33 @@
 				<h1 style="text-align: center">新會員註冊</h1>
 			</div>
 
-			<form method="POST" id="register" class="col-md-6 mx-auto align-items-center"			
+			<form method="POST" id="register" class="col-md-4 mx-auto align-items-center"			
 				 action="${pageContext.request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
 				<div class="form-row form-group">
-                		<label for="email" class="col-form-label col-sm-3 align-self-center">* 請輸入註冊信箱：</label>
-                		<!-- col end-->
-                		<input id="email" name="email" class="form-control col-sm-6" type='email' placeholder='請輸入註冊信箱' required />
-            			<!-- col end-->
-            			<div class="col-sm-3 align-self-center" id="email_errbox"></div>
-            			<!-- col end-->
+					<div class="col-sm-2"></div>
+                	<label for="email" class="col-form-label col-sm-2 align-self-center">* 請輸入信箱：</label>
+                	<!-- col end-->
+                	<input id="email" name="email" class="form-control col-sm-4" type='email' placeholder='請輸入註冊信箱' required />
+            		<!-- col end-->
+            		<div class="col-sm-3 align-self-center" id="email_errbox"></div>
+            		<!-- col end-->
     			</div>
     			<!-- row form-group ends-->
     			
     			<!-- email檢查按鈕 -->
+    			
+    			<div class="form-row form-group">
+    			<div class="col-sm-2"></div>
 				<div><input type="button" value="檢查帳號是否可用" class="btn btn-primary" onclick="emailExists()"></div>		
-				
+				</div>
 				<div class="form-row form-group">
-						<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入密碼：</label> 
+						<div class="col-sm-2"></div>
+						<label for="password" class="col-form-label col-sm-2 align-self-center">* 請輸入密碼：</label> 
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
-					 	       maxlength="16" class="form-control col-sm-6" 
-					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"
-					 	 	   /> 
+					 	       maxlength="16" class="form-control col-sm-4" 
+					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"/> 
 						<!-- col end-->
 						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
 						 8-16字元，不含特殊符號  
@@ -62,10 +62,11 @@
 				</div>
     			<!-- row form-group end-->	
 				<div class="form-row form-group">
-					<label for="validpwd" class="col-form-label col-sm-3 align-self-center">* 請再次輸入密碼 ：</label> 
+					<div class="col-sm-2"></div>
+					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 再次輸入密碼 ：</label> 
 					<!-- col end-->
 					<input id="validpwd" name="validpwd" type="password" placeholder="請再次輸入密碼" required 
-						   maxlength="15" class="form-control col-sm-6"/>
+						   maxlength="15" class="form-control col-sm-4"/>
 					<!-- col end-->
 					<div class="col-sm-3 align-self-center" id="validpwd_errbox"></div>					
 					<!-- col end-->
@@ -73,12 +74,13 @@
     			<!-- row form-group end-->	
 				<br> 
 				<div class="row">
-					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<div class="col-sm-2"></div>
+					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-1"/>
 					<div>&nbsp;</div>
 					<!-- col end-->
-					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-2"/>
+					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-1"/>
 					<!-- col end-->					
-					<div class="col-sm-5"></div>
+					<div class="col-sm-2"></div>
 					<!-- col end-->
 					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
@@ -91,16 +93,11 @@
 		</div>
 	</section>
 
-	
-	<!-- ----- -->
-
 	<jsp:include page="../shopSystem/fragment/footer.jsp" />
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
-
-	<!-- ----- -->
 	
-	<script type="text/javascript">
+	<script>
 	
 	//重填按鈕點擊後，會順便將錯誤訊息清空
 	$('#btnReset').click(function(){
