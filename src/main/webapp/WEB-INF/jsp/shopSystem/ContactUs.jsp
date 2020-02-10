@@ -31,7 +31,8 @@
 		<div class="container mt-5">
 			<div class="row block-9">
 				<div class="col-md-6 ftco-animate">
-					<form action="#" class="contact-form">
+					<form action="${pageContext.request.contextPath}/messageSystem/insertoffline" method="post" 
+						class="contact-form">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -40,13 +41,13 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" name="email"
 										placeholder="請留下您的Email">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<textarea name="" id="" cols="30" rows="7" class="form-control"
+							<textarea name="content" id="content" cols="30" rows="7" class="form-control"
 								placeholder="建議內容"></textarea>
 						</div>
 						<div class="row justify-content-between">

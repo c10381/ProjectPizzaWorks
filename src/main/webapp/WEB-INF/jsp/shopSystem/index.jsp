@@ -13,7 +13,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentCSS.jsp" />
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
 <style>
 .carousel .carousel-item {
 	height: 40vh;
@@ -82,12 +81,7 @@
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
-	<jsp:include page="fragment/chatBox.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
-	<script src="${pageContext.request.contextPath }/js/shopSystem/cart.js"></script>
-	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script> 
-	<script src ="${pageContext.request.contextPath}/js/messageSystem/stomp.js" > </script>
-	<script src ="${pageContext.request.contextPath}/js/shopSystem/WebsocketNeed.js" > </script>
 	<script >
 	$('.carousel').carousel({
 		  interval: 3000

@@ -273,6 +273,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return localTime;
 	}
 
+	// 採購人員的請購單審核
 	@Override
 	public String updateResponse(PurchaseRequestBean purchaseRequest) {
 		// 取得現在時間

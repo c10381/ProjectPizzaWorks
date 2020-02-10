@@ -190,6 +190,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		PRB.setReadTime(purchaseRq.getReadTime());
 	}
 
+	// 採購人員的請購單審核
 	@Override
 	public void updateResponse(PurchaseRequestBean purchaseRq) {
 		Session session = factory.getCurrentSession();
