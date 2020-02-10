@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +35,11 @@ import org.springframework.web.multipart.MultipartFile;
 import _model.MaterialsBean;
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesListBean;
+import _model.SalesListDetailBean;
 import _model.SalesOrderBean;
+import _model.SalesOrderDetailBean;
+import _model.StockRequestBean;
 import shopManageSystem.service.ProductService;
 
 @Controller
@@ -148,14 +153,13 @@ public class ProductController {
 		return result;
 	}
 
-	@RequestMapping(value="/shopManageSystem/getAllSalesOrdersJson", method = RequestMethod.GET, produces = {
+	@RequestMapping(value="/shopManageSystem/getAllSalesOrdersJSON", method = RequestMethod.GET, produces = {
 	"application/json;charset=UTF-8" })
-	public String salesOrdersList(Model model) {
-		List<SalesOrderBean> list = service.getAllSalesOrders();
-		JSONArray salesOrder_jsa = new JSONArray(list);
-		//Start From HERE
-		model.addAttribute("salesOrders", list);
-		return "shopManageSystem/SalesOrders";
+	public @ResponseBody String salesOrdersList(Model model) {
+		String salesOrders = service.getAllSalesOrdersJson();
+		//model.addAttribute("salesOrders", list);
+		//System.out.println(salesOrders);
+		return salesOrders;
 	}
 
 //	@RequestMapping(value = "/shopManageSystem/updateRecipeById", method = RequestMethod.GET)
@@ -265,5 +269,17 @@ public class ProductController {
 			return "OK!";
 		}
 		return "";
+	}
+	
+	@RequestMapping(value = "/shopManageSystem/saveSalesList", method=RequestMethod.PUT)
+	public @ResponseBody String saveSalesList(@RequestBody SalesOrderBean salesOrder, Model model) {
+		service.saveSalesList(salesOrder);
+		return "/shopManageSystem/GetAllSalesOrder";
+	} 
+	
+	@PutMapping("/shopManageSystem/updateResponse")
+	public @ResponseBody String updateResponse(@RequestBody SalesOrderBean salesOrder) {
+		service.updateOneSalesOrderStatus(salesOrder);
+		return "OK";
 	}
 }

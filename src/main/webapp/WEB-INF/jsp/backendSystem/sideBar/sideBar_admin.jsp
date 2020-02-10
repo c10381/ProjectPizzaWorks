@@ -163,9 +163,8 @@
 									訂貨單系統<i class="fas fa-angle-left right"></i>
 								</p>
 							</div>
-
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('/shopManageSystem/salesOrders')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/shopManageSystem/GetAllSalesOrder')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢訂貨單</p>
 									</div></li>

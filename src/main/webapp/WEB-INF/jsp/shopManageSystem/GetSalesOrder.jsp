@@ -16,7 +16,7 @@
 		<div class="container-fluid row">
 			<div class="col-md-1">
 				<button
-					onclick="loadingPage('${request.contextPath}/shopManageSystem/salesOrders')"
+					onclick="loadingPage('${request.contextPath}/shopManageSystem/GetAllSalesOrder')"
 					class="btn btn-block btn-secondary">返回</button>
 			</div>
 			<!-- col end -->
