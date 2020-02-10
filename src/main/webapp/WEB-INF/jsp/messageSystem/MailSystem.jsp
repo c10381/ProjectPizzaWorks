@@ -13,7 +13,7 @@
 <body>
 <!-- Main content -->
 <section class="content" style="width:95%; height:90%;margin:5% auto">
-	<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>
+	<div><i class='fas fa-times' style='font-size:20px;margin-right:2%; float:left ' onclick='floatPageClose()'></i></div>
     <div class="container-fluid">
         <div class="row">
             <!-- /.col -->

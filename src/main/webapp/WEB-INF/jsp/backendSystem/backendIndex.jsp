@@ -99,11 +99,11 @@
 
 		<div style="position:relative;">
 			<!-- 浮動視窗 -->
-			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
+			<div id="floatBlock" style="right:0; height:100%;width:80%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll; box-shadow: 0px 0px 20px #555;z-index: 99;">
+				<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:left ' onclick='floatPageClose()'></i></div>
 			</div>
 			<!-- Main content ,use jQuery load() to load page-->
-			<div class="content-wrapper"
-			style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
+			<div class="content-wrapper" style="box-sizing: border-box; padding: 30px 0 0 30px;"></div>
 		</div>
 		<!-- Main content -->
 	<!-- ./wrapper -->
@@ -209,7 +209,7 @@
 		}
 		/* 浮動分頁打開 */
 		function floatPage(requestPage){
-			$("#floatBlock").show("slide", { direction: "left" }, "slow"); 
+			$("#floatBlock").show("slide", { direction: "right" }, "slow"); 
 
 			$('#floatBlock').empty();
 			$("#floatBlock").load("${pageContext.request.contextPath}"+requestPage);
@@ -219,7 +219,7 @@
 		}
 		/* 浮動分頁關閉(隱藏) */
 		function floatPageClose(){
-			$("#floatBlock").hide("slide", { direction: "left" }, "slow");
+			$("#floatBlock").hide("slide", { direction: "right" }, "slow");
 		}
 		
 		function test(){

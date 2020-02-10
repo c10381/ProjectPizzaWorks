@@ -3,19 +3,30 @@
 //   此時對話欄將會無法送出對話
 //3. 當客服在線上時，即可進行對話，當產生對話時會將資訊與對話分別保留在localStorage內的"CSR_history"＆"CSR_Dialogue"內
 
-//let CSR_Record = {};
+
+// 放棄了，直接用全域變數
+let csr_record = JSON.parse(localStorage.getItem("csr_record"))||[]; // 儲存在本機端的所有資料
+let user_record ; // {} 使用者的個人資料
+let index ; // 整數，user_record 在 csr_record內的位置
+
 //這兩個是全域變數(function內共用)
 
 var stompClient = null;
 //判斷User用
-var userName = fromLastName+fromFirstName;
+var userName ;
+try{
+	userName = fromLastName+fromFirstName;
+}catch(e){
+	userName = undefined; 
+}
+
 
 $(function () {
-	
-	console.log(connectCheck())
-		
-	
-	
+	// 用於保留使用者對話紀錄
+	// 對於localStorge的資訊做判斷，當符合要求時都會自動開啟連線
+	if(connectCheck()){
+		connect();
+	}
 	
 	// 點擊傳送按鈕
     $("#chat-submit").click(function (e) {
@@ -30,19 +41,25 @@ $(function () {
         sendMessage(msg);
     })
 
+    
+    
     // 開起聊天視窗，建立連線，載入過去對話紀錄
     $("#chat-circle").click(function () {
-//    	update_message();
-    	connect() ;
+    	// 當沒開啟過連線時，打開連線
+    	if(index==undefined){
+    		connect() 
+    	};
+    	// 將拉條拉到最下方
+    	
         $("#chat-circle").toggle('scale');
         $(".chat-box").toggle('scale');
+        $(".chat-logs").scrollTop($(".chat-box-body").prop("scrollHeight"));
     })
     // 關閉聊天視窗
     $(".chat-box-toggle").click(function () {
         $("#chat-circle").toggle('scale');
         $(".chat-box").toggle('scale');
     })
-
 })
 
 
@@ -52,25 +69,28 @@ function connect() {
     stompClient = Stomp.over(socket);
     
     //在這裡判斷user
-    if (customerEmail != "") {
+    if (customerEmail!=undefined||customerEmail != "") {
         console.log("顧客身分:" + customerEmail);
         userName = customerEmail;
     } else {
         //請他輸入email或強迫他登入
-    	//userName = ;
+    	$("#center-text").remove();
+    	let str_notLogin = "您未登入本網站會員系統，請登入或是在此填入聯絡信件，方便客服人員跟您聯繫";
+    	generate_message(str_notLogin,"other");
    	
     	
     }
     
     // 啟用連線時的處理
     stompClient.connect({ user: userName }, function(frame) {
-	        console.log('Connected: ' + frame);
+        console.log('Connected: ' + frame);
 	
 	    // 送一次request，取得全部在線名單
 	    $.post(contextPath + "/messageSystem/getOnline");
 	
 	    // 廣播
 	    stompClient.subscribe('/topic/messages', function(messageOutput) {
+	    	update_message(user_record);
 	    	//會送線上名單，送到showOnline作處理，用來判斷對方是否有在線上
 	    	showOnline(JSON.parse(messageOutput.body));
 	    });
@@ -108,32 +128,38 @@ function showOnline(messageOutput){
 	let str_offline = "目前客服人員不在線上，您將無法傳送訊息。如有任何意見，煩請至以下連結" ;
 	str_offline += "<a href='shop/contactUs'>Pizza Bite| Contact Us</a>" ;
 	str_offline	+= "將您寶貴的意見提供給我們，我們將會盡快回覆您，謝謝。";
-	console.log(messageOutput);
 	coworkerOnlineList=messageOutput.coworkerOnlineList;
-	
-	for(let i=0;i<coworkerOnlineList.length;i++){
-		if(coworkerOnlineList[i]=="service@pizza.com"){
-			//客服上線能幹嘛
-			break;
-		}else{
-			//客服沒上線時，無法對話			
-			generate_message(str_offline, "other");
-			$("#chat-input").prop("disabled",true);
-
-
-			//如果客服在對話途中下線怎麼辦
-			//要直接把連結斷開嗎？
-
-		}
+	let coworkerNoLogin = true; 
+	// 判斷一
+	if (coworkerOnlineList.length==0){
+		coworkerNoLogin = true; 
 	}
 	
+	// 判斷2	
+	for(let i=0;i<coworkerOnlineList.length;i++){
+		if(coworkerOnlineList[i].Email=="service@pizza.com"){
+			coworkerNoLogin = false; 
+			break;
+		}
+	}
+	if(coworkerNoLogin){
+		//客服沒上線時，無法對話			
+		generate_message(str_offline, "other");
+		$("#chat-input").prop("disabled",true );
+		$("#chat-input").prop("placeholder","");
+		$("#chat-submit").prop("disabled",true);
+	}
+	//如果客服在對話途中下線怎麼辦
+	//要直接把連結斷開嗎？
+
+	
 }
-//顧客寄送訊息(To是要送給誰，前台我先在裡面寫死為"service@pizza.com"，obj是送this過來)
+//顧客寄送訊息(To是要送給誰，前台我先在裡面寫死為"service@pizza.com"，msg是送this過來)
 //只會送出{'form':來自哪裡,'text':要送的內容}
-function sendMessage(obj) {
+function sendMessage(msg) {
     console.log("Send to:" + "service@pizza.com");
     //抓輸入框的內容
-    var text = obj;
+    var text = msg;
     //已經寫好的controller路徑
     if (text != '') {
         //要判斷是訪客還是已註冊會員，送出不同訊息
@@ -142,75 +168,87 @@ function sendMessage(obj) {
     }
     
     // 將對話帶入，產生對話框
-    generate_message(obj, 'self');
-    storage_message(obj, 'self');
+    generate_message(text, 'self');
+    storage_message(text, 'self');
 }
 
 
 
 // 進入頁面用於判斷儲存的對話身份與時間內，當符合時間與身份的判斷則回傳可開啟連線。
 function connectCheck(){
-	// 在一天(24小時中都會保持連線
+	// 在x小時中換頁都會保持連線
 	let connectTime = 1;
-	let record = {};
-	let obj = JSON.parse(localStorage.getItem("csr_record"));
+	let flag = false; 
+	let obj = csr_record;
 	
-	obj.some(function(item){
-		if(item.userName == customerEmail){
-			record = item;
-		}else{
-			return false; 
-		}
-	})
-	let timeCheck = (new Date()-Date.parse(record.modifiedTime))/3600000;
-	console.log(timeCheck);
-	// 當對話時間過長就不會再打開連線
-	if(timeCheck > record.modifiedTime){
-		return  false; 
-	}else{
-		return true;
+	try{
+		for(let i=0 ; i<obj.length;i++){
+			if(obj[i].userName == customerEmail){
+				user_record = obj[i];
+				index = i; 
+				flag = true; 
+			}
+		};
+	}catch(e){
+		//沒有email 直接把對話視窗remove
+		$("#center-text").remove();
+		flag = false; 
 	}
-	return flag ; 
-}
+	
+	if (user_record ==undefined){
+		user_record = {}
+	}
+	
+	
+	let timeCheck = (new Date()-Date.parse(csr_record.modifiedTime))/ (1000*60*60);
+	// 當對話時間過長換頁就不會再打開連線
+	if(timeCheck > connectTime){
+		flag = false; 
+	}
+	return (flag)   //? {"csr_record" : user_record} : false;
+	}
 
 
 
 // 用於將儲存在本機端的對話，投放到對話上
-//function update_message(){
-//	if(obj==undefined||obj.length ==0){
-//		
-//	}else{
-//		if(obj.userName!= userName){
-//			return ;
-//		}
-//		obj.forEach(function(item, index, array){
-//		let msg = item.text;
-//		let type = item.type;
-//		generate_message(msg, type);
-//		});
-//	}
-//}
+function update_message(obj){
+	if(obj==undefined||obj.length ==0){
+		
+	}else{
+		if(obj.userName!= userName){
+			return ;
+		}
+		obj.csr_history.forEach(function(item, index, array){
+		let msg = item.text;
+		let type = item.type;
+		generate_message(msg, type);
+		});
+	}
+}
 
 //儲存對話至對話紀錄中，並且儲存至本機端
 function storage_message(msg, type){
-	let csr_record = [];
-	let obj ={};
-	obj.userName = userName;
-	obj.modifiedTime = new Date();
-	let csr_history = csr_record.csr_history||[];
+	
+	user_record.userName = userName;
+	user_record.modifiedTime = new Date();
+	console.log(user_record)
+	let csr_history = user_record.csr_history||[];
 	csr_history.push({
 		"type" : type, 
 		"text": msg
 	});
-	obj.csr_history = csr_history;
-	csr_record.push(obj);
+	user_record.csr_history = csr_history;
+	
+	if(index!=undefined){
+		csr_record[index] = user_record;
+	}else{
+		csr_record.push(user_record);
+	}
 	localStorage.setItem("csr_record",JSON.stringify(csr_record));
 }
 
 // 用於產生對話框
 function generate_message(msg, type) {
-//    INDEX++;
-	// 對話框
     var str = "";
     str += "<div id='cm-msg-"  + "' class=\"chat-msg " + type + "\">";
     str += "          <span class=\"msg-avatar\">";

@@ -86,7 +86,6 @@
 	$('.carousel').carousel({
 		  interval: 3000
 		})
-	$("#ftco-navbar #ftco-nav:first-of-type .active").removeClass("active");
 	</script>
 	
 </body>
