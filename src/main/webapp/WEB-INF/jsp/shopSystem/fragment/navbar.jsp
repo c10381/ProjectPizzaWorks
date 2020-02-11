@@ -5,7 +5,7 @@
 
 <!-- START navbar -->
 <nav
-	class="navbar navbar-expand-md navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 	id="ftco-navbar">
 	<div class="container">
 		<a class="navbar-brand"
@@ -29,9 +29,9 @@
 				</li>
 			</ul>
 		</div>
+		
 		<div class="collapse navbar-collapse nav-rt" id="ftco-nav">
 			<ul class="nav navbar-nav ml-auto">
-				
 				<li class="nav-item active"><a
 					href='<spring:url value="/shop/cart" />' class="nav-link"> <i
 						class="fas fa-shopping-cart"></i> <span
