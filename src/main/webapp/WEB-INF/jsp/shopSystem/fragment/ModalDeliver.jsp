@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <!-- deliever Modal-->
 <div class="modal fade" id="delieverModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	aria-labelledby="DeliverModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title text-dark" id="exampleModalLabel">取餐方式</h5>
+				<h5 class="modal-title text-dark" id="DeliverModalLabel">取餐方式</h5>
 				<button class="close" type="button" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">×</span>

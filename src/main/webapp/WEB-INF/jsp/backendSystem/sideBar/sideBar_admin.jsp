@@ -180,11 +180,7 @@
 							</div>
 
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>銷貨單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/shopManageSystem/GetAllSalesList')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢銷貨單</p>
 									</div></li>

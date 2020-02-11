@@ -62,4 +62,10 @@ public interface ProductDao {
 	MembersBean getMemberById(Integer membersId);
 
 	void updateStorageHistoryBySalesList(SalesListDetailBean salesListDetail);
+
+	MaterialsBean getOneMaterialsById(Integer materialId);
+
+	List<SalesListBean> getAllSalesLists();
+
+	SalesListBean getSalesListById(Integer salesListId);
 }

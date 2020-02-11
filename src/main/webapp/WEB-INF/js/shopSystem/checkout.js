@@ -1,9 +1,4 @@
 let salesOrderDetails = cart.salesOrderDetails;
-// 還沒做 先用插入的
-
-//if(cart.deliverAddress==undefined){
-//	cart.deliverAddress = "店取";
-//}
 
 $(function () {
 	if(cart.needDelivery==0){
@@ -17,10 +12,9 @@ $(function () {
 		if(cart.needDelivery==0){
 			cart.deliverAddress = "店取";
 		}
-		
 		swal({
 			  title: "是否送出訂單?",
-			  icon: "info",
+			  icon: "warning",
 			  buttons: ["取消","送出"],
 			})
 			.then((willDelete) => {
@@ -29,6 +23,14 @@ $(function () {
 			  
 			} 
 		});
+//		swal.fire({
+//			 title: "是否送出訂單?",
+//			 icon: "question",
+//			 showCloseButton: true,
+//			 showCancelButton: true,
+//			 confirmButtonColor: '#fac564',
+//			 background: "#121618", 
+//		})
 	})
 });
 
@@ -73,7 +75,7 @@ function updateList() {
 				<div class="img" style="background-image: url(../picture/${salesOrderDetails[i].productId});"></div>
 				<div class="desc pl-3">
 	      	<div class="d-flex text align-items-center">
-						<div class="col-11">
+						<div class="col-md-11">
 							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
 						</div>`;
 			//當有餅皮或加起司時，價格做變動

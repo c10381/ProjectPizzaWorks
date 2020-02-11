@@ -47,4 +47,8 @@ public interface ProductService {
 	String getAllSalesOrdersJson();
 
 	void saveSalesList(SalesOrderBean salesOrder);
+
+	String getAllSalesListsJson();
+
+	String getSalesListJson(Integer salesListId);
 }

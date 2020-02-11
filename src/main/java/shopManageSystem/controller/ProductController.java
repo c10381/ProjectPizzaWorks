@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -281,5 +282,22 @@ public class ProductController {
 	public @ResponseBody String updateResponse(@RequestBody SalesOrderBean salesOrder) {
 		service.updateOneSalesOrderStatus(salesOrder);
 		return "OK";
+	}
+	
+	@RequestMapping(value="/shopManageSystem/GetAllSalesListJSON", method = RequestMethod.GET, produces = {
+	"application/json;charset=UTF-8" })
+	public @ResponseBody String getSalesListsJSON(Model model) {
+		String salesLists = service.getAllSalesListsJson();
+		//model.addAttribute("salesOrders", list);
+		//System.out.println(salesOrders);
+		return salesLists;
+	}
+	
+	@RequestMapping(value="/shopManageSystem/GetSalesList", method = RequestMethod.GET)
+	public String getSalesListJSON(@RequestParam(value = "id") Integer salesListId, Model model) {
+		String salesList = service.getSalesListJson(salesListId);
+		model.addAttribute("salesList_jsonStr", salesList);
+		//System.out.println(salesOrders);
+		return "/shopManageSystem/GetSalesList";
 	}
 }

@@ -9,6 +9,8 @@
 <title>Pizza Bite Manager</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- icon -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/images/shopSystem/icon.png">
 <!-- jquery-ui -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
