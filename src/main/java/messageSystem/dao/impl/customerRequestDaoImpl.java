@@ -30,7 +30,7 @@ public class customerRequestDaoImpl implements customerRequestDao {
 		try {
 			crb.setQueryDate(String.valueOf(new Timestamp(new Date().getTime())));
 			//0為還未回復
-			crb.setReplyStatus(0);
+			
 			session.save(crb);
 		} catch (Exception e) {
 			return false;

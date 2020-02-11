@@ -15,14 +15,18 @@
 	color: #FF8040;
 }
 
+.modal-backdrop{
+	display:none;
+}
+
 </style>
 </head>
 <body>
 <!-- 右上角關閉按鈕 -->
-	<div><i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i></div>
-	<section class="py-5">
+	<section>
 		<div class="container-fluid text-center">
-			<h1>客服回應一覽</h1>
+			<i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i>
+			<h2>客服回應一覽</h2>
 			<table id="prTable" class="text-center display">
 				<thead>
 					<tr>

@@ -139,19 +139,18 @@
 	</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 			<div class="row">
-				<div class="col-md-1 align-self-center"></div>
+				<div class="col-md-1 "></div>
 				<div class="col-md-1 align-self-center ">
 					<div class="custom-control custom-switch">
 						<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
 						<label class="custom-control-label" for="customSwitch1"></label>
-					</div>
+					</div>				
 				</div>
 				<div class="col-md-1"></div>
 				<div class="col-md-6">
-					<span class="dropdown-item dropdown-header" id='note1'></span>
+					<span class="dropdown-item dropdown-header justify-content-start" id='note1'></span>
 				</div>
-				<div class="col-md-3"></div>
-				
+				<div class="col-md-4"></div>				
 			</div>
 			
 			<div class="dropdown-divider"></div>
@@ -171,10 +170,9 @@
 				</a>
 				<!-- 第二個box ends -->
 
-				<div href="#" class="dropdown-item">
-					<i class="fas fa-file mr-2"></i> box3 <span
-						class="float-right text-muted text-sm">box3 time</span>
-				</div>
+				<a href="#" class="dropdown-item"> <i class="fas fa-file mr-2"></i> box3 
+						<span class="float-right text-muted text-sm">box3 time</span>
+				</a>
 			</div>
 
 			<div 
@@ -393,6 +391,7 @@
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('沒有新的變更請求');
+					//$('#note1').attr('class',);
 				} else {
 					$('#note').show();
 					$('#note').html(data.length);
