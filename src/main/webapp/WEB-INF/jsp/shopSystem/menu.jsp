@@ -32,7 +32,6 @@
 			<div class="row mx-auto">
 				<!-- 當產品簡介與上一個不相等時（代表跟上一個非同一產品）則可以顯示 -->
 				<c:forEach var='product' items='${products}' varStatus="status">
-
 					<c:if
 						test="${product.briefInfo!= products[status.index-1].briefInfo}">
 						<div class="col-lg-4 col-md-6 mt-5 text-center ">
@@ -46,11 +45,21 @@
 											value="${fn:split(originalName,'//(')[0] }" />
 										<a href="#">${showName }</a>
 									</h3>
-									<p class="price">
-										<span class="pizza-lg mr-3 ">L ${product.unitPrice }</span> <span
-											class="pizza-sm">S
-											${products[status.index+1].unitPrice }</span>
-									</p>
+									
+									<c:choose>
+										<c:when test="${ (product.briefInfo!=products[status.index-1].briefInfo) &&  (product.briefInfo!=products[status.index+1].briefInfo)}">
+											<p class="price">
+												<span class="pizza-lg mr-3 ">$ ${product.unitPrice }</span> 
+											</p>
+										</c:when>
+										<c:otherwise>
+										<p class="price">
+											<span class="pizza-lg mr-3 ">L $ ${product.unitPrice }</span> 
+											<span class="pizza-sm">S $ ${products[status.index+1].unitPrice }</span>
+										</p>
+										</c:otherwise>
+									</c:choose>
+									
 									<p>
 										<a
 											href='<spring:url value="/shop/product?name=${showName }"/>'
@@ -69,6 +78,10 @@
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
-	
+	<script>
+	 $(document).ready(function(){
+		$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")
+	 })
+</script>	
 </body>
 </html>

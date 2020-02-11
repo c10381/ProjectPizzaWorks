@@ -15,7 +15,7 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section ftco-animate text-center">
+				<div class="col-md-8 heading-section ftco-animate text-center">
 					<h2 class="mb-4">訂單查詢 </h2>
 				</div>
 			</div>
@@ -54,10 +54,10 @@ function order_generate(obj){
 	// header部分
 	str += `<div class="card-header" id="heading\${obj.salesOrderId}">
 				<div class="row justify-content-between  align-items-center">
-						<p class="col-sm-2">\${dateFormat(obj.orderTime)}</p>
-						<p class="col-sm-3">訂單編號<span>\${obj.salesOrderId}</span></p>
-						<p class="col">訂單金額<span class="totalSales">\${obj.totalSales}</span></p>
-						<p class="col">訂單狀態<span>\${obj.orderStatus}</span></p>
+						<p class="col-md-3">\${dateFormat(obj.orderTime)}</p>
+						<p class="col">訂單編號<span>\${obj.salesOrderId}</span></p>
+						<p class="col-md-3">訂單金額<span class="totalSales">\${obj.totalSales}</span></p>
+						<p class="col-md-3">訂單狀態<span>\${obj.orderStatus}</span></p>
 						<div class="col-sm-1">	
 							<a href="#collapse\${obj.salesOrderId}" data-toggle="collapse" aria-expanded="true"
 							aria-controls="collapse\${obj.salesOrderId}" class="icon icon-plus"></a>

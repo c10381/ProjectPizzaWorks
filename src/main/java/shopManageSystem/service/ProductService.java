@@ -43,4 +43,8 @@ public interface ProductService {
 	void updateRecipes(List<RecipeBean> recipes);
 
 	List<ProductBean> getAllActiveProducts();
+
+	String getAllSalesOrdersJson();
+
+	void saveSalesList(SalesOrderBean salesOrder);
 }

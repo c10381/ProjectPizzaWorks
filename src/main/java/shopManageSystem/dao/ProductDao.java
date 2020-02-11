@@ -6,8 +6,12 @@ import org.hibernate.SessionFactory;
 
 import _model.CrustBean;
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.MembersBean;
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesListBean;
+import _model.SalesListDetailBean;
 import _model.SalesOrderBean;
 
 public interface ProductDao {
@@ -46,4 +50,16 @@ public interface ProductDao {
 	void updateSalesOrderStatus(SalesOrderBean salesOrder);
 
 	List<ProductBean> getAllActiveProducts();
+
+	MaterialsUnitBean getMaterialsUnitByMId(Integer materialsId);
+
+	Integer InsertSalesList(SalesListBean salesList);
+
+	void InsertSalesListDetail(SalesListDetailBean salesListDetail);
+
+	void updateMaterialBySalesList(SalesListDetailBean salesListDetail);
+
+	MembersBean getMemberById(Integer membersId);
+
+	void updateStorageHistoryBySalesList(SalesListDetailBean salesListDetail);
 }

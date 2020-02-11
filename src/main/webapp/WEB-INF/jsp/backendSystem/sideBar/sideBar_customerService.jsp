@@ -4,7 +4,7 @@
 				<!-- privilegeId=6 -->
 		
 				<!-- customerService -->
-				<li class="nav-item has-treeview" onclick="loadingPage('/customerService')"><div class="nav-link">
+				<li class="nav-item has-treeview menu-open" onclick="loadingPage('/customerService')"><div class="nav-link">
 						<i class="nav-icon fas fa-microphone"></i>
 						<p>
 							客服系統
@@ -12,32 +12,26 @@
 					</div>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"
-							onclick="floatPage('/shopManageSystem/products')">
+							onclick="floatPage('/messageSystem/CustomerReport')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
-								<p>填寫報告</p>
+								<p>客服報告書</p>
 							</div>
 						</li>
 						<li class="nav-item"
-							onclick="floatPage('')">
+							onclick="floatPage('/messageSystem/CustomerRespondSystem')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
-								<p>未回復客訴</p>
+								<p>客戶回饋表</p>
 							</div>
 						</li>
-						<li class="nav-item"
-							onclick="floatPage('')">
-							<div class="nav-link">
-								<i class="far fa-circle nav-icon "></i>
-								<p>已回復客訴</p>
-							</div>
-						</li>
+						
 					</ul>
 				</li>
 				<!-- /customerService -->
 				
 				<!-- MailService -->
-				<li class="nav-item has-treeview" onclick="floatPage('/messageSystem/MailSystem')"><div class="nav-link">
+				<li class="nav-item has-treeview menu-open" onclick="floatPage('/messageSystem/MailSystem')"><div class="nav-link">
 						<i class="nav-icon far fa-envelope"></i>
 						<p>
 							信件系統

@@ -1,6 +1,9 @@
 package messageSystem.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import _model.MembersBean;
 import _model.customerRequestBean;
-import memberSystem.dao.MemberDao;
 import memberSystem.service.MemberService;
 import messageSystem.javaMailutil.MailCtxAndUtil;
 import messageSystem.javaMailutil.SpringMailConfig;
@@ -29,37 +33,36 @@ public class customerRequestController {
 
 	customerRequestService service;
 	MemberService mservice;
+
 	@Autowired
 	public void setService(customerRequestService service) {
 		this.service = service;
 	}
+
 	@Autowired
 	public void setMservice(MemberService mservice) {
 		this.mservice = mservice;
 	}
-	//操作Spring Mail區
-	ApplicationContext context= new AnnotationConfigApplicationContext(SpringMailConfig.class);
-	SpringMailUtil mailUtil = (SpringMailUtil)context.getBean("mailSend",SpringMailUtil.class);
+
+	// 操作Spring Mail區
+	ApplicationContext context = new AnnotationConfigApplicationContext(SpringMailConfig.class);
+	SpringMailUtil mailUtil = (SpringMailUtil) context.getBean("mailSend", SpringMailUtil.class);
 
 	// 轉址至信箱系統
 	@GetMapping("/messageSystem/MailSystem")
 	public String toMailSystem() {
 		return "messageSystem/MailSystem";
 	}
-	
-	//查詢會員信箱(利用權限，只會傳出1.全名,2. Email)
-	@GetMapping("/messageSystem/GetMemberEmail")
-	public @ResponseBody String GetMemberEmail(@RequestParam("privilegeId") Integer privilegeId) {
-		Gson gson=new Gson();
-		return gson.toJson(mservice.getAllMembers(privilegeId));
+
+	// 轉址至客訴回應系統
+	@GetMapping("/messageSystem/CustomerRespondSystem")
+	public String CustomerRespondSystem() {
+		return "messageSystem/CustomerRespond";
 	}
-	
-	// 寄出信件(一般是促銷信，還要修)
-	@PostMapping("messageSystem/SendMail")
-	public @ResponseBody Boolean sendMail(@RequestParam("to") String to,
-			@RequestParam("subject") String subject, @RequestParam("Context") String Context,HttpServletRequest request) {
-		System.out.println(to+" "+subject+" "+Context);
-		return mailUtil.sendMail(SpringMailConfig.MAILUsername, to, subject, new MailCtxAndUtil().ToCustomerSales(request, Context));
+	// 轉址至客服回報單系統
+	@GetMapping("/messageSystem/CustomerReport")
+	public String CustomerReportSystem() {
+		return "messageSystem/customerReport";
 	}
 
 	// 存入DB 要從前端傳回email跟content
@@ -69,7 +72,7 @@ public class customerRequestController {
 			@RequestParam("content") String content) {
 		customerRequestBean crb = new customerRequestBean();
 		crb.setMemberEmail(email);
-		crb.setQueryContent(content);
+		crb.setQueryContent(content.trim());
 
 		return service.insertcustomerRequest(crb);
 	}
@@ -82,12 +85,25 @@ public class customerRequestController {
 		return "c/testcustomerRequest";
 	}
 
-	// 顯示全部regardless of reply status
-	@GetMapping("/messageSystem/queryAlloffline")
-	public String allcustomerRequest(Model model) {
+	// 顯示全部客訴清單(回應兩個List:customerRequest,memberList)
+	@GetMapping(value = "/messageSystem/AllCustomerRequest", produces = "text/html;charset=UTF-8;")
+	public @ResponseBody String allcustomerRequest() {
 		List<customerRequestBean> list = service.getAllQuery();
-		model.addAttribute("list", list);
-		return "c/testcustomerRequest";
+		List<Map<String, String>> memberList = new ArrayList<>();
+		// 拿全部Customer Name和Email
+		for (MembersBean mem : mservice.getAllMembers(1,6,7)) {
+			HashMap<String, String> map = new HashMap<>();
+			map.put("fullName", mem.getLastName() + mem.getFirstName());
+			map.put("Email", mem.getEmail());
+			map.put("memberId", String.valueOf(mem.getMemberId()));
+			memberList.add(map);
+		}
+
+		Map<String, List> ListMap = new HashMap<>();
+		ListMap.put("customerRequest", list);
+		ListMap.put("memberList", memberList);
+
+		return new Gson().toJson(ListMap);
 	}
 
 	// get all queries that have not been replied
@@ -98,38 +114,55 @@ public class customerRequestController {
 		return "c/testcustomerRequest";
 	}
 
+	// 查詢會員信箱(利用權限，只會傳出1.全名,2. Email)
+	@GetMapping("/messageSystem/GetMemberEmail")
+	public @ResponseBody String GetMemberEmail(@RequestParam("privilegeId") Integer privilegeId) {
+		List<Map> list = new ArrayList<>();
+
+		for (MembersBean mem : mservice.getAllMembers(privilegeId)) {
+			HashMap<String, String> map = new HashMap<>();
+			map.put("fullName", mem.getLastName() + mem.getFirstName());
+			map.put("Email", mem.getEmail());
+			list.add(map);
+		}
+		Gson gson = new Gson();
+		return gson.toJson(list);
+	}
+
+	// 寄出信件(一般是促銷信，還要修)
+	@PostMapping("/messageSystem/SendMail")
+	public @ResponseBody Boolean sendMail(@RequestParam("to") String to, @RequestParam("subject") String subject,
+			@RequestParam("Context") String Context, HttpServletRequest request) {
+		System.out.println(to + " " + subject + " " + Context);
+		return mailUtil.sendMail(SpringMailConfig.MAILUsername, to, subject,
+				new MailCtxAndUtil().ToCustomerSales(request, Context));
+	}
+
 	// 客服回應
 	// 塞JavaMail
-	@PostMapping("/messageSystem/replyAlloffline")
-	public String replycustomerRequest(@RequestParam("empID") String empID, @RequestParam("to") String to,
-			@RequestParam("content") String content, @RequestParam("queryID") String queryID) {
-//		AnnotationConfigApplicationContext cntxt = new AnnotationConfigApplicationContext();
-//		cntxt.register(RootAppConfig.class);
-//		cntxt.refresh();
-//		MailService emailService = cntxt.getBean(MailService.class);
-//		cntxt.close();
+	@PostMapping("/messageSystem/replyoffline")
+	public @ResponseBody Boolean replycustomerRequest(@RequestParam("queryId") Integer queryId,@RequestParam("CustomerEmail") String CustomerEmail,
+			@RequestParam("CustomerName") String CustomerName, @RequestParam("queryContent") String queryContent,
+			@RequestParam("coworkerEmail") String coworkerEmail, @RequestParam("replyContent") String replyContent) {
+
 		System.out.println("SENDING EMAIL==================");
-//		String from = "susanbayloi124578@gmail.com";
-//		String to = hob.getMail();
-//		String subject = "76影城包廳繳款通知信";
-//		String content = "親愛的"+ "genie" +"先生/小姐您好:"+"\n"+"\n"
-//				+ "感謝您申請76影城包廳服務"+"\n"
-//				+ "經過我們的評估，您的包廳申請已經通過"+"\n"
-//				+ "包廳金額共:" + 1000 + "元"+"\n"
-//				+ "請盡速將相關金額匯款至以下銀行帳戶:"+"\n"
-//				+ "銀行：兆豐銀行南台北分行(銀行代碼017)"+"\n"
-//				+ "帳號：３９２０６１０５８８８６８６"+"\n"
-//				+ "戶名:76影城"+"\n"
-//				+ "轉帳後請email回覆'轉帳帳號末5碼'，以利確認，謝謝"+"\n"+"\n"
-//				+ "祝　闔家平安";
-//		emailService.sendMailSimple(from, to, subject, content);
 		customerRequestBean crb = new customerRequestBean();
-		crb.setCoworkerID(Integer.parseInt(empID));
-		crb.setReplyContent(content);
-		crb.setMemberEmail(to);
-		crb.setQueryId(Integer.parseInt(queryID));
-		service.replycustomerRequest(crb);
-		return "c/testcustomerRequest";
+		if (mailUtil.sendMail(SpringMailConfig.MAILUsername, CustomerEmail, "Pizza Bit感謝您的回饋",
+				new MailCtxAndUtil().AnswerCustomer(CustomerName, replyContent))) {
+			for (MembersBean mem : mservice.getAllMembers(6, 7)) {
+				if (mem.getEmail().equals(coworkerEmail)) {
+					crb.setCoworkerID(mem.getMemberId());
+					break;
+				}
+			}
+
+			crb.setQueryId(queryId);
+			crb.setReplyContent(replyContent);
+			service.replycustomerRequest(crb);
+			return true;
+		}
+		;
+		return false;
 	}
 
 }
