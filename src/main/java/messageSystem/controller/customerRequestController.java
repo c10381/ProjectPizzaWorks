@@ -1,6 +1,8 @@
 package messageSystem.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +90,7 @@ public class customerRequestController {
 	@PostMapping("/messageSystem/insertcustomerReport")
 	public @ResponseBody Boolean insertcustomerReport(@RequestBody customerRequestBean crb) {
 		crb.setReplyStatus(1);
+		crb.setReplyDate(String.valueOf(new Timestamp(new Date().getTime())));
 		return service.insertcustomerRequest(crb);
 	}
 

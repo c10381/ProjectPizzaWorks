@@ -172,13 +172,20 @@
 <!-- /StockSystem -->
 
 <!-- customerService -->
-<!-- 
-<li class="nav-item has-treeview"
-	onclick="loadingPage('/customerService')"><div class="nav-link">
+
+<li class="nav-item has-treeview"><div class="nav-link">
 		<i class="nav-icon fas fa-microphone"></i>
-		<p>客服系統</p>
-	</div></li> 
--->
+		<p>客服系統<i class="fas fa-angle-left right"></i></p>
+	</div>
+	<ul class="nav nav-treeview" style="display: none;">
+		<li class="nav-item" onclick="loadingPage('/messageSystem/CustomerRespondSystem','70%','90vh')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-tablet"></i>
+				<p>客戶回饋表</p>
+			</div></li>
+	</ul>
+</li> 
+
 <!-- /customerService -->
 <!-- MailService -->
 <li class="nav-item has-treeview"

@@ -8,9 +8,16 @@
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/css/messageSystem/customerServiceMain.css'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap"
+	rel="stylesheet">
 <!-- <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script> 
 <script type="text/javascript">
 
 </script>
@@ -23,7 +30,7 @@
 				<div class="inbox_people">
 					<div class="headind_srch">
 						<div class="recent_heading">
-							<h5>Pizza BIT 客服系統 </h5>
+							<h5 style="color: white;" align="center" vertical-align="middle">Pizza Bite 客服系統 </h5>
 						</div>
 						
 					</div>
