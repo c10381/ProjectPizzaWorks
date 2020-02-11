@@ -39,4 +39,10 @@ public class StockRedirectController {
 	public String forwardGetAllStockHistory() {
 		return "stockSystem/GetAllStockHistory";
 	}
+	
+	//檢視庫存過往歷史
+	@RequestMapping("/stock/viewStorageHistory")
+	public String forwardViewGetStorageHistory() {
+		return "stockSystem/ViewStorageHistory";
+	}	
 }

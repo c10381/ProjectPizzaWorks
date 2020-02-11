@@ -102,4 +102,8 @@ public class ProductRedirectController {
 		return "shopManageSystem/GetAllSalesOrder";
 	}
 
+	@RequestMapping(value="/shopManageSystem/GetAllSalesList", method=RequestMethod.GET)
+	public String getAllSalesList(Model model) {
+		return "shopManageSystem/GetAllSalesList";
+	}
 }

@@ -59,6 +59,11 @@ public class customerRequestController {
 	public String CustomerRespondSystem() {
 		return "messageSystem/CustomerRespond";
 	}
+	// 轉址至客服回報單系統
+	@GetMapping("/messageSystem/CustomerReport")
+	public String CustomerReportSystem() {
+		return "messageSystem/customerReport";
+	}
 
 	// 存入DB 要從前端傳回email跟content
 	// 要使用Ajax，回傳為一個Boolean

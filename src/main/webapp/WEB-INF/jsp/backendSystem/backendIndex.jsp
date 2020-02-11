@@ -9,6 +9,8 @@
 <title>Pizza Bite Manager</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- icon -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath }/images/shopSystem/icon.png">
 <!-- jquery-ui -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
@@ -88,7 +90,7 @@
 							</div></li>
 
 						<!-- 依角色變換sidebar(透過controller) -->
-						<!--<jsp:include page="/backendSystem/sidebar" />-->
+						<jsp:include page="/backendSystem/sidebar" />
 
 					</ul>
 				</nav>
@@ -99,7 +101,7 @@
 
 		<div style="position:relative;">
 			<!-- 浮動視窗 -->
-			<div id="floatBlock" style="height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
+			<div id="floatBlock" style="right:0;z-index:99;height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
 			</div>
 			<!-- Main content ,use jQuery load() to load page-->
 			<div class="content-wrapper"
@@ -216,7 +218,7 @@
 					}
 				console.log("AAAAA");
 				}
-			$("#floatBlock").show("slide", { direction: "left" }, "slow"); 
+			$("#floatBlock").show("slide", { direction: "right" }, "slow"); 
 
 			$('#floatBlock').empty();
 			$("#floatBlock").load("${pageContext.request.contextPath}"+requestPage);
@@ -228,7 +230,7 @@
 		/* 浮動分頁關閉(隱藏) */
 		function floatPageClose(){
 			$('#floatBlock').empty();
-			$("#floatBlock").hide("slide", { direction: "left" }, "slow");
+			$("#floatBlock").hide("slide", { direction: "right" }, "slow");
 			var note=document.querySelectorAll(".note-popover");
 			if(note.length!=0){
 				//編輯器存在

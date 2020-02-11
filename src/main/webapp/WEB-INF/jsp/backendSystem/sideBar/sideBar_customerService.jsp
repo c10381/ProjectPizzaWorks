@@ -12,7 +12,7 @@
 					</div>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"
-							onclick="">
+							onclick="floatPage('/messageSystem/CustomerReport')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
 								<p>客服報告書</p>

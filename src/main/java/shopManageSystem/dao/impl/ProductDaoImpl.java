@@ -297,4 +297,26 @@ public class ProductDaoImpl implements ProductDao {
 			}
 		}
 	}
+	
+	@Override
+	public MaterialsBean getOneMaterialsById(Integer materialId) {
+		Session session = factory.getCurrentSession();
+		MaterialsBean mb = session.get(MaterialsBean.class, materialId);
+		return mb;
+	}
+
+	@Override
+	public List<SalesListBean> getAllSalesLists() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM SalesListBean";
+		List<SalesListBean> salesLists = session.createQuery(hql).getResultList();
+		return salesLists;
+	}
+
+	@Override
+	public SalesListBean getSalesListById(Integer salesListId) {
+		Session session = factory.getCurrentSession();
+		SalesListBean salesList = session.get(SalesListBean.class, salesListId);
+		return salesList;
+	}
 }

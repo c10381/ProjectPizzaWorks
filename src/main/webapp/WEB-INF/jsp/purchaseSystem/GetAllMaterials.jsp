@@ -85,9 +85,7 @@
 									if (count>0){
 										$(".alert strong").html(count);
 										$(".alert").removeClass('hide');
-										$(".alert").addClass('show');
-										
-										
+										$(".alert").addClass('show');										
 									}
 								}
 							});

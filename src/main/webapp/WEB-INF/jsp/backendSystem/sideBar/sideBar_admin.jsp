@@ -180,11 +180,7 @@
 							</div>
 
 							<ul class="nav nav-treeview" style="display: none;">
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
-										<i class="far fa-dot-circle nav-icon"></i>
-										<p>銷貨單</p>
-									</div></li>
-								<li class="nav-item" onclick="loadingPage('')"><div class="nav-link">
+								<li class="nav-item" onclick="loadingPage('/shopManageSystem/GetAllSalesList')"><div class="nav-link">
 										<i class="far fa-dot-circle nav-icon"></i>
 										<p>查詢銷貨單</p>
 									</div></li>
@@ -204,7 +200,15 @@
 					</div>
 
 					<ul class="nav nav-treeview" style="display: none;">
-						
+					
+						<li class="nav-item has-treeview" onclick="loadingPage('${request.contextPath}/stock/viewStorageHistory')">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>
+									檢視庫存歷史
+								</p>
+							</div>
+						</li>						
 						<li class="nav-item has-treeview" onclick="loadingPage('${request.contextPath}/purchase/GetAllMaterials')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>
