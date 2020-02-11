@@ -99,7 +99,7 @@
 
 		<div style="position:relative;">
 			<!-- 浮動視窗 -->
-			<div id="floatBlock" style="right:0;z-index:99;height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
+			<div id="floatBlock" style="right:0;z-index:99;margin-top:1%;height:100%;width:85%;display:none;border-radius:10px;background:#ffffff;position:absolute; overflow-y:scroll;">
 			</div>
 			<!-- Main content ,use jQuery load() to load page-->
 			<div class="content-wrapper"
@@ -148,14 +148,18 @@
 	<!-- jQuery-UI -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
-	
+	<!-- sweetalert -->
+    <script src="${pageContext.request.contextPath}/js/backendSystem/sweetalert.min.js"></script>
 	<!-- WebSocket用套件 -->
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
-    
+    <!-- chatroom Js (放最後面)-->
+	<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
     <!-- flatpickr -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
+	
+	
 	<script>
 		//紀錄email
 		var customerEmail="${CLoginOK.email}";
@@ -185,7 +189,6 @@
 			disconnect();
 			window.location.replace("${pageContext.request.contextPath}/logout");
 		}
-
 		//Loading 頁面功能
 		function loadingPage(requestPage) {
 			if (requestPage == '') {
@@ -208,14 +211,17 @@
 
 		}
 		/* 浮動分頁打開 */
-		function floatPage(requestPage){
+		function floatPage(requestPage,width,height){
+			var note=document.querySelectorAll(".note-popover");
 			if(note.length!=0){
 				//編輯器存在
 				for (var i = 0; i < note.length; i++) {
 					note[i].remove();
 					}
-				console.log("AAAAA");
 				}
+			$("#floatBlock").css("width",width);
+			$("#floatBlock").css("height",height);
+			$("#floatBlock").css("box-shadow","0 2px 2px 1px rgba(0, 0, 0, 0.2)");
 			$("#floatBlock").show("slide", { direction: "right" }, "slow"); 
 
 			$('#floatBlock').empty();
@@ -225,6 +231,7 @@
 			/* $("<div><i class='fas fa-times' style='font-size:20px;margin-right:3px;float:right ' onclick='floatPageClose()'></i></div>").insertBefore("#floatBlock > div:first"); */
 			
 		}
+		
 		/* 浮動分頁關閉(隱藏) */
 		function floatPageClose(){
 			$('#floatBlock').empty();
@@ -235,55 +242,39 @@
 				for (var i = 0; i < note.length; i++) {
 					note[i].remove();
 					}
-				console.log("AAAAA");
 				}
 		}
+		//自動Loading首頁
+		$().ready(function(){
+			<c:choose>
+				<c:when test="${Mem_LoginOK.privilegeId==2}">
+					
+				</c:when>
+				<c:when test="${Mem_LoginOK.privilegeId==3}">
+					
+				</c:when>
+				<c:when test="${Mem_LoginOK.privilegeId==4}">
+					
+				</c:when>
+				<c:when test="${Mem_LoginOK.privilegeId==5}">
+					;
+				</c:when>
+				<c:when test="${Mem_LoginOK.privilegeId==6}">
+					//客服人員
+					loadingPage('/customerService');
+				</c:when>
+				<c:when test="${Mem_LoginOK.privilegeId==7}">
+					
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
+			}
+		)
 		
-		function test(){
-			var purchaseRequest_jsonStr = {
-			    "purchaseReason": "庶材不足",
-			    "proposalerId": 5,
-			    "totalPrice": 5050,
-			    "approverId": 0,
-			    "pRequestId": 1002,
-			    "requestStatus": 0,
-			    "purchaseRequestDetails": [
-			        {
-						"pRequestId": 1002,
-						"materialsName": "高筋麵粉",
-			            "unitPrice": 250,
-			            "quantity": 4,
-			            "materialsId": 1
-			        },
-			        {
-						"pRequestId": 1002,
-						"materialsName": "低筋麵粉",
-			            "unitPrice": 250,
-			            "quantity": 1,
-			            "materialsId": 2
-			        },
-			        {
-						"pRequestId": 1002,
-						"materialsName": "起司",
-			            "unitPrice": 500,
-			            "quantity": 4,
-			            "materialsId": 5
-			        },
-			        {
-						"pRequestId": 1002,
-						"materialsName": "火腿",
-			            "unitPrice": 300,
-			            "quantity": 6,
-			            "materialsId": 6
-			        }
-			    ]
-			};
-			loadingPageWithData("/convertToStockRequestPage",{"purchaseRequest_jsonStr":JSON.stringify(purchaseRequest_jsonStr)});
-
-		}
+		
 	</script>
 
-		<!-- chatroom Js (放最後面)-->
-		<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
+		
 </body>
 </html>

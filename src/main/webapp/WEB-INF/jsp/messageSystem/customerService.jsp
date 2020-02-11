@@ -36,6 +36,8 @@
 					<!-- 這裡是佔位的 -->
 					<div class='msg_history'></div>
 					
+					
+					
 					<div class="type_msg">
 						<div class="input_msg_write">
 							<input type="text" class="write_msg" placeholder="請輸入訊息..." onkeyup="CsputEnter(this)"/>
@@ -51,5 +53,17 @@
 	</div>
 <script
 	src="${pageContext.request.contextPath}/js/messageSystem/customerServiceMain.js"></script>
+	
+<script>
+	function buttonOfCustomerReport(email){
+		$("#floatBlock").css("width","50%");
+		$("#floatBlock").css("height","auto");
+		$("#floatBlock").css("box-shadow","0 2px 2px 1px rgba(0, 0, 0, 0.2)");
+		$("#floatBlock").show("slide", { direction: "right" }, "slow"); 
+
+		$('#floatBlock').empty();
+		$("#floatBlock").load("${pageContext.request.contextPath}/messageSystem/CustomerReport?email="+email);
+		}
+</script>
 </body>
 </html>
