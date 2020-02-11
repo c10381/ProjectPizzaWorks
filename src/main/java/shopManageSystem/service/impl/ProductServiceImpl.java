@@ -203,23 +203,23 @@ public class ProductServiceImpl implements ProductService {
 		salesList.setOrderTime(salesOrder.getOrderTime());
 		salesList.setTotalSales(salesOrder.getTotalSales());
 		Integer salesListId = dao.InsertSalesList(salesList);
-		//List<SalesListDetailBean> salesListDetails = new ArrayList<>();
+		// List<SalesListDetailBean> salesListDetails = new ArrayList<>();
 		Map<Integer, Double> materials_cost = new HashMap<>();
 		for (SalesOrderDetailBean salesOrderDetail : salesOrder.getSalesOrderDetails()) {
 			List<RecipeBean> recipes = dao.getProductById(salesOrderDetail.getProductId()).getRecipes();
 			List<CrustBean> crusts = dao.getCrustByTypeId(salesOrderDetail.getCrustTypeId());
-			
+
 			for (CrustBean crust : crusts) {
 				materials_cost.compute(crust.getMaterialsId(),
 						(key, val) -> (val == null) ? crust.getQuantity() : val + crust.getQuantity());
 			}
-			for(RecipeBean recipe : recipes) {
+			for (RecipeBean recipe : recipes) {
 				materials_cost.compute(recipe.getMaterial().getMaterialsId(),
 						(key, val) -> (val == null) ? recipe.getQuantity() : val + recipe.getQuantity());
 			}
 		}
-		
-		for(Entry<Integer, Double> entry: materials_cost.entrySet()) {
+
+		for (Entry<Integer, Double> entry : materials_cost.entrySet()) {
 			System.out.println(materials_cost.toString());
 			SalesListDetailBean salesListDetail = new SalesListDetailBean();
 			MaterialsUnitBean materialsUnit = dao.getMaterialsUnitByMId(entry.getKey());
@@ -227,7 +227,7 @@ public class ProductServiceImpl implements ProductService {
 			salesListDetail.setMaterialsId(entry.getKey());
 			salesListDetail.setQuantity(entry.getValue());
 			salesListDetail.setUnit(materialsUnit.getUnit());
-			//salesListDetails.add(salesListDetail);
+			// salesListDetails.add(salesListDetail);
 			dao.InsertSalesListDetail(salesListDetail);
 			dao.updateMaterialBySalesList(salesListDetail);
 			dao.updateStorageHistoryBySalesList(salesListDetail);
@@ -235,4 +235,47 @@ public class ProductServiceImpl implements ProductService {
 		dao.updateSalesOrderStatus(salesOrder);
 	}
 
+	@Transactional
+	@Override
+	public String getAllSalesListsJson() {
+		List<SalesListBean> salesLists = dao.getAllSalesLists();
+		JSONArray salesList_jsa = new JSONArray(salesLists);
+		for (int i = 0; i < salesLists.size(); i++) {
+			SalesListBean salesList = salesLists.get(i);
+			JSONObject salesList_jso = salesList_jsa.getJSONObject(i);
+			salesList_jso.put("salesListId", salesList.getSalesListId());
+			MembersBean member = dao.getMemberById((salesList.getMemberId()));
+			salesList_jso.put("fullName", member.getLastName() + member.getFirstName());
+			List<SalesListDetailBean> salesListDetails = salesList.getSalesListDetails();
+			JSONArray salesListDetail_jsa = new JSONArray(salesListDetails);
+			for (int j = 0; j < salesListDetail_jsa.length(); j++) {
+				SalesListDetailBean salesListDetail = salesListDetails.get(j);
+				JSONObject salesListDetail_jso = salesListDetail_jsa.getJSONObject(j);
+				salesListDetail_jso.put("salesListDetailId", salesListDetail.getSalesListDetailId());
+				salesListDetail_jso.put("materialsName",
+						dao.getOneMaterialsById(salesListDetail.getMaterialsId()).getMaterialsName());
+			}
+		}
+		return salesList_jsa.toString();
+	}
+
+	@Transactional
+	@Override
+	public String getSalesListJson(Integer salesListId) {
+		SalesListBean salesList = dao.getSalesListById(salesListId);
+		JSONObject salesList_jso = new JSONObject(salesList);
+		salesList_jso.put("salesListId", salesList.getSalesListId());
+		MembersBean member = dao.getMemberById((salesList.getMemberId()));
+		salesList_jso.put("fullName", member.getLastName() + member.getFirstName());
+		List<SalesListDetailBean> salesListDetails = salesList.getSalesListDetails();
+		JSONArray salesListDetail_jsa = new JSONArray(salesListDetails);
+		for (int j = 0; j < salesListDetail_jsa.length(); j++) {
+			SalesListDetailBean salesListDetail = salesListDetails.get(j);
+			JSONObject salesListDetail_jso = salesListDetail_jsa.getJSONObject(j);
+			salesListDetail_jso.put("salesListDetailId", salesListDetail.getSalesListDetailId());
+			salesListDetail_jso.put("materialsName",
+					dao.getOneMaterialsById(salesListDetail.getMaterialsId()).getMaterialsName());
+		}
+		return salesList_jso.toString();
+	}
 }

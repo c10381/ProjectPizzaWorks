@@ -92,8 +92,6 @@
 		$(function(){
 			srReq = ${stockRequest_jsonStr};
 			dataToHtml(srReq);
-			
-			
 		})
 		
 		function dataToHtml(data){
