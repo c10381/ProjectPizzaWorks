@@ -29,14 +29,13 @@
 			</div>
 		</div>
 		<div class="container">
-			<div class="row mx-auto">
+			<div class="row mx-auto menu">
 				<!-- 當產品簡介與上一個不相等時（代表跟上一個非同一產品）則可以顯示 -->
 				<c:forEach var='product' items='${products}' varStatus="status">
-
 					<c:if
 						test="${product.briefInfo!= products[status.index-1].briefInfo}">
 						<div class="col-lg-4 col-md-6 mt-5 text-center ">
-							<div class="menu-wrap">
+							<div class="menu-wrap" data-id="${product.productId}">
 								<a href="#" class="menu-img img mb-4"
 									style="background-image: url(${pageContext.request.contextPath}/picture/${product.productId});"></a>
 								<div class="text">
@@ -46,16 +45,26 @@
 											value="${fn:split(originalName,'//(')[0] }" />
 										<a href="#">${showName }</a>
 									</h3>
-									<p class="price">
-										<span class="pizza-lg mr-3 ">L ${product.unitPrice }</span> <span
-											class="pizza-sm">S
-											${products[status.index+1].unitPrice }</span>
-									</p>
+									
+									<c:choose>
+										<c:when test="${ (product.briefInfo!=products[status.index-1].briefInfo) &&  (product.briefInfo!=products[status.index+1].briefInfo)}">
+											<p>
+												<span class="price pizza-one mr-3 ">${product.unitPrice }</span> 
+											</p>
+										</c:when>
+										<c:otherwise>
+										<p>
+											<span class="price pizza-lg mr-3 ">${product.unitPrice }</span> 
+											<span class="price pizza-sm">${products[status.index+1].unitPrice }</span>
+										</p>
+										</c:otherwise>
+									</c:choose>
+									
 									<p>
 										<a
 											href='<spring:url value="/shop/product?name=${showName }"/>'
-											class="ml-2 btn btn-white btn-outline-white mr-2">了解更多</a> <a
-											href="#" class="btn btn-white btn-outline-white">快速訂購</a>
+											class="ml-2 btn btn-white btn-outline-white mr-2">了解更多</a> 
+										<button class="btn btn-white btn-outline-white" data-id="${product.productId }">快速訂購</button>
 									</p>
 								</div>
 							</div>
@@ -66,9 +75,69 @@
 		</div>
 	</section>
 	
+	<!-- pizza Modal-->
+	<div class="modal fade" id="pizzaModal" tabindex="-1" role="dialog"
+		aria-labelledby="PizzaModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-dark" id="PizzaModalLabel">請選擇您的披薩</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body ">
+					<h5 class="text-dark"></h5>
+					<div class="container">
+						<div class="row">
+							<div class="form-group">
+								<label for="pizzaSize">披薩尺寸:</label> 
+								<select name="pizzaSize" id="pizzaSize">
+									<option value="large">大</option>
+									<option value="small">小</option>
+								</select> 
+							</div>
+							<div class="form-group">
+								<label for="qtty">數量</label> 
+								<select name="qtty" id="qtty"></select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group"> 
+								<label for="crust">請選擇餅皮</label> 
+							 	<select name="crust" id="crust"></select> 
+							 </div>
+							<div class="form-group">
+								<label for="doubleCheese"></label> 
+								<input type="checkbox" name = "doubleCheese" id = "doubleCheese">雙倍起司 +25
+							</div>
+						</div>
+					</div>     
+				</div>
+				<div class="modal-footer">
+					<c:forEach items="${ products}" var="item" varStatus="status">
+						<c:if test="${status.first }">
+							<button class="btn btn-secondary" type="button"
+								data-dismiss="modal" >
+								放入購物車 <span class="amount"> </span>
+							</button>
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
+	<jsp:include page="fragment/ModalDeliver.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
-	
+	<script src="${pageContext.request.contextPath }/js/shopSystem/menu.js"></script>
+	<script>
+	 $(document).ready(function(){
+		$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")
+	 })
+</script>	
 </body>
 </html>

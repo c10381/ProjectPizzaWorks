@@ -1,11 +1,14 @@
 package purchaseSystem.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -161,6 +164,7 @@ public class PurchaseController {
 		return time;
 	}
 	
+	// 採購人員的請購單審核
 	@PutMapping("/purchase/updateResponse")
 	public @ResponseBody String updateResponse(@RequestBody PurchaseRequestBean purchaseRequest) {
 		service.updateResponse(purchaseRequest);

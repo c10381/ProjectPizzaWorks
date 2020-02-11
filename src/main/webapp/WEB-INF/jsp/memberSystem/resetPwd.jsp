@@ -3,25 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-
 <title>重設密碼</title>
-
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- ----- -->
+<meta name="viewport" 
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
-<!-- ----- -->
+
 
 </head>
 <body>
 
-	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<!-- ----- -->
-
+	
 	<section class="ftco-section">	
 		<div id='container justify-content-center'>
 		
@@ -53,13 +51,13 @@
 				</div>	
 									
 				<div class="row">
-						<!-- /.col -->
+					<!-- /.col -->
 					<div class="col-sm-7"></div>
-					<input id='btnReset' type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+					<!-- col end-->
+					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
-					<div class="col-4">
-						<input id='btnAdd' type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
-					</div>						
+					<!-- col end-->
+					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>					
 				</div>				
 			</form>			
 		</div>
@@ -69,7 +67,7 @@
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 	
-	<script type="text/javascript">
+	<script>
 	//鍵盤點擊開始輸入後將密碼提示清空
 	$('#newPwd').keypress(function(){
 		var pwd = $('#newPwd').val();
@@ -88,16 +86,7 @@
 		}else{
 			$('h6').text('');	
 		}
-	})
-	
-	$('#newPwd').blur(function(){
-		var pwd = $('#newPwd').val();
-		if(pwd.length < 6){
-			
-		}
-	})
-	
-	
+	})	
 	
 	$('#chkPwd').blur(function(){
 		var pwd1 = $('#newPwd').val();
@@ -113,10 +102,16 @@
 	})
 	
 	$('form').submit(function(){
-		var newpwd = $('#newPwd').val(); 
+		var pwd1 = $('#newPwd').val();
+		var pwd2 = $('#chkPwd').val();
+		if(pwd1 != pwd2){
+			event.preventDefault();
+			$('#validpwd_errbox').text('輸入密碼不一致！');
+			$('#validpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"
+			});
+		}
 	})
-	
-	
 	
 	</script>	
 </body>

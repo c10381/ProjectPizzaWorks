@@ -96,5 +96,14 @@ public class ProductRedirectController {
 		model.addAttribute("materials", service.getAllMaterials());
 		return "shopManageSystem/AddNewProduct";
 	}
+	
+	@RequestMapping(value="/shopManageSystem/GetAllSalesOrder", method=RequestMethod.GET)
+	public String getAllSalesOrder(Model model) {
+		return "shopManageSystem/GetAllSalesOrder";
+	}
 
+	@RequestMapping(value="/shopManageSystem/GetAllSalesList", method=RequestMethod.GET)
+	public String getAllSalesList(Model model) {
+		return "shopManageSystem/GetAllSalesList";
+	}
 }

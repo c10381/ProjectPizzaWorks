@@ -5,12 +5,14 @@
 
 <!-- START navbar -->
 <nav
-	class="navbar navbar-expand-md navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 	id="ftco-navbar">
 	<div class="container">
 		<a class="navbar-brand"
 			href="${pageContext.request.contextPath}/ "><span
 			class="flaticon-pizza-1 mr-1"></span>Pizza<br /> <small>BITE</small></a>
+		
+		<!-- 縮小後的漢堡清單 -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#ftco-nav" aria-controls="ftco-nav"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +21,7 @@
 
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="nav navbar-nav mr-auto">
-				<li class="nav-item active"><a
+				<li class="nav-item"><a
 					href="<spring:url value='/shop/menu' />" class="nav-link">精選菜單</a></li>
 				<li class="nav-item"><a href="<spring:url value='/shop/story' />" class="nav-link">品牌故事</a>
 				</li>
@@ -27,9 +29,9 @@
 				</li>
 			</ul>
 		</div>
+		
 		<div class="collapse navbar-collapse nav-rt" id="ftco-nav">
 			<ul class="nav navbar-nav ml-auto">
-				
 				<li class="nav-item active"><a
 					href='<spring:url value="/shop/cart" />' class="nav-link"> <i
 						class="fas fa-shopping-cart"></i> <span
@@ -70,7 +72,6 @@
 							</div>
 						</li>
 					</c:otherwise>
-
 				</c:choose>
 			</ul>
 		</div>

@@ -13,10 +13,15 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+
+<style>
+.pd-img{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+</style>
 </head>
 <body>
 
@@ -29,7 +34,7 @@
 			<div class="row staff">
 				<c:forEach items="${products}" var="item" varStatus="status">
 					<c:if test="${status.first }">
-						<div class="col-md-6 ftco-animate">
+						<div class="col-md-5 ftco-animate pd-img">
 							<img
 								src="${pageContext.request.contextPath}/picture/${products[status.index].productId}"
 								class="img-fluid" />
@@ -38,9 +43,9 @@
 				</c:forEach>
 				<div class="col-md-1"></div>
 
-				<div class="col-md-4 product-info ftco-animate">
+				<div class="col-md-5 product-info ftco-animate">
 					<div class="row">
-						<c:forEach items="${products}" var="item" varStatus="status">
+						<c:forEach items="${products}" var="product" varStatus="status">
 							<c:if test="${status.first }">
 								<div class="col-md-12 mb-4">
 									<%-- 	<h2 class="h4 mt-sm-3" id="productName">${item.productName }</h2> --%>
@@ -48,24 +53,37 @@
 								</div>
 								<div class="col-md-12 mb-3">
 									<p class="h5">餡料</p>
-									<p>豬肉、胡麻油、起司、杏鮑菇、紅椒</p>
+									<c:forEach items="${product.recipes }" var="item" varStatus="s">
+										 ${item.material.materialsName }
+										<c:if test="${!s.last  }">、</c:if>
+									</c:forEach>
+									<!-- <p>豬肉、胡麻油、起司、杏鮑菇、紅椒</p> -->
 								</div>
 								<div class="col-md-12 mb-3">
 									<p class="h5">美味菜單</p>
 									<c:if test="${status.first }">
-										<p>${item.briefInfo }</p>
+										<p>${product.briefInfo }</p>
 									</c:if>
 
 								</div>
 								<div class="col-md-12 mb-3">
 									<p class="h5">價格</p>
-									<p>
-										大 <span>$</span><span class="price"
-											data-id="${item.productId }"> ${item.unitPrice }</span>／ 小 <span>$</span><span
+									<!-- 依照有幾個相同名字的產品，來決定要顯示的價格 -->
+									<c:choose>
+										<c:when test="${status.first==status.last }">
+										<span>$</span><span class="price"
+											data-id="${product.productId }"> ${product.unitPrice }</span>
+										</c:when>
+										<c:otherwise>
+										<p>
+										    大 <span>$</span><span class="price"
+											data-id="${product.productId }"> ${product.unitPrice }</span>／ 小 <span>$</span><span
 											class="price"
 											data-id="${products[status.index+1].productId }">
 											${products[status.index+1].unitPrice }</span>
-									</p>
+										</p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="col-md-12 mb-3">
 									<button type="button"
@@ -85,11 +103,13 @@
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ModalDeliver.jsp" />
 	<jsp:include page="fragment/Modalpizza.jsp" />
-
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script
 		src="${pageContext.request.contextPath }/js/shopSystem/product.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
+<script>
+	 $(document).ready(function(){
+		$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")
+	 })
+</script>	
 </body>
 </html>

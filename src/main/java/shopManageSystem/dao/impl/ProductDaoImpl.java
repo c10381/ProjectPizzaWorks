@@ -10,9 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import _model.CrustBean;
 import _model.MaterialsBean;
+import _model.MaterialsUnitBean;
+import _model.MembersBean;
 import _model.ProductBean;
 import _model.RecipeBean;
+import _model.SalesListBean;
+import _model.SalesListDetailBean;
 import _model.SalesOrderBean;
+import _model.StorageHistoryBean;
 import shopManageSystem.dao.ProductDao;
 
 @Repository
@@ -231,5 +236,87 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		SalesOrderBean sob = session.get(SalesOrderBean.class, salesOrder.getSalesOrderId());
 		sob.setOrderStatus(salesOrder.getOrderStatus());
+	}
+
+	@Override
+	public MaterialsUnitBean getMaterialsUnitByMId(Integer materialsId) {
+		String hql = "FROM MaterialsUnitBean WHERE materialsId = :materialsId";
+		Session session = factory.getCurrentSession();
+		MaterialsUnitBean materialsUnit = null;
+		
+		try{
+			materialsUnit = (MaterialsUnitBean) session.createQuery(hql).setParameter("materialsId", materialsId).getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return materialsUnit;
+	}
+
+	@Override
+	public Integer InsertSalesList(SalesListBean salesList) {
+		Session session = factory.getCurrentSession();
+		Integer salesListId = (Integer) session.save(salesList);
+		return salesListId;
+	}
+
+	@Override
+	public void InsertSalesListDetail(SalesListDetailBean salesListDetail) {
+		Session session = factory.getCurrentSession();
+		session.save(salesListDetail);
+	}
+
+	@Override
+	public void updateMaterialBySalesList(SalesListDetailBean salesListDetail) {
+		Session session = factory.getCurrentSession();
+		MaterialsBean material = session.get(MaterialsBean.class, salesListDetail.getMaterialsId());
+		Double original_quantity = material.getQuantity();
+		material.setQuantity(original_quantity-salesListDetail.getQuantity());
+	}
+
+	@Override
+	public MembersBean getMemberById(Integer membersId) {
+		Session session = factory.getCurrentSession();
+		MembersBean member = session.get(MembersBean.class, membersId);
+		return member;
+	}
+
+	@Override
+	public void updateStorageHistoryBySalesList(SalesListDetailBean salesListDetail) {
+		String hql = "FROM StorageHistoryBean WHERE materialsId = :materialsId AND remainingQuantity != 0";
+		Session session = factory.getCurrentSession();
+		List<StorageHistoryBean> storageHistorys = session.createQuery(hql).setParameter("materialsId", salesListDetail.getMaterialsId()).getResultList();
+		double quantity_cost = salesListDetail.getQuantity();
+		for(StorageHistoryBean storageHistory:storageHistorys) {
+			double quantity_remaining = storageHistory.getRemainingQuantity();
+			if(storageHistory.getRemainingQuantity()>=quantity_cost) {
+				storageHistory.setRemainingQuantity(quantity_remaining-quantity_cost);
+				break;
+			} else {
+				quantity_cost -= quantity_remaining;
+				storageHistory.setRemainingQuantity(0);
+			}
+		}
+	}
+	
+	@Override
+	public MaterialsBean getOneMaterialsById(Integer materialId) {
+		Session session = factory.getCurrentSession();
+		MaterialsBean mb = session.get(MaterialsBean.class, materialId);
+		return mb;
+	}
+
+	@Override
+	public List<SalesListBean> getAllSalesLists() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM SalesListBean";
+		List<SalesListBean> salesLists = session.createQuery(hql).getResultList();
+		return salesLists;
+	}
+
+	@Override
+	public SalesListBean getSalesListById(Integer salesListId) {
+		Session session = factory.getCurrentSession();
+		SalesListBean salesList = session.get(SalesListBean.class, salesListId);
+		return salesList;
 	}
 }

@@ -198,4 +198,9 @@ public class StockController {
 		return "/stock/GetAllStockRequest";
 	}
 	
+	@RequestMapping(value = "/getStorageHistoryJSON", method = RequestMethod.GET, produces = { "application/json" })
+	public @ResponseBody String getStorageHistoryJSON(Model model) {
+		String history = service.getStorageHistory();
+		return history;
+	}	
 }

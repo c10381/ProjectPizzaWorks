@@ -30,7 +30,7 @@ public class customerRequestDaoImpl implements customerRequestDao {
 		try {
 			crb.setQueryDate(String.valueOf(new Timestamp(new Date().getTime())));
 			//0為還未回復
-			crb.setReplyStatus(0);
+			
 			session.save(crb);
 		} catch (Exception e) {
 			return false;
@@ -88,7 +88,6 @@ public class customerRequestDaoImpl implements customerRequestDao {
 
 	@Override
 	public Boolean replycustomerRequest(customerRequestBean crb) {
-		LocalDateTime ldt = LocalDateTime.now();
 		Session session = factory.getCurrentSession();
 		String hql = "UPDATE customerRequestBean SET ReplyStatus=2, coworkerID= :coworkerID, ReplyContent = :ReplyContent, ReplyDate = :ReplyDate WHERE QueryId = :QueryId";
 		try {

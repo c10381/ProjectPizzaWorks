@@ -6,23 +6,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>新會員註冊</title>
+<title>Pizza Bite 會員註冊</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- ----- -->
+
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
-<!-- ----- -->
+
 
 </head>
 <body>
-	<!-- ----- -->
-	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<!-- ----- -->
-
-	<!-- 把東西放到section / container div -->
 	
+	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
+		
 	<section class="ftco-section">
 		<div id='container justify-content-center'>
 
@@ -34,38 +30,43 @@
 				 action="${pageContext.request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
 				<div class="form-row form-group">
-                		<label for="email" class="col-form-label col-sm-3 align-self-center">* 請輸入註冊信箱：</label>
-                		<!-- col end-->
-                		<input id="email" name="email" class="form-control col-sm-6" type='email' placeholder='請輸入註冊信箱' required />
-            			<!-- col end-->
-            			<div class="col-sm-3 align-self-center" id="email_errbox"></div>
-            			<!-- col end-->
+					<div class="col-sm-2"></div>
+                	<label for="email" class="col-form-label col-sm-2 align-self-center">* 請輸入信箱：</label>
+                	<!-- col end-->
+                	<input id="email" name="email" class="form-control col-sm-4" type='email' placeholder='請輸入註冊信箱' required />
+            		<!-- col end-->
+            		<div class="col-sm-3 align-self-center" id="email_errbox"></div>
+            		<!-- col end-->
     			</div>
     			<!-- row form-group ends-->
     			
     			<!-- email檢查按鈕 -->
+    			
+    			<div class="form-row form-group">
+    			<div class="col-sm-2"></div>
 				<div><input type="button" value="檢查帳號是否可用" class="btn btn-primary" onclick="emailExists()"></div>		
-				
+				</div>
 				<div class="form-row form-group">
-						<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入密碼：</label> 
+						<div class="col-sm-2"></div>
+						<label for="password" class="col-form-label col-sm-2 align-self-center">* 請輸入密碼：</label> 
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
-					 	       maxlength="16" class="form-control col-sm-6" 
-					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"
-					 	 	   /> 
+					 	       maxlength="16" class="form-control col-sm-4" 
+					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)()[a-zA-Z\d+@]{8,16}$"/> 
 						<!-- col end-->
 						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
-						 8-16字元，不含特殊符號  
+						 8-16字元 
 						</h6>
 						
 						<!-- col end-->
 				</div>
     			<!-- row form-group end-->	
 				<div class="form-row form-group">
-					<label for="validpwd" class="col-form-label col-sm-3 align-self-center">* 請再次輸入密碼 ：</label> 
+					<div class="col-sm-2"></div>
+					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 請確認密碼 ：</label> 
 					<!-- col end-->
 					<input id="validpwd" name="validpwd" type="password" placeholder="請再次輸入密碼" required 
-						   maxlength="15" class="form-control col-sm-6"/>
+						   maxlength="15" class="form-control col-sm-4"/>
 					<!-- col end-->
 					<div class="col-sm-3 align-self-center" id="validpwd_errbox"></div>					
 					<!-- col end-->
@@ -73,13 +74,13 @@
     			<!-- row form-group end-->	
 				<br> 
 				<div class="row">
-					<input type="button" id="btnAuto" value="一鍵輸入"  class="btn btn-white btn-outline-white col-sm-2"/>
-					<!-- col end-->
-					<div class="col-sm-7"></div>
-					<!-- col end-->
+					<div class="col-sm-2"></div>
+					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-1"/>
+					<div>&nbsp;</div>
+					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-1"/>			
+					<div class="col-sm-2"></div>
 					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
-					<!-- col end-->
 					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
 					<!-- col end-->
 				</div> 
@@ -88,16 +89,11 @@
 		</div>
 	</section>
 
-	
-	<!-- ----- -->
-
 	<jsp:include page="../shopSystem/fragment/footer.jsp" />
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
-
-	<!-- ----- -->
 	
-	<script type="text/javascript">
+	<script>
 	
 	//重填按鈕點擊後，會順便將錯誤訊息清空
 	$('#btnReset').click(function(){
@@ -129,7 +125,7 @@
 						$('#email_errbox').attr({
 							"class" : "text-danger col-sm-3 align-self-center"
 						})
-						var flag = true;
+						flag = true;
 						
 					}else{
 						$('#email_errbox').text('該信箱可以使用');
@@ -143,16 +139,28 @@
 		}		
 	}
 	
-	//一鍵輸入功能
-	$("#btnAuto").click(function() {
+	//一鍵輸入功能--ver Leon
+	$("#Demo1").click(function() {
 		$("#email").val("iiiedujava@gmail.com");
-		$("#password").val("Java8888");
-		$("#validpwd").val("Java8888");
+		$("#password").val("P@ssw0rd");
+		$("#validpwd").val("P@ssw0rd");
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');
+		flag = false;
 	})
 	
+	//一鍵輸入功能--ver Dennis
+	$("#Demo2").click(function() {
+		$("#email").val("c10381@gmail.com");
+		$("#password").val("P@ssw0rd");
+		$("#validpwd").val("P@ssw0rd");
+		$('#email_errbox').text('');
+		$('#pwd_errbox').text('');
+		$('#validpwd_errbox').text('');
+		flag = false;
+	})
+
 	//鍵盤點擊開始輸入後將密碼提示清空
 	$('#password').keypress(function(){
 		var pwd = $('#password').val();
@@ -192,7 +200,6 @@
 	
 	//檢查使用者輸入的帳號/密碼/確認密碼是否有效
 	$('form').submit(function(event){
-		
 		var emailtxt = $('#email').val();
 		var pwd = $('#password').val();
 		var vpwd = $('#validpwd').val();
@@ -203,7 +210,7 @@
 		//判斷使用者是否什麼都沒輸入
 		if(emailtxt == ''|| pwd =='' || vpwd ==''){
 			event.preventDefault();
-			flag = false;
+			flag = true;
 			if(emailtxt ==''){
 				//如果帳號沒輸入就跳沒輸入的錯誤
 				$('#email_errbox').text('請輸入帳號');
@@ -238,7 +245,7 @@
 		}else if(vpwd!=pwd){
 			event.preventDefault();
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認');			
-		}else if(!flag){
+		}else if(flag){
 			console.log('preventer2');
 			event.preventDefault();
 		}else{

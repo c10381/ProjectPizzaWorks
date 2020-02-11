@@ -22,3 +22,5 @@
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script> 
 	<script src ="${pageContext.request.contextPath}/js/messageSystem/stomp.js" > </script>
 	<script src ="${pageContext.request.contextPath}/js/shopSystem/WebsocketNeed.js" > </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>

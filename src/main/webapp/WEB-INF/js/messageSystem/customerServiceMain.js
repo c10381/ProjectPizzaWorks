@@ -46,15 +46,20 @@ function openCSbox(Email, Name , content) {
 						"</div>"+
 					"</div>"+
 				"</div>");
-		//會話框(id="cs_"+Eamil+"Box")，插在(.type_msg)前面
-		$("<div class='msg_history' id='cs_"+Email+"Box' style='display:none'> "+
+		//會話框(id="cs_"+Email+"Box")，插在(.type_msg)前面
+		$("<div class='msg_history' id='cs_"+Email+"Box' style='display:none;position:relative'> "+
+				"<button class='btn btn-primary' style='position:absolute; right:0;top:0;' onclick='buttonOfCustomerReport(\""+Email+"\")'>"+
+					"<i class='far fa-envelope' ></i> 結案</button>"+
 						"</div>").insertBefore(".type_msg");
+		
 	} else {
 		//換掉content
-		
 		document.getElementById(Email+"Content").innerHTML=content;
 		//標示未讀
-		customerMessageSideBox.setAttribute("class", "CustomerService_list new_MessageInCustomer")
+		if(customerMessageSideBox.getAttribute("class")!="CustomerService_list active_CustomerService"){
+			customerMessageSideBox.setAttribute("class", "CustomerService_list new_MessageInCustomer");
+		}
+		
 	}
 }
 // 收到顧客訊息

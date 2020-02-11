@@ -47,7 +47,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLongTitle">
-							請購單審核 | 請購單號:<span><span>
+							請購單審核 | 請購單號:<span></span>
 						</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -55,9 +55,9 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<h6>狀態更動</h6>
-						<select id='sltStatus'></select>
+						<h6>信件回復</h6>
 						<hr>
+						<select id='sltStatus'></select>
 						<h6>意見回覆</h6>
 						<textarea cols="48" rows="5" class="p-1"></textarea>
 

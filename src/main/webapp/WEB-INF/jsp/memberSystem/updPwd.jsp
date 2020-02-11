@@ -3,11 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-
-<title>密碼修改</title>
-
+<title>會員密碼修改</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- ----- -->
@@ -17,9 +16,9 @@
 
 </head>
 <body>
-	<!-- ----- -->
+	
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<!-- ----- -->
+	
 	<section class="ftco-section">
 		<div id='container justify-content-center'>
 		
@@ -29,40 +28,38 @@
 					
 			<form action="${pageContext.request.contextPath}/memberSystem/doUpdPwd"  method="post"
 					class='col-md-6 mx-auto align-items-center'>
+					
 				<div class="form-row form-group">
-					<label for="password" class="col-form-label col-sm-3 align-self-center" >* 請輸入舊密碼：</label> 
-						<!-- col end-->
-					<input id="oldPwd" name="oldPwd" type="password" placeholder="請輸入舊密碼" required
-					 maxlength="16" class="form-control col-sm-6" onblur="pwdChecker()"/> 
-						<!-- col end-->
+					<div class="col-sm-3"></div>
+					<label for="password" class="col-form-label col-sm-2 align-self-center" >* 請輸入舊密碼：</label>
+					<input id="oldPwd" name="oldPwd" type="password" required maxlength="16" class="form-control col-sm-3" onblur="pwdChecker()"/> 
 					<div class="col-sm-3 align-self-center" id="oldpwd_errbox"></div>	
 				</div>
 				
 				<div class="form-row form-group">
-					<label for="password" class="col-form-label col-sm-3 align-self-center">* 請輸入新密碼：</label> 
+					<div class="col-sm-3"></div>
+					<label for="password" class="col-form-label col-sm-2 align-self-center">* 請輸入新密碼：</label> 
 					<!-- col end-->
-					<input id="newPwd" name="newPwd" type="password" placeholder="請輸入新密碼" required
-					 	  maxlength="16" class="form-control col-sm-6" 
+					<input id="newPwd" name="newPwd" type="password" required maxlength="16" class="form-control col-sm-3" 
 					 	  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"/> 
 					<!-- col end-->
-					<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
+					<h6 id="pwdReminder" class="form-text text-muted col-sm-3 align-self-center">
 						8-16字元，不含特殊符號   
 					</h6>
 				</div>
 					<!-- row form-group end-->					
 				<div class="form-row form-group">
-					<label for="validpwd" class="col-form-label col-sm-3 align-self-center">* 請再次輸入密碼 ：</label> 
-					<!-- col end-->
-					<input id="validPwd" name="validpwd" type="password" placeholder='請再次輸入密碼' required 
-						   maxlength="15" class="form-control col-sm-6"/>
+					<div class="col-sm-3"></div>
+					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 再次輸入密碼 ：</label> 
+					<input id="validPwd" name="validpwd" type="password" required 
+						   maxlength="16" class="form-control col-sm-3"/>
 					<!-- col end-->
 					<div class="col-sm-3 align-self-center" id="validpwd_errbox"></div>					
 					<!-- col end-->
 				</div>
 					<!-- row form-group end-->						
 				<div class="row">
-					<!-- col end-->
-						<div class="col-sm-7"></div>
+						<div class="col-sm-6"></div>	
 					<!-- col end-->
 						<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 						<div>&nbsp;</div>
@@ -82,8 +79,8 @@
 	function pwdChecker(){
 		var oldpwd = $('#oldPwd').val();
 		if(oldpwd==""){
-			console.log('reach');
 			$('#oldpwd_errbox').text('請輸入密碼!');
+			$("#btnAdd").prop("disabled",true);
 			$('#oldpwd_errbox').attr({
 				"class" : "text-danger col-sm-3 align-self-center"					
 			});
@@ -117,6 +114,9 @@
 		var pwd2 = $("#validPwd").val();				
 		if(pwd1 != pwd2){
 			event.preventDefault();
+			$('#oldpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"					
+			});
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認!');
 		}
 	})

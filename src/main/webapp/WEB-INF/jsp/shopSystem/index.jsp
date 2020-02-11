@@ -7,7 +7,10 @@
 
 <html>
 <head>
-<title>Pizza Bite| Welcome</title>
+<title>Pizza Bite</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentCSS.jsp" />
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <style>
@@ -73,16 +76,16 @@
 		</div>
 	</section>
 
+
+	
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
-	<%-- <jsp:include page="fragment/chatBox.jsp" /> --%> 
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script >
 	$('.carousel').carousel({
 		  interval: 3000
 		})
-	$("#ftco-navbar #ftco-nav:first-of-type .active").removeClass("active");
 	</script>
 	
 </body>
