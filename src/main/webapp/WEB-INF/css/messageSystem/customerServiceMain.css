@@ -1,6 +1,6 @@
 .container {
-	max-width: 1170px;
-	margin: auto;
+/* 	max-width: 70%;
+	margin-left: 5%; */
 }
 
 .inbox_people {
@@ -16,7 +16,7 @@
 	clear: both;
 	overflow: hidden;
 	border-radius: 5px;
-	
+	box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .top_spac {
@@ -144,9 +144,10 @@
 	float: left;
 	padding: 30px 15px 0 25px;
 	width: 65%;
-	min-height:600px;
+	min-height:605px;
 	display:flex;
 	flex-direction:column;
+	background:white;
 }
 
 .sent_msg p {
@@ -175,7 +176,7 @@
 	color: #4c4c4c;
 	font-size: 15px;
 	min-height: 48px;
-	width: 90%;
+	width: 85%;
 }
 
 .type_msg {
@@ -202,6 +203,8 @@
 
 .messaging {
 	padding: 0 0 50px 0;
+/* 	max-width: 80%;
+	margin-left: 5%; */
 }
 
 .msg_history {

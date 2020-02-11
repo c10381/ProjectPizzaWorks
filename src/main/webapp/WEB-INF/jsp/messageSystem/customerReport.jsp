@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,161 +9,94 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div><i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i></div>
-	<div class="card card-warning col-sm-11 h-75 mx-auto mt-5">
+
+	<input type="hidden"></input>
+	<div class="card-warning h-75 mx-auto">
 		<div class="card-header">
-			<h3 class="card-title">General Elements</h3>
+		<i class='fas fa-times' style='font-size:20px; float:left ' onclick='floatPageClose()'></i>
+			<h2 class="card-title mx-3">客服回報單</h2>
 		</div>
 		<!-- /.card-header -->
 		<div class="card-body">
 			<form role="form">
 				<div class="row">
-					<div class="col-sm-6">
-						<!-- text input -->
+					<div class="col-sm-12">
 						<div class="form-group">
-							<label>Text</label> <input type="text" class="form-control"
-								placeholder="Enter ...">
+							<label>客戶Email</label> <input type="text"
+								class="form-control" id="memberEmail" value="${CustomerEmail}" disabled>
 						</div>
 					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label>Text Disabled</label> <input type="text"
-								class="form-control" placeholder="Enter ..." disabled>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-12">
 						<!-- textarea -->
 						<div class="form-group">
-							<label>Textarea</label>
-							<textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+							<label>客戶需求</label>
+							<textarea class="form-control" id="queryContent" rows="3" placeholder="請輸入文字..."></textarea>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-12">
+						<!-- text input -->
 						<div class="form-group">
-							<label>Textarea Disabled</label>
-							<textarea class="form-control" rows="3" placeholder="Enter ..."
-								disabled></textarea>
+							<label>回應人</label> <input type="text" id="coworkerName" class="form-control" value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}" disabled>
 						</div>
 					</div>
-				</div>
-
-				<!-- input states -->
-				<div class="form-group">
-					<label class="col-form-label" for="inputSuccess"><i
-						class="fas fa-check"></i> Input with success</label> <input type="text"
-						class="form-control is-valid" id="inputSuccess"
-						placeholder="Enter ...">
-				</div>
-				<div class="form-group">
-					<label class="col-form-label" for="inputWarning"><i
-						class="far fa-bell"></i> Input with warning</label> <input type="text"
-						class="form-control is-warning" id="inputWarning"
-						placeholder="Enter ...">
-				</div>
-				<div class="form-group">
-					<label class="col-form-label" for="inputError"><i
-						class="far fa-times-circle"></i> Input with error</label> <input
-						type="text" class="form-control is-invalid" id="inputError"
-						placeholder="Enter ...">
-				</div>
-
-				<div class="row">
-					<div class="col-sm-6">
-						<!-- checkbox -->
+					<div class="col-sm-12">
+						<!-- textarea -->
 						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox"> <label
-									class="form-check-label">Checkbox</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" checked>
-								<label class="form-check-label">Checkbox checked</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" disabled>
-								<label class="form-check-label">Checkbox disabled</label>
-							</div>
+							<label>回應</label>
+							<textarea class="form-control" id="replyContent" rows="3" placeholder="Enter ..."></textarea>
 						</div>
 					</div>
-					<div class="col-sm-6">
-						<!-- radio -->
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="radio1">
-								<label class="form-check-label">Radio</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="radio1"
-									checked> <label class="form-check-label">Radio
-									checked</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" disabled> <label
-									class="form-check-label">Radio disabled</label>
-							</div>
-						</div>
-					</div>
+					<div class="float-right">
+					<button class="btn btn-primary" onclick="sendCustomerReport(event)">
+							<i class="far fa-envelope"></i> 送出
+						</button>
 				</div>
-
-				<div class="row">
-					<div class="col-sm-6">
-						<!-- select -->
-						<div class="form-group">
-							<label>Select</label> <select class="form-control">
-								<option>option 1</option>
-								<option>option 2</option>
-								<option>option 3</option>
-								<option>option 4</option>
-								<option>option 5</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label>Select Disabled</label> <select class="form-control"
-								disabled>
-								<option>option 1</option>
-								<option>option 2</option>
-								<option>option 3</option>
-								<option>option 4</option>
-								<option>option 5</option>
-							</select>
-						</div>
-					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-sm-6">
-						<!-- Select multiple-->
-						<div class="form-group">
-							<label>Select Multiple</label> <select multiple
-								class="form-control">
-								<option>option 1</option>
-								<option>option 2</option>
-								<option>option 3</option>
-								<option>option 4</option>
-								<option>option 5</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label>Select Multiple Disabled</label> <select multiple
-								class="form-control" disabled>
-								<option>option 1</option>
-								<option>option 2</option>
-								<option>option 3</option>
-								<option>option 4</option>
-								<option>option 5</option>
-							</select>
-						</div>
-					</div>
-				</div>
+				
 			</form>
 		</div>
 		<!-- /.card-body -->
 	</div>
+	<script>
+	
+	function sendCustomerReport(e){
+		e.preventDefault();
+		var memberEmail=$("#memberEmail").val();
+		var queryContent=$("#queryContent").val();
+		var coworkerID=${Mem_LoginOK.memberId};
+		var replyContent=$("#replyContent").val();
+		console.log(memberEmail+","+queryContent+","+coworkerID+","+replyContent);
+		var Bean={
+				'memberEmail':memberEmail,
+				'queryContent':queryContent,
+				'coworkerID':coworkerID,
+				'replyContent':replyContent,
+			};
+		console.log(JSON.stringify(Bean));
+			if(queryContent==""){
+				swal("客戶需求不得為空", "", "error");
+			}else if(replyContent==""){
+				swal("回應內容不得為空", "", "error");
+			}else{
+				$.ajax({
+					url:"${pageContext.request.contextPath}/messageSystem/insertcustomerReport",
+					type:"Post",
+					data:JSON.stringify(Bean),
+					contentType:'application/json;charset=UTF-8',
+					success:function(){
+						swal("新增成功", "", "success");
+					},
+					error:function(){
+						swal("傳送失敗", "請再試一次", "error");
+					}
+				})
+			}
+		}
+
+	function democustomerButton(){
+		$("#queryContent").val("顧客表示上次吃得Pizza好像有點問題，還有拉肚子");
+		$("#replyContent").val("已特別關懷，並請他下次出示證明，免費請一份Pizza");
+	}
+	</script>
 </body>
 </html>

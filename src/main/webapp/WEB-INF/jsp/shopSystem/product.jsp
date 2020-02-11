@@ -13,10 +13,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+
 <style>
 .pd-img{
 display:flex;
@@ -106,12 +103,9 @@ justify-content:center;
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ModalDeliver.jsp" />
 	<jsp:include page="fragment/Modalpizza.jsp" />
-
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script
 		src="${pageContext.request.contextPath }/js/shopSystem/product.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
 <script>
 	 $(document).ready(function(){
 		$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")

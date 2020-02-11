@@ -26,7 +26,7 @@
 				<h1 style="text-align: center">新會員註冊</h1>
 			</div>
 
-			<form method="POST" id="register" class="col-md-4 mx-auto align-items-center"			
+			<form method="POST" id="register" class="col-md-6 mx-auto align-items-center"			
 				 action="${pageContext.request.contextPath}/memberSystem/register_form">
 				<!--form starts-->
 				<div class="form-row form-group">
@@ -52,10 +52,10 @@
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
 					 	       maxlength="16" class="form-control col-sm-4" 
-					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"/> 
+					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)()[a-zA-Z\d+@]{8,16}$"/> 
 						<!-- col end-->
 						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
-						 8-16字元，不含特殊符號  
+						 8-16字元 
 						</h6>
 						
 						<!-- col end-->
@@ -63,7 +63,7 @@
     			<!-- row form-group end-->	
 				<div class="form-row form-group">
 					<div class="col-sm-2"></div>
-					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 再次輸入密碼 ：</label> 
+					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 請確認密碼 ：</label> 
 					<!-- col end-->
 					<input id="validpwd" name="validpwd" type="password" placeholder="請再次輸入密碼" required 
 						   maxlength="15" class="form-control col-sm-4"/>
@@ -77,14 +77,10 @@
 					<div class="col-sm-2"></div>
 					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-1"/>
 					<div>&nbsp;</div>
-					<!-- col end-->
-					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-1"/>
-					<!-- col end-->					
+					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-1"/>			
 					<div class="col-sm-2"></div>
-					<!-- col end-->
 					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
 					<div>&nbsp;</div>
-					<!-- col end-->
 					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
 					<!-- col end-->
 				</div> 
@@ -146,8 +142,8 @@
 	//一鍵輸入功能--ver Leon
 	$("#Demo1").click(function() {
 		$("#email").val("iiiedujava@gmail.com");
-		$("#password").val("Java8888");
-		$("#validpwd").val("Java8888");
+		$("#password").val("P@ssw0rd");
+		$("#validpwd").val("P@ssw0rd");
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');
@@ -157,8 +153,8 @@
 	//一鍵輸入功能--ver Dennis
 	$("#Demo2").click(function() {
 		$("#email").val("c10381@gmail.com");
-		$("#password").val("Java8888");
-		$("#validpwd").val("Java8888");
+		$("#password").val("P@ssw0rd");
+		$("#validpwd").val("P@ssw0rd");
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');

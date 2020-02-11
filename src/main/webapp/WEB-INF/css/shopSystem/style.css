@@ -9747,6 +9747,7 @@ h5,
 
 #ftco-nav p.nav-link{
 	color :#fac564;
+	margin-bottom: 0;
 }
 
 .navbar-brand {
@@ -10396,12 +10397,34 @@ h5,
   color: #fff;
 }
 
-.menu-wrap .text .price {
+.menu-wrap .text {
   font-size: 16px;
   font-weight: 400;
 }
-.menu-wrap .text .price span {
+/* .menu-wrap .text .price span {
   color: #fac564;
+} */
+
+.menu-wrap .pizza-lg{
+	color: #fac564;
+}
+.menu-wrap .pizza-sm{
+	color: #fac564;
+}
+.menu-wrap .pizza-one{
+	color: #fac564;
+}
+.menu-wrap .pizza-lg:before{
+	content:"L $ "; 
+	color: #fac564;
+}
+.menu-wrap .pizza-sm:before{
+	content:"L $ "; 
+	color: #fac564;
+}
+.menu-wrap .pizza-one:before{
+	content:"$ "; 
+	color: #fac564;
 }
 
 .ftco-appointment {
@@ -11651,6 +11674,22 @@ textarea.form-control {
   z-index: -1;
 }
 
+/* 購物車部分客制 */
+.pricing-entry .text h3 {
+   line-height: 2.6;
+}
+
+.d-block span{
+  margin-left: 15px ;
+}
+
+.del_btn svg {
+  display: inline-block;
+    color: #e3e2e2;
+    cursor: pointer;
+}
+/*  */
+
 .ftco-navbar-light .navbar-nav > .nav-item > div.memberInfo{
 	background-color: #121618;
 	color: white;
@@ -11736,7 +11775,6 @@ textarea.form-control {
     
 }
 
-
 #salesOrder .card-body  {
     border: #5c3d03 solid 1px ;
 }
@@ -11764,7 +11802,6 @@ textarea.form-control {
 }
 #salesOrder .detail_item{
     margin-bottom: 10px;
-   /*  margin-left: 1em; */
 }
 
 #salesOrder .detail_item::after{
@@ -11780,7 +11817,38 @@ textarea.form-control {
 #salesOrder .quantity::before{
     content: "x ";
 }
+.swal-modal{
+  background-color: #121618;
+  border: 3px solid #fac564;
+} 
+.swal-title {
+  margin: 0px;
+  font-size: 20px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
+  color: #fac564; 
+  margin-bottom: 28px;
+}
 
+.swal-text {
+  margin: 0px;
+  color: #fac564; 
+}
+
+.swal-button {
+  color: #fac564; 
+  background-color: #121618;
+} 
+
+.swal-button--confirm{
+	background-color: #fac564 ;
+	color : #121618; 
+}
+
+.swal-button--confirm:hover{
+	background-color: #121618 !important;
+	color: #fac564 !important;
+}
+ 
 @-webkit-keyframes loader-rotate {
   100% {
     -webkit-transform: rotate(360deg);

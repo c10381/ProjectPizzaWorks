@@ -13,6 +13,7 @@ $(function () {
 });
 
 
+
 function updateList() {
 	countnotif();
 	let str = '';

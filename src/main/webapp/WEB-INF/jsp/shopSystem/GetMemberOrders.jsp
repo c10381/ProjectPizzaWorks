@@ -35,6 +35,7 @@ $(function(){
 	let orders = ${orders};
 	order = orders.reverse();
 	let order_str = "";
+	console.log(order)
 	
 	if(orders.length!=0){
 		order_str +=`<div class="accordion" id="accordionOrder">`;
@@ -43,6 +44,8 @@ $(function(){
 			order_str += order_generate(item);
 		});
 		order_str += `</div>`;
+	}else{
+		order_str = `<h5 class="text-center">查無訂單</h5>`
 	}
 	$("#salesOrder").html(order_str);
 })
