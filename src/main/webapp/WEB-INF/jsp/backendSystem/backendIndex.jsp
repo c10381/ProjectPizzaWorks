@@ -46,6 +46,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+<style>
+.sidebar {
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.sidebar {
+    -ms-overflow-style: none;
+}
+</style>
 
 </head>
 <body  class="sidebar-mini layout-fixed" onload="clock()">
@@ -82,12 +97,6 @@
 						<li class="nav-header"
 							style="margin: 0; padding: 0px; text-align: center; font-size: 20px; line-height: 1.5">${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}
 							您好</li>
-						<!-- 待辦事項 -->
-						<li class="nav-item has-treeview" onclick="loadingPage('')"><div
-								class="nav-link">
-								<i class="nav-icon fas fa-chalkboard-teacher"></i>
-								<p>待辦事項</p>
-							</div></li>
 
 						<!-- 依角色變換sidebar(透過controller) -->
 						<jsp:include page="/backendSystem/sidebar" />
