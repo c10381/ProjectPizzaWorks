@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,11 +63,16 @@ public class customerRequestController {
 	}
 	// 轉址至客服回報單系統
 	@GetMapping("/messageSystem/CustomerReport")
-	public String CustomerReportSystem() {
+	public String CustomerReportSystem(@RequestParam("email") String email,Model model) {
+		model.addAttribute("CustomerEmail", email);
 		return "messageSystem/customerReport";
 	}
+	@GetMapping(value="/messageSystem/GetAllSalesOrder")
+	public String getAllSalesOrder() {
+		return "messageSystem/GetAllSalesOrder";
+	}
 
-	// 存入DB 要從前端傳回email跟content
+	// 顧客存入DB 要從前端傳回email跟content
 	// 要使用Ajax，回傳為一個Boolean
 	@PostMapping("/messageSystem/insertoffline")
 	public @ResponseBody Boolean insertcustomerRequest(@RequestParam("email") String email,
@@ -73,7 +80,14 @@ public class customerRequestController {
 		customerRequestBean crb = new customerRequestBean();
 		crb.setMemberEmail(email);
 		crb.setQueryContent(content.trim());
-
+		crb.setReplyStatus(0);
+		return service.insertcustomerRequest(crb);
+	}
+	// 存入DB(由客服回傳)從前端整顆Bean JSON
+	// 要使用Ajax，回傳為一個Boolean
+	@PostMapping("/messageSystem/insertcustomerReport")
+	public @ResponseBody Boolean insertcustomerReport(@RequestBody customerRequestBean crb) {
+		crb.setReplyStatus(1);
 		return service.insertcustomerRequest(crb);
 	}
 
