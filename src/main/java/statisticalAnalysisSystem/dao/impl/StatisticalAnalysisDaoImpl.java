@@ -39,7 +39,6 @@ public class StatisticalAnalysisDaoImpl implements StatisticalAnalysisDao {
 	public Double getQuantityPerUnit(Integer materialsId) {
 		Session session = factory.getCurrentSession();
 		MaterialsUnitBean mub = session.get(MaterialsUnitBean.class, materialsId);
-		System.out.println(mub);
 		Double transFactor = mub.getQuantityPerUnit();
 		return transFactor;
 	}
