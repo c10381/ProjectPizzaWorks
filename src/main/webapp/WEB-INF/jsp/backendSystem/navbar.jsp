@@ -138,7 +138,22 @@
 			class="badge badge-warning navbar-badge" id='note'></span>
 	</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-			<span class="dropdown-item dropdown-header" id='note1'></span>
+			<div class="row">
+				<div class="col-md-1 align-self-center"></div>
+				<div class="col-md-1 align-self-center ">
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
+						<label class="custom-control-label" for="customSwitch1"></label>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-6">
+					<span class="dropdown-item dropdown-header" id='note1'></span>
+				</div>
+				<div class="col-md-3"></div>
+				
+			</div>
+			
 			<div class="dropdown-divider"></div>
 
 			<div id='notification_container'>
@@ -156,7 +171,6 @@
 				</a>
 				<!-- 第二個box ends -->
 
-
 				<div href="#" class="dropdown-item">
 					<i class="fas fa-file mr-2"></i> box3 <span
 						class="float-right text-muted text-sm">box3 time</span>
@@ -169,11 +183,7 @@
 	<!-- Notifications Dropdown Menu -->
 	<li class="nav-item dropdown">
 		<div class="form-group">
-			<div class="custom-control custom-switch">
-				<input type="checkbox" class="custom-control-input"
-					id="customSwitch1" value="3000" checked> <label class="custom-control-label"
-					for="customSwitch1"></label>
-			</div>
+			
 		</div>
 	</li>
 </ul>
@@ -189,6 +199,7 @@
 	
 	//每幾秒抓通知的開關
 	$('#customSwitch1').change(function(){
+		
 		if($(this).is(":checked") == true){
 			$(this).attr('checked:',true);
 			console.log('Start up');

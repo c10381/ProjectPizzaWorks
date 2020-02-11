@@ -24,7 +24,6 @@ public class StockDaoImpl implements StockDao {
 
 	SessionFactory factory;
 
-//	@Override
 	@Override
 	@Autowired
 	public void setFactory(SessionFactory factory) {
@@ -194,5 +193,13 @@ public class StockDaoImpl implements StockDao {
 	public void InsertOneStorageHistory(StorageHistoryBean storageHistory) {
 		Session session = factory.getCurrentSession();
 		session.save(storageHistory);
+	}
+
+	@Override
+	public List<StorageHistoryBean> getStorageHistory() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM StorageHistoryBean";		
+		List<StorageHistoryBean> history = session.createQuery(hql).getResultList();		
+		return history;
 	}
 }

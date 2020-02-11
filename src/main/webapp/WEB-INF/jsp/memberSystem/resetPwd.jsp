@@ -3,25 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-
 <title>重設密碼</title>
-
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- ----- -->
+<meta name="viewport" 
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
-<!-- ----- -->
+
 
 </head>
 <body>
 
-	<!-- ----- -->
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<!-- ----- -->
-
+	
 	<section class="ftco-section">	
 		<div id='container justify-content-center'>
 		
@@ -69,7 +67,7 @@
 	<jsp:include page="../shopSystem/fragment/loader.jsp" />
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 	
-	<script type="text/javascript">
+	<script>
 	//鍵盤點擊開始輸入後將密碼提示清空
 	$('#newPwd').keypress(function(){
 		var pwd = $('#newPwd').val();

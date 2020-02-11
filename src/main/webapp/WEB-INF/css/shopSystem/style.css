@@ -11694,7 +11694,7 @@ textarea.form-control {
     font-weight: 400;
 }
 #salesOrder .card-header span {
-    margin-left: 1em;
+   padding-left: 1em;
     font-weight: 200;
     color: #6c757d;
 }
@@ -11730,8 +11730,8 @@ textarea.form-control {
 
 @media(min-width: 572px){
     #salesOrder .card-header>.row p:first-child{
-        margin-left: 0.5rem;
-        margin-right: 1.5rem;
+        /* margin-left: 0.5rem;
+        margin-right: 1.5rem; */
     }
     
 }

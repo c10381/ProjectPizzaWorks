@@ -204,7 +204,15 @@
 					</div>
 
 					<ul class="nav nav-treeview" style="display: none;">
-						
+					
+						<li class="nav-item has-treeview" onclick="loadingPage('${request.contextPath}/stock/viewStorageHistory')">
+							<div class="nav-link">
+								<i class="far fa-circle nav-icon "></i>
+								<p>
+									檢視庫存歷史
+								</p>
+							</div>
+						</li>						
 						<li class="nav-item has-treeview" onclick="loadingPage('${request.contextPath}/purchase/GetAllMaterials')">
 							<div class="nav-link">
 								<i class="far fa-circle nav-icon "></i>

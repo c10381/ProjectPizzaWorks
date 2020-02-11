@@ -88,7 +88,6 @@ public class customerRequestDaoImpl implements customerRequestDao {
 
 	@Override
 	public Boolean replycustomerRequest(customerRequestBean crb) {
-		LocalDateTime ldt = LocalDateTime.now();
 		Session session = factory.getCurrentSession();
 		String hql = "UPDATE customerRequestBean SET ReplyStatus=2, coworkerID= :coworkerID, ReplyContent = :ReplyContent, ReplyDate = :ReplyDate WHERE QueryId = :QueryId";
 		try {

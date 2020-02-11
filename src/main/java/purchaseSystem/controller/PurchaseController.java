@@ -164,6 +164,7 @@ public class PurchaseController {
 		return time;
 	}
 	
+	// 採購人員的請購單審核
 	@PutMapping("/purchase/updateResponse")
 	public @ResponseBody String updateResponse(@RequestBody PurchaseRequestBean purchaseRequest) {
 		service.updateResponse(purchaseRequest);

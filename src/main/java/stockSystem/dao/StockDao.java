@@ -50,5 +50,8 @@ public interface StockDao {
 	void updateMaterialsByHistory(StorageHistoryBean storageHistory);
 
 	void InsertOneStorageHistory(StorageHistoryBean storageHistory);
+	
+	//檢視庫存歷史紀錄
+	List<StorageHistoryBean> getStorageHistory();
 
 }

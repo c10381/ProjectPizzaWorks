@@ -127,13 +127,8 @@
 	<jsp:include page="fragment/ContentJS.jsp" />
 <script>
  $(document).ready(function(){
-	$("#ftco-navbar #ftco-nav:first-of-type .active").removeClass("active");
 	$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(2)").addClass("active")
- 
- 
- 
  })
-
 </script>	
 </body>
 </html>

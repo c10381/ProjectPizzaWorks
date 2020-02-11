@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -26,13 +26,10 @@
 				<h1 style="text-align: center">忘記密碼</h1>
 			</div>
 
-
-			<!--  
-				<div class="login-box-msg">${errorMessage}</div>
-				<div class="login-box-msg">${CLoginOK.lastName}</div> -->
 			<div class="col-md-6 mx-auto align-items-center">
 				<div class="form-group form-row justify-content-end">
-					<label for="email" class="col-sm-3 align-self-center justify-content-end">*
+					<div class="col-sm-1"></div>
+					<label for="email" class="col-sm-2 align-self-center justify-content-end">*
 						請輸入信箱：</label>
 					<!-- col end-->
 					<input id="email" name="email" class="form-control col-sm-5"
