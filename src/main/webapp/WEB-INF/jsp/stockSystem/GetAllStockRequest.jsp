@@ -81,7 +81,7 @@
 		var table = $("#srTable").DataTable(
 	        {
 	            "ajax": {
-	                "url": "http://localhost:8080/ProjectPizzaWorks/getAllStockRequestJSON",
+	                "url": "../getAllStockRequestJSON",
 	                "type": "GET",
 	                "dataSrc": "",
 	                /*
@@ -130,7 +130,7 @@
 	                            case 1:
 	                                return '退回';
 	                            case 2:
-	                                return '核准但未進貨';
+	                                return '核准';
 	                        }
 	                    }
 	                },{
