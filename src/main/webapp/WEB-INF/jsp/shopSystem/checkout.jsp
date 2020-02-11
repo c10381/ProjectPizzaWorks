@@ -14,8 +14,13 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
-<link href="${pageContext.request.contextPath }/css/shopSystem/cart.css"
-	rel="stylesheet">
+<style>
+.cartList h3:before{
+	content:"$" ; 
+
+}
+
+</style>
 </head>
 <body>
 <jsp:include page="fragment/navbar.jsp" />
@@ -55,7 +60,7 @@
 						<div class="d-me-flex">
 							<div class="form-group">
 							<label>預定取餐時間</label>
-								<input type="text" name="requireTime" class="form-control" placeholder="">
+								<input type="text" name="requireTime" class="form-control" placeholder="" disabled>
 							</div>
 						</div>
 						<div class="form-group">

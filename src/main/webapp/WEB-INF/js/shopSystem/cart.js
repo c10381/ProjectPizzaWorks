@@ -1,19 +1,25 @@
-//let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
-//console.log(salesOrderDetails)
+
 $(function () {
+	totalPriceCal();
 	updateList();
+	
 	$(".cartList").on('click',".del_btn", function(){
 		var num = $(this).find("svg").data("num");
 		deleteList(num);
 	})
-	totalPriceCal();
-	chanceQtty();
 	
+	$(".cartList").on('change', 'select',  function(){
+		cart.salesOrderDetails[$(this).data("num")].quantity = parseInt($(this).val());
+		
+		totalPriceCal();
+		let cartStr = JSON.stringify(cart);
+		localStorage.setItem('cartList', cartStr);
+	})
 });
 
 
-
+// 更新localStorage至網站上用
 function updateList() {
 	countnotif();
 	let str = '';
@@ -42,13 +48,18 @@ function updateList() {
 				<div class="desc pl-3">
 					<div class="d-flex text align-items-center">
 						<div class="col-11">
-							<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
-						</div>
-						<span class="price">${salesOrderDetails[i].unitPrice}</span>
-						<div class="col-1 del_btn">
-							<i class="far fa-trash-alt" data-num="${[i]}"></i>
-						</div>
-				</div>`
+							<h3>${salesOrderDetails[i].productName}` 
+				
+			str += ` ${salesOrderDetails[i].size}`; 
+			
+			str += 			`</h3>
+						</div>`
+			// 價格部分要更新
+			str += singlePriceCal(i); 
+			str += `<div class="col-1 del_btn">
+					<i class="far fa-trash-alt" data-num="${[i]}"></i>
+				</div>
+			</div>`; 
 			// 數量部分下拉式選單
 			index = i; 
 			opt = insertQtty (salesOrderDetails[i].quantity, i);
@@ -72,31 +83,69 @@ function updateList() {
 }
 
 
+//function sizeShow(size){
+//	let str ; 
+//	switch (size){
+//	case "大":
+//		str = "  13吋"; 
+//	case "小":
+//		str = "  9吋";
+//	default: 
+//		str = "  9吋 單一尺寸"; 
+//	}
+//	return str; 
+//}
+
+function singlePriceCal(index){
+	let str = "";
+	let unitPrice = salesOrderDetails[index].unitPrice; 
+	let crustTypeId = salesOrderDetails[index].crustTypeId;
+	crustPrice.forEach(function(item, index, array){
+		if(crustTypeId==index){
+			unitPrice += item; 
+		}
+	})
+	
+	if(salesOrderDetails[index].doubleCheese==1) {
+		unitPrice += priceDoubleCheeese; 
+	}
+	
+	if(unitPrice != salesOrderDetails[index].unitPrice){
+		str += `<span class="price ml-5"><STRIKE> ${salesOrderDetails[index].unitPrice} </STRIKE> ${unitPrice}</span>`;
+	} else{
+		str += `<span class="price ml-5">${unitPrice}</span>`;
+	}
+	return str;
+}
+
+
 function totalPriceCal(){
 	let sum = 0 ;
 	// 每個單品價錢
-	$.each(salesOrderDetails,function(index,val){
-		sum += (val.unitPrice);
-		if(val.doubleCheese==1){
-			sum+= priceDoubleCheeese;
+	salesOrderDetails.forEach(function(item, index, array){
+		let unitPrice = item.unitPrice; 
+		if(item.doubleCheese==1){
+			unitPrice += priceDoubleCheeese; 
 		}
-		let crustTypeId = val.crustTypeId
-		$.each(crustPrice,function(index,val){
-			//根據餅皮編號來取得價格
+		// 根據餅皮編號來取得價格
+		let crustTypeId = item.crustTypeId; 
+		// 產品價格的陣列去與餅皮編號做比較
+		crustPrice.forEach(function(item , index){
 			if(index==crustTypeId){
-				sum+= val;
+				unitPrice += item;
 			}
 		})
-		sum = sum* val.quantity;
+		sum += unitPrice * item.quantity; 
 	})
+	// 將價格塞入網頁上，同時更新到變數中
 	$("#totalPrice").text(formatter.format(sum));
 	cart.totalSales = sum;
 }
 
 function deleteList(num){
 	salesOrderDetails.splice(num, 1);
+	totalPriceCal();
 	updateList();
-	totalPriceCal()
 }
 
 var deleteAll = function (){
@@ -148,11 +197,5 @@ function insertQtty(qtty,index) {
 }
 
 function chanceQtty(){
-	$("select").on('change', function(){
-		cart.salesOrderDetails[$(this).data("num")].quantity = parseInt($(this).val());
-		
-		totalPriceCal();
-		let cartStr = JSON.stringify(cart);
-		localStorage.setItem('cartList', cartStr);
-	})
+	
 }

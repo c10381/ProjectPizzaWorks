@@ -15,8 +15,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
-<link href="${pageContext.request.contextPath }/css/shopSystem/cart.css"
-	rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="fragment/navbar.jsp" />
@@ -45,8 +43,8 @@
 				
 			</div>
 			<div class="row justify-content-center order-controll">
-				<div class="col-md-6 ">
-					<button class="btn btn-lg btn-outline-light rounded-full mt-3 cancellation">取消本次訂購</button>
+				<div class="col-md-6">
+					<button class="btn btn-lg btn-outline-light rounded-full mt-3 cancellation btn-block">取消本次訂購</button>
 				</div>
 				<a href="<spring:url value='/shop/menu'/>" class="mt-3">
 					<button type="button"

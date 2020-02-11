@@ -10471,6 +10471,7 @@ h5,
 .appointment-form .form-group .icon span {
   color: white !important;
 }
+
 .appointment-form .form-group .select-wrap,
 .appointment-form .form-group .input-wrap {
   position: relative;
@@ -10481,6 +10482,9 @@ h5,
   -moz-appearance: none;
   appearance: none;
 }
+.appointment-form .form-group label {
+  font-size: 18px;
+}
 
 .appointment-form .form-control {
   border: transparent !important;
@@ -10490,7 +10494,7 @@ h5,
   padding-right: 0;
   background: transparent !important;
   color: rgba(255, 255, 255, 0.9) !important;
-  font-size: 15px;
+  font-size: 18px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
