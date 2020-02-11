@@ -263,18 +263,17 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String getSalesListJson(Integer salesListId) {
 		SalesListBean salesList = dao.getSalesListById(salesListId);
+		List<SalesListDetailBean> salesListDetails = salesList.getSalesListDetails();
 		JSONObject salesList_jso = new JSONObject(salesList);
 		salesList_jso.put("salesListId", salesList.getSalesListId());
 		MembersBean member = dao.getMemberById((salesList.getMemberId()));
 		salesList_jso.put("fullName", member.getLastName() + member.getFirstName());
-		List<SalesListDetailBean> salesListDetails = salesList.getSalesListDetails();
-		JSONArray salesListDetail_jsa = new JSONArray(salesListDetails);
-		for (int j = 0; j < salesListDetail_jsa.length(); j++) {
+		JSONArray salesListDetail_jsa = salesList_jso.getJSONArray("salesListDetails");
+		for (int j = 0; j < salesListDetails.size(); j++) {
 			SalesListDetailBean salesListDetail = salesListDetails.get(j);
 			JSONObject salesListDetail_jso = salesListDetail_jsa.getJSONObject(j);
 			salesListDetail_jso.put("salesListDetailId", salesListDetail.getSalesListDetailId());
-			salesListDetail_jso.put("materialsName",
-					dao.getOneMaterialsById(salesListDetail.getMaterialsId()).getMaterialsName());
+			salesListDetail_jso.put("materialsName", dao.getOneMaterialsById(salesListDetail.getMaterialsId()).getMaterialsName());
 		}
 		return salesList_jso.toString();
 	}
