@@ -94,7 +94,7 @@
 								"Context" : mailcontext
 							}, function(data) {
 								if (data == true) {
-									//成功要跳通知？
+									swal("寄送信件成功", "成功送出信件給 "+mailTo, "success");
 								}
 							})
 		}

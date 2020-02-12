@@ -47,10 +47,13 @@
 						</div>
 					</div>
 					<div class="float-right">
-					<button class="btn btn-primary" onclick="sendCustomerReport(event)">
-							<i class="far fa-envelope"></i> 送出
+						<button class="btn btn-primary" onclick="sendCustomerReport(event)">
+								<i class="far fa-envelope"></i> 送出
 						</button>
-				</div>
+						<button class="btn btn-primary" onclick="sendCustomerReport(event)">
+								<i class="far fa-hand-peace"></i> Demo
+						</button>
+					</div>
 				</div>
 				
 			</form>
