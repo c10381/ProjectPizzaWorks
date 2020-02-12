@@ -9,6 +9,8 @@ $(function() {
 		$(this).parents(".menu-wrap").find(".price").each(function(){
 			productPrice.push(parseInt($(this).html()));
 		});
+		
+		// 判斷呼叫函式
 		if (cart.needDelivery == undefined) {
 			checkDeliver(productId , productName , productPrice);
 		} else {
@@ -36,7 +38,7 @@ function checkPizza(id , name , price) {
 	insertCrust();
 
 	// 放入購物車
-	$("#pizzaModal .btn").click(function() {
+	$("#pizzaModal .btn").unbind().on('click', function() {
 		updateCart(productName, productId , productPrice );
 		let cartStr = JSON.stringify(cart);
 		localStorage.setItem('cartList', cartStr);

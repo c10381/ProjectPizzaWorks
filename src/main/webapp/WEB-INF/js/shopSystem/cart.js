@@ -1,9 +1,7 @@
 let salesOrderDetails = cart.salesOrderDetails;
 
 $(function () {
-	totalPriceCal();
 	updateList();
-	
 	$(".cartList").on('click',".del_btn", function(){
 		var num = $(this).find("svg").data("num");
 		deleteList(num);
@@ -76,6 +74,7 @@ function updateList() {
 			$(".order-controll").show();
 				
 		}
+		totalPriceCal();
 	}
 	 $(".cartList").html(str);
 	 let cartStr = JSON.stringify(cart);
@@ -166,8 +165,7 @@ var deleteAll = function (){
 					  countnotif();
 					  deliveryWay();
 					  updateList();
-					}, 100);
-				  
+					}, 0);
 			  } 
 			});
 	})

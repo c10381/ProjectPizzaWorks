@@ -106,10 +106,10 @@ justify-content:center;
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script
 		src="${pageContext.request.contextPath }/js/shopSystem/product.js"></script>
-<script>
-	 $(document).ready(function(){
-		$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")
-	 })
-</script>	
+	<script>
+		 $(document).ready(function(){
+			$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(1)").addClass("active")
+		 })
+	</script>	
 </body>
 </html>
