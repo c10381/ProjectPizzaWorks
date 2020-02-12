@@ -13,7 +13,7 @@
 <jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
 <jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
 
-<title>交易失敗</title>
+<title>取消訂單</title>
 </head>
 <body>
 	
@@ -21,7 +21,7 @@
 	<section class="ftco-section">
 	<div id='container justify-content-center'>
 	
-	<h2 class='col-md-4 mx-auto align-items-center'>${errorMessage}</h2>
+	<h2 class='col-md-4 mx-auto align-items-center'>訂單已取消</h2>
 	
 	</div>
 	</section>

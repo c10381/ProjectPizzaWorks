@@ -4,55 +4,59 @@
 <html>
 <head>
 
-<title>Review Order</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
+<jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
+
+<title>檢視訂單</title>
 <style type="text/css">
     table { border: 0; }
     table td { padding: 5px; }
 </style>
 </head>
 <body>
+	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 <div align="center">
-    <h1>Please Review Before Payment</h1>
-    <form action="execute_payment" method="post">
+    <h1>請再次確認訂單內容</h1>
+    <form action="${pageContext.request.contextPath}/PaypalTest/execute_Payment" method="post">
     <table>
         <tr>
-            <td colspan="2"><b>Transaction Details:</b></td>
+            <td colspan="2"><b>訂單內容:</b></td>
             <td>
-                <input type="hidden" name="paymentId" value="${param.paymentId}" />
-                <input type="hidden" name="PayerID" value="${param.PayerID}" />
+                <input type="hidden" name="paymentId" value="${paymentId}" />
+                <input type="hidden" name="PayerID" value="${PayerID}" />
             </td>
         </tr>
         <tr>
-            <td>Description:</td>
+            <td>訂購餐點:</td>
             <td>${transaction.description}</td>
         </tr>
         <tr>
-            <td>Subtotal:</td>
-            <td>${transaction.amount.details.subtotal} USD</td>
+            <td>小計:</td>
+            <td>${transaction.amount.details.subtotal} NTD</td>
         </tr>
         <tr>
-            <td>Shipping:</td>
-            <td>${transaction.amount.details.shipping} USD</td>
+            <td>運費:</td>
+            <td>${transaction.amount.details.shipping} NTD</td>
         </tr>
         <tr>
-            <td>Tax:</td>
-            <td>${transaction.amount.details.tax} USD</td>
+            <td>稅:</td>
+            <td>${transaction.amount.details.tax} NTD</td>
         </tr>
         <tr>
-            <td>Total:</td>
-            <td>${transaction.amount.total} USD</td>
+            <td>總金額:</td>
+            <td>${transaction.amount.total} NTD</td>
         </tr>
         <tr><td><br/></td></tr>
         <tr>
             <td colspan="2"><b>Payer Information:</b></td>
         </tr>
+
         <tr>
-            <td>First Name:</td>
-            <td>${payer.firstName}</td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td>${payer.lastName}</td>
+            <td>訂購人:</td>
+            <td>${payer.lastName}${payer.firstName}</td>
         </tr>
         <tr>
             <td>Email:</td>
@@ -60,10 +64,10 @@
         </tr>
         <tr><td><br/></td></tr>
         <tr>
-            <td colspan="2"><b>Shipping Address:</b></td>
+            <td colspan="2"><b>送餐地點:</b></td>
         </tr>
         <tr>
-            <td>Recipient Name:</td>
+            <td>取餐人:</td>
             <td>${shippingAddress.recipientName}</td>
         </tr>
         <tr>
@@ -88,11 +92,14 @@
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <input type="submit" value="Pay Now" />
+                <input type="submit" value="確認付款" />
             </td>
         </tr>    
     </table>
     </form>
 </div>
+	<jsp:include page="../shopSystem/fragment/footer.jsp" />
+	<jsp:include page="../shopSystem/fragment/loader.jsp" />
+	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 </body>
 </html>

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Check Out</title>
+    <title>結帳</title>
     <style type="text/css">
         table { border: 0; }
         table td { padding: 10px; }
@@ -50,21 +50,6 @@
 </div>
 
 <script>
-
-function mySubmit(){
-	var productName = $("#productName").value;
-	let subtotal = $("#subtotal").value;
-	let shipping = $("#shipping").value;
-	let tax = $("#tax").value;
-	let total = $("#total").value;
-	console.log(productName);
-	console.log(subtotal);
-	console.log(shipping);
-	console.log(tax);
-	console.log(total);
-	
-	
-}
 
 
 </script>

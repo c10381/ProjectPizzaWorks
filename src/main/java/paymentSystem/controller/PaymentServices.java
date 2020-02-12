@@ -13,6 +13,7 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
@@ -42,11 +43,24 @@ public class PaymentServices {
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
         
         Payment approvedPayment = requestPayment.create(apiContext);
-        System.out.println("reach -before return-");
         return getApprovalLink(approvedPayment);
  
     }
-     
+    
+    public Payment getPaymentDetails(String paymentId) throws PayPalRESTException {
+    	APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+    	return Payment.get(apiContext, paymentId);
+    }
+    
+    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
+        PaymentExecution paymentExecution = new PaymentExecution();
+        paymentExecution.setPayerId(payerId);     
+        Payment payment = new Payment().setId(paymentId);    
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);    
+        return payment.execute(apiContext, paymentExecution);
+    }
+    
+    
     private Payer getPayerInformation() {
     	Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
@@ -62,8 +76,8 @@ public class PaymentServices {
      
     private RedirectUrls getRedirectURLs() {
     	RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/PaypalTest/cancel.html");
-        redirectUrls.setReturnUrl("/PaypalTest/review_payment");        
+        redirectUrls.setCancelUrl("http://localhost:8080/ProjectPizzaWorks/PaypalTest/Cancel");
+        redirectUrls.setReturnUrl("http://localhost:8080/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
         return redirectUrls;       
     }
      
@@ -75,11 +89,9 @@ public class PaymentServices {
      
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        System.out.println("orderDetail.getTotal:"+orderDetail.getTotal());
         amount.setTotal(orderDetail.getTotal());
         amount.setDetails(details);
-        
-        System.out.println("amount:" + amount.getTotal());
+
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
         transaction.setDescription(orderDetail.getProductName());
@@ -101,8 +113,7 @@ public class PaymentServices {
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(transaction);  
          
-        return listTransaction;
-        
+        return listTransaction;        
     }
      
     private String getApprovalLink(Payment approvedPayment) {
