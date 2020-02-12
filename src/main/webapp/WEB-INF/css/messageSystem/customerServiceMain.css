@@ -4,7 +4,7 @@
 }
 
 .inbox_people {
-	background: #f8f8f8 none repeat scroll 0 0;
+	background: #cfcac6 none repeat scroll 0 0;
 	float: left;
 	overflow: hidden;
 	width: 35%;
@@ -37,7 +37,8 @@
 .headind_srch {
 	padding: 10px 29px 10px 20px;
 	overflow: hidden;
-	border-bottom: 1px solid #c4c4c4;
+	border-bottom: 2px solid #8c8987;
+	/*background: #8c8987;*/
 }
 
 .recent_heading h4 {

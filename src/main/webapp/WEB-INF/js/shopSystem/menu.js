@@ -20,9 +20,9 @@ $(function() {
 // pizza規格確認
 function checkPizza(id , name , price) {
 	$("#pizzaModal").modal("show");
-	  let productName = name; 
-	  let productId = id; 
-	  let productPrice = price; 
+		let productName = name; 
+		let productId = id; 
+		let productPrice = price; 
 	// 插入Model相關資訊
 	$(".modal-body h5").empty().append(productName);
 	$(".modal-footer>button").attr("data-id" , productId);
@@ -72,7 +72,7 @@ function updateCart(productName , productId , productPrice) {
 	case "one" :
 		detail.size = "單一尺寸";
 		productId = productId ;
-		detail.unitPrice = productPrice;
+		detail.unitPrice = productPrice[0];
 		break;
 	}
 	
@@ -96,9 +96,33 @@ function updateCart(productName , productId , productPrice) {
 		cart.salesOrderDetails = []
 	}
 	
-	cart.salesOrderDetails.push(detail);
+	let index = checkDoubleAdd(detail.productId, detail.doubleCheese, detail.crustTypeId); 
+	if(index!=-1){
+		if(cart.salesOrderDetails[index].quantity+detail.quantity > 10){
+			swal({
+				title: "購物車單一品項不得大於10樣",
+				  icon: "warning",
+			})
+		}else{
+			cart.salesOrderDetails[index].quantity += detail.quantity; 
+		}
+	}else{
+		cart.salesOrderDetails.push(detail);
+	}
+	
 	countnotif();
 
+}
+
+// 判斷購物車是否有相同品項
+function checkDoubleAdd( productId, doubleCheese , crustTypeId){
+	let detailIndex = -1; 
+	cart.salesOrderDetails.forEach(function(item , index){
+		if(item.productId==productId && item.doubleCheese == doubleCheese && item.crustTypeId == crustTypeId){
+			detailIndex = index ; 
+		} 
+	})
+	return detailIndex; 
 }
 
 
@@ -170,6 +194,7 @@ function insertCrust() {
 						$("#crust").empty().append(option);
 					})
 }
+
 
 function insertTime() {
 	flatpickr(".flatpickr", {

@@ -48,13 +48,10 @@ function checkDeliver() {
 		var deliverType = $("#delieverModal select").val();
 
 		// 取得需求日期
-
 		$(".flatpickr-input").each(function() {
-			console.log($(this).val());
 			if($(this).val()!=""){
 				cart.requireTime = ($(this).val());
-			}
-			;
+			};
 		})
 
 		if (deliverType == "delivery") {
@@ -68,12 +65,22 @@ function checkDeliver() {
 }
 
 // pizza規格確認
-
 function checkPizza() {
 	let productName = $("#productName").text()
 	$("#pizzaModal").modal("show");
 	// 插入Model相關資訊
 	$(".modal-body h5").empty().append(productName);
+	
+	let productPrice = [];
+	$(".price").each(function(index, value){
+		productPrice.push(parseInt($(this).html().trim()));
+	}); 
+	// 處理只有單一產品的下拉式選單
+	let length =  productPrice.length ; 
+	if(length<=1){
+		$("#pizzaSize").html('<option value="one">單一尺寸</option>');
+		$("#pizzaSize").attr("disabled", true);
+	}
 	insertQtty();
 	insertCrust();
 
@@ -83,6 +90,7 @@ function checkPizza() {
 		updateCart(productId);
 		let cartStr = JSON.stringify(cart);
 		localStorage.setItem('cartList', cartStr);
+		
 		// 將按鈕改變狀態使其無法點擊
 		$("#addCart").text("已加入購物車，前往結帳");
 		$("#addCart").off("click");
@@ -91,9 +99,6 @@ function checkPizza() {
 		
 		
 	})
-	
-	
-	
 }
 
 // 用於將產品細項加入購物車
@@ -109,18 +114,41 @@ function updateCart(productId) {
 		"crustTypeName" : ""
 	};
 
+	let productPrice = [];
+	$(".price").each(function(index, value){
+		productPrice.push(parseInt($(this).html().trim()));
+	}); 
+	
 	// 產品名稱
 	detail.productName = $("#productName").text();
 	// 數量資訊
 	detail.quantity = parseInt($("#qtty option:selected").val());
 	// 產品大小資訊 與 產品編號
 	let size = $("#pizzaSize option:selected").val();
-	if (size == "large") {
+	
+//	if (size == "large") {
+//		detail.size = "大";
+//		productId = productId;
+//	} else {
+//		productId += 1;
+//		detail.size = "小";
+//	}
+	switch(size){
+	case "large" :
 		detail.size = "大";
 		productId = productId;
-	} else {
-		productId += 1;
+		detail.unitPrice = productPrice[0];
+		break;
+	case "small" :
 		detail.size = "小";
+		productId = productId +1 ;
+		detail.unitPrice = productPrice[1];
+		break;
+	case "one" :
+		detail.size = "單一尺寸";
+		productId = productId ;
+		detail.unitPrice = productPrice[0];
+		break;
 	}
 
 	// 產品編號
@@ -146,9 +174,33 @@ function updateCart(productId) {
 		cart.salesOrderDetails = []
 	}
 	
-	cart.salesOrderDetails.push(detail);
+	let index = checkDoubleAdd(detail.productId, detail.doubleCheese, detail.crustTypeId); 
+	if(index!=-1){
+		if(cart.salesOrderDetails[index].quantity+detail.quantity > 10){
+			swal({
+				title: "購物車單一品項不得大於10樣",
+				  icon: "warning",
+			})
+		}else{
+			cart.salesOrderDetails[index].quantity += detail.quantity; 
+		}
+	}else{
+		cart.salesOrderDetails.push(detail);
+	}
+	
 	countnotif();
 
+}
+
+//判斷購物車是否有相同品項
+function checkDoubleAdd( productId, doubleCheese , crustTypeId){
+	let detailIndex = -1; 
+	cart.salesOrderDetails.forEach(function(item , index){
+		if(item.productId==productId && item.doubleCheese == doubleCheese && item.crustTypeId == crustTypeId){
+			detailIndex = index ; 
+		} 
+	})
+	return detailIndex; 
 }
 
 // 動態插入pizza選擇數量

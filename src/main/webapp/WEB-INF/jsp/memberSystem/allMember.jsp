@@ -14,15 +14,17 @@
 		<h2>會員資料</h2>
 		<table id="Table" class="display">
 			<thead>
-				<th>帳號</th>
-				<th>姓</th>
-				<th>名</th>
-				<th>性別</th>
-				<th>身分</th>
-				<th>生日</th>
-				<th>電話</th>
-				<th>地址</th>
-				<th>狀態</th>
+				<tr>
+					<th>帳號</th>
+					<th>姓</th>
+					<th>名</th>
+					<th>性別</th>
+					<th>身分</th>
+					<th>生日</th>
+					<th>電話</th>
+					<th>地址</th>
+					<th>狀態</th>
+				</tr>
 			</thead>
 			<tbody></tbody>
 		</table>
@@ -44,27 +46,27 @@
 								data : "firstName"
 							}, {
 								data : "gender",
-								render : function(data){
-									if(data==1){
+								render : function(data) {
+									if (data == 1) {
 										return "男";
-									}else if(data==2){
+									} else if (data == 2) {
 										return "女";
 									}
 								},
-							},{
-								data: 'privilegeId',
-								render : function(data){
-									if(data==2){
+							}, {
+								data : 'privilegeId',
+								render : function(data) {
+									if (data == 2) {
 										return "網站後台管理員";
-									}else if(data==3){
+									} else if (data == 3) {
 										return "銷貨負責人";
-									}else if(data==4){
+									} else if (data == 4) {
 										return "進貨負責人";
-									}else if(data==5){
+									} else if (data == 5) {
 										return "存貨負責人";
-									}else if(data==6){
+									} else if (data == 6) {
 										return "客服人員";
-									}else if(data==7){
+									} else if (data == 7) {
 										return "管理者";
 									}
 								},
@@ -76,14 +78,14 @@
 								data : "address"
 							}, {
 								data : "activeStatus",
-								render : function(data){
-									if(data==0){
+								render : function(data) {
+									if (data == 0) {
 										return "會員刪除";
-									}else if(data==1){
+									} else if (data == 1) {
 										return "未啟用";
-									}else if(data==2){
+									} else if (data == 2) {
 										return "改密碼";
-									}else if(data==3){
+									} else if (data == 3) {
 										return "已啟用";
 									}
 								},

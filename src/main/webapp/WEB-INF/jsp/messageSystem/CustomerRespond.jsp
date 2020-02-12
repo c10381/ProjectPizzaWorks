@@ -25,7 +25,9 @@
 <!-- 右上角關閉按鈕 -->
 	<section>
 		<div class="container-fluid text-center">
+		<c:if test="${Mem_LoginOK.privilegeId==6}">
 			<i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i>
+		</c:if>
 			<h2>客服回應一覽</h2>
 			<table id="prTable" class="text-center display">
 				<thead>
