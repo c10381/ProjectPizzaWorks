@@ -21,15 +21,14 @@
 	private String businessdayEndTime;
 	private String brandStory;
 	private String brandstoryEdited; -->
+	<button id="demo">Demo</button>
 	<form:form method="Get" modelAttribute="Bean"
-		action="${pageContext.request.contextPath}/shopSystem/insertWebInfo">
+		action="${pageContext.request.contextPath}/insertWebInfo">
 
 
 		<table border="1" style="margin: 0px auto;">
 			<tr height="52" bgcolor="lightblue" align="center">
 				<td width="350"><p align="left" />
-
-
 					<div class="form-group">
 						<label class='control-label col-lg-2' for='storeName'>店名</label>
 						<div class='col-lg-10'>
@@ -169,12 +168,27 @@
 					<div class="form-group">
 						<div class='control-label col-lg-2 col-lg-10'>
 							<input id="add" type='submit' class='btn btn-primary' value="送出" />
-
 						</div>
 					</div></td>
 			</tr>
 		</table>
 
 	</form:form>
+	<script>
+	$("#demo").click(function(){
+		$("#storeName").val("Pizza Bite"); 
+		$("#phone").val(0222556699);
+		$("#address").val("106台北市大安區信義路三段184號");
+		$("#email").val("service@pizza.com");
+		$("#businessdayStart").val("Mon");
+		$("#businessdayEnd").val("Sat");
+		$("#businessdayStartTime").val("12:00");
+		$("#businessdayEndTime").val("23:00");
+		$("#brandStory").val("Welcome to <span class="flaticon-pizza">Pizza</span> Bite");
+		$("#brandstoryEdited").val("你好，我們是義式披薩餐廳 我們不賣創意料理，只賣義大利料理 歡迎對義大利料理有熱情的伙伴加入 我們除了道地的披薩以外，也提供多道義式經典小吃與麵食 有興趣可到我們粉絲頁觀看我們菜單與餐廳簡介 經營理念 我們的旅程始於一個簡單的想法：做出道地的義大利披薩");
+	
+	})
+	</script>
+	
 </body>
 </html>

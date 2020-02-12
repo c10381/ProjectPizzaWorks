@@ -81,18 +81,19 @@ public class ShopController {
 	@RequestMapping("/shop/redirectWebInfo")
 	public String redirectWebInfo(Model model) {
 		model.addAttribute("Bean", new WebInfo());
-		return "/shopSystem/backEnd/EditInfo";
+		return "shopSystem/backEnd/EditInfo";
 	}
 
 	// 轉址後台修改成功頁面
 	@RequestMapping("/insertWebInfo")
 	public String insertWebInfo(WebInfo webinfo) {
+		System.out.println("AAAAA");
 		shopService.insertWebInfo(webinfo);
-		return "/shopSystem/SuccessInsertWebInfo";
+		return "shopSystem/SuccessInsertWebInfo";
 	}
 
 	// 取得網站資訊，回傳給前台修改
-	@RequestMapping("/getWebInfo")
+	@RequestMapping(value= "/getWebInfo", produces = {"application/json;charset=UTF-8" })
 	public @ResponseBody String getWebInfo() {
 		Gson gson = new Gson();
 		return gson.toJson(shopService.getWebInfo());

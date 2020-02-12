@@ -141,6 +141,11 @@
         
         $(function () {
         	var table = $("#table_recipes").DataTable({
+        		language:{
+        			"sEmptyTable": "目前沒有資料",
+        			 "sInfoEmpty": "顯示第 0 至 0 項结果，共 0 項",
+        			 "sInfo": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                },
                 searching: false, //關閉filter功能
                 responsive: true,
                 order: [[ 1, "asc" ]],
