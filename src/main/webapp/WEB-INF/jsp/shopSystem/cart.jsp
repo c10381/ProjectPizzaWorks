@@ -43,16 +43,22 @@
 				
 			</div>
 			<div class="row justify-content-center order-controll">
-				<div class="col-md-6 ">
-					<button class="btn btn-lg btn-outline-light rounded-full mt-3 cancellation">取消本次訂購</button>
+				<div class="col-md-4">
+					<button class="btn btn-lg btn-outline-light rounded-full cancellation">取消本次訂購</button>
 				</div>
-				<a href="<spring:url value='/shop/menu'/>" class="mt-3">
-					<button type="button"
-						class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
-				</a> <a href="<spring:url value='/shop/checkout'/>" class="mt-3 ml-3">
-					<button type="button"
-						class="btn btn-block btn-lg btn-outline-light rounded-full px-5">前往結帳</button>
-				</a>
+				<div class="col-md-4">
+					<a href="<spring:url value='/shop/menu'/>">
+						<button type="button"
+							class="btn btn-block btn-lg btn-outline-light rounded-full">繼續挑選</button>
+					</a>
+				</div>
+				<div class="col-md-4">
+					 <a href="<spring:url value='/shop/checkout'/>" class="">
+						<button type="button"
+							class="btn btn-block btn-lg btn-light rounded-full px-5">前往結帳</button>
+					</a>
+				</div>
+				
 			</div> 
 
 		</div>

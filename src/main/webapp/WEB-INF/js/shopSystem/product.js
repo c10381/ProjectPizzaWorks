@@ -95,8 +95,6 @@ function checkPizza() {
 		$("#addCart").off("click");
 		$("#addCart").addClass("goToMenu");
 		$("#addCart").removeAttr("id");
-		
-		
 	})
 }
 

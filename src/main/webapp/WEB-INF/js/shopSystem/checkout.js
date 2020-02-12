@@ -161,7 +161,7 @@ function sendOrder(){
 				  icon: "success",
 				  timer: 3000,
 				}).then(()=>{
-					 window.location.replace("../");
+					 window.location.replace("../member/orders");
 				})
 		  
 		}else{

@@ -156,9 +156,9 @@
 	        						return "";
 	        					</c:when>
 	        					<c:otherwise>
-		        					if(data==0||data==1){
+		        					/* if(data==0||data==1){
 		        						return "<div class='btn btn-primary btn-sm'>修改</div>";
-	        						}
+	        						} */
         						return "";
 	        					</c:otherwise>
         					</c:choose>

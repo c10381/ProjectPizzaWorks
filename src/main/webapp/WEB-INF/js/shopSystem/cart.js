@@ -70,6 +70,7 @@ function updateList() {
 			$(".order-controll").show();
 				
 		}
+		totalPriceCal();
 	}
 	 $(".cartList").html(str);
 	 let cartStr = JSON.stringify(cart);
@@ -160,8 +161,7 @@ var deleteAll = function (){
 					  countnotif();
 					  deliveryWay();
 					  updateList();
-					}, 100);
-				  
+					}, 0);
 			  } 
 			});
 	})
