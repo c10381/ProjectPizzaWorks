@@ -45,7 +45,7 @@
 				<c:forEach items="${ products}" var="item" varStatus="status">
 					<c:if test="${status.first }">
 						<button class="btn btn-secondary" type="button"
-							data-dismiss="pizzaModal" data-id="${item.productId }">
+							data-dismiss="modal" data-id="${item.productId }">
 							放入購物車 <span class="amount"> </span>
 						</button>
 					</c:if>

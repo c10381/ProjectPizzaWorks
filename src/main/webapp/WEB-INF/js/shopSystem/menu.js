@@ -20,9 +20,9 @@ $(function() {
 // pizza規格確認
 function checkPizza(id , name , price) {
 	$("#pizzaModal").modal("show");
-		let productName = name; 
-		let productId = id; 
-		let productPrice = price; 
+	  let productName = name; 
+	  let productId = id; 
+	  let productPrice = price; 
 	// 插入Model相關資訊
 	$(".modal-body h5").empty().append(productName);
 	$(".modal-footer>button").attr("data-id" , productId);
@@ -194,7 +194,6 @@ function insertCrust() {
 						$("#crust").empty().append(option);
 					})
 }
-
 
 function insertTime() {
 	flatpickr(".flatpickr", {

@@ -1,25 +1,19 @@
+//let cart = JSON.parse(localStorage.getItem('cartList')) || {};
 let salesOrderDetails = cart.salesOrderDetails;
-
+//console.log(salesOrderDetails)
 $(function () {
-	totalPriceCal();
 	updateList();
-	
 	$(".cartList").on('click',".del_btn", function(){
 		var num = $(this).find("svg").data("num");
 		deleteList(num);
 	})
+	totalPriceCal();
+	chanceQtty();
 	
-	$(".cartList").on('change', 'select',  function(){
-		cart.salesOrderDetails[$(this).data("num")].quantity = parseInt($(this).val());
-		
-		totalPriceCal();
-		let cartStr = JSON.stringify(cart);
-		localStorage.setItem('cartList', cartStr);
-	})
 });
 
 
-// 更新localStorage至網站上用
+
 function updateList() {
 	countnotif();
 	let str = '';

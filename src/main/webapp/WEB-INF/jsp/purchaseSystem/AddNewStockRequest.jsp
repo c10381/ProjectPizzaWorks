@@ -27,7 +27,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-cookie"></i>採購單
+							<i class="fas fa-shopping-bag"></i>採購單
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -125,7 +125,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-box-open"></i>貨品列表
+							<i class="fas fa-tasks"></i>貨品列表
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -251,7 +251,7 @@
                 }, {
 	                targets: 0,
 	                data: null,
-	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-success'>添加至食譜</button>"
+	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-success'>+</button>"
 				}]
             });
         	
@@ -270,7 +270,7 @@
             		data[3],
             		data[4],
             		data[5],
-            		"<button id='btn_RemoveToAddR' class='btn btn-success'>移除至請求</button>"
+            		"<button id='btn_RemoveToAddR' class='btn btn-danger'>-</button>"
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -288,7 +288,7 @@
                 }, {
 	                targets: -1,
 	                data: null,
-	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-success'>移除至食譜</button>"
+	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-danger'>-</button>"
 				}, {
 					targets: 2,
 	                data: null,
@@ -312,7 +312,7 @@
             	new_row['unit'] = data[2];
             	//console.log(new_row);
             	$('#table_materials').DataTable().row.add([
-            		"<button id='btn_RemoveToAdd' class='btn btn-success'>添加至請求</button>",
+            		"<button id='btn_RemoveToAdd' class='btn btn-success'>+</button>",
             		data[0],
             		data[1],
             		data[3],

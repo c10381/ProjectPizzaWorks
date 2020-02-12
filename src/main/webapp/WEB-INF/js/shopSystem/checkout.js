@@ -23,11 +23,47 @@ $(function () {
 			.then((willDelete) => {
 			  if (willDelete) {
 				  sendOrder();
+			  
 			} 
 		});
+//		swal.fire({
+//			 title: "是否送出訂單?",
+//			 icon: "question",
+//			 showCloseButton: true,
+//			 showCancelButton: true,
+//			 confirmButtonColor: '#fac564',
+//			 background: "#121618", 
+//		})
 	})
 });
 
+function sendOrder(){
+//	送出訂單
+	$.ajax({
+	    type : "POST", 
+	    url : "../shop/order",
+	    data : JSON.stringify(cart),
+	    contentType : "application/json",
+	    dataType: "text",
+	}).done(function(result){
+		if(result=="OK"){
+			localStorage.clear();
+			updateList();
+			swal({
+				  title: "訂單送出成功",
+				  icon: "success",
+				  timer: 3000,
+				}).then(()=>{
+					 window.location.replace("../");
+				})
+		  
+		}else{
+			swal("訂單送出失敗，請稍後再試")
+		}
+	}).fail(function(){
+		swal("訂單送出失敗，請稍後再試")
+	})
+}
 
 function updateList() {
 	let str = '';
