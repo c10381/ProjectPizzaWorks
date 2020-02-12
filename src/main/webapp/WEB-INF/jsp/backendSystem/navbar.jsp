@@ -221,6 +221,9 @@
 		}else if (identity === 5){
 			//存貨人員通知
 			getStockRequestNotification();			
+		}else if (identity === 6 ){
+			//客服人員通知
+			getUnreadRequestNotification();
 		}else if (identity === 7){
 			//admin通知
 			getPwdChangeRequestNotification();			
@@ -377,7 +380,53 @@
 	 	}
 	}
 	
+	function getUnreadRequestNotification(){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/backendSystem/getUnreadRequestNotification',
+			type : 'GET',
+			error : function(data) {
+				console.log("error");
+			},
+			success : function(data) {
+				$('#footer').html('查看所有顧客留言');
+				$('#footer').attr("onclick","floatPage('/messageSystem/CustomerRespondSystem')");
+				if (data.length == 0) {
+					$('#note').hide();
+					$('#note1').html('沒有新的顧客留言');
+				} else {
+					$('#note').show();
+					$('#note').html(data.length);
+					$('#note1').html('有 ' + data.length + ' 條顧客留言');
+				}
+				customerRequestNotifier(data);
+			},
+		});
+	}
+	
+	function customerRequestNotifier(data){
+		$('#notification_container').children().remove();
+		var link = "/messageSystem/CustomerRespondSystem";
+		//var requestId = "員工編號：";
+		var requestLength = 3;
+
+		if (data.length < 4) {
+			requestLength = data.length;
+		}
 		
+		for (i = 0; i < requestLength; i++) {
+			var queryId = "留言編號："+data[i].queryId;
+			var timeResult = timeReader(data[i].queryDate);
+			var div_html = "<div onclick=\"floatPage('"
+					+ link
+					//+ data[i].vRequestId
+					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
+			//div_html += queryId;
+			div_html += "<span class='float-right text-muted text-sm'>";
+			div_html += timeResult + "</span></div>" + divider;
+			$('#notification_container').append(div_html);
+	 	}
+	}
+			
 	function getPwdChangeRequestNotification(){
 		$.ajax({
 			url : '${pageContext.request.contextPath}/backendSystem/getPwdChangeNotification',
@@ -391,7 +440,6 @@
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('沒有新的變更請求');
-					//$('#note1').attr('class',);
 				} else {
 					$('#note').show();
 					$('#note').html(data.length);

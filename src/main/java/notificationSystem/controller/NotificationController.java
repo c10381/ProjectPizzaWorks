@@ -11,6 +11,7 @@ import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
 import _model.StockRequestBean;
 import _model.ValidationRequestBean;
+import _model.customerRequestBean;
 import notificationSystem.service.NotificationService;
 
 
@@ -49,4 +50,9 @@ public class NotificationController {
 		return requests;
 	}
 	
+	@GetMapping(value = "/backendSystem/getUnreadRequestNotification" , produces = "application/json")
+	public List<customerRequestBean> getUnreadRequestNotification() {
+		List<customerRequestBean> requests = service.getUnreadRequests();
+		return requests;
+	}
 }
