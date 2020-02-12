@@ -367,8 +367,8 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "進貨單號： "+data[i].sRequestId;//要改掉salesOrderId
-			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
+			var requestId = "進貨單號： "+data[i].sRequestId;
+			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
 					+ data[i].sRequestId+"&read=false"
@@ -436,7 +436,7 @@
 			},
 			success : function(data) {
 				$('#footer').html('查看所有變更請求');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");
+				$('#footer').attr("onclick","loadingPage('/memberSystem/searchCoworkerPWRequest')");
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('沒有新的變更請求');
@@ -452,7 +452,7 @@
 	
 	function pwdChangeRequestNotifier(data){
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getSalesOrder?id=";
+		var link = "/memberSystem/searchCoworkerPWRequest";
 		//var requestId = "員工編號：";
 		var requestLength = 3;
 
@@ -461,13 +461,13 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "員工編號："+data[i].vRequestId;//要改掉salesOrderId
-			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
+			var requestId = "員工編號："+data[i].pcRequestId;
+			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
-					+ data[i].vRequestId
+					//+ data[i].vRequestId
 					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
-			div_html += requestId;
+			//div_html += requestId;
 			div_html += "<span class='float-right text-muted text-sm'>";
 			div_html += timeResult + "</span></div>" + divider;
 			$('#notification_container').append(div_html);
