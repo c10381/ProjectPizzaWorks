@@ -2,6 +2,7 @@ package messageSystem.service;
 
 import java.util.List;
 
+import _model.MembersBean;
 import _model.customerRequestBean;
 
 public interface customerRequestService {
@@ -25,4 +26,6 @@ public interface customerRequestService {
 		//修改
 		//need to add employee replycontent and update reply status
 		public Boolean replycustomerRequest(customerRequestBean crb);
+
+		List<MembersBean> getMemberNameAndEmailByNameAndPrivileId(String name, Integer[] privilegeId);
 }

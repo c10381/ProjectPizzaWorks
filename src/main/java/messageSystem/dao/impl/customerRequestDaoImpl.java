@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import _model.MembersBean;
 import _model.customerRequestBean;
 import messageSystem.dao.customerRequestDao;
 
@@ -101,5 +102,20 @@ public class customerRequestDaoImpl implements customerRequestDao {
 		}
 		return true;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MembersBean> getMemberNameAndEmailByNameAndPrivileId(String name,Integer[] privilegeId) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM MembersBean WHERE (firstName LIKE :name OR lastName LIKE :name) AND privilegeId in (:privilegeId)";
+		List<MembersBean> list=null;
+		try {
+			list=session.createQuery(hql).setParameter("name",'%'+name+'%')
+			.setParameterList("privilegeId", privilegeId).getResultList();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 
 }
