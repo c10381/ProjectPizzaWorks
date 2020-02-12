@@ -33,10 +33,10 @@
 		<div class="one-half img" style="background-image: url(${pageContext.request.contextPath}/images/shopSystem/about.jpg);"></div>
 		<div class="one-half ftco-animate">
 			<div class="heading-section ftco-animate ">
-				<h2 class="mb-4">Welcome to <span class="flaticon-pizza">Pizza</span> BITE</h2>
+				<h2 class="mb-4" id="brandStory">Welcome to <span class="flaticon-pizza">Pizza</span> BITE</h2>
 			</div>
 			<div>
-				<p>你好，我們是義式披薩餐廳
+				<p id="brandstoryEdited">你好，我們是義式披薩餐廳
 					我們不賣創意料理，只賣義大利料理
 					歡迎對義大利料理有熱情的伙伴加入
 					
@@ -58,22 +58,22 @@
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-phone"></span></div>
 							<div class="text">
-								<h3>02 6631 6666</h3>
+								<h3 class="phone">02 6631 6666</h3>
 								<p>Pizza 就是應該大吃一口</p>
 							</div>
 						</div>
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-my_location"></span></div>
 							<div class="text">
-								<h3>106台北市大安區</h3>
-								<p>復興南路一段390號</p>
+								<h3 class="address-front">106台北市大安區</h3>
+								<p class="address-last">復興南路一段390號</p>
 							</div>
 						</div>
 						<div class="col-md-4 d-flex ftco-animate">
 							<div class="icon"><span class="icon-clock-o"></span></div>
 							<div class="text">
-								<h3>Open 星期一-星期六</h3>
-								<p>11:00am - 9:00pm</p>
+								<h3>Open <span id="businessdayStart">星期一</span> - <span id="businessdayEnd">星期六</span></h3>
+								<p><span id="businessdayStartTime">11:00am </span>- <span id="businessdayEndTime">9:00pm</span></p>
 							</div>
 						</div>
 					</div>
@@ -127,8 +127,45 @@
 	<jsp:include page="fragment/ContentJS.jsp" />
 <script>
  $(document).ready(function(){
-	$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(2)").addClass("active")
+	 window.addEventListener('load', function() {
+			$.ajax({
+			    type : "GET", 
+			    url : "../getWebInfo",
+			    dataType: "json",
+			}).done(function(data){
+				$("#brandStory").html(data.brandStory);
+				// 日期
+				$("#businessdayStart").html(data.businessdayStart);
+				$("#businessdayEnd").html(data.businessdayEnd);
+				$("#businessdayStartTime").html(data.businessdayStartTime);
+				$("#businessdayEndTime").html(data.businessdayEndTime);
+				
+				let phone = data.phone; 
+				$(".phone").html("0"+phone.toString());
+				$(".email").html(data.email);
+				
+				$(".address").html(data.address); // footer的插入
+
+				let index = data.address.indexOf("區");
+				let addressFront = data.address.substring(0,index+1);
+				let addressLast = data.address.substring(index+1,data.address.length);
+				$(".address-front").html(addressFront);
+				$(".address-last").html(addressLast);
+				
+				
+				
+				
+			})
+		}, false);
+	$("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(2)").addClass("active"); 
  })
+ 
+ 
+ function insertWebInfo(){
+	 
+	 
+	 
+ }
 </script>	
 </body>
 </html>

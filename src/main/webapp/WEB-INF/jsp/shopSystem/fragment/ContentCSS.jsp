@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/animate.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/owl.theme.default.min.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/owl.theme.default.min.css"> --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/magnific-popup.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/aos.css">

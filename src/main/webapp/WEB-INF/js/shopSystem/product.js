@@ -90,14 +90,11 @@ function checkPizza() {
 		updateCart(productId);
 		let cartStr = JSON.stringify(cart);
 		localStorage.setItem('cartList', cartStr);
-		
 		// 將按鈕改變狀態使其無法點擊
 		$("#addCart").text("已加入購物車，前往結帳");
 		$("#addCart").off("click");
 		$("#addCart").addClass("goToMenu");
 		$("#addCart").removeAttr("id");
-		
-		
 	})
 }
 

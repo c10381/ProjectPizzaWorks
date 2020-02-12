@@ -51,94 +51,6 @@
 input[type="number"] {
 	min-width: 50px;
 }
-
-#container {
-	height: 400px;
-}
-
-.highcharts-figure, .highcharts-data-table table {
-	min-width: 310px;
-	max-width: 800px;
-	margin: 1em auto;
-}
-
-#datatable {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-
-#datatable caption {
-	padding: 1em 0;
-	font-size: 1.2em;
-	color: #555;
-}
-
-#datatable th {
-	font-weight: 600;
-	padding: 0.5em;
-}
-
-#datatable td, #datatable th, #datatable caption {
-	padding: 0.5em;
-}
-
-#datatable thead tr, #datatable tr:nth-child(even) {
-	background: #f8f8f8;
-}
-
-#datatable tr:hover {
-	background: #f1f7ff;
-}
-
-#container {
-	height: 400px;
-}
-
-.highcharts-figure, .highcharts-data-table table {
-	min-width: 310px;
-	max-width: 800px;
-	margin: 1em auto;
-}
-
-.highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-
-.highcharts-data-table caption {
-	padding: 1em 0;
-	font-size: 1.2em;
-	color: #555;
-}
-
-.highcharts-data-table th {
-	font-weight: 600;
-	padding: 0.5em;
-}
-
-.highcharts-data-table td, .highcharts-data-table th,
-	.highcharts-data-table caption {
-	padding: 0.5em;
-}
-
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even)
-	{
-	background: #f8f8f8;
-}
-
-.highcharts-data-table tr:hover {
-	background: #f1f7ff;
-}
 </style>
 
 </head>
@@ -146,213 +58,87 @@ input[type="number"] {
 <body>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/series-label.js"></script>
-	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-	<!-- -------------------------圓餅圖------------------------------------ -->
-	<div>
-		<!-- 產品下拉式選單 -->
-		<b>選取一個產品名稱</b><select id="show"></select>
-		<!-- 小日曆-起日 -->
-		<div class="calendar">
-			<input type="text" data-input id="startDate" /><a
-				class="input-button" title="toggle" data-toggle> <i
-				class="far fa-calendar-alt"></i>
-			</a>
+	<section class="content">
+		<div class="card card-outline card-primary">
+			<div class="card-header">
+				<div class="card-title">
+					<i class="fas fa-chart-pie">圓餅圖</i>
+				</div>
+				<!-- card-title end -->
+				<div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <!-- card-tools end -->
+			</div>
+			<!--  card-header end -->
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<div class="row">
+							<label for="show"><b>選取一個產品名稱</b></label><select id="show"></select>
+						</div>
+						<div class="flatpickr row">
+							<input type="text" data-input id="startDate" /> <a
+								class="input-button" title="toggle" data-toggle> <i
+								class="far fa-calendar-alt"></i>
+							</a>
+						</div>
+						<div class="row">
+							<button id="btnAdd" onclick="sendProduct()">送出</button>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<figure class="highcharts-figure">
+							<div id="container1"></div>
+							<p class="highcharts-description">公式：[一定期間] [A披薩銷售額 /
+								所有披薩銷售額]</p>
+						</figure>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<!-- 小日曆-迄日 -->
-		<div class="calendar">
-			<input type="text" data-input id="endDate" /><a class="input-button"
-				title="toggle" data-toggle> <i class="far fa-calendar-alt"></i>
-			</a>
-		</div>
-	</div>
-	<!-- 送出鈕1 -->
-	<div>
-		<button id="btnAdd" onclick="sendPieChartInfo()">送出</button>
-	</div>
-
-	<!-- 呼叫圓餅圖 -->
-	
-		<div class="col-lg-6 col-md-6 col-sm-6">
-			<figure class="highcharts-figure">
-				<div id="container1"></div>
-				<p class="highcharts-description">公式：[一定期間] [A披薩銷售額 / 所有披薩銷售額]</p>
-			</figure>
-		</div>
-
-		<!-- -------------------------------------折線圖------------------------------------------------- -->
-
-		<!-- 產品下拉式選單for Line Chart -->
-		<div class="row">
-			<b>選取一個產品名稱</b> <select id="productList"></select>
-			<!-- 請選擇起迄兩個月 -->
-			<!-- 小日曆-起日 -->
-			<div class="calendar ml-3">
-				<input type="text" data-input id="startDateLine" /><a
+		<div>
+			<b>選取一個產品名稱</b> <select id="show"></select>
+			<div class="flatpickr">
+				<input type="text" data-input id="startDate" /> <a
 					class="input-button" title="toggle" data-toggle> <i
 					class="far fa-calendar-alt"></i>
 				</a>
 			</div>
 		</div>
-		<!-- 送出鈕2 -->
+
 		<div>
-			<button id="btnAdd" onclick="sendLineChartInfo()">送出</button>
+			<button id="btnAdd" onclick="sendProduct()">送出</button>
 		</div>
 
-
-		<!-- 呼叫折線圖 -->
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<figure class="highcharts-figure">
+					<div id="container1"></div>
+					<p class="highcharts-description">公式：[一定期間] [A披薩銷售額 / 所有披薩銷售額]</p>
+				</figure>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<figure class="highcharts-figure">
 					<div id="container2"></div>
 					<p class="highcharts-description">公式：[一定期間] [A披薩平均售價-平均成本]
 						/[A披薩平均售價]</p>
+					<input type="button" onclick="test_chart()" value="test">
 				</figure>
 			</div>
 		</div>
 
-		<!-- ----------------------------------------直方圖------------------------------------- -->
-		<!-- 產品下拉式選單 -->
-		<div>
-			<select id="histogramDropList1"></select> 
-			<select id="histogramDropList2"></select> 
-			<select id="histogramDropList3"></select>
-			<select id="histogramDropList4"></select> 
-			<select id="histogramDropList5"></select>
-			<!-- 送出鈕 -->
-			<button id="btnAdd" onclick="sendHistogramInfo()">送出</button>
-			<div class="calendar">
-				<input type="text" data-input id="startDateHisotgram" /><a
-					class="input-button" title="toggle" data-toggle> <i
-					class="far fa-calendar-alt"></i>
-				</a>
-			</div>
-
-			<!-- 小日曆-迄日 -->
-			<div class="calendar">
-				<input type="text" data-input id="endDateHisotgram" /><a
-					class="input-button" title="toggle" data-toggle> <i
-					class="far fa-calendar-alt"></i>
-				</a>
-			</div>
-			<!-- 直方圖 -->
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<figure class="highcharts-figure">
-					<div id="container3"></div>
-					<p class="highcharts-description">Chart showing use of rotated
-						axis labels and data labels. This can be a way to include more
-						labels in the chart, but note that more labels can sometimes make
-						charts harder to read.</p>
-				</figure>
-			</div>
-		</div>
-	
-
+	</section>
 	<script>
-		//下拉式選單Get值(共用)
-		$.ajax({
-			url : "${pageContext.request.contextPath}/pDropDownMenu",
-			type : "GET",
-			error : function(jsa_str) {
-				console.log("error");
-			},
-			success : function(jsa_str) {
-				showOptions(jsa_str);
-				showOptions2(jsa_str);
-				showOptionsHistogram1(jsa_str);
-				showOptionsHistogram2(jsa_str);
-				showOptionsHistogram3(jsa_str);
-				showOptionsHistogram4(jsa_str);
-				showOptionsHistogram5(jsa_str);
-			}
-		});
-		//PieChart下拉式選單-塞值
-		function showOptions(jsa_str) {
-			console.log(jsa_str);
-			//var options = JSON.parse(jsa_str);<=Bug
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				//value是值，但顯示是名稱
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#show").append(option);
-			}
-			;
-		};
-		//LineChart下拉式選單-塞值
-		function showOptions2(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#productList").append(option);
-			}
-			;
-		};
-
-		//Histogram下拉式選單-塞值1
-		function showOptionsHistogram1(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#histogramDropList1").append(option);
-			}
-			;
-		};
-		//Histogram下拉式選單-塞值2
-		function showOptionsHistogram2(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#histogramDropList2").append(option);
-			}
-			;
-		};
-		//Histogram下拉式選單-塞值3
-		function showOptionsHistogram3(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#histogramDropList3").append(option);
-			}
-			;
-		};
-		//Histogram下拉式選單-塞值4
-		function showOptionsHistogram4(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#histogramDropList4").append(option);
-			}
-			;
-		};
-		//Histogram下拉式選單-塞值5
-		function showOptionsHistogram5(jsa_str) {
-			console.log(jsa_str);
-			var options = jsa_str;
-			for (i = 0; i < options.length; i++) {
-				var option = $("<option>").val(options[i].productId).text(
-						options[i].productName);
-				$("#histogramDropList5").append(option);
-			}
-			;
-		};
-		//小月曆-------------建立且在標籤中插入小月曆----------------------
 		function insertTime() {
-			flatpickr(".calendar", {
+			flatpickr(".flatpickr", {
 				altInputClass : "form-group",
 				//enableTime : true,
 				plugins : [ new confirmDatePlugin({
@@ -366,12 +152,44 @@ input[type="number"] {
 				wrap : true,
 			});
 		}
-		//跑上述函式
 		insertTime();
 
-		//----------------------------圓餅圖--------------------------------
+		function sendProduct() {
+			console.log($("#show").val());
+			console.log($("#startDate").val());
+			console.log(document.getElementById("startDate").value);
 
-		//1. AJAX：圓餅圖(GET值)
+			$
+					.ajax({
+						url : "${pageContext.request.contextPath}/catchPInfoFromClient",
+						data : {
+							"jsa_str" : $("#show").val()
+						},
+						type : "POST",
+						success : function(data) {
+							console.log('reach');
+							//以空字串取代原來div內的東西，再生成圖片
+							$("#container1").html("");
+							showPieChart2(data);
+						}
+					});
+		};
+
+		//呈現現有產品名稱的下拉式選單
+		$.ajax({
+			url : "${pageContext.request.contextPath}/pDropDownMenu",
+			type : "GET",
+			error : function(jsa_str) {
+				console.log("error");
+			},
+			success : function(jsa_str) {
+				console.log('reach');
+				console.log(jsa_str);
+				showOptions(jsa_str);
+			}
+		});
+
+		//呼叫圓餅圖要的資料的ajax
 		$.ajax({
 			//去此處抓值
 			url : "${pageContext.request.contextPath}/PieChartTest_proto",
@@ -383,11 +201,35 @@ input[type="number"] {
 				showPieChart(data1);
 			}
 		});
-		//2. 第一次呼叫圓餅圖(Highchart)
+		//呼叫折現圖要的資料的ajax
+		$.ajax({
+			url : "${pageContext.request.contextPath}/LineChart",
+			type : "GET",
+			error : function(data2) {
+				console.log("error");
+			},
+			success : function(data2) {
+				console.log(data2);
+				showLineChart(data2);
+			}
+		});
+		//讀取Jsonarray_Str給option標籤函式
+		function showOptions(jsa_str) {
+			console.log(jsa_str);
+			//var options = JSON.parse(jsa_str);
+			var options = jsa_str;
+			for (i = 0; i < options.length; i++) {
+				console.log(options.length);
+				console.log(options[i].productName);
+				var option = $("<option>").val(options[i].productId).text(
+						options[i].productName);
+				$("#show").append(option);
+			}
+		}
+		//呈現圓餅圖函式
 		function showPieChart(data1) {
 			Highcharts
 					.chart(
-							//等於<div id=container1>
 							'container1',
 							{
 								chart : {
@@ -435,25 +277,7 @@ input[type="number"] {
 								} ]
 							});
 		};
-		//3. AJAX：圓餅圖(POST後GET值)
-		function sendPieChartInfo() {
-			$.ajax({
-				url : "${pageContext.request.contextPath}/PieChartPost",
-				data : {
-					//POST方法下的Query String
-					"jsa_str" : $("#show").val(),
-					"startDate" : document.getElementById("startDate").value,
-					"endDate" : document.getElementById("endDate").value
-				},
-				type : "POST",
-				success : function(data) {
-					//以空字串取代原來div內的東西，再生成圖片
-					$("#container1").html("");
-					showPieChart2(data);
-				}
-			});
-		};
-		//4. POST後的圓餅圖
+		//POST後的圓餅圖
 		function showPieChart2(data) {
 			Highcharts
 					.chart(
@@ -501,23 +325,10 @@ input[type="number"] {
 								} ]
 							});
 		};
-
-		//---------------以下折線圖部分------------------
-
-		////1. AJAX：折線圖(GET值)
-		$.ajax({
-			url : "${pageContext.request.contextPath}/LineChart",
-			type : "GET",
-			error : function(data2) {
-				console.log("error");
-			},
-			success : function(data2) {
-				showLineChart(data2);
-			}
-		});
-		//2. 第一次呼叫折線圖(Highchart)
+		//呈現折現圖函式
 		function showLineChart(data2) {
 			Highcharts.chart('container2', {
+
 				title : {
 					text : '2020/1~3炭火食肉披薩毛利率趨勢'
 				},
@@ -553,7 +364,6 @@ input[type="number"] {
 						label : {
 							connectorAllowed : true
 						},
-						//起年(yyyy)，起月(0為1月)，起日(1為1日)
 						pointStart : Date.UTC(2020, 0, 1),
 						pointIntervalUnit : 'month'
 					}
@@ -579,269 +389,10 @@ input[type="number"] {
 					} ]
 				}
 			});
-		};
-
-		//3. AJAX：折線圖(POST後GET值)
-		function sendLineChartInfo() {
-			var test_input = {
-				productId : $("#productList").val(),
-				startDateLine : $("#startDateLine").val(),
-				endDateLine : $("#endDateLine").val()
-			}
-			/* console.log($("#startDateLine").val());
-			console.log($("#endDateLine").val());
-			 */
-			//test_input.productId = $("#productList").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/LineChartPost",
-				data : {
-					//POST方法下的Query String(value為一JSONObj)
-					"lineChartInfo" : JSON.stringify(test_input)
-				},
-				type : "POST",
-				success : function(data) {
-					//以空字串取代原來div內的東西，再生成圖片
-					$("#container2").html("");
-					showLineChart2(data);
-				}
-			});
 		}
-		//4. POST後的折線圖
-		function showLineChart2(data) {
-			console.log(data);
-			var startYearInt = parseInt(data.startYear);
-			var startMonthInt = parseInt(data.startMonth);
-			var startDayInt = parseInt(data.startDay);
-			console.log(startYearInt);
-			console.log(startMonthInt);
-			Highcharts.chart('container2', {
-				title : {
-					text : '2020/1~3炭火食肉披薩毛利率趨勢'
-				},
 
-				subtitle : {
-					text : ''
-				},
-
-				yAxis : {
-					title : {
-						text : '毛利率'
-					}
-				},
-
-				xAxis : {
-					type : 'datetime',
-					dateTimeLabelFormats : {
-						month : '%Y-%m'
-					},
-					accessibility : {
-						rangeDescription : '範圍：2020/1-3'
-					}
-				},
-
-				legend : {
-					layout : 'vertical',
-					align : 'right',
-					verticalAlign : 'middle'
-				},
-
-				plotOptions : {
-					series : {
-						label : {
-							connectorAllowed : true
-						},
-						//(2020y,1m,1d)
-						//做活的，直接在前端拆解小月曆的年月日
-						pointStart : Date.UTC(startYearInt, startMonthInt - 1,
-								startDayInt),
-						pointIntervalUnit : 'month'
-					}
-				},
-				//放入單一產品折線圖(值)
-				series : [ {
-					name : '炭火食肉披薩',
-					data : [ data.oneProductGp1, data.oneProductGp2,
-							data.oneProductGp3 ]
-				} ],
-				//不攸關
-				responsive : {
-					rules : [ {
-						condition : {
-							maxWidth : 500
-						},
-						chartOptions : {
-							legend : {
-								layout : 'horizontal',
-								align : 'center',
-								verticalAlign : 'bottom'
-							}
-						}
-					} ]
-				}
-			});
-		};
-
-		//-----------------------------------以下直方圖----------------------------------
-		//1. AJAX：第一次呼叫直方圖(GET值)
-		$.ajax({
-			//去此處抓值
-			url : "${pageContext.request.contextPath}/HistogramGet",
-			type : "GET",
-			error : function(data) {
-				console.log("error");
-			},
-			success : function(data) {
-				showHistogram(data);
-				console.log(data);
-			}
-		});
-		//2. 第一次呼叫直方圖，塞入標籤
-		function showHistogram(data) {
-			Highcharts
-					.chart(
-							'container3',
-							{
-								chart : {
-									type : 'column'
-								},
-								title : {
-									text : 'World\'s largest cities per 2017'
-								},
-								subtitle : {
-									text : 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-								},
-								xAxis : {
-									type : 'category',
-									labels : {
-										rotation : -45,
-										style : {
-											fontSize : '13px',
-											fontFamily : 'Verdana, sans-serif'
-										}
-									}
-								},
-								yAxis : {
-									min : 0,
-									title : {
-										text : 'Population (millions)'
-									}
-								},
-								legend : {
-									enabled : false
-								},
-								tooltip : {
-									pointFormat : 'Population in 2017: <b>{point.y:.1f} millions</b>'
-								},
-								series : [ {
-									name : 'Population',
-									data : [ [ 'Shanghai', data.product1 ],
-											[ 'Lagos', data.product2 ],
-											[ 'Bengaluru', data.product3 ],
-											[ 'Seoul', data.product4 ],
-											[ 'Foshan', data.product5 ], ],
-									dataLabels : {
-										enabled : true,
-										rotation : -90,
-										color : '#FFFFFF',
-										align : 'right',
-										format : '{point.y:.1f}', // one decimal
-										y : 10, // 10 pixels down from the top
-										style : {
-											fontSize : '13px',
-											fontFamily : 'Verdana, sans-serif'
-										}
-									}
-								} ]
-							});
-		}
-		//3. AJAX：折線圖(POST後GET值)
-		function sendHistogramInfo() {
-			var JSONObject = {
-				productId1 : $("#histogramDropList1").val(),
-				productId2 : $("#histogramDropList2").val(),
-				productId3 : $("#histogramDropList3").val(),
-				productId4 : $("#histogramDropList4").val(),
-				productId5 : $("#histogramDropList5").val(),
-				startDate : $("#startDateHisotgram").val(),
-				endDate : $("#endDateHisotgram").val(),
-			}
-			/* console.log($("#startDateLine").val());
-			console.log($("#endDateLine").val());
-			 */
-			//test_input.productId = $("#productList").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/HistogramPost",
-				data : {
-					//POST方法下的Query String(value為一JSONObj)
-					"HistogramInfo" : JSON.stringify(JSONObject)
-				},
-				type : "POST",
-				success : function(data) {
-					console.log(data);
-					//以空字串取代原來div內的東西，再生成圖片
-					$("#container3").html("");
-					showHistogramPost(data);
-				}
-			});
-		}
-		//4. Post後直方圖(Highchart)
-		function showHistogramPost(data) {
-			Highcharts
-					.chart(
-							'container3',
-							{
-								chart : {
-									type : 'column'
-								},
-								title : {
-									text : 'World\'s largest cities per 2017'
-								},
-								subtitle : {
-									text : 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-								},
-								xAxis : {
-									type : 'category',
-									labels : {
-										rotation : -45,
-										style : {
-											fontSize : '13px',
-											fontFamily : 'Verdana, sans-serif'
-										}
-									}
-								},
-								yAxis : {
-									min : 0,
-									title : {
-										text : 'Population (millions)'
-									}
-								},
-								legend : {
-									enabled : false
-								},
-								tooltip : {
-									pointFormat : 'Population in 2017: <b>{point.y:.1f} millions</b>'
-								},
-								series : [ {
-									name : 'Population',
-									data : [ [ 'product1', data.product1 ],
-											[ 'product2', data.product2 ],
-											[ 'product3', data.product3 ],
-											[ 'product4', data.product4 ],
-											[ 'product5', data.product5 ], ],
-									dataLabels : {
-										enabled : true,
-										rotation : -90,
-										color : '#FFFFFF',
-										align : 'right',
-										format : '{point.y:.1f}', // one decimal
-										y : 10, // 10 pixels down from the top
-										style : {
-											fontSize : '13px',
-											fontFamily : 'Verdana, sans-serif'
-										}
-									}
-								} ]
-							});
+		function test_chart() {
+			console.log('test reach');
 		}
 	</script>
 </body>

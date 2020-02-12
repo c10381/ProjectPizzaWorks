@@ -27,7 +27,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-cookie"></i>進貨紀錄單
+							<i class="fas fa-clipboard-list"></i>進貨紀錄單
 						</div>
 						<!-- card-title end -->
 					</div>

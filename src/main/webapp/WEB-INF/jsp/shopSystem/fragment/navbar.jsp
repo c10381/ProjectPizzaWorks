@@ -25,7 +25,7 @@
 					href="<spring:url value='/shop/menu' />" class="nav-link">精選菜單</a></li>
 				<li class="nav-item"><a href="<spring:url value='/shop/story' />" class="nav-link">品牌故事</a>
 				</li>
-				<li class="nav-item"><a href="contact.html" class="nav-link">店面資訊</a>
+				<li class="nav-item"><a href="<spring:url value='/shop/contactUs' />" class="nav-link">聯絡我們</a>
 				</li>
 			</ul>
 		</div>
