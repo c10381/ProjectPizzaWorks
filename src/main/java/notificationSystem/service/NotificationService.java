@@ -6,6 +6,7 @@ import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
 import _model.StockRequestBean;
 import _model.ValidationRequestBean;
+import _model.customerRequestBean;
 import notificationSystem.dao.NotificationDao;
 
 public interface NotificationService {
@@ -19,6 +20,8 @@ public interface NotificationService {
 	public List<StockRequestBean> getStockRequests();
 	
 	public List<ValidationRequestBean> getPwdChangeRequests();
+	
+	public List<customerRequestBean> getUnreadRequests();
 
 //	public List<SalesOrderDetailBean> getOrder();
 }

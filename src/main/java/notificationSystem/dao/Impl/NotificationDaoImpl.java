@@ -13,6 +13,7 @@ import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
 import _model.StockRequestBean;
 import _model.ValidationRequestBean;
+import _model.customerRequestBean;
 import notificationSystem.dao.NotificationDao;
 
 @Repository
@@ -67,6 +68,18 @@ public class NotificationDaoImpl implements NotificationDao {
 		requests = session.createQuery("FROM ValidationRequestBean where requestStatus =: requestStatus ORDER BY requestTime DESC")
 				   		  .setParameter("requestStatus", 3)
 				   		  .getResultList();		
+		return requests;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<customerRequestBean> getUnreadRequests() {
+		List<customerRequestBean> requests = new ArrayList<customerRequestBean>();
+		Session session = factory.getCurrentSession();
+		requests = session.createQuery("FROM customerRequestBean where replyStatus =: replyStatus ORDER BY queryDate DESC")
+		   		  .setParameter("replyStatus", 0)
+		   		  .getResultList();	
+		
 		return requests;
 	}
 

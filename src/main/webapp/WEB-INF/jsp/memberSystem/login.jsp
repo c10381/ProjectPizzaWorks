@@ -6,16 +6,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pizza Bite 會員登入</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" 
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
-<jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+   	<meta name="google-signin-client_id" content="902805842893-0r20ucidti2jn2t555g5li2kohpp8i2n.apps.googleusercontent.com">
 
-</head>
+	<title>Pizza Bite 會員登入</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" 
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<jsp:include page="../shopSystem/fragment/ContentCSS.jsp" />
+	<jsp:include page="../shopSystem/fragment/ContentMetaInfo.jsp" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
+	</head>
 <body>	
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 	
@@ -67,6 +70,15 @@
 						<a href="${pageContext.request.contextPath}/memberSystem/register">註冊</a>
 					</p>
 				</div>
+				
+				<div class="row">
+					<div class="col-sm-3"></div>	
+					<p class="mb-1">
+						<a href="${pageContext.request.contextPath}/PaypalTest/testCheckout">Paypal</a>
+					</p>
+				</div>
+				
+				
 			</form>								 	
 		</div>			
 	</section>

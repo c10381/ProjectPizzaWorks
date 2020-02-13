@@ -27,7 +27,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-cookie"></i>食譜
+							<i class="fas fa-cookie"></i>產品成分
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -36,11 +36,11 @@
 						<table id="table_recipes" class="display">
 							<thead>
 								<tr>
-									<th>&nbsp;</th>
 									<th>食材編號</th>
 									<th>食材名稱</th>
 									<th>使用量</th>
 									<th>單位</th>
+									<th>&nbsp;</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -61,7 +61,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-box-open"></i>食材
+							<i class="fas fa-box-open"></i>材料
 						</div>
 						<!-- card-title end -->
 					</div>
@@ -115,7 +115,7 @@
                 }, {
 	                targets: 0,
 	                data: null,
-	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-success'>添加至食譜</button>"
+	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-success'>+</button>"
 				}]
             });
         	
@@ -129,11 +129,11 @@
             	new_row['unit'] = data[3];
             	console.log(new_row);
             	$('#table_recipes').DataTable().row.add([
-            		"<button id='btn_RemoveToAddR'>移除至食譜</button>",
             		data[1],
             		data[2],
             		"<input type='text id=txt_quantity'/>",
-            		data[3]
+            		data[3],
+            		"<button id='btn_RemoveToAddR' class='btn btn-danger'>-</button>",
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -148,16 +148,16 @@
                 },
                 searching: false, //關閉filter功能
                 responsive: true,
-                order: [[ 1, "asc" ]],
+                order: [[ 0, "asc" ]],
                 columnDefs: [{
-                    targets: [0,2,3,4],
+                    targets: [1,2,3,4],
                     orderable: false,
                 }, {
-	                targets: 0,
+	                targets: -1,
 	                data: null,
-	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-success'>移除至食譜</button>"
+	                defaultContent: "<button id='btnRemoveToAddR' class='btn btn-danger'>-</button>"
 				}, {
-					targets: 3,
+					targets: 2,
 	                data: null,
 	                defaultContent: "<input type='text' id='txt_quantity' />"
 				}]
@@ -169,15 +169,15 @@
             	var data = nowRow.data();
                 //console.log(data);
             	var new_row = new Object();
-            	new_row['materialsId'] = data[1];
-            	new_row['materialsName'] = data[2];
-            	new_row['unit'] = data[4];
+            	new_row['materialsId'] = data[0];
+            	new_row['materialsName'] = data[1];
+            	new_row['unit'] = data[3];
             	//console.log(new_row);
             	$('#table_materials').DataTable().row.add([
-            		"<button id='btn_RemoveToAdd' class='btn btn-success'>添加至食譜</button>",
+            		"<button id='btn_RemoveToAdd' class='btn btn-success'>+</button>",
+            		data[0],
             		data[1],
-            		data[2],
-            		data[4]
+            		data[3]
             	]).draw();
             	nowRow.remove().draw();
             });
@@ -187,24 +187,37 @@
 		
         function getRecipesTable() {
 			var totalNumber = document.getElementById("table_recipes").rows.length;
+			if(totalNumber<=1){
+				return false;
+			}
 			for (var i = 1; i < totalNumber; i += 1) {
 				var table_row = document.getElementById("table_recipes").rows[i];
 				var recipe = new Object();
-				recipe["materialsId"] = table_row.cells[1].innerHTML;
-				recipe["quantity"] = table_row.cells[3].children[0].value;
-				recipe["unit"] = table_row.cells[4].innerHTML;
+				try{
+					recipe["materialsId"] = table_row.cells[0].innerHTML;
+					recipe["quantity"] = table_row.cells[2].children[0].value;
+					recipe["unit"] = table_row.cells[3].innerHTML;
+				} catch(e){
+					return false;
+				}
 				recipes.push(recipe);
 			}
 			//console.log(recipes);
+			return true;
 		}
 
 		// EXTRACT AND SUBMIT TABLE DATA.
 		function sumbitDataTable() {
 			// LOOP THROUGH EACH ROW OF THE TABLE.
 			recipes.length = 0;
-			getRecipesTable();
+			var flag = getRecipesTable();
+			if(flag){
+				sendData();
+				//console.log(recipes);
+			} else{
+				alert("請添加配方!");
+			}
 			//console.log('Data send:\n' + JSON.stringify({recipes: recipes}));
-			sendData();
 		}
 
 		function sendData() {

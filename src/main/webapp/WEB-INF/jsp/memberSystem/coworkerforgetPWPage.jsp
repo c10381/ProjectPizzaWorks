@@ -89,7 +89,7 @@
 			$("#password").val("P@ssw0rd");
 		});
 	}
-		function SendToBack() {
+	function SendToBack() {
 			$
 					.ajax({
 						url : "${pageContext.request.contextPath}/memberSystem/coworkforgetPWrequest",

@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.paypal.base.rest.PayPalRESTException;
+
 import _model.MembersBean;
+import _model.OrderDetailBean;
 import memberSystem.service.CustomerService;
 
 @Controller
@@ -119,7 +122,7 @@ public class CustomerController {
 			}else {
 				// 用帳號是否存在DB來判斷是否有註冊過，若無，則告知使用者輸入的帳號根本沒註冊過
 				model.addAttribute("email_errMsg","無此帳號");
-				model.addAttribute("email_errMsg","");
+				model.addAttribute("pwd_errMsg","");
 			}			
 			return "memberSystem/login";
 		}
@@ -247,5 +250,5 @@ public class CustomerController {
 			return "memberSystem/resetPwd";
 		}
 		return "memberSystem/validationCodeFail";
-	}
+	}	
 }

@@ -2,6 +2,7 @@ package messageSystem.dao;
 
 import java.util.List;
 
+import _model.MembersBean;
 import _model.customerRequestBean;
 
 public interface customerRequestDao {
@@ -23,6 +24,9 @@ public interface customerRequestDao {
 	//修改
 	//need to add employee replycontent and update reply status
 	public Boolean replycustomerRequest(customerRequestBean crb);
+
+
+	List<MembersBean> getMemberNameAndEmailByNameAndPrivileId(String name, Integer[] privilegeId);
 
 	
 }
