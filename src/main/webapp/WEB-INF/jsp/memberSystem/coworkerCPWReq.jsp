@@ -14,7 +14,7 @@
 		<div id="registerOneMember">
 			<section>
 				<div class='container'>
-					<h1 style="text-align: center">員工忘記密碼確認</h1>
+					<h1 style="text-align: center">請求修改密碼</h1>
 				</div>
 			</section>
 
@@ -25,14 +25,16 @@
 
 				<table id="Table" class="display">
 					<thead>
-						<th>RID</th>
-						<th>帳號(Email)</th>
-						<th>請求時間</th>
-						<th>允許人</th>
-						<th>允許時間</th>
-						<th>請求狀態</th>
-						<th>備註</th>
-						<th>回應</th>
+						<tr>
+							<th>RID</th>
+							<th>帳號(Email)</th>
+							<th>請求時間</th>
+							<th>允許人</th>
+							<th>允許時間</th>
+							<th>請求狀態</th>
+							<th>備註</th>
+							<th>回應</th>
+						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
