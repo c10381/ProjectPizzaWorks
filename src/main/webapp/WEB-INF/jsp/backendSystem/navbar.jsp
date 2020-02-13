@@ -139,18 +139,17 @@
 	</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 			<div class="row">
-				<div class="col-md-1 "></div>
-				<div class="col-md-1 align-self-center ">
-					<div class="custom-control custom-switch">
-						<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
-						<label class="custom-control-label" for="customSwitch1"></label>
-					</div>				
-				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-6">
-					<span class="dropdown-item dropdown-header justify-content-start" id='note1'></span>
-				</div>
-				<div class="col-md-4"></div>				
+				<div class="row justify-content-center">
+					<div class="col-md-1 align-self-center">
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
+							<label class="custom-control-label" for="customSwitch1"></label>
+						</div>				
+					</div>
+				</div>				
+				<div class="col-md-8">
+					<span class="dropdown-item dropdown-header" id='note1'></span>
+				</div>							
 			</div>
 			
 			<div class="dropdown-divider"></div>
@@ -461,13 +460,18 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "員工編號："+data[i].pcRequestId;
+			let requestMail = data[i].email;
+			if(requestMail.length > 13 ){
+				requestMail = requestMail.substr(0,12);
+				requestMail += "...";
+			}			
+			var requestId = "信箱："+requestMail;
 			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
-					//+ data[i].vRequestId
+//					+ data[i].pcRequestId
 					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
-			//div_html += requestId;
+			div_html += requestId;
 			div_html += "<span class='float-right text-muted text-sm'>";
 			div_html += timeResult + "</span></div>" + divider;
 			$('#notification_container').append(div_html);
