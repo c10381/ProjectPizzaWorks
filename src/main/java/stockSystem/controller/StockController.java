@@ -181,7 +181,7 @@ public class StockController {
 			// Set stockHistory bean.
 			storageHistory.setsRequestId(sRequestId);
 			storageHistory.setMaterialsId(materialsId);
-			storageHistory.setUnitPrice(unitPrice);
+			storageHistory.setUnitPrice(unitPrice*quantity);
 			storageHistory.setQuantity(preciseQuantity);
 			storageHistory.setRemainingQuantity(preciseQuantity);
 			storageHistory.setStockTime(timeStrNoMillisec);

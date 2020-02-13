@@ -49,7 +49,7 @@ public class ShopDaoImpl implements ShopDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> getCrust() {
-		String hql = "select distinct crustTypeName , crustTypeId , unitPrice from CrustBean as CB";
+		String hql = "select distinct crustTypeName , crustTypeId , unitPrice from CrustBean as CB ORDER BY crustTypeId ASC";
 		List<Object[]> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();

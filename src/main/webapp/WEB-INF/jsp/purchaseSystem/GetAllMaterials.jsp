@@ -68,7 +68,11 @@
 								}, {
 									"data" : "reorderLevel" ,render: $.fn.dataTable.render.number(',', '', 0, '')
 								}, {
-									"data" : "supplierId" 
+									"data" : "supplierId",
+									"render": function(data, type, row, meta){
+										return "華泰";
+									},
+									"defualtContent": "華泰",
 								}, {
 									"data" : "unit"
 								}, ],

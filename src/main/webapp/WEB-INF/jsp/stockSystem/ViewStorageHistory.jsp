@@ -58,6 +58,7 @@
 									"type" : "GET",
 									"dataSrc" : "",
 								},
+
 								"columns" : [ {
 									"data" : "storageHistoryId"
 								}, {
@@ -77,6 +78,7 @@
 								}, {
 									"data" : "unit"
 								}],
+				                "order": [[ 0, 'desc' ]],
 								"lengthMenu" : [ 10, 20 ],
 								"searching" : false,
 								"info" : true,
