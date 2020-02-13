@@ -84,8 +84,8 @@
 				<div class='form-row form-group'>
 					<div class="col-sm-3"></div>
 					<label class="col-form-label col-sm-1 align-self-center">手機 ：</label>
-					<form:input id="phone" path="cellphone" type="text" required='required' maxlength="10"
-							pattern="/^09\d{8}$/" class="form-control col-sm-3"/>
+					<form:input id="phone" path="cellphone" type="text" required='required'
+							pattern="^09[0-9]{8}$" class="form-control col-sm-3"/>
 				<!--form row ends  -->				
 				</div>	
 							

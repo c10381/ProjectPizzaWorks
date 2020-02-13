@@ -37,11 +37,13 @@ function sendPayPal(){
 	    data : JSON.stringify(cart),
 	    contentType : "application/json",
 	    
-	}).done(function(){
+	}).done(function(data){
 		// 動作請再修改
-		swal("成功")
+		console.log(data);
+		window.location.replace(data);
 	}).fail(function(){
 		// 動作請再修改
+		window.location.replace("../PaypalTest/paypalError");
 		swal("失敗"); 
 	})
 	
