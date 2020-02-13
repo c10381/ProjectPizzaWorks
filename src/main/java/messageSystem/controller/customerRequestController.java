@@ -181,5 +181,24 @@ public class customerRequestController {
 		;
 		return false;
 	}
-
+	@GetMapping(value="/messageSystem/getEmail",produces="text/html;charset=UTF-8;")
+	public @ResponseBody String getMemberNameAndEmailByNameAndPrivileId(@RequestParam("name") String name,@RequestParam("privilege") Integer privilege) {
+		Integer[] privilegeId= null;
+		if(privilege==1) {
+			privilegeId=new Integer[] {1};
+		}else if(privilege==2) {
+			privilegeId=new Integer[] {2,3,4,5,6,7};
+		}
+		List<MembersBean> list=service.getMemberNameAndEmailByNameAndPrivileId(name, privilegeId);
+		Map<String,String> map=new HashMap<>();
+		System.out.println(list.toString());
+		if(list.isEmpty()) {
+			return "0";
+		}
+		for (MembersBean mem : list) {
+			map.put(mem.getLastName()+mem.getFirstName(), mem.getEmail());
+		}
+		Gson gson=new Gson();
+		return gson.toJson(map);
+	}
 }

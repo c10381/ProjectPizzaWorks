@@ -10471,7 +10471,6 @@ h5,
 .appointment-form .form-group .icon span {
   color: white !important;
 }
-
 .appointment-form .form-group .select-wrap,
 .appointment-form .form-group .input-wrap {
   position: relative;
@@ -10482,9 +10481,6 @@ h5,
   -moz-appearance: none;
   appearance: none;
 }
-.appointment-form .form-group label {
-  font-size: 18px;
-}
 
 .appointment-form .form-control {
   border: transparent !important;
@@ -10494,7 +10490,7 @@ h5,
   padding-right: 0;
   background: transparent !important;
   color: rgba(255, 255, 255, 0.9) !important;
-  font-size: 18px;
+  font-size: 15px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
@@ -11776,7 +11772,6 @@ textarea.form-control {
         /* margin-left: 0.5rem;
         margin-right: 1.5rem; */
     }
-    
 }
 
 #salesOrder .card-body  {
@@ -11852,6 +11847,64 @@ textarea.form-control {
 	background-color: #121618 !important;
 	color: #fac564 !important;
 }
+
+
+.order_modal .modal-content {
+	max-height: 60vh; 
+	background-color: #121618;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+.order_modal .modal-header {
+	background-color: #fac564;
+	color: #121618;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+.order_modal .modal-header span {
+	color: #121618;
+}
+
+.order_modal .md_label {
+	margin-left: 5%;
+	width: 30%;
+	color: #fac564;
+}
+
+.order_modal .modal-body .md_content {
+	min-width: 220px;
+	height: 30px;
+}
+
+.order_modal .modal-body h5{
+	margin-left: 5%;
+	magin-top : 3%;
+	magin-bottom : 3%;
+}
+
+
+.order_modal .modal-body input {
+	background-color: #121618;
+}
+
+.order_modal .modal-body input[type="checkbox"]{
+	margin-left: 2%; 
+	zoom: 1.5;
+}
+.order_modal .modal-body input[type="checkbox"] label{
+}
+
+#delieverModal {
+	border-radius: none;
+} 
+
+
+
+
  
 @-webkit-keyframes loader-rotate {
   100% {

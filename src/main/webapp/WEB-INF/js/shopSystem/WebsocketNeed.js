@@ -125,9 +125,9 @@ function disconnect() {
 //一登入就送會員List
 //會在這裡判斷客服是不是上線
 function showOnline(messageOutput){
-	let str_offline = "目前客服人員不在線上，您將無法傳送訊息。如有任何意見，煩請至以下連結" ;
-	str_offline += "<a href='shop/contactUs'>Pizza Bite| Contact Us</a>" ;
-	str_offline	+= "將您寶貴的意見提供給我們，我們將會盡快回覆您，謝謝。";
+	let str_offline = `目前客服人員不在線上，您將無法傳送訊息。如有任何意見，煩請至以下連結` ;
+	str_offline += `<a href='${contextPath}/shop/contactUs'>Pizza Bite| Contact Us</a>` ;
+	str_offline	+= `將您寶貴的意見提供給我們，我們將會盡快回覆您，謝謝。`;
 	coworkerOnlineList=messageOutput.coworkerOnlineList;
 	let coworkerNoLogin = true; 
 	// 判斷一

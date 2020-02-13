@@ -30,13 +30,19 @@
 	</section>
 	<!-- content-header end -->
 	<section class="content">
-		<form:form method='POST' modelAttribute="product"
+	<div class="card">
+	 	<div class="card-header bg-light pt-3">
+			<h2>商品編號 : ${product.productId} </h2>
+	 	</div>
+	 	<!-- card-header end -->
+	 	<div class="card-body">
+	 	<form:form method='POST' modelAttribute="product"
 			class='form-horizontal' enctype="multipart/form-data">
 			<fieldset>
 				<div class="col-md-12">
 					<div class="row">
 						<div class="form-group">
-							<strong>商品編號: </strong> <span>${product.productId} </span>
+							<%-- <strong>商品編號: </strong> <span>${product.productId} </span> --%>
 							<form:input type="hidden" path="productId"
 								value="${product.productId}" />
 						</div>
@@ -44,13 +50,11 @@
 					</div>
 					<!-- row end -->
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<div class="form-group">
-								<h4>
-									<label>名稱：</label>
-									<form:input id="productName" type='text' path="productName"
-										value="${product.productName}" class='form-control' />
-								</h4>
+								<label>名稱：</label>
+								<form:input id="productName" type='text' path="productName"
+									value="${product.productName}" class='form-control' />
 							</div>
 							<!-- form-group end -->
 							<div class="form-group">
@@ -61,10 +65,12 @@
 							<!-- form-group end -->
 						</div>
 						<!-- col end -->
+						<div class="col-md-1"></div>
+						<!-- col end -->
 						<div class="col-md-6">
-							<img
-								id="${request.contextPath}/images/Products/${product.imagePath}"
-								src="<c:url value='/picture/${product.productId}'/>" />
+								<img class="d-block mx-auto"
+									id="${request.contextPath}/images/Products/${product.imagePath}"
+									src="<c:url value='/picture/${product.productId}'/>" />							
 							<div class="input-group mt-3" >
 								<div class="custom-file">
 									<form:input id="productImage" path="productImage" type='file'
@@ -79,8 +85,8 @@
 					</div>
 					<!-- row end -->
 					<p></p>
-					<div class="row mt-3">
-						<div class="col-md-6">
+					<div class="row mt-5">
+						<div class="col-md-5">
 							<div class="form-group ">
 								<label>辣度：</label>
 								<form:input type="text" path="spicyLevel"
@@ -112,6 +118,8 @@
 							</div>
 							<!-- form-group end -->
 						</div>
+						<!-- col end -->
+						<div class="col-md-1"></div>
 						<!-- col end -->
 						<div class="col-md-6">
 							<div class="form-group">
@@ -156,6 +164,12 @@
 				<!-- col end -->
 			</fieldset>
 		</form:form>
+	 	
+	 	
+	 	
+	 	</div>
+		
+		</div>
 	</section>
 	<!-- content end -->
 	<script>

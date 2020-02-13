@@ -9,6 +9,8 @@ $(function() {
 		$(this).parents(".menu-wrap").find(".price").each(function(){
 			productPrice.push(parseInt($(this).html()));
 		});
+		
+		// 判斷呼叫函式
 		if (cart.needDelivery == undefined) {
 			checkDeliver(productId , productName , productPrice);
 		} else {
@@ -20,9 +22,9 @@ $(function() {
 // pizza規格確認
 function checkPizza(id , name , price) {
 	$("#pizzaModal").modal("show");
-		let productName = name; 
-		let productId = id; 
-		let productPrice = price; 
+	  let productName = name; 
+	  let productId = id; 
+	  let productPrice = price; 
 	// 插入Model相關資訊
 	$(".modal-body h5").empty().append(productName);
 	$(".modal-footer>button").attr("data-id" , productId);
@@ -36,7 +38,7 @@ function checkPizza(id , name , price) {
 	insertCrust();
 
 	// 放入購物車
-	$("#pizzaModal .btn").click(function() {
+	$("#pizzaModal .btn").unbind().on('click', function() {
 		updateCart(productName, productId , productPrice );
 		let cartStr = JSON.stringify(cart);
 		localStorage.setItem('cartList', cartStr);
@@ -194,7 +196,6 @@ function insertCrust() {
 						$("#crust").empty().append(option);
 					})
 }
-
 
 function insertTime() {
 	flatpickr(".flatpickr", {
