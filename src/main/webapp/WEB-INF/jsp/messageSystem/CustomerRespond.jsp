@@ -137,10 +137,10 @@
 							return "未回復"; 
 		                }
 	                	else if(data==1){
-							return "已即時回覆"; 
+							return "即時回覆"; 
 		                }
 	                	else if(data==2){
-							return "已使用信件回覆"; 
+							return "信件回覆"; 
 		                }
 	                }
 	            },{
