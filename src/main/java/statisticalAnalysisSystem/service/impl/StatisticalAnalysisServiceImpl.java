@@ -117,6 +117,8 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 	// 取得[一定期間][單一原料][平均進貨成本](依據食材ID)(from storageHistory)
 	private Double getOneMaterialCost_SHB(Integer materialsId, String startingDate, String endDate)
 			throws ParseException {
+		// 從StorageHistory裡取出二維資料
+		System.out.println("startingDate" + startingDate +  "endDate" + endDate);
 		List<StorageHistoryBean> list = dao.getMaterialUnitCost_SHB(materialsId);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Double oneMaterialCost_box = 0.0;
@@ -125,10 +127,11 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 		for (StorageHistoryBean shb : list) {
 			if (sdf.parse(shb.getStockTime()).after(sdf.parse(startingDate))
 					&& sdf.parse(shb.getStockTime()).before(sdf.parse(endDate))) {
-				System.out.println(shb.getMaterialsId());
-				System.out.println(shb.getUnitPrice());
-				if (shb.getMaterialsId() == materialsId) {
-					oneMaterialCost_box = oneMaterialCost_box + shb.getUnitPrice();
+				// 如果這個進貨紀錄所進的食材是指定編號的食材，執行以下程式
+				//if (shb.getMaterialsId() == materialsId) {
+					// 將該列中的食材進貨價格(unitCost)取出，加入其他時間，所進的一樣的貨的進貨價格
+					oneMaterialCost_box = oneMaterialCost_box + shb.getUnitPrice()/3;
+					// 剛剛算的每箱進貨價格，轉換成每克、或每顆的進貨價格
 					Double factor = dao.getQuantityPerUnit(materialsId);
 					oneMaterialCost = oneMaterialCost_box/factor;
 					count++;
@@ -164,9 +167,10 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 	@Override
 	public Double getOneProductGp(Integer productId, String startingDate, String endDate) throws ParseException {
 		Integer unitPrice = pdao.getProductById(productId).getUnitPrice();
-		System.out.println(unitPrice);
 		Double unitCost = getUnitCost(productId, startingDate, endDate);
 		Double GP = (unitPrice - unitCost) / unitPrice;
+		System.out.println("產品銷貨價格unitPrice = " + unitPrice);
+		System.out.println("產品成本unitCost = " + unitCost);
 		System.out.println("GP = " + GP);
 		return GP;
 	}

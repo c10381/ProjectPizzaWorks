@@ -119,20 +119,115 @@ public class StatisticalAnalysisController {
 		return oneProductGp;
 	}
 
+	// LineChartPOST
+	@RequestMapping(value = "/LineChartPost", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String LineChartPost(@RequestParam("lineChartInfo") String lineChartInfo, Model model)
+			throws ParseException {
+		System.out.println("prolineChartInfoduct = " + lineChartInfo);
+		JSONObject jso = new JSONObject(lineChartInfo);
+		Integer productId = Integer.parseInt(jso.getString("productId"));
+		String startDateLine = jso.getString("startDateLine");
+		// 若兩某時段，該產品原物料皆未被進貨，算出之兩比例會相等，折線圖會變成水平線
+		//以下計算第二時間點、第三時間點
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime endDate1 = LocalDateTime.parse(startDateLine + " 23:59:59", formatter);
+		LocalDateTime endDate2 = endDate1.plusMonths(1);
+		LocalDateTime endDate3 = endDate2.plusMonths(1);
+		LocalDateTime startDate1 = endDate1.minusMonths(4).minusDays(1).plusSeconds(1);
+		LocalDateTime startDate2 = endDate2.minusMonths(4).minusDays(1).plusSeconds(1);
+		LocalDateTime startDate3 = endDate3.minusMonths(4).minusDays(1).plusSeconds(1);
+		
+		
+//		LocalDateTime startDate2 = startDate1.plusMonths(1);
+//		LocalDateTime startDate3 = startDate2.plusMonths(1);
+		String startDate1_str = startDate1.format(formatter);
+		String startDate2_str = startDate2.format(formatter);
+		String startDate3_str = startDate3.format(formatter);
+		String endDate1_str = endDate1.format(formatter);
+		String endDate2_str = endDate2.format(formatter);
+		String endDate3_str = endDate3.format(formatter);
+		
+		Double oneProductGp1_0000 = service.getOneProductGp(productId, startDate1_str, endDate1_str);
+		Double oneProductGp2_0000 = service.getOneProductGp(productId, startDate2_str, endDate2_str);
+		Double oneProductGp3_0000 = service.getOneProductGp(productId, startDate3_str, endDate3_str);
+		// 把GP小數位數改成小數點兩位
+		DecimalFormat df = new DecimalFormat("######0.00");
+		String oneProductGp1_0000_string = df.format(oneProductGp1_0000);
+		String oneProductGp2_0000_string = df.format(oneProductGp2_0000);
+		String oneProductGp3_0000_string = df.format(oneProductGp3_0000);
+		Double oneProductGp1_00 = Double.parseDouble(oneProductGp1_0000_string);
+		Double oneProductGp2_00 = Double.parseDouble(oneProductGp2_0000_string);
+		Double oneProductGp3_00 = Double.parseDouble(oneProductGp3_0000_string);
+
+		// 把起日拆成年、月、日
+		String startYear = startDate1_str.substring(0, 4);
+		String startMonth = startDate1_str.substring(5, 7);
+		String startDay = startDate1_str.substring(8, 10);
+		System.out.println("yyyy = " + startYear + ";mm = " + startMonth + ";dd = " + startDay);
+
+		JSONObject jso2 = new JSONObject();
+		jso2.put("oneProductGp1", oneProductGp1_00);
+		jso2.put("oneProductGp2", oneProductGp2_00);
+		jso2.put("oneProductGp3", oneProductGp3_00);
+		jso2.put("startYear", startYear);
+		jso2.put("startMonth", startMonth);
+		jso2.put("startDay", startDay);
+
+		return jso2.toString();
+	}
+
+	// HistogramGet
+	@RequestMapping(value = "/HistogramGet", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String HistogramGet(Model model) throws ParseException {
+		JSONObject jso = new JSONObject();
+		jso.put("product1", service.getOneProductSalesShare(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+		jso.put("product2", service.getOneProductSalesShare(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+		jso.put("product3", service.getOneProductSalesShare(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+		jso.put("product4", service.getOneProductSalesShare(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+		jso.put("product5", service.getOneProductSalesShare(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+		return jso.toString();
+	}
+
+	// HistogramPost
+	@RequestMapping(value = "/HistogramPost", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String HistogramPost(@RequestParam("HistogramInfo") String HistogramInfo, Model model)
+			throws JSONException, ParseException {
+		JSONObject jso = new JSONObject(HistogramInfo);
+		Integer productId1 = Integer.parseInt(jso.getString("productId1"));
+		Integer productId2 = Integer.parseInt(jso.getString("productId2"));
+		Integer productId3 = Integer.parseInt(jso.getString("productId3"));
+		Integer productId4 = Integer.parseInt(jso.getString("productId4"));
+		Integer productId5 = Integer.parseInt(jso.getString("productId5"));
+		
+		String startDate = jso.getString("startDate");
+		String endDate = jso.getString("endDate");
+		String startDateSec = startDate + " 00:00:00";
+		String endDateSec = endDate + " 23:59:59";
+		
+		jso.put("product1", service.getOneProductSalesShare(productId1, startDateSec, endDateSec));
+		jso.put("product2", service.getOneProductSalesShare(productId2, startDateSec, endDateSec));
+		jso.put("product3", service.getOneProductSalesShare(productId3, startDateSec, endDateSec));
+		jso.put("product4", service.getOneProductSalesShare(productId4, startDateSec, endDateSec));
+		jso.put("product5", service.getOneProductSalesShare(productId5, startDateSec, endDateSec));
+		return jso.toString();
+	}
+
 	@RequestMapping(value = "/addFakeSalesOrders", method = RequestMethod.GET)
 	public void addFakeSalesOrders() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		Random rand = new Random();
-		Integer orderSize = 50;
-		LocalDateTime now = LocalDateTime.now();
+		Integer orderSize = 189;
+		LocalDateTime now = LocalDateTime.parse("2020-09-05 12:00:00",formatter);
+//		LocalDateTime now = LocalDateTime.now();
 		Integer days = 0;
 		Integer hours = 0;
+		Integer timeInterval = 6;
 		for (int i = 0; i < orderSize; i++) {
 			SalesOrderBean salesOrder = new SalesOrderBean();
-			days += rand.nextInt(2);
-			hours += rand.nextInt(2);
 			Integer memberId = rand.nextInt(19) + 9;
 			salesOrder.setMemberId(memberId);
+			days += rand.nextInt(timeInterval);
+			hours += rand.nextInt(timeInterval);
 			LocalDateTime nowTime = now.plusDays(days).plusHours(hours);
 //			nowTime.plusDays(days);
 //			nowTime.plusHours(rand.nextInt(5)+2);
