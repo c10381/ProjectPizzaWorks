@@ -11828,11 +11828,19 @@ textarea.form-control {
   margin-bottom: 28px;
 }
 
-.swal-text {
-  margin: 0px;
-  color: #fac564; 
+.swal-icon--success:after, .swal-icon--success:before,
+	.swal-icon--success__hide-corners {
+	background-color: #121618;
 }
 
+.swal-text {
+	margin: 0px;
+	color: #fac564;
+}
+
+.swal-icon--success__ring {
+	border: 4px solid hsla(98, 55%, 69%);
+}
 .swal-button {
   color: #fac564; 
   background-color: #121618;
@@ -11850,7 +11858,6 @@ textarea.form-control {
 
 
 .order_modal .modal-content {
-	max-height: 60vh; 
 	background-color: #121618;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -11887,10 +11894,11 @@ textarea.form-control {
 }
 
 
-.order_modal .modal-body input {
+/* .order_modal .modal-body input {
 	background-color: #121618;
+	color: white;
 }
-
+ */
 .order_modal .modal-body input[type="checkbox"]{
 	margin-left: 2%; 
 	zoom: 1.5;
