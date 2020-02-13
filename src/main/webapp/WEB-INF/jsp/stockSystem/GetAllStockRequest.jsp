@@ -149,7 +149,7 @@
 	                		<c:choose>
 	        					<c:when test="${(privilegeId==5)|| (privilegeId==7)}">
 	        						if(data==0){
-	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">批覆</button></div>';
+	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">審核</button></div>';
 	        						}
 	        						return "";
 	        					</c:when>
