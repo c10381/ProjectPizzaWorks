@@ -20,49 +20,31 @@ $(function () {
 			  icon: "warning",
 			  buttons: ["取消","送出"],
 			})
-			.then((willDelete) => {
-			  if (willDelete) {
-				  sendOrder();
-			  
+			.then((value) => {
+			  if (value) {
+			   sendOrder();
 			} 
 		});
-//		swal.fire({
-//			 title: "是否送出訂單?",
-//			 icon: "question",
-//			 showCloseButton: true,
-//			 showCancelButton: true,
-//			 confirmButtonColor: '#fac564',
-//			 background: "#121618", 
-//		})
 	})
 });
 
-function sendOrder(){
-//	送出訂單
+
+function sendPayPal(){
+//	送出現金結帳
 	$.ajax({
 	    type : "POST", 
-	    url : "../shop/order",
+	    url : "../PaypalTest/paypalCheckout",
 	    data : JSON.stringify(cart),
 	    contentType : "application/json",
-	    dataType: "text",
-	}).done(function(result){
-		if(result=="OK"){
-			localStorage.clear();
-			updateList();
-			swal({
-				  title: "訂單送出成功",
-				  icon: "success",
-				  timer: 3000,
-				}).then(()=>{
-					 window.location.replace("../");
-				})
-		  
-		}else{
-			swal("訂單送出失敗，請稍後再試")
-		}
+	    
+	}).done(function(){
+		// 動作請再修改
+		swal("成功")
 	}).fail(function(){
-		swal("訂單送出失敗，請稍後再試")
+		// 動作請再修改
+		swal("失敗"); 
 	})
+	
 }
 
 function updateList() {
@@ -102,7 +84,7 @@ function updateList() {
 	}	
 	
 	str += `<div class="row pt-3"><h2>總金額</h2>`; 
-	str += `<h3 class="ml-2">${totalPriceCal()}</h3></div>`;
+	str += `<h3 class="ml-2 price">${totalPriceCal()}</h3></div>`;
 	
 	$(".cartList").html(str);
 }
@@ -135,11 +117,6 @@ function insertPrice(index){
 		unitPrice += priceDoubleCheeese; 
 	}
 	
-//	if(unitPrice != salesOrderDetails[index].unitPrice){
-//		str += `<span class="price col-sm-3">${unitPrice}</span>`;
-//	} else{
-//		str += `<span class="price col-sm-3">${unitPrice}</span>`;
-//	}
 	str += `<span class="price col-sm-3">${unitPrice}</span>`;
 	return str;
 }
@@ -154,21 +131,44 @@ function sendOrder(){
 	    dataType: "text",
 	}).done(function(result){
 		if(result=="OK"){
-			localStorage.clear();
-			updateList();
-			swal({
+			  swal({
 				  title: "訂單送出成功",
 				  icon: "success",
-				  timer: 3000,
-				}).then(()=>{
-					 window.location.replace("../member/orders");
+				  buttons: {
+					  paypal:{
+						  text: "使用PayPal付款",
+						  value: "paypal"
+					  },
+					  cash: {
+						  text: "現金付款",
+					  },
+				  }
+				}).then((value)=>{
+					switch(value){
+					case "paypal":
+						swal("PayPal");
+						sendPayPal(); 
+				        break;
+					case "cash":
+						swal({
+						text: "您的訂單已完成(現金付款)，將為您導向訂單畫面",
+						timer: 3000,
+					}).then(()=>{
+						localStorage.clear();
+						updateList();
+						window.location.replace("../member/orders");
+					})
+						break; 
+					default:
+						swal("訂單已完成");
+					}
 				})
-		  
+				// End of Swal 
 		}else{
-			swal("訂單送出失敗，請稍後再試")
+			swal("訂單送出失敗，請稍後再試或請與客服人員聯絡")
 		}
 	}).fail(function(){
-		swal("訂單送出失敗，請稍後再試")
+		swal("訂單送出失敗，請稍後再試或請與客服人員聯絡")
 	})
 }	
 

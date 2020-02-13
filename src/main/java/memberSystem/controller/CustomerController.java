@@ -119,7 +119,7 @@ public class CustomerController {
 			}else {
 				// 用帳號是否存在DB來判斷是否有註冊過，若無，則告知使用者輸入的帳號根本沒註冊過
 				model.addAttribute("email_errMsg","無此帳號");
-				model.addAttribute("email_errMsg","");
+				model.addAttribute("pwd_errMsg","");
 			}			
 			return "memberSystem/login";
 		}
@@ -247,5 +247,5 @@ public class CustomerController {
 			return "memberSystem/resetPwd";
 		}
 		return "memberSystem/validationCodeFail";
-	}
+	}	
 }

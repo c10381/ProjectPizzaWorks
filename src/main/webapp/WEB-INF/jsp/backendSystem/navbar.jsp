@@ -139,18 +139,17 @@
 	</a>
 		<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 			<div class="row">
-				<div class="col-md-1 "></div>
-				<div class="col-md-1 align-self-center ">
-					<div class="custom-control custom-switch">
-						<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
-						<label class="custom-control-label" for="customSwitch1"></label>
-					</div>				
-				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-6">
-					<span class="dropdown-item dropdown-header justify-content-start" id='note1'></span>
-				</div>
-				<div class="col-md-4"></div>				
+				<div class="row justify-content-center">
+					<div class="col-md-1 align-self-center">
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="customSwitch1" value="3000" checked> 
+							<label class="custom-control-label" for="customSwitch1"></label>
+						</div>				
+					</div>
+				</div>				
+				<div class="col-md-8">
+					<span class="dropdown-item dropdown-header" id='note1'></span>
+				</div>							
 			</div>
 			
 			<div class="dropdown-divider"></div>
@@ -221,6 +220,9 @@
 		}else if (identity === 5){
 			//存貨人員通知
 			getStockRequestNotification();			
+		}else if (identity === 6 ){
+			//客服人員通知
+			getUnreadRequestNotification();
 		}else if (identity === 7){
 			//admin通知
 			getPwdChangeRequestNotification();			
@@ -364,8 +366,8 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "進貨單號： "+data[i].sRequestId;//要改掉salesOrderId
-			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
+			var requestId = "進貨單號： "+data[i].sRequestId;
+			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
 					+ data[i].sRequestId+"&read=false"
@@ -377,7 +379,53 @@
 	 	}
 	}
 	
+	function getUnreadRequestNotification(){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/backendSystem/getUnreadRequestNotification',
+			type : 'GET',
+			error : function(data) {
+				console.log("error");
+			},
+			success : function(data) {
+				$('#footer').html('查看所有顧客留言');
+				$('#footer').attr("onclick","floatPage('/messageSystem/CustomerRespondSystem')");
+				if (data.length == 0) {
+					$('#note').hide();
+					$('#note1').html('沒有新的顧客留言');
+				} else {
+					$('#note').show();
+					$('#note').html(data.length);
+					$('#note1').html('有 ' + data.length + ' 條顧客留言');
+				}
+				customerRequestNotifier(data);
+			},
+		});
+	}
+	
+	function customerRequestNotifier(data){
+		$('#notification_container').children().remove();
+		var link = "/messageSystem/CustomerRespondSystem";
+		//var requestId = "員工編號：";
+		var requestLength = 3;
+
+		if (data.length < 4) {
+			requestLength = data.length;
+		}
 		
+		for (i = 0; i < requestLength; i++) {
+			var queryId = "留言編號："+data[i].queryId;
+			var timeResult = timeReader(data[i].queryDate);
+			var div_html = "<div onclick=\"floatPage('"
+					+ link
+					//+ data[i].vRequestId
+					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
+			//div_html += queryId;
+			div_html += "<span class='float-right text-muted text-sm'>";
+			div_html += timeResult + "</span></div>" + divider;
+			$('#notification_container').append(div_html);
+	 	}
+	}
+			
 	function getPwdChangeRequestNotification(){
 		$.ajax({
 			url : '${pageContext.request.contextPath}/backendSystem/getPwdChangeNotification',
@@ -387,11 +435,10 @@
 			},
 			success : function(data) {
 				$('#footer').html('查看所有變更請求');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");
+				$('#footer').attr("onclick","loadingPage('/memberSystem/searchCoworkerPWRequest')");
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('沒有新的變更請求');
-					//$('#note1').attr('class',);
 				} else {
 					$('#note').show();
 					$('#note').html(data.length);
@@ -404,7 +451,7 @@
 	
 	function pwdChangeRequestNotifier(data){
 		$('#notification_container').children().remove();
-		var link = "/shopManageSystem/getSalesOrder?id=";
+		var link = "/memberSystem/searchCoworkerPWRequest";
 		//var requestId = "員工編號：";
 		var requestLength = 3;
 
@@ -413,11 +460,16 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "員工編號："+data[i].vRequestId;//要改掉salesOrderId
-			var timeResult = timeReader(data[i].requestTime);//要確認requestTime
+			let requestMail = data[i].email;
+			if(requestMail.length > 13 ){
+				requestMail = requestMail.substr(0,12);
+				requestMail += "...";
+			}			
+			var requestId = "信箱："+requestMail;
+			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
-					+ data[i].vRequestId
+//					+ data[i].pcRequestId
 					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
 			div_html += requestId;
 			div_html += "<span class='float-right text-muted text-sm'>";

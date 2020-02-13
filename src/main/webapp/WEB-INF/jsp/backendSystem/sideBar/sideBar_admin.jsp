@@ -41,7 +41,7 @@
 		<li class="nav-item" onclick="loadingPage('/memberSystem/allMember')"><div
 				class="nav-link">
 				<i class="far fa-circle nav-icon"></i>
-				<p>員工管理</p>
+				<p>員工資料</p>
 			</div></li>
 		<li class="nav-item"
 			onclick="loadingPage('/memberSystem/searchCoworkerPWRequest')"><div
@@ -178,7 +178,7 @@
 		<p>客服系統<i class="fas fa-angle-left right"></i></p>
 	</div>
 	<ul class="nav nav-treeview" style="display: none;">
-		<li class="nav-item" onclick="loadingPage('/messageSystem/CustomerRespondSystem','70%','90vh')"><div
+		<li class="nav-item" onclick="loadingPage('/messageSystem/CustomerRespondSystem')"><div
 				class="nav-link">
 				<i class="nav-icon fas fa-tablet"></i>
 				<p>客戶回饋表</p>
@@ -189,7 +189,7 @@
 <!-- /customerService -->
 <!-- MailService -->
 <li class="nav-item has-treeview"
-	onclick="floatPage('/messageSystem/MailSystem')"><div
+	onclick="floatPage('/messageSystem/MailSystem','50%','auto')"><div
 		class="nav-link">
 		<i class="nav-icon far fa-envelope"></i>
 		<p>信件系統</p>

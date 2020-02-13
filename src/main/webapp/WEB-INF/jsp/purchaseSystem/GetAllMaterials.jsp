@@ -28,7 +28,7 @@
 			<h1>原物料庫存清單</h1>
 			<div class="alert alert-warning alert-dismissible fade" role="alert">
 				<strong></strong>筆原料低於最低庫存量，請盡速申請購買 
-				<span onclick="loadingPage('/purchase/FormPurchaseRequest')" class="ml-2"> 點擊建立請購單</span>
+				<!-- <span onclick="loadingPage('/purchase/FormPurchaseRequest')" class="ml-2"> 點擊建立請購單</span> -->
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

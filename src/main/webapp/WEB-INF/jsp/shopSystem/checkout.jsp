@@ -15,7 +15,7 @@
 <jsp:include page="fragment/ContentMetaInfo.jsp" />
 <jsp:include page="fragment/ContentCSS.jsp" />
 <style>
-.cartList h3:before{
+.cartList .price:before{
 	content:"$" ; 
 
 }
@@ -29,7 +29,7 @@
 	<div class="container mt-5">
 		<div class="row justify-content-center pt-5">
 				<div class="col-md-7 col-5 heading-section ftco-animate text-center">
-					<h2>結帳</h2>
+					<h1>結帳</h1>
 				</div>
 			</div>
 	</div>

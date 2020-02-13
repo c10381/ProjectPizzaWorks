@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>會員資料檢視</title>
+<title>員工資料檢視</title>
 </head>
 <body>
 	<div align="center">
-		<h2>會員資料</h2>
+		<h2>員工資料</h2>
 		<table id="Table" class="display">
 			<thead>
 				<tr>
@@ -22,7 +22,7 @@
 					<th>身分</th>
 					<th>生日</th>
 					<th>電話</th>
-					<th>地址</th>
+					<!-- <th>地址</th> -->
 					<th>狀態</th>
 				</tr>
 			</thead>
@@ -38,6 +38,9 @@
 								//默認不使用Key,直接讀取的Object Array
 								dataSrc : "",
 							},
+							searching: false,
+			                bSort: false,  //禁止排序
+			                info: false,   //去掉底部文字
 							columns : [ {
 								data : "email"
 							}, {
@@ -75,8 +78,8 @@
 							}, {
 								data : "cellphone"
 							}, {
-								data : "address"
-							}, {
+								/* data : "address"
+							}, { */
 								data : "activeStatus",
 								render : function(data) {
 									if (data == 0) {

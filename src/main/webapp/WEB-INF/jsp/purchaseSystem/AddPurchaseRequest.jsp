@@ -63,13 +63,6 @@ textarea {
 										<button type="button" id="to_submit" class="btn btn-success">送出請購單</button>
 								</div>
 								
-								<!-- <div class="alert alert-warning alert-dismissible text-right mt-2 d-none" role="alert">
-									去那邊點選新增喔喔喔喔<i class="fas fa-arrow-right"></i>
-									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    									<span aria-hidden="true">&times;</span>
-  									</button>
-								</div> -->
-
 								<br>
 								<!-- <table id="prRequest" class="table table-striped text-center"> -->
 								<table id="prRequest" class="display text-center">
@@ -121,6 +114,8 @@ textarea {
 	<script>
 		var materialsUnits = ${materialsUnits};
 		var suppliersProvisions = ${suppliersProvisions};
+		var itemBePending=[] ; 
+		var itemsBeAdded=[]; 
 		
 		var materials = [
 		<c:forEach var="material" items="${materials}" varStatus='status'>
@@ -131,7 +126,6 @@ textarea {
 		var sRequestDetails = []; 
 
 		$(document).ready(function() {
-			
 			var date = new Date();
 			$("#requestTime input").val(date.yyyymmdd());
 			materials_table();
@@ -193,7 +187,8 @@ textarea {
 						data.push(value);
 					})
 					$("#prRequest").DataTable().row.add([
-	            		'<input type="checkbox" value="' + data[0] + '">',
+	            		/* '<input type="checkbox" value="' + data[0] + '">', */
+	            		'',
 	            		data[0],
 	            		data[1],
 	            		data[2],
@@ -213,8 +208,13 @@ textarea {
 					/* totalPrice = formatter.format(totalPrice); */  ///轉換為金額格式
 					$("#totalPrice").val(totalPrice);
 					
-					// 更動material的按鈕
+					// 更動material的按鈕(這只會刪當前表= =)
 					$("#btnAddToRemove").remove();
+					// 加入itemsBeAdded陣列
+					itemsBeAdded.push(data[0]);
+					
+					// 刪除追蹤目標
+					itemBePending.splice(0,1);
 				} 
 			})
 		}
@@ -223,6 +223,7 @@ textarea {
 		  // 對於品項表的操作
 		 function materials_table(){
 			$(".item_input").hide();
+			let flag = false;
 			var table = $("#table_materials").DataTable({
 	            data :materials, 
 				order: [[ 1, "asc" ]],
@@ -238,11 +239,55 @@ textarea {
 	            	render: $.fn.dataTable.render.number(',', '', 0, ''),
 	            },{targets: 0,
 	                data: null,
-	                defaultContent: "<button id='btnRemoveToAdd' class='btn btn-info'><i class='fas fa-plus'></i></button>"
-				}]
-			});
+	                render: function (data, type, row, meta){
+	                	return "<button id='btnRemoveToAdd' class='btn btn-info' data-id='"+parseInt(data[1])+"'><i class='fas fa-plus'></i></button>";
+	                },
+	               /*  defaultContent: "<button id='btnRemoveToAdd' class='btn btn-info'><i class='fas fa-plus'></i></button>" */
+	            }],
+				 drawCallback: function( settings ) {
+						//1. 如果有追蹤項目時，當表格刷新前要先進行判斷
+							 if(itemBePending.length!=0){
+								// 當前頁面
+							    var nowPage = table.page.info().page+1;
+								// itemBePending所在的頁面
+								var item = (Math.floor(itemBePending[0]%10)!=0)? Math.floor(itemBePending[0]/10)+1 : Math.floor(itemBePending[0]/10); 
+								// 當"非選擇項目頁"時，如果頁面也不對的id刪除還原
+								if(item!=nowPage){
+									$("#btnAddToRemove").each(function(index, value){
+										$(this).attr("id","btnRemoveToAdd");
+							        	$(this).removeClass("btn-danger").addClass("btn-info");
+							        	$(this).children().removeClass("fa-minus").addClass("fa-plus");
+									}) 
+								}
+						//2. 當刪除主表時，材料表有點選過的話也要刷新
+							 }else if(itemBePending.length==0){
+								// 當追蹤項目為0但卻有紅色id時，就要移除
+								 $("#btnAddToRemove").each(function(index, value){
+										$(this).attr("id","btnRemoveToAdd");
+							        	$(this).removeClass("btn-danger").addClass("btn-info");
+							        	$(this).children().removeClass("fa-minus").addClass("fa-plus");
+								}) 
+							 }
+						// 3. 已加入請購單的項目，按鈕需要刪除
+							// 當前頁面
+							if(itemsBeAdded.length!=0){
+								 var nowPage = table.page.info().page+1;
+								 itemsBeAdded.forEach(function(item, idx){
+									let itemPage = (Math.floor(item%10)!=0)? Math.floor(item/10)+1 : Math.floor(item/10);
+									console.log(item+"在頁:"+itemPage)
+									if(itemPage==nowPage){
+										$("#btnRemoveToAdd").each(function(){
+											console.log($(this).data("id"))
+											if($(this).data("id")==item){
+												console.log("Wrong")
+											}
+										})
+									}
+								 })
+							} 
+					    }
+					});
 
-			let flag = false;
 			
 			$('#table_materials tbody').on('click', '[id*=btnRemoveToAdd]', function () {
 				// 當有點擊過，要先將被點擊過的按鈕狀態改回來
@@ -254,6 +299,8 @@ textarea {
 			
 				var nowRow = table.row($(this).parents('tr'));
 	        	var data = table.row($(this).parents('tr')).data();
+	        	// 全域變數紀錄當前請購單選擇的項目
+				itemBePending[0]= data[1]; 
 	        	$('.new_item td:nth-of-type(2)').html(data[1]);
 	        	$('.new_item td:nth-of-type(3)').html(data[2]);
 	        	$('.new_item td:nth-of-type(5)').html(data[3]);
@@ -267,8 +314,20 @@ textarea {
 	        	$(this).children().removeClass("fa-plus").addClass("fa-minus");
 	        	flag = true;
 	        });
+		
+			/* 點擊紅色按鈕(自身) 切換回來*/
+			$('#table_materials tbody').on('click', '[id*=btnAddToRemove]', function () {
+				// 刪除明細表的資料
+				$(".new_item").remove();
+				new_item_html();
+				// 更改按鈕狀態
+				$(this).attr("id","btnRemoveToAdd");
+	        	$(this).removeClass("btn-danger").addClass("btn-info");
+	        	$(this).children().removeClass("fa-minus").addClass("fa-plus");
+	        });
+		  
 		};
-			
+		// end of Function	
 
 		// 刪除細目表的項目
 		function delete_Item (fetch_data){
@@ -291,8 +350,18 @@ textarea {
 				totalPrice -= (parseInt(data[3])*parseInt(data[4]));
 				$("#totalPrice").val(totalPrice);
 				new_item_html();
+				
+				// 刪除追蹤目標
+				itemBePending.splice(0,1);
+				// 當追蹤項目為0但卻有紅色id時，就要移除
+				 $("#btnAddToRemove").each(function(index, value){
+						$(this).attr("id","btnRemoveToAdd");
+			        	$(this).removeClass("btn-danger").addClass("btn-info");
+			        	$(this).children().removeClass("fa-minus").addClass("fa-plus");
+				})
 			})	
 		}
+		
 		// 主表 加新增資料列
 	    function new_item_html(){
 			   var html = '<tr class="new_item">';

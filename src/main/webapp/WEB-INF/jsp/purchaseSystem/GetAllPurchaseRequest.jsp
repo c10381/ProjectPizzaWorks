@@ -151,15 +151,12 @@
 	                		<c:choose>
 	        					<c:when test="${(privilegeId==4)|| (privilegeId==7)}">
 	        						if(data==0){
-	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">批覆</button></div>';
+	        							return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">審核</button></div>';
 	        						}
 	        						return "";
 	        					</c:when>
 	        					<c:otherwise>
-		        					/* if(data==0||data==1){
-		        						return "<div class='btn btn-primary btn-sm'>修改</div>";
-	        						} */
-        						return "";
+        							return "";
 	        					</c:otherwise>
         					</c:choose>
                         }

@@ -207,7 +207,7 @@
         	        { data: 'lastName',
         	        	render : function(data, type, row, meta){
         	        		let str="";
-        	        		str="<input type='text' id='lastName' style='width:30px;text-align:center;' value="+data+"></input>";
+        	        		str="<input type='text' id='lastName' class='form-control align-items-center' style='width:50px;text-align:center;' value="+data+"></input>";
         	        		return str;
         	        	},
         	        	width: "2%",
@@ -215,7 +215,7 @@
         	        { data: 'firstName',
         	        	render : function(data, type, row, meta){
         	        		let str="";
-        	        		str="<input type='text' id='firstName' style='width:50px;text-align:center;' value="+data+"></input>";
+        	        		str="<input type='text' id='firstName' class='form-control align-items-center' style='width:85px;text-align:center;' value="+data+"></input>";
         	        		return str;
         	        	},
         	        	width: "4%",
@@ -256,55 +256,55 @@
         	        { data: 'cellphone' ,
         	        	render : function(data, type, row, meta){
         	        		let str="";
-        	        		str="<input type='text' id='cellphone' class='form-control' style='text-align:center;' value="+data+"></input>";
+        	        		str="<input type='text' id='cellphone' class='form-control' style='text-align:center;width:' value="+data+"></input>";
         	        		return str;
         	        	},
-        	        	width: "10%",
+        	        	width: "8%",
         	        },
         	        { data: 'privilegeId',
 						render : function(data, type, row, meta){
 							let str="";
 							str="<select id='privilegeId' class='custom-select' style='text-align:center;' >";
 							if(data==2){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3' selected>銷貨負責人</option>";
-								str+="<option value='4'>進貨負責人</option>";
-								str+="<option value='5'>存貨負責人</option>";
+								str+="<option value='2' selected>網站管理員</option>";
+								str+="<option value='3'>銷貨人員</option>";
+								str+="<option value='4'>進貨人員</option>";
+								str+="<option value='5'>存貨人員</option>";
 								str+="<option value='6'>客服人員</option>";
 								str+="<option value='7'>管理者</option>";
 							}else if(data==3){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3'>銷貨負責人</option>";
-								str+="<option value='4' selected>進貨負責人</option>";
-								str+="<option value='5'>存貨負責人</option>";
+								str+="<option value='2'>網站管理員</option>";
+								str+="<option value='3' selected>銷貨人員</option>";
+								str+="<option value='4'>進貨人員</option>";
+								str+="<option value='5'>存貨人員</option>";
 								str+="<option value='6'>客服人員</option>";
 								str+="<option value='7'>管理者</option>";
 							}else if(data==4){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3'>銷貨負責人</option>";
-								str+="<option value='4'>進貨負責人</option>";
-								str+="<option value='5' selected>存貨負責人</option>";
+								str+="<option value='2'>網站管理員</option>";
+								str+="<option value='3'>銷貨人員</option>";
+								str+="<option value='4' selected>進貨人員</option>";
+								str+="<option value='5'>存貨人員</option>";
 								str+="<option value='6'>客服人員</option>";
 								str+="<option value='7'>管理者</option>";
 							}else if(data==5){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3'>銷貨負責人</option>";
-								str+="<option value='4'>進貨負責人</option>";
-								str+="<option value='5'>存貨負責人</option>";
-								str+="<option value='6' selected>客服人員</option>";
+								str+="<option value='2'>網站管理員</option>";
+								str+="<option value='3'>銷貨人員</option>";
+								str+="<option value='4'>進貨人員</option>";
+								str+="<option value='5' selected>存貨人員</option>";
+								str+="<option value='6'>客服人員</option>";
 								str+="<option value='7'>管理者</option>";
 							}else if(data==6){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3'>銷貨負責人</option>";
-								str+="<option value='4'>進貨負責人</option>";
-								str+="<option value='5'>存貨負責人</option>";
-								str+="<option value='6'>客服人員</option>";
-								str+="<option value='7' selected>管理者</option>";
+								str+="<option value='2'>網站管理員</option>";
+								str+="<option value='3'>銷貨人員</option>";
+								str+="<option value='4'>進貨人員</option>";
+								str+="<option value='5'>存貨人員</option>";
+								str+="<option value='6' selected>客服人員</option>";
+								str+="<option value='7'>管理者</option>";
 							}else if(data==7){
-								str+="<option value='2'>網站後台管理員</option>";
-								str+="<option value='3'>銷貨負責人</option>";
-								str+="<option value='4'>進貨負責人</option>";
-								str+="<option value='5'>存貨負責人</option>";
+								str+="<option value='2'>網站管理員</option>";
+								str+="<option value='3'>銷貨人員</option>";
+								str+="<option value='4'>進貨人員</option>";
+								str+="<option value='5'>存貨人員</option>";
 								str+="<option value='6'>客服人員</option>";
 								str+="<option value='7' selected>管理者</option>";
 							}

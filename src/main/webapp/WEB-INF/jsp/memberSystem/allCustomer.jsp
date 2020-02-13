@@ -34,6 +34,9 @@
 								//默認不使用Key,直接讀取的Object Array
 								dataSrc : "",
 							},
+							searching: false,
+			                bSort: false,  //禁止排序
+			                info: false,   //去掉底部文字
 							columns : [ {
 								data : "email"
 							}, {

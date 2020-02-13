@@ -10,6 +10,7 @@ import _model.PurchaseRequestBean;
 import _model.SalesOrderBean;
 import _model.StockRequestBean;
 import _model.ValidationRequestBean;
+import _model.customerRequestBean;
 import notificationSystem.dao.NotificationDao;
 import notificationSystem.service.NotificationService;
 
@@ -45,6 +46,12 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public List<ValidationRequestBean> getPwdChangeRequests() {
 		return dao.getPwdChangeRequests();
+	}
+	
+	@Transactional
+	@Override
+	public List<customerRequestBean> getUnreadRequests() {		
+		return dao.getUnreadRequests();
 	}
 
 //	@Override

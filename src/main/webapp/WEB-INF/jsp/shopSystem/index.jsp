@@ -27,8 +27,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="fragment/navbar.jsp" />
 
+	<jsp:include page="fragment/navbar.jsp" />
 	<!-- MainContent -->
 	<section class="ftco-section">
 		<div class="container">
@@ -77,16 +77,15 @@
 	</section>
 
 
-	
+
 	<!-- End of MainContent -->
 	<jsp:include page="fragment/footer.jsp" />
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
-	<script >
-	$('.carousel').carousel({
-		  interval: 3000
+	<script>
+		$('.carousel').carousel({
+			interval : 3000
 		})
 	</script>
-	
 </body>
 </html>

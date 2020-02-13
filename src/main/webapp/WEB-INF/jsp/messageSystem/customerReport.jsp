@@ -50,7 +50,7 @@
 						<button class="btn btn-primary" onclick="sendCustomerReport(event)">
 								<i class="far fa-envelope"></i> 送出
 						</button>
-						<button class="btn btn-primary" onclick="sendCustomerReport(event)">
+						<button class="btn btn-primary" onclick="democustomerButton(event)">
 								<i class="far fa-hand-peace"></i> Demo
 						</button>
 					</div>
@@ -88,6 +88,7 @@
 					contentType:'application/json;charset=UTF-8',
 					success:function(){
 						swal("新增成功", "", "success");
+						floatPageClose();
 					},
 					error:function(){
 						swal("傳送失敗", "請再試一次", "error");
@@ -96,7 +97,8 @@
 			}
 		}
 
-	function democustomerButton(){
+	function democustomerButton(e){
+		e.preventDefault();
 		$("#queryContent").val("顧客表示上次吃得Pizza好像有點問題，還有拉肚子");
 		$("#replyContent").val("已特別關懷，並請他下次出示證明，免費請一份Pizza");
 	}

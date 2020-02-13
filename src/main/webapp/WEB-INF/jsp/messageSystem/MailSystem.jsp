@@ -22,8 +22,20 @@
 			</div>
 			<!-- /.card-header -->
 			<div class="card-body">
-				<div class="form-group">
-					<input class="form-control" placeholder="寄件人：" id="MailTo">
+				<div class="form-group row align-items-center">
+				<div class="col-3">
+					身分：
+					<select id="privilege">
+						<option value='1' selected>顧客</option>
+						<option value='2'>員工</option>						
+					</select>
+				</div>
+				<div class="col-9 row align-items-center">
+					寄件人：
+					<input type="text" class="form-control col-7" placeholder="請輸入姓名，自動搜尋..." id="MailTo" list="searchMem">
+					<datalist id='searchMem'></datalist>
+					<input type="hidden" name="answer" id="answerInput-hidden">
+				</div>
 				</div>
 				<div class="form-group">
 					<input class="form-control" placeholder="標題：" id="Mailsubject">
@@ -77,7 +89,26 @@
 								[ 'color', [ 'color' ] ],
 								[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
 								[ 'height', [ 'height' ] ] ]
-					})
+					});
+			$('#MailTo').on('input', function() {
+				var searchKeyword = $(this).val();
+				var privilege = $("#privilege").val();
+				var ajaxDate;
+				if (searchKeyword.length >= 1) {
+					$.get('${pageContext.request.contextPath}/messageSystem/getEmail?name='+searchKeyword+"&privilege="+privilege, function(data) {
+						
+						$('#searchMem').empty();
+						for(let i=0;i<Object.keys(data).length;i++){/* 
+							console.log(Object.keys(data)[i]);
+							console.log(Object.values(data)[i]); */
+							ajaxDate=data;
+							$('#searchMem').append("<option value=\'"+Object.values(data)[i]+"\' onclick='getEmail("+Object.values(data)[i]+")'>"+Object.keys(data)[i]+"</option>");							
+						}
+					}, "json");
+				} else {
+					$('#searchMem').empty();
+				}
+			})
 		})
 		//如果要寄給不是會員，要設判別
 		function sendEmail() {
@@ -85,7 +116,7 @@
 			var mailsubject = $("#Mailsubject").val();
 			var mailcontext = $("#compose-textarea").summernote("code");
 			console.log(mailTo + " " + mailsubject + " " + mailcontext);
-			$
+			/* $
 					.post(
 							"${pageContext.request.contextPath}/messageSystem/SendSalesMail",
 							{
@@ -96,7 +127,7 @@
 								if (data == true) {
 									swal("寄送信件成功", "成功送出信件給 "+mailTo, "success");
 								}
-							})
+							}) */
 		}
 		function DemoButton() {
 			$("#MailTo").val("c10381@gmail.com");
@@ -106,13 +137,12 @@
 							'editor.pasteHTML',
 							"<div style='font-size:100px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>嗨，新年好</span></div>");
 		}
-		functoin emptyButton(){
+		function emptyButton(){
 			$("#MailTo").val("");
 			$("#Mailsubject").val("");
 			$("#compose-textarea")
 			.summernote(
-					'editor.pasteHTML',
-					"");
+					'reset');
 			}
 	</script>
 </body>
