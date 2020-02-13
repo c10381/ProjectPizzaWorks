@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
@@ -20,11 +21,11 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-import _model.ProductBean;
 import _model.SalesOrderBean;
 import shopSystem.dao.ShopDao;
 
 @Service
+@Transactional
 public class PaymentServices {
 	
 	ShopDao dao;
@@ -32,8 +33,7 @@ public class PaymentServices {
 	private static final String CLIENT_ID = "AerXyJ9NF_HpEbkF0nhEicgbXmAbGout6KiAKU_BnvxwMR9F8Yx2WpgaInuFI-GqjXbBTOlxrCAt4Xl5";
     private static final String CLIENT_SECRET = "EHj6MslMjqDx5DU3PfDc-u6G9_xPYGyciFPXQkmm14Z9f7Ep3YeO2TDS95JBc1HTtyewMVj_ZjP7c3jV";
     private static final String MODE = "sandbox";
-    
-    
+        
     @Autowired
 	public void setDao(ShopDao dao) {
 		this.dao = dao;
@@ -71,16 +71,18 @@ public class PaymentServices {
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);    
         return payment.execute(apiContext, paymentExecution);
     }
-        
+    
+    
     private Payer getPayerInformation() {
     	Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
          
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("育承")
-                 .setLastName("蔡")
+        payerInfo.setFirstName("Leon")
+                 .setLastName("Tsai")
                  .setEmail("iiiedujava@gmail.com");       
-        payer.setPayerInfo(payerInfo);         
+        payer.setPayerInfo(payerInfo);
+         
         return payer;       
     }
      
@@ -92,58 +94,37 @@ public class PaymentServices {
     }
      
     private List<Transaction> getTransactionInformation(SalesOrderBean orderDetail) {
-    	
-    	//因為不會有運費及稅，所以這兩個可以直接設成0
     	Details details = new Details();
-    	details.setShipping("0");        
+        details.setShipping("0");
+        details.setSubtotal(String.valueOf(orderDetail.getTotalSales()));
         details.setTax("0");
-        
-        //幣值設為TWD
+     
         Amount amount = new Amount();
         amount.setCurrency("TWD");
-        
-        //每筆項目明細
+        amount.setTotal(String.valueOf(orderDetail.getTotalSales()));
+        amount.setDetails(details);
+
         Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setDescription("PizzaBite餐點");
+         
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
+         
         Item item = new Item();
-        item.setTax("0");        
         item.setCurrency("TWD");
+        item.setName("PizzaBite餐點");
+        item.setPrice(String.valueOf(orderDetail.getTotalSales()));
+        item.setTax("0");
+        item.setQuantity("1");
+         
+        items.add(item);
+        itemList.setItems(items);
+        transaction.setItemList(itemList);
+     
         List<Transaction> listTransaction = new ArrayList<>();
-        
-    	for(int i =0; i<orderDetail.getSalesOrderDetails().size();i++) {
-    		int quantity = orderDetail.getSalesOrderDetails().get(i).getQuantity();
-    		double unitPrice = orderDetail.getSalesOrderDetails().get(i).getUnitPrice();
-    		double subTotal = quantity * unitPrice;
-    		
-    		//餅皮ID是2就該品項小計 + 60
-    		if(orderDetail.getSalesOrderDetails().get(i).getCrustTypeId()==2) {
-    			subTotal += 60;
-    		}
-    		
-    		//雙層起司是1就該品項小計 + 25
-    		if(orderDetail.getSalesOrderDetails().get(i).getDoubleCheese()==1) {
-    			subTotal += 25;
-    		}  		
-    		details.setSubtotal(String.valueOf(subTotal));    		
-    		amount.setTotal(String.valueOf(orderDetail.getTotalSales()));
-            amount.setDetails(details);
-            transaction.setAmount(amount);
-            
-            ProductBean pb = (ProductBean)dao.getProductById(orderDetail.getSalesOrderDetails().get(i).getProductId());
-            transaction.setDescription(pb.getProductName());
-            item.setName(pb.getProductName());
-            item.setQuantity(String.valueOf(quantity));
-            
-            //把item加進items，再把items塞進itemList，最後把itemList丟進transaction
-            items.add(item);
-            itemList.setItems(items);
-            transaction.setItemList(itemList);
-            item.setPrice(String.valueOf(subTotal));
-            
-            //把總共幾筆交易丟進list Transaction
-            listTransaction.add(transaction); 
-    	}      
+        listTransaction.add(transaction);  
+         
         return listTransaction;        
     }
      
@@ -158,7 +139,8 @@ public class PaymentServices {
             }
         }      
         System.out.println("approvalLink:"+approvalLink);
-        return approvalLink;       
+        return approvalLink;
+        
     }
 }
 

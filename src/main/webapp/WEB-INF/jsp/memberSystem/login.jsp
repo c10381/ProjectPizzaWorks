@@ -92,12 +92,12 @@
 	$("#Demo1").click(function() {
 		console.log('reach');
 		$("#email").val("iiiedujava@gmail.com");
-		$("#password").val("Java8888");
+		$("#password").val("P@ssw0rd");
 	})
 	
 	$("#Demo2").click(function() {
 		$("#email").val("c10381@gmail.com");
-		$("#password").val("Java8888");
+		$("#password").val("P@ssw0rd");
 	})
 	
 	</script>	

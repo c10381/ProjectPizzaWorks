@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -14,8 +15,6 @@ import com.paypal.api.payments.ShippingAddress;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 
-import _model.OrderDetailBean;
-import _model.SalesListBean;
 import _model.SalesOrderBean;
 import paymentSystem.service.PaymentServices;
 
@@ -70,7 +69,8 @@ public class PaymentController {
 	@RequestMapping(value = "/PaypalTest/execute_Payment")
 	public String testExecute_Payment(@RequestParam("paymentId") String paymentId, 
 			  @RequestParam("PayerID") String payerID, Model model) {		
-		try {            
+		try {
+			//PaymentServices service = new PaymentServices();
             Payment payment = service.executePayment(paymentId, payerID);             
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
@@ -116,21 +116,21 @@ public class PaymentController {
 //	}
 	
 	@PostMapping(value = "/PaypalTest/paypalCheckout", consumes = "application/json")
-	public String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
+	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
 		
-        try {           
+        try {        	
             String approvalLink = service.authorizePayment(sob);
-            System.out.println(approvalLink);
+            System.out.println("reach done authorizePayment");
             return approvalLink;
 //            return "redirect: " + approvalLink;
 //            response.sendRedirect(approvalLink);
              
         } catch (PayPalRESTException ex) {
+        	
             model.addAttribute("errorMessage", "付款失敗，請聯絡客服人員！");
             ex.printStackTrace();
-            return"PaypalTest/paypalError";
+            return "Fail";
+//            return "PaypalTest/paypalError";
         }
-    }
-	
-	
+    }	
 }
