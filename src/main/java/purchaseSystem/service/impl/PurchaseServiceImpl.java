@@ -188,7 +188,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 				pOrderDetail_jsa.put(pOrderDetail_jso);
 			}
 			pOrder_jso.put("fullName", fullNameP);
-			pOrder_jso.put("fullName", fullNameA);
+			//pOrder_jso.put("fullName", fullNameA);
 			pOrder_jso.put("purchaseOrderDetails", pOrderDetail_jsa);
 			// 重複將JSON Obj放入JSON Array中
 			output_jsa.put(pOrder_jso);
