@@ -460,11 +460,16 @@
 		}
 		
 		for (i = 0; i < requestLength; i++) {
-			var requestId = "員工編號："+data[i].pcRequestId;
+			let requestMail = data[i].email;
+			if(requestMail.length > 13 ){
+				requestMail = requestMail.substr(0,12);
+				requestMail += "...";
+			}			
+			var requestId = "信箱："+requestMail;
 			var timeResult = timeReader(data[i].requestTime);
 			var div_html = "<div onclick=\"loadingPage('"
 					+ link
-					+ data[i].pcRequestId
+//					+ data[i].pcRequestId
 					+ "')\" class='dropdown-item' style='cursor: pointer'> <i class='fas fa-file mr-2'></i>";
 			div_html += requestId;
 			div_html += "<span class='float-right text-muted text-sm'>";

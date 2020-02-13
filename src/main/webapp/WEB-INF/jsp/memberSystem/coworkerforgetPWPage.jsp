@@ -75,23 +75,22 @@
 
 
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/jquery/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/bootstrap/bootstrap.bundle.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
-		src="${pageContext.request.contextPath}/js/shopManageSystem/adminlte.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
 	<script>
-	$().ready(function(){
+	$.ready(function(){
 		$("#admin").click(function(){
 			$("#email").val("asd@pizza.com");
 			$("#password").val("P@ssw0rd");
 		});
-	}
+	})
 	function SendToBack() {
-			$
-					.ajax({
+			$.ajax({
 						url : "${pageContext.request.contextPath}/memberSystem/coworkforgetPWrequest",
 						data : {
 							"email" : $("#email").val()
