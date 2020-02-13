@@ -143,27 +143,28 @@ function checkDeliver(productId , productName , productPrice) {
 	})
 
 	$("#delieverModal .next").click(function() {
-		var deliverType = $("#delieverModal select").val();
 		// 取得需求日期
 		$(".flatpickr-input").each(function() {
 			if($(this).val()!=""){
 				cart.requireTime = ($(this).val());
 			};
 		})
-
-		if (deliverType == "delivery") {
-			cart.needDelivery = 1;
-			cart.deliverAddress = $("#address").val();
-		} else {
-			cart.needDelivery = 0;
+		if(cart.requireTime==undefined){
+			swal("請選擇日期");
+		}else{
+			var deliverType = $("#delieverModal select").val();
+			
+			if (deliverType == "delivery") {
+				cart.needDelivery = 1;
+				cart.deliverAddress = $("#address").val();
+			} else {
+				cart.needDelivery = 0;
+			}
+			$("#delieverModal").modal('hide');
+			checkPizza(productId , productName , productPrice);
 		}
-		checkPizza(productId , productName , productPrice);
 	})
 }
-
-
-
-
 
 // 動態插入pizza選擇數量
 function insertQtty() {
@@ -198,6 +199,10 @@ function insertCrust() {
 }
 
 function insertTime() {
+	var nowMil = new Date().getTime()+ 30 * 60 * 1000; 
+	var roundedMil = Math.round(nowMil/1000/60/30) * 30 * 60 * 1000; 
+	var roundedTime = new Date(roundedMil); 
+	
 	flatpickr(".flatpickr", {
 		altInputClass : "form-group",
 		enableTime : true,
@@ -210,5 +215,7 @@ function insertTime() {
 		minDate : "today",
 		maxDate : new Date().fp_incr(7),
 		wrap : true,
+		defaultDate: roundedTime,
+		static: true, 
 	});
 }
