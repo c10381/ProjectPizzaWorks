@@ -33,7 +33,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 			</div>
-			<table id="materials" class="text-center hover">
+			<table id="materials" class="text-center hover display">
 				<thead>
 					<tr>
 						<th>原料編號</th>
