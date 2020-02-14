@@ -1,5 +1,6 @@
 package statisticalAnalysisSystem.controller;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -81,27 +82,7 @@ public class StatisticalAnalysisController {
 		return jsa_str;
 	}
 
-	// 接收上述下拉式選單資料Controller
-	@RequestMapping(value="/catchPInfoFromClient", method = RequestMethod.POST,
-			produces = "application/json")
-		public @ResponseBody String catchPInfoFromClient(@RequestParam("jsa_str") String jsa_str
-				, Model model) throws JSONException, ParseException {
-		System.out.println(jsa_str);
-		Integer productId = Integer.parseInt(jsa_str);
-		JSONObject jso = new JSONObject();
-		jso.put("product1", service.getOneProductSalesShare(productId, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-//			JSONArray jsa = new JSONArray(jsa_str);
-//			
-//			if(jsa != null && jsa.length() != 0) {
-//				for(int i = 0; i<jsa.length(); i++) {
-//					JSONObject jso = (JSONObject)jsa.get(i);
-//					System.out.println("jso = " + jso);
-//				}
-//			}
-			return jso.toString();
-		}
-
-	// 圓餅圖Controller(使用者初次進入數據分析頁面時所顯示的預設畫面)
+	// PieChartPostGet
 	@RequestMapping(value = "/PieChartTest_proto", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody String showPieChartJson(Model model) throws ParseException {
 		JSONObject jso = new JSONObject();
@@ -111,7 +92,20 @@ public class StatisticalAnalysisController {
 		return jso.toString();
 	}
 
-	// 折線圖Controller
+	// PieChartPost
+	@RequestMapping(value = "/PieChartPost", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String catchPInfoFromClient(@RequestParam("jsa_str") String jsa_str,
+			@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model)
+			throws JSONException, ParseException {
+		String startDateSec = startDate + " 00:00:00";
+		String endDateSec = endDate + " 23:59:59";
+		Integer productId = Integer.parseInt(jsa_str);
+		JSONObject jso = new JSONObject();
+		jso.put("product1", service.getOneProductSalesShare(productId, startDateSec, endDateSec));
+		return jso.toString();
+	}
+
+	// LineChartGET
 	@RequestMapping(value = "/LineChart", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Double showLineChartJson(Model model) throws JSONException, ParseException {
 		Double oneProductGp = service.getOneProductGp(1, "2020-01-29 00:00:00", "2020-05-21 00:00:00");
@@ -133,20 +127,17 @@ public class StatisticalAnalysisController {
 		LocalDateTime endDate1 = LocalDateTime.parse(startDateLine + " 23:59:59", formatter);
 		LocalDateTime endDate2 = endDate1.plusMonths(1);
 		LocalDateTime endDate3 = endDate2.plusMonths(1);
-		LocalDateTime startDate1 = endDate1.minusMonths(4).minusDays(1).plusSeconds(1);
-		LocalDateTime startDate2 = endDate2.minusMonths(4).minusDays(1).plusSeconds(1);
-		LocalDateTime startDate3 = endDate3.minusMonths(4).minusDays(1).plusSeconds(1);
+		LocalDateTime startDate1 = endDate1.minusMonths(3).minusDays(1).plusSeconds(1);
+		LocalDateTime startDate2 = startDate1.plusMonths(1);
+		LocalDateTime startDate3 = startDate2.plusMonths(1);
 		
-		
-//		LocalDateTime startDate2 = startDate1.plusMonths(1);
-//		LocalDateTime startDate3 = startDate2.plusMonths(1);
 		String startDate1_str = startDate1.format(formatter);
 		String startDate2_str = startDate2.format(formatter);
 		String startDate3_str = startDate3.format(formatter);
 		String endDate1_str = endDate1.format(formatter);
 		String endDate2_str = endDate2.format(formatter);
 		String endDate3_str = endDate3.format(formatter);
-		
+
 		Double oneProductGp1_0000 = service.getOneProductGp(productId, startDate1_str, endDate1_str);
 		Double oneProductGp2_0000 = service.getOneProductGp(productId, startDate2_str, endDate2_str);
 		Double oneProductGp3_0000 = service.getOneProductGp(productId, startDate3_str, endDate3_str);
@@ -216,18 +207,16 @@ public class StatisticalAnalysisController {
 	public void addFakeSalesOrders() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		Random rand = new Random();
-		Integer orderSize = 189;
-		LocalDateTime now = LocalDateTime.parse("2020-09-05 12:00:00",formatter);
-//		LocalDateTime now = LocalDateTime.now();
+		Integer orderSize = 50;
+		LocalDateTime now = LocalDateTime.now();
 		Integer days = 0;
 		Integer hours = 0;
-		Integer timeInterval = 6;
 		for (int i = 0; i < orderSize; i++) {
 			SalesOrderBean salesOrder = new SalesOrderBean();
+			days += rand.nextInt(2);
+			hours += rand.nextInt(2);
 			Integer memberId = rand.nextInt(19) + 9;
 			salesOrder.setMemberId(memberId);
-			days += rand.nextInt(timeInterval);
-			hours += rand.nextInt(timeInterval);
 			LocalDateTime nowTime = now.plusDays(days).plusHours(hours);
 //			nowTime.plusDays(days);
 //			nowTime.plusHours(rand.nextInt(5)+2);

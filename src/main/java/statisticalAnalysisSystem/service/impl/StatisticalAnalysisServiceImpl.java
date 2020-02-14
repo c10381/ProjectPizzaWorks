@@ -54,15 +54,12 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 		Double oneProductSales = 0.0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		for (SalesOrderBean sob : list) {
-			System.out.println(sob.getOrderTime());
 			if (sdf.parse(sob.getOrderTime()).after(sdf.parse(startingDate))
 					&& sdf.parse(sob.getOrderTime()).before(sdf.parse(endDate))) {
 				List<SalesOrderDetailBean> list2 = sob.getSalesOrderDetails();
 				for (SalesOrderDetailBean sodb : list2) {
 					if (sodb.getProductId() == productId) {
 						oneProductSales = oneProductSales + sodb.getUnitPrice() * sodb.getQuantity();
-						System.out.println(sodb.getSalesOrderId());
-						System.out.println(oneProductSales);
 					}
 				}
 			}
@@ -88,8 +85,10 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 
 	// 取得[一定期間][單一產品]對[所有產品]之[銷售額比例]
 	@Override
-	public Double getOneProductSalesShare(Integer productId, String startingDate, String endDate) throws ParseException {
-		Double OneProductSalesShare = getOneProductSales(productId, startingDate, endDate) / getAllProductSales(startingDate, endDate);
+	public Double getOneProductSalesShare(Integer productId, String startingDate, String endDate)
+			throws ParseException {
+		Double OneProductSalesShare = getOneProductSales(productId, startingDate, endDate)
+				/ getAllProductSales(startingDate, endDate);
 		return OneProductSalesShare;
 	}
 
@@ -118,32 +117,78 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 	private Double getOneMaterialCost_SHB(Integer materialsId, String startingDate, String endDate)
 			throws ParseException {
 		// 從StorageHistory裡取出二維資料
-		System.out.println("startingDate" + startingDate +  "endDate" + endDate);
 		List<StorageHistoryBean> list = dao.getMaterialUnitCost_SHB(materialsId);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Double oneMaterialCost_box = 0.0;
 		Double oneMaterialCost = 0.0;
+		Double avgOneMaterailCost = 0.0;
+		Double factor = dao.getQuantityPerUnit(materialsId);
 		int count = 0;
+		boolean flag = false;
+		// 把二維資料裡的每一列取出，每一列代表一次進貨紀錄
 		for (StorageHistoryBean shb : list) {
+			// 如果這次進貨紀錄的時間在給定的時間範圍內，進入下一個判斷式
 			if (sdf.parse(shb.getStockTime()).after(sdf.parse(startingDate))
 					&& sdf.parse(shb.getStockTime()).before(sdf.parse(endDate))) {
 				// 如果這個進貨紀錄所進的食材是指定編號的食材，執行以下程式
-				//if (shb.getMaterialsId() == materialsId) {
-					// 將該列中的食材進貨價格(unitCost)取出，加入其他時間，所進的一樣的貨的進貨價格
-					oneMaterialCost_box = oneMaterialCost_box + shb.getUnitPrice()/3;
-					// 剛剛算的每箱進貨價格，轉換成每克、或每顆的進貨價格
-					Double factor = dao.getQuantityPerUnit(materialsId);
-					oneMaterialCost = oneMaterialCost_box/factor;
-					count++;
-					System.out.println("oneMaterialCost = " + oneMaterialCost_box);
-				} else {
-					System.out.println("out of if");
-				}
-			}else {
-				System.out.println("out of date if");
+//				// if (shb.getMaterialsId() == materialsId) {
+//				// 將該列中的食材進貨價格(unitCost)取出，加入其他時間，所進的一樣的貨的進貨價格
+//				oneMaterialCost_box = oneMaterialCost_box + shb.getUnitPrice() / 3;
+//				// 剛剛算的每箱進貨價格，轉換成每克、或每顆的進貨價格
+//				Double factor = dao.getQuantityPerUnit(materialsId);
+//				oneMaterialCost = oneMaterialCost_box / factor;
+//				count++;
+//				avgOneMaterailCost = oneMaterialCost / count;
+//			} else {
+//				System.out.println("------------------Service------------------");
+//				System.out.println("起日" + startingDate + "迄日" + endDate);
+//				System.out.println("該段時間編號" + materialsId + "之食材未進貨");
+//				Double replacePrice = Math.random() * 4500;
+//				avgOneMaterailCost = replacePrice;
+				// if (shb.getMaterialsId() == materialsId) {
+				// 將該列中的食材進貨價格(unitCost)取出，加入其他時間，所進的一樣的貨的進貨價格
+				oneMaterialCost_box = oneMaterialCost_box + shb.getUnitPrice() / 3;
+				// 剛剛算的每箱進貨價格，轉換成每克、或每顆的進貨價格
+				oneMaterialCost = oneMaterialCost_box / factor;
+				// } else {
+
+				// }
+				// 加總了幾次
+				count++;
+				avgOneMaterailCost = oneMaterialCost / count;
+
+				System.out.println("同一期間第" + count + "筆食材編號=" + shb.getMaterialsId());
+				System.out.println("同一期間第" + count + "筆每箱食材進貨價格(成本)=" + shb.getUnitPrice());
+				System.out.println("同一期間第" + count + "筆每箱累計食材進貨價格(成本) = " + oneMaterialCost_box);
+				System.out.println("同一期間第" + count + "筆每原始單位進貨價格 = " + oneMaterialCost);
+
+			} else {
+				Double replaceUnitPrice = Math.random() * 1500 / factor;
+				avgOneMaterailCost = replaceUnitPrice;
+				System.out.println("起日" + startingDate + "到迄日" + endDate);
+				System.out.println("食材編號" + materialsId + "號之食材未進貨");
+				System.out.println("替代價格 = " + replaceUnitPrice + "元");
+//				Double firstUnitPrice = 0.0;
+//				for (StorageHistoryBean shbElse : list) {
+//					firstUnitPrice = shbElse.getUnitPrice();
+//					if (firstUnitPrice != null) {
+//						flag = true;
+//						break;
+//					}
 			}
+//				oneMaterialCost_box = oneMaterialCost_box + firstUnitPrice;
+//				Double factor = dao.getQuantityPerUnit(materialsId);
+//				oneMaterialCost = oneMaterialCost_box / factor;
+//				System.out.println("");
+//				System.out.println("該時段內編號" + shb.getMaterialsId() + "食材未進貨");
+//				System.out.println("取代價格：" + firstUnitPrice);
+//				System.out.println("同一期間第" + count + "筆每箱累計食材進貨價格(成本) = " + oneMaterialCost_box);
+//				System.out.println("同一期間第" + count + "筆每原始單位進貨價格 = " + oneMaterialCost);
+//				if(flag) {
+//					count = 1;
+//					break;
+//				}
 		}
-		Double avgOneMaterailCost = oneMaterialCost/count;
 		return avgOneMaterailCost;
 	}
 
@@ -151,13 +196,16 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 	private Double getUnitCost(Integer productId, String startingDate, String endDate) throws ParseException {
 		List<RecipeBean> list = dao.getOneRecipeById(productId);
 		Double unitCost = 0.0;
+		int count = 0;
 		for (RecipeBean rb : list) {
 			Double q = rb.getQuantity();
 			Double p = getOneMaterialCost_SHB(rb.getMaterial().getMaterialsId(), startingDate, endDate);
-			System.out.println("mId = " + rb.getMaterial().getMaterialsId());
-			System.out.println("q = " + q);
-			System.out.println("p = " + p);
+//			System.out.println("matrial_Id = " + rb.getMaterial().getMaterialsId());
+//			System.out.println("matrial_q = " + q);
+//			System.out.println("matrial_p = " + p);
 			unitCost = unitCost + p * q;
+			count++;
+//			System.out.println("第" + count + "次UnitCost" + unitCost);
 		}
 		return unitCost;
 	}
@@ -167,10 +215,10 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 	@Override
 	public Double getOneProductGp(Integer productId, String startingDate, String endDate) throws ParseException {
 		Integer unitPrice = pdao.getProductById(productId).getUnitPrice();
-		Double unitCost = getUnitCost(productId, startingDate, endDate);
-		Double GP = (unitPrice - unitCost) / unitPrice;
 		System.out.println("產品銷貨價格unitPrice = " + unitPrice);
+		Double unitCost = getUnitCost(productId, startingDate, endDate);
 		System.out.println("產品成本unitCost = " + unitCost);
+		Double GP = (unitPrice - unitCost) / unitPrice;
 		System.out.println("GP = " + GP);
 		return GP;
 	}
