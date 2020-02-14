@@ -97,7 +97,7 @@
 	<script>
 	$().ready(function(){
 		$("#admin").click(function(){
-			$("#email").val("asd@pizza.com");
+			$("#email").val("service@pizza.com");
 		});
 	});
 	function SendToBack() {
