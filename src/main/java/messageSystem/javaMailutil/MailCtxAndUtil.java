@@ -245,7 +245,7 @@ public class MailCtxAndUtil {
 	}
 	
 	//促銷信(要修啊～～)
-		public String ToCustomerSales(HttpServletRequest request,String Context) {
+		public String ToCustomerSales(String Context) {
 
 			Context="<div>" + 
 					"    <div style='padding:0;margin:0 auto;font-size:14px;font-family:arial'>" + 
@@ -288,9 +288,7 @@ public class MailCtxAndUtil {
 					"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
 					"                                                <tbody>" + 
 					"                                                    <tr>" + 
-					"                                                        <!-- 驗證連結按鈕 (修改href) -->" + 
-					"                                                        <td align='center' style='background:#D1B96D;padding:13px 0'>" + 
-					"                                                            <!-- -->" + 
+					"                                                        <td>"+
 																				Context+
 					"                                                        </td>" + 
 					"                                                    </tr>" + 
@@ -370,7 +368,7 @@ public class MailCtxAndUtil {
 							"                <tr>" + 
 							"                    <!-- 信件的下半部文字內容 -->" + 
 							"                    <td style='padding:0 20px 20px;color: #D1B96D;'>感謝您的回饋" + 
-							"                        <br>Pizza Bit一定用最認真的心情看待您的意見<br>在此我們回覆您</td>" + 
+							"                        <br>Pizza Bit一定用最認真的心情看待您的意見<br>您之前的問題我們</td>" + 
 							"                </tr>" + 
 							"                <tr>" + 
 							"                    <td style='padding:0'>" + 
@@ -384,7 +382,9 @@ public class MailCtxAndUtil {
 							"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
 							"                                                <tbody>" + 
 							"                                                    <tr>" + 
+							"														<td>"+
 							                                                        Context+
+							"														</td>"+
 							"                                                    </tr>" + 
 							"                                                </tbody>" + 
 							"                                            </table>" + 

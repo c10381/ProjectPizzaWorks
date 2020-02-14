@@ -149,10 +149,10 @@ public class customerRequestController {
 	// 寄出信件(一般是促銷信，還要修)
 	@PostMapping("/messageSystem/SendMail")
 	public @ResponseBody Boolean sendMail(@RequestParam("to") String to, @RequestParam("subject") String subject,
-			@RequestParam("Context") String Context, HttpServletRequest request) {
+			@RequestParam("Context") String Context) {
 		System.out.println(to + " " + subject + " " + Context);
 		return mailUtil.sendMail(SpringMailConfig.MAILUsername, to, subject,
-				new MailCtxAndUtil().ToCustomerSales(request, Context));
+				new MailCtxAndUtil().ToCustomerSales(Context));
 	}
 
 	// 客服回應
