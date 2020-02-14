@@ -23,16 +23,16 @@
 			<!-- /.card-header -->
 			<div class="card-body">
 				<div class="form-group row align-items-center">
-				<div class="col-3">
+				<div class="col-4">
 					身分：
 					<select id="privilege">
 						<option value='1' selected>顧客</option>
 						<option value='2'>員工</option>						
 					</select>
 				</div>
-				<div class="col-9 row align-items-center">
+				<div class="col-8 row align-items-center">
 					寄件人：
-					<input type="text" class="form-control col-7" placeholder="請輸入姓名，自動搜尋..." id="MailTo" list="searchMem">
+					<input type="text" class="form-control col-9" placeholder="請輸入姓名，自動搜尋..." id="MailTo" list="searchMem">
 					<datalist id='searchMem'></datalist>
 					<input type="hidden" name="answer" id="answerInput-hidden">
 				</div>
@@ -116,9 +116,9 @@
 			var mailsubject = $("#Mailsubject").val();
 			var mailcontext = $("#compose-textarea").summernote("code");
 			console.log(mailTo + " " + mailsubject + " " + mailcontext);
-			/* $
+			$
 					.post(
-							"${pageContext.request.contextPath}/messageSystem/SendSalesMail",
+							"${pageContext.request.contextPath}/messageSystem/SendMail",
 							{
 								"to" : mailTo,
 								"subject" : mailsubject,
@@ -126,8 +126,9 @@
 							}, function(data) {
 								if (data == true) {
 									swal("寄送信件成功", "成功送出信件給 "+mailTo, "success");
+									floatPageClose();
 								}
-							}) */
+							}) 
 		}
 		function DemoButton() {
 			/* $("#MailTo").val("c10381@gmail.com"); */
@@ -135,7 +136,7 @@
 			$("#compose-textarea")
 					.summernote(
 							'editor.pasteHTML',
-							"<div style='font-size:100px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>嗨，感謝各位廠商今天到來</span></div>");
+							"<div style='font-size:50px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>感謝各位廠商今天到來</span></div>");
 		}
 		function emptyButton(){
 			$("#MailTo").val("");
