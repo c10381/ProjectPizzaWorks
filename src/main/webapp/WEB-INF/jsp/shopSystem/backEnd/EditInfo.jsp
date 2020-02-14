@@ -24,7 +24,7 @@
 	<button id="demo" class="btn btn-success" >一鍵輸入</button>
 	
 	<form:form method="POST" modelAttribute="Bean"
-		action="${pageContext.request.contextPath}/insertWebInfo">
+		action="${pageContext.request.contextPath}/insertWebInfo" id="webinfo">
 
 
 		<table border="1" style="margin: 0px auto;">
@@ -123,13 +123,47 @@
 				<td colspan="2"><p align="left" />
 					<div class="form-group">
 						<div class='control-label'>
-							<input id="add" type='submit' class='btn btn-primary' value="送出" />
+							<input id="add" type='submit' class='btn btn-primary' value="送出" onclick= />
 						</div>
 					</div></td>
 			</tr>
 		</table>
 	</form:form>
 	<script>
+		$(function(){
+			$("#webinfo").submit(function(e){
+				e.preventDefault();
+				console.log($("#webinfo")[0]);
+				var formData = new FormData($("#webinfo")[0]);
+				
+				$.ajax({
+					url:$("#webinfo").attr('action'),
+					method:$("#webinfo").attr('method'),
+					data:formData,
+					contentType: false,
+                    processData: false,
+					error : function(error) {
+						swal({
+							text: "資料修改失敗！",
+							icon: "error",
+						});
+					},
+					success : function(data) {
+						$('.content-wrapper').empty();
+						swal({
+							text:"資料修改成功！",
+							icon: "success",
+						
+						});
+					}
+				});
+			});
+			
+			
+			
+		});
+		
+	
 		$("#demo")
 				.click(
 						function() {

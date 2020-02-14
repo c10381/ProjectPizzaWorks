@@ -45,6 +45,7 @@ function checkDeliver() {
 	})
 
 	$("#delieverModal .next").click(function() {
+		var nowDate = new Date();
 		// 取得需求日期
 		$(".flatpickr-input").each(function() {
 			if($(this).val()!=""){
@@ -55,7 +56,14 @@ function checkDeliver() {
 		if(cart.requireTime==undefined){
 			swal("請選擇日期");
 		}else{
-			var deliverType = $("#delieverModal select").val();
+//			var deliverType = $("#delieverModal select").val();
+//			console.log(cart.requireTime);
+//			console.log(new Date());
+//			return;
+//			if(cart.requireTime<=(new Date()+1000*60*20)){
+//				swal("時間不可以晚於現在");
+//				return ; 
+//			}
 			
 			if (deliverType == "delivery") {
 				cart.needDelivery = 1;
@@ -256,5 +264,14 @@ function insertTime() {
 		wrap : true,
 		defaultDate: roundedTime,
 		static: true, 
+		onChange: function(selectedDates, dateStr, instance){
+			var diff = selectedDates[0]-new Date().getTime();
+			if(diff < 0){
+				swal("無法選擇過去時間");
+			}
+		}
 	});
+}
+
+function insertAddress(){
 }

@@ -116,9 +116,9 @@
 			var mailsubject = $("#Mailsubject").val();
 			var mailcontext = $("#compose-textarea").summernote("code");
 			console.log(mailTo + " " + mailsubject + " " + mailcontext);
-			/* $
+			$
 					.post(
-							"${pageContext.request.contextPath}/messageSystem/SendSalesMail",
+							"${pageContext.request.contextPath}/messageSystem/SendMail",
 							{
 								"to" : mailTo,
 								"subject" : mailsubject,
@@ -126,8 +126,9 @@
 							}, function(data) {
 								if (data == true) {
 									swal("寄送信件成功", "成功送出信件給 "+mailTo, "success");
+									floatPageClose();
 								}
-							}) */
+							}) 
 		}
 		function DemoButton() {
 			/* $("#MailTo").val("c10381@gmail.com"); */

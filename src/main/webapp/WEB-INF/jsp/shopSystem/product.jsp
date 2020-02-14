@@ -54,8 +54,20 @@ justify-content:center;
 								<div class="col-md-12 mb-3">
 									<p class="h5">餡料</p>
 									<c:forEach items="${product.recipes }" var="item" varStatus="s">
-										 ${item.material.materialsName }
-										<c:if test="${!s.last  }">、</c:if>
+										<c:choose>
+											<c:when test="${ item.material.materialsName == '高筋麵粉' }">
+											</c:when>
+											<c:when test="${ item.material.materialsName == '低筋麵粉' }">
+											</c:when>
+											<c:when test="${ item.material.materialsName == '酵母' }">
+											</c:when>
+											<c:when test="${ item.material.materialsName == '橄欖油' }">
+											</c:when>
+											<c:otherwise>
+											 ${item.material.materialsName }
+											 <c:if test="${!s.last  }">、</c:if>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 									<!-- <p>豬肉、胡麻油、起司、杏鮑菇、紅椒</p> -->
 								</div>
@@ -84,6 +96,25 @@ justify-content:center;
 										</p>
 										</c:otherwise>
 									</c:choose>
+								</div>
+								<div class="col-md-12 mb-3">
+									<div class="row">
+										<c:if test="${product.spicyLevel>=1 }">
+											&nbsp<span class="icon icon-asterisk text-primary text-lg"> 辣 &nbsp</span>
+										</c:if>
+										<c:if test="${product.seafood==1 }">
+											&nbsp<span class="icon icon-asterisk text-primary text-lg"> 海鮮 &nbsp</span>
+										</c:if>
+										<c:if test="${product.pork==1 }">
+											&nbsp<span class="icon icon-asterisk text-primary text-lg"> 豬 &nbsp</span>
+										</c:if>
+										<c:if test="${product.beef==1 }">
+											&nbsp<span class="icon icon-asterisk text-primary text-lg"> 牛 &nbsp</span>
+										</c:if>
+										<c:if test="${product.chicken==1 }">
+											&nbsp<span class="icon icon-asterisk text-primary text-lg"> 雞 &nbsp</span>
+										</c:if>
+									</div>
 								</div>
 								<div class="col-md-12 mb-3">
 									<button type="button"
