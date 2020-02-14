@@ -40,11 +40,12 @@ textarea {
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="unitPrice" class="col-sm-2 col-form-label">請購總額</label>
+									<label for="totalPrice" class="col-sm-2 col-form-label">請購總額</label>
 									<div class='col-sm-4' id='unitPrice'>
 										<input type='text' name="totalPrice" id="totalPrice" class="form-control"
 											value="" disabled required/>
 									</div>
+									<label for="totalSale" class="col-form-label control-label col-sm-3" ><i>新臺幣元</i></label>
 								</div>
 								<div class="form-group row">
 									<label for="purchaseReason" class="col-sm-2 col-form-label">請購理由</label>

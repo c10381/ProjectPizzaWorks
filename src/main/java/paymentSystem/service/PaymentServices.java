@@ -3,7 +3,9 @@ package paymentSystem.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
@@ -19,15 +21,25 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-import _model.OrderDetailBean;
+import _model.SalesOrderBean;
+import shopSystem.dao.ShopDao;
 
 @Service
+@Transactional
 public class PaymentServices {
+	
+	ShopDao dao;
+	
 	private static final String CLIENT_ID = "AerXyJ9NF_HpEbkF0nhEicgbXmAbGout6KiAKU_BnvxwMR9F8Yx2WpgaInuFI-GqjXbBTOlxrCAt4Xl5";
     private static final String CLIENT_SECRET = "EHj6MslMjqDx5DU3PfDc-u6G9_xPYGyciFPXQkmm14Z9f7Ep3YeO2TDS95JBc1HTtyewMVj_ZjP7c3jV";
     private static final String MODE = "sandbox";
- 
-    public String authorizePayment(OrderDetailBean orderDetail)        
+        
+    @Autowired
+	public void setDao(ShopDao dao) {
+		this.dao = dao;
+	}
+        
+    public String authorizePayment(SalesOrderBean orderDetail)        
             throws PayPalRESTException {       
  
         Payer payer = getPayerInformation();
@@ -66,8 +78,8 @@ public class PaymentServices {
         payer.setPaymentMethod("paypal");
          
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("育承")
-                 .setLastName("蔡")
+        payerInfo.setFirstName("Leon")
+                 .setLastName("Tsai")
                  .setEmail("iiiedujava@gmail.com");       
         payer.setPayerInfo(payerInfo);
          
@@ -81,29 +93,29 @@ public class PaymentServices {
         return redirectUrls;       
     }
      
-    private List<Transaction> getTransactionInformation(OrderDetailBean orderDetail) {
+    private List<Transaction> getTransactionInformation(SalesOrderBean orderDetail) {
     	Details details = new Details();
-        details.setShipping(orderDetail.getShipping());
-        details.setSubtotal(orderDetail.getSubtotal());
-        details.setTax(orderDetail.getTax());
+        details.setShipping("0");
+        details.setSubtotal(String.valueOf(orderDetail.getTotalSales()));
+        details.setTax("0");
      
         Amount amount = new Amount();
         amount.setCurrency("TWD");
-        amount.setTotal(orderDetail.getTotal());
+        amount.setTotal(String.valueOf(orderDetail.getTotalSales()));
         amount.setDetails(details);
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(orderDetail.getProductName());
+        transaction.setDescription("PizzaBite餐點");
          
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
          
         Item item = new Item();
         item.setCurrency("TWD");
-        item.setName(orderDetail.getProductName());
-        item.setPrice(orderDetail.getSubtotal());
-        item.setTax(orderDetail.getTax());
+        item.setName("PizzaBite餐點");
+        item.setPrice(String.valueOf(orderDetail.getTotalSales()));
+        item.setTax("0");
         item.setQuantity("1");
          
         items.add(item);

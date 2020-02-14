@@ -15,7 +15,7 @@
 			onclick="loadingPage('/purchase/GetAllPurchaseRequest')"><div
 				class="nav-link">
 				<i class="far fa-circle nav-icon"></i>
-				<p>查詢請購單</p>
+				<p>查詢與修改請購單</p>
 			</div></li>
 		<li class="nav-item"
 			onclick="loadingPage('/purchase/GetAllPurchaseOrder')"><div

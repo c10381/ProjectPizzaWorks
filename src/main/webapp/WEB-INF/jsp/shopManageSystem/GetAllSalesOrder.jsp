@@ -126,7 +126,8 @@
 	                	//str = "共" + data.length + "項";
 	                	return "共" + data.length + "項";
 		        }}, {
-			        "data": "totalSales"
+			        "data": "totalSales",
+			        "defaultContent": ""
 		        }, {
 			        "data": "orderStatus"
 	            },],
@@ -271,7 +272,7 @@
 	            			str += "<option value="+i+" disabled>"+op_text[i]+"</option>";
 						}
 					} else{
-						if(i-1>status){
+						if(i>2){
 							str += "<option value="+i+" disabled>"+op_text[i]+"</option>";
 						} else{
 	            			str += "<option value="+i+" >"+op_text[i]+"</option>";

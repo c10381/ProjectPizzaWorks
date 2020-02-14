@@ -22,7 +22,7 @@
 					<th>身分</th>
 					<th>生日</th>
 					<th>電話</th>
-					<th>地址</th>
+					<!-- <th>地址</th> -->
 					<th>狀態</th>
 				</tr>
 			</thead>
@@ -78,8 +78,8 @@
 							}, {
 								data : "cellphone"
 							}, {
-								data : "address"
-							}, {
+								/* data : "address"
+							}, { */
 								data : "activeStatus",
 								render : function(data) {
 									if (data == 0) {

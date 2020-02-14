@@ -169,7 +169,7 @@ public class MemberController {
 	// 拿ValidationRequest
 	@GetMapping(value = "memberSystem/searchCoworkerPWRequest")
 	public String coworkerchangePW(Model model) {
-		model.addAttribute("List", memService.SearchValidationRequestBeans(1, 2, 3, 4,5));
+		model.addAttribute("List", memService.SearchValidationRequestBeans(3, 4,5));
 		return "memberSystem/coworkerCPWReq";
 	}
 

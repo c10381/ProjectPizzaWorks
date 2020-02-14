@@ -37,7 +37,7 @@
 					
 					<input type='password' class="form-control col-sm-6" placeholder="請輸入新密碼"  
 					maxlength="16" name="newPwd" id="newPwd" required
-					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$"/>
+					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d+@]{8,16}$"/>
 						<!-- col end-->
 					<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
 					 8-16字元，不含特殊符號  

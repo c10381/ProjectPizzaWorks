@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -14,7 +15,7 @@ import com.paypal.api.payments.ShippingAddress;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 
-import _model.OrderDetailBean;
+import _model.SalesOrderBean;
 import paymentSystem.service.PaymentServices;
 
 @Controller
@@ -58,7 +59,7 @@ public class PaymentController {
             //request.getRequestDispatcher(url).forward(request, response);
              
         } catch (PayPalRESTException ex) {
-            model.addAttribute("errorMessage", ex.getMessage());
+            model.addAttribute("errorMessage", "付款失敗，請聯絡客服人員！");
             ex.printStackTrace();
             //request.getRequestDispatcher("error.jsp").forward(request, response);
             return"PaypalTest/paypalError";           		
@@ -69,9 +70,8 @@ public class PaymentController {
 	public String testExecute_Payment(@RequestParam("paymentId") String paymentId, 
 			  @RequestParam("PayerID") String payerID, Model model) {		
 		try {
-            PaymentServices paymentServices = new PaymentServices();
-            Payment payment = paymentServices.executePayment(paymentId, payerID);
-             
+			//PaymentServices service = new PaymentServices();
+            Payment payment = service.executePayment(paymentId, payerID);             
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
             model.addAttribute("payer",payerInfo);
@@ -115,23 +115,22 @@ public class PaymentController {
 //        }
 //	}
 	
-	@PostMapping(value = "/PaypalTest/paypalCheckout")
-	public String paypalCheckout(Model model,
-			@RequestParam("productName")String productName, @RequestParam("subtotal")String subtotal,
-			@RequestParam("tax")String tax, @RequestParam("shipping")String shipping,  @RequestParam("total")String total){
-		OrderDetailBean orderDetail = new OrderDetailBean(productName,subtotal,shipping,tax,total);
-        try {           
-            String approvalLink = service.authorizePayment(orderDetail);
-            System.out.println(approvalLink);            
-            return "redirect: " + approvalLink;
+	@PostMapping(value = "/PaypalTest/paypalCheckout", consumes = "application/json")
+	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
+		
+        try {        	
+            String approvalLink = service.authorizePayment(sob);
+            System.out.println("reach done authorizePayment");
+            return approvalLink;
+//            return "redirect: " + approvalLink;
 //            response.sendRedirect(approvalLink);
              
         } catch (PayPalRESTException ex) {
+        	
             model.addAttribute("errorMessage", "付款失敗，請聯絡客服人員！");
             ex.printStackTrace();
-            return"PaypalTest/paypalError";
+            return "Fail";
+//            return "PaypalTest/paypalError";
         }
-    }
-	
-	
+    }	
 }

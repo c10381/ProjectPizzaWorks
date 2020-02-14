@@ -37,8 +37,10 @@
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label for="memberName" class="col-form-label">採購單申請人：</label>
-									<input type="hidden" id="memberId" value="${Mem_LoginOK.memberId}" /> 
-									<input id="memberName" type='text' value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}"
+									<input type="hidden" id="memberId"
+										value="${Mem_LoginOK.memberId}" /> <input id="memberName"
+										type='text'
+										value="${Mem_LoginOK.lastName}${Mem_LoginOK.firstName}"
 										class='form-control' disabled />
 								</div>
 								<!-- form-group end -->
@@ -69,9 +71,14 @@
 						<!-- row end -->
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="totalSale" class="col-form-label">採購單總額：</label>
-									<input id="totalSale" type='text' class='form-control' disabled />
+								<div class="form-group form-horizontal row">
+									<label for="totalSale" class="col-form-label control-label">採購單總額：</label>
+									<div class='col-sm-4' id='unitPrice'>
+										<input id="totalSale" type='text' class='form-control '
+											disabled />
+									</div>
+									<label for="totalSale"
+										class="col-form-label control-label col-sm-4"><i>新臺幣元</i></label>
 								</div>
 								<!-- form-group end -->
 							</div>
@@ -82,12 +89,12 @@
 						<div class="row">
 							<br>
 							<div class="col-sm-3">
-								<input type="button" value="提交採購單"  onclick="sumbitDataTable()"
-								class="btn btn-success " />
+								<input type="button" value="提交採購單" onclick="sumbitDataTable()"
+									class="btn btn-success " />
 							</div>
 							<br>
 						</div>
-						
+
 						<hr>
 						<br>
 						<div class="row">
@@ -373,6 +380,8 @@
 				sendData();
 			} else if($("#briefInfo").val()==""){
 				alert("你必須輸入請購理由!");
+			} else if($('#totalSale').val()=""){
+				alert("你必須先確認請購項目的數量!");
 			}else{
 				alert("你必須輸入所有的需求箱數!");
 			}

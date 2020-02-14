@@ -89,16 +89,13 @@
 			<!-- /.login-box -->
 			<!-- Login Demo btns-->
 			<footer class="footer fixed-bottom justify-content-center align-self-center">
-				<div style="margin: 20px auto; width: 620px" class="justify-content-center align-items-center">
+				<div style="margin: 20px auto; width: 690px" class="justify-content-center align-items-center">
 					<div id="admin" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">管理員</div>
-					<div id="webadmin" class="btn btn-default btn-md"
-						style="margin: 5px;background: #fac564;color: black;">網站管理員</div>
-					<div id="Service" class="btn btn-default btn-md"
-						style="margin: 5px;background: #fac564;color: black;">客服人員</div>
-					<div id="purchase" class="btn btn-default btn-md"
-						style="margin: 5px;background: #fac564;color: black;">採購人員</div>
+					<div id="Service" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">客服人員</div>
+					<div id="webadmin" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">網站管理員</div>
 					<div id="sales" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">銷貨人員</div>
-					<div id="stock" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">存貨人員</div>
+					<div id="purchase" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">採購人員</div>
+					<div id="stock" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">庫存人員</div>
 				</div>
 			</footer>
 	</div>
