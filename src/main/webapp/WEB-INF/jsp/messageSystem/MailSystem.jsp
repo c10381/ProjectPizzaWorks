@@ -130,12 +130,12 @@
 							}) */
 		}
 		function DemoButton() {
-			$("#MailTo").val("c10381@gmail.com");
+			/* $("#MailTo").val("c10381@gmail.com"); */
 			$("#Mailsubject").val("嗨，你好嗎？");
 			$("#compose-textarea")
 					.summernote(
 							'editor.pasteHTML',
-							"<div style='font-size:100px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>嗨，新年好</span></div>");
+							"<div style='font-size:100px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>嗨，感謝各位廠商今天到來</span></div>");
 		}
 		function emptyButton(){
 			$("#MailTo").val("");
