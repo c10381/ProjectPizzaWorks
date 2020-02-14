@@ -136,7 +136,7 @@
 			$("#compose-textarea")
 					.summernote(
 							'editor.pasteHTML',
-							"<div style='font-size:50px'><span style='color: rgb(99, 99, 99); background-color: rgb(255, 255, 255);'>感謝各位廠商今天到來</span></div>");
+							"<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>感謝各位廠商今天到來</span></div>");
 		}
 		function emptyButton(){
 			$("#MailTo").val("");
