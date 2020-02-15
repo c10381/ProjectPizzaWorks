@@ -23,112 +23,136 @@
 	private String brandstoryEdited; -->
 	<button id="demo" class="btn btn-success" >一鍵輸入</button>
 	
-	<form:form method="POST" modelAttribute="Bean"
-		action="${pageContext.request.contextPath}/insertWebInfo" id="webinfo">
+	
+	<!-- SELECT2 EXAMPLE -->
+        <div class="card card-default mt-3 mr-4">
+          <div class="card-header">
+            <h3 class="card-title">店面資訊修改</h3>
 
-
-		<table border="1" style="margin: 0px auto;">
-			<tr height="52" bgcolor="lightblue" align="center">
-				<td width="350"><p align="left" />
-					<div class="form-group">
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+            </div>
+          </div>
+          <form:form method="POST" modelAttribute="Bean"
+					action="${pageContext.request.contextPath}/insertWebInfo" id="webinfo">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
 						<label class='control-label' for='storeName'>店名</label>
 						<div class='col-lg-10'>
 							<form:input id="storeName" path="storeName" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control'  style="width: 100%;"/>
 						</div>
-					</div></td>
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='phone'>電話</label>
+				</div>
+                <!-- /.form-group -->
+                <div class="form-group">
+						<label class='control-label' for='phone'>店家電話</label>
 						<div class='col-lg-10'>
 							<form:input id="phone" path="phone" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control select2bs4'  style="width: 100%;" />
 						</div>
-					</div></td>
-			</tr>
-			<tr height="52" bgcolor="lightblue" align="center">
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='address'>地址</label>
+					</div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class='control-label' for='address'>店家地址</label>
 						<div class='col-lg-10'>
 							<form:input id="address" path="address" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control select2bs4'  style="width: 100%;" />
 						</div>
-					</div></td>
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='email'>信箱</label>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label class='control-label' for='email'>聯絡信箱</label>
 						<div class='col-lg-10'>
 							<form:input id="email" path="email" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control select2bs4'  style="width: 100%;" />
 						</div>
-					</div></td>
-			</tr>
-			<tr height="52" bgcolor="lightblue" align="center">
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='businessdayStart'>開始營業日期</label>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class='control-label' for='businessdayStart'>開始營業日期</label>
 						<div class='col-lg-10'>
-							<form:input id="businessdayStart" path="businessdayStart"
-								type='text' class='form:input-large' />
+							<form:input id="businessdayStart" path="businessdayStart" type='text'
+								class='form:input-large form-control select2bs4'  style="width: 70%;" />
 						</div>
-					</div></td>
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='businessdayEnd'>結束營業日期</label>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label class='control-label' for='businessdayEnd'>結束營業日期</label>
 						<div class='col-lg-10'>
 							<form:input id="businessdayEnd" path="businessdayEnd" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control select2bs4'  style="width: 70%;" />
 						</div>
-					</div></td>
-			</tr>
-			<tr height="52" bgcolor="lightblue" align="center">
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='businessdayStartTime'>開始營業時間</label>
+                </div>
+                <!-- /.form-group -->
+                 </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class='control-label' for='businessdayStartTime'>開始營業時間</label>
 						<div class='col-lg-10'>
-							<form:input id="businessdayStartTime" path="businessdayStartTime"
-								type='text' class='form:input-large' />
+							<form:input id="businessdayStartTime" path="businessdayStartTime" type='text'
+								class='form:input-large form-control select2bs4'  style="width: 70%;" />
 						</div>
-					</div></td>
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='businessdayEndTime'>結束營業時間</label>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label class='control-label' for='businessdayEndTime'>結束營業時間</label>
 						<div class='col-lg-10'>
-							<form:input id="businessdayEndTime" path="businessdayEndTime"
-								type='text' class='form:input-large' />
+							<form:input id="businessdayEndTime" path="businessdayEndTime" type='text'
+								class='form:input-large form-control select2bs4'  style="width: 70%;" />
 						</div>
-					</div></td>
-			</tr>
-			<tr height="52" bgcolor="lightblue" align="center">
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='brandStory'>品牌故事</label>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+               <div class="form-group">
+                 <label class='control-label' for='brandStory'>品牌故事(標題)</label>
 						<div class='col-lg-10'>
 							<form:input id="brandStory" path="brandStory" type='text'
-								class='form:input-large' />
+								class='form:input-large form-control select2bs4'  style="width: 100%;" />
 						</div>
-					</div></td>
-				<td width="350"><p align="left" />
-					<div class="form-group">
-						<label class='control-label' for='brandstoryEdited'>品牌故事內文</label>
-						<div class='col-lg-10'>
-							<form:input id="brandstoryEdited" path="brandstoryEdited"
-								type='text' class='form:input-large' />
-						</div>
-					</div></td>
-			</tr>
-			<tr height="52" bgcolor="#CA8EFF" align="center">
-				
-				<td colspan="2"><p align="left" />
-					<div class="form-group">
-						<div class='control-label'>
-							<input id="add" type='submit' class='btn btn-primary' value="送出" onclick= />
-						</div>
-					</div></td>
-			</tr>
-		</table>
-	</form:form>
+                </div>
+                <!-- /.form-group -->
+               </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class='control-label' for='brandstoryEdited'>品牌故事(內文)</label>
+					<div class='col-lg-10'>
+						<form:textarea id="brandstoryEdited" path="brandstoryEdited" type='text'
+							class='form:input-large form-control select2bs4'  style="width: 100%;" rows="5"/>
+					</div>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+          		<div class="form-group">
+					<div class='control-label'>
+						<input id="add" type='submit' class='btn btn-primary' value="送出修改" />
+					</div>
+				</div>
+          </div>
+         </form:form>
+         <!-- /form -->
+        </div>
+        <!-- /.card -->
+	
 	<script>
 		$(function(){
 			$("#webinfo").submit(function(e){
