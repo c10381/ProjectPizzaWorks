@@ -60,6 +60,12 @@ public class StatisticalAnalysisController {
 		return "/StatisticalAnalysis/ProductShare";
 	}
 
+	// 導向ShowPieChart.jsp
+	@GetMapping(value = "/toPieChart")
+	public String redirectPieChart(Model model) {
+		return "/StatisticalAnalysis/ShowPieChart";
+	}
+
 	// 導向GrossProfitTrend.jsp(暫無用)
 	@GetMapping(value = "/LineChartTest")
 	public String showLineChart(Model model) {
@@ -122,7 +128,7 @@ public class StatisticalAnalysisController {
 		Integer productId = Integer.parseInt(jso.getString("productId"));
 		String startDateLine = jso.getString("startDateLine");
 		// 若兩某時段，該產品原物料皆未被進貨，算出之兩比例會相等，折線圖會變成水平線
-		//以下計算第二時間點、第三時間點
+		// 以下計算第二時間點、第三時間點
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime endDate1 = LocalDateTime.parse(startDateLine + " 23:59:59", formatter);
 		LocalDateTime endDate2 = endDate1.plusMonths(1);
@@ -130,7 +136,7 @@ public class StatisticalAnalysisController {
 		LocalDateTime startDate1 = endDate1.minusMonths(3).minusDays(1).plusSeconds(1);
 		LocalDateTime startDate2 = startDate1.plusMonths(1);
 		LocalDateTime startDate3 = startDate2.plusMonths(1);
-		
+
 		String startDate1_str = startDate1.format(formatter);
 		String startDate2_str = startDate2.format(formatter);
 		String startDate3_str = startDate3.format(formatter);
@@ -189,12 +195,12 @@ public class StatisticalAnalysisController {
 		Integer productId3 = Integer.parseInt(jso.getString("productId3"));
 		Integer productId4 = Integer.parseInt(jso.getString("productId4"));
 		Integer productId5 = Integer.parseInt(jso.getString("productId5"));
-		
+
 		String startDate = jso.getString("startDate");
 		String endDate = jso.getString("endDate");
 		String startDateSec = startDate + " 00:00:00";
 		String endDateSec = endDate + " 23:59:59";
-		
+
 		jso.put("product1", service.getOneProductSalesShare(productId1, startDateSec, endDateSec));
 		jso.put("product2", service.getOneProductSalesShare(productId2, startDateSec, endDateSec));
 		jso.put("product3", service.getOneProductSalesShare(productId3, startDateSec, endDateSec));
