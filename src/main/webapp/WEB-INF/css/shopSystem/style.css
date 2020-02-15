@@ -11817,7 +11817,7 @@ textarea.form-control {
     content: "x ";
 }
 .swal-modal{
-  background-color: #121618;
+  background-color: rgba(18,22,24,0.94);
   border: 3px solid #fac564;
 } 
 .swal-title {
@@ -11826,6 +11826,17 @@ textarea.form-control {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.21);
   color: #fac564; 
   margin-bottom: 28px;
+}
+
+/* .swal-icon--warning, .swal-icon--warning__body, swal-icon--warning__dot{
+	border-color: white; 
+	color: white; 
+} */
+
+.swal-button--cash:hover, .swal-button--paypal:hover{
+	border: solid 2px #fac564 !important;
+	border-radius: 0;
+	background-color: #121618 !important;
 }
 
 .swal-icon--success:after, .swal-icon--success:before,
@@ -11844,6 +11855,7 @@ textarea.form-control {
 .swal-button {
   color: #fac564; 
   background-color: #121618;
+  border-radius: 0; 
 } 
 
 .swal-button--confirm{

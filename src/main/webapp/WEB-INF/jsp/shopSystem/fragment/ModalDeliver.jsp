@@ -51,7 +51,7 @@
 
 			<div class="modal-footer">
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-				<a class="btn btn-primary next" href="#" data-dismiss="modal">下一步</a>
+				<a class="btn btn-primary next" href="#">下一步</a>
 			</div>
 		</div>
 	</div>

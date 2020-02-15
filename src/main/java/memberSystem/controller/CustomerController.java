@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.paypal.base.rest.PayPalRESTException;
-
 import _model.MembersBean;
-import _model.OrderDetailBean;
 import memberSystem.service.CustomerService;
 
 @Controller
