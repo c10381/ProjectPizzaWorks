@@ -21,6 +21,7 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
+import _model.MembersBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
 import shopSystem.dao.ShopDao;
@@ -31,6 +32,7 @@ public class PaymentServices {
 	
 	ShopDao dao;
 	
+	
 	private static final String CLIENT_ID = "AerXyJ9NF_HpEbkF0nhEicgbXmAbGout6KiAKU_BnvxwMR9F8Yx2WpgaInuFI-GqjXbBTOlxrCAt4Xl5";
     private static final String CLIENT_SECRET = "EHj6MslMjqDx5DU3PfDc-u6G9_xPYGyciFPXQkmm14Z9f7Ep3YeO2TDS95JBc1HTtyewMVj_ZjP7c3jV";
     private static final String MODE = "sandbox";
@@ -40,10 +42,10 @@ public class PaymentServices {
 		this.dao = dao;
 	}
         
-    public String authorizePayment(SalesOrderBean orderDetail)        
+    public String authorizePayment(SalesOrderBean orderDetail, MembersBean mem)        
             throws PayPalRESTException {       
  
-        Payer payer = getPayerInformation();
+        Payer payer = getPayerInformation(mem);
         RedirectUrls redirectUrls = getRedirectURLs();
         List<Transaction> listTransaction = getTransactionInformation(orderDetail);
          
@@ -74,14 +76,14 @@ public class PaymentServices {
     }
     
     
-    private Payer getPayerInformation() {
+    private Payer getPayerInformation(MembersBean mem) {
     	Payer payer = new Payer();    	
         payer.setPaymentMethod("paypal");
          
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("披沙")
-                 .setLastName("艾")
-                 .setEmail("iiiedujava@gmail.com");
+        payerInfo.setFirstName(mem.getFirstName())
+                 .setLastName(mem.getLastName())
+                 .setEmail(mem.getLastName());
 //                 .setCountryCode("TW")
 //                 .setPhone("0912345678");
         payer.setPayerInfo(payerInfo);

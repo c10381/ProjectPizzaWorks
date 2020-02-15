@@ -9,10 +9,11 @@
 <meta charset="UTF-8">
 <title>顧客資料檢視</title>
 </head>
+<c:set var="privilegeId" value="${Mem_LoginOK.privilegeId}" />
 <body>
 	<div align="center">
 		<h2>顧客資料</h2>
-		<table id="Table" class="display">
+		<table id="cusTable" class="display">
 			<thead>
 				<th>帳號</th>
 				<th>姓</th>
@@ -22,11 +23,44 @@
 				<th>電話</th>
 				<th>地址</th>
 				<th>狀態</th>
+				<th></th>
 			</thead>
 		</table>
 	</div>
+	<c:if test="${(privilegeId==2)|| (privilegeId==7)}">
+		<!-- Modal -->
+		<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">
+							顧客狀態 | 變更:<span><span>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					<div class="modal-body">
+						<h6>狀態更動</h6>
+						<select id='sltStatus'></select>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="updateResponse">變更狀態</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">關閉</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
 	<script>
-		var table = $('#Table')
+		var table = $('#cusTable')
 				.DataTable(
 						{
 							ajax : {
@@ -62,7 +96,7 @@
 								data : "activeStatus",
 								render : function(data){
 									if(data==0){
-										return "會員刪除";
+										return "已停權";
 									}else if(data==1){
 										return "未啟用";
 									}else if(data==2){
@@ -71,7 +105,15 @@
 										return "已啟用";
 									}
 								},
-							}, ],
+							}, {
+								data : null,
+								render : function(){
+									return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">狀態變更</button></div>';
+								}
+								
+							}], 
+							
+							
 							//中文化相關
 							oLanguage : {
 								"sProcessing" : "處理中...",
@@ -89,6 +131,35 @@
 								}
 							}
 						});
+		
+		<c:if test="${(privilegeId==2)|| (privilegeId==7)}">
+	    var monitorData;
+		// 當權限為可審核才可以載入此段javascript
+		    $("#cusTable tbody").on("click", ".btnResponse" ,function (){
+				var tr = $(this).closest('tr');
+				monitorData = table.row(tr).data();
+				console.log("monitorData : "+monitorData);
+		    	var activeStatus = table.row(tr).data().activeStatus;
+				console.log("activeStatus : " + activeStatus);
+				// Modal 標頭
+				$("#exampleModalLongTitle span").html(activeStatus);
+				
+				// Modal Option
+				var status = table.row(tr).data().activeStatus;
+				var op_text = ["已停權", "未啟用", "改密碼", "已啟用"];
+				var str = "";
+				for(var i = 0; i<op_text.length; i++){
+            		if(i==status){
+            			str += "<option value="+i+" selected >"+op_text[i]+"</option>";
+            		} else{
+            			str += "<option value="+i+" >"+op_text[i]+"</option>";
+            		}
+            	}
+				$("#sltStatus").html(str);
+			});
+		</c:if>
+		
+		
 	</script>
 </body>
 </html>
