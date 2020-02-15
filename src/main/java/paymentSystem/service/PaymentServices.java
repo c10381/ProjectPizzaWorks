@@ -81,9 +81,9 @@ public class PaymentServices {
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName("披沙")
                  .setLastName("艾")
-                 .setEmail("iiiedujava@gmail.com")
-                 .setCountryCode("TW")
-                 .setPhone("0912345678");
+                 .setEmail("iiiedujava@gmail.com");
+//                 .setCountryCode("TW")
+//                 .setPhone("0912345678");
         payer.setPayerInfo(payerInfo);
          
         return payer;       
@@ -113,47 +113,48 @@ public class PaymentServices {
          
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
-        ProductBean pb = null;
         
-        for(int i=0; i<orderDetail.getSalesOrderDetails().size();i++) {
-        	pb = dao.getProductById(orderDetail.getSalesOrderDetails().get(i).getProductId());
-        	int unitprice = (int) orderDetail.getSalesOrderDetails().get(i).getUnitPrice();
-        	int quantity = orderDetail.getSalesOrderDetails().get(i).getQuantity();
-        	Item item = new Item()
-        					.setCurrency("TWD")
-        					.setName(pb.getProductName() + "*" + String.valueOf(quantity)  + ":")
-        					.setPrice(String.valueOf(unitprice))
-        					.setTax("0")
-        					.setQuantity(String.valueOf(quantity));            
+        
+        for(int i=0;i<orderDetail.getSalesOrderDetails().size();i++) {
+        	Item item = new Item();
+        	item.setTax("0");
+            item.setCurrency("TWD");
+            
+            ProductBean pb = dao.getProductById(orderDetail.getSalesOrderDetails().get(i).getProductId());
+            int quantity = orderDetail.getSalesOrderDetails().get(i).getQuantity();
+            int unitprice = (int) orderDetail.getSalesOrderDetails().get(i).getUnitPrice();
+            item.setName(pb.getProductName() + "*" + String.valueOf(quantity) + ":");
+            item.setPrice(String.valueOf(unitprice));            
+            item.setQuantity(String.valueOf(quantity));         
             items.add(item);
-            if(orderDetail.getSalesOrderDetails().get(i).getCrustTypeId() == 2) {
-            	Item crust = new Item()
-            					 .setCurrency("TWD")
-            					 .setName("芝心餅皮" + "*" + String.valueOf(quantity) + ":")
-            					 .setPrice("60")
-            					 .setTax("0")
-            					 .setQuantity(String.valueOf(quantity));
-            items.add(crust);
+            
+            if(orderDetail.getSalesOrderDetails().get(i).getCrustTypeId()==2) {
+            	Item crust = new Item();
+            	crust.setTax("0");
+            	crust.setCurrency("TWD");
+            	crust.setName("芝心餅皮" + "*" + String.valueOf(quantity) + ":");
+            	crust.setPrice("60");
+            	crust.setQuantity(String.valueOf(quantity));
+            	items.add(crust);
             }
             
-            if(orderDetail.getSalesOrderDetails().get(i).getCrustTypeId() == 2) {
-            	Item doubleCheese = new Item()
-            					 .setCurrency("TWD")
-            					 .setName("雙倍起司 " + "*" + String.valueOf(quantity) + ":")
-            					 .setPrice("25")
-            					 .setTax("0")
-            					 .setQuantity(String.valueOf(quantity));
-            items.add(doubleCheese);
+            if(orderDetail.getSalesOrderDetails().get(i).getDoubleCheese()==1) {
+            	Item cheese = new Item();
+            	cheese.setTax("0");
+            	cheese.setCurrency("TWD");
+            	cheese.setName("雙倍起司" + "*" + String.valueOf(quantity) + ":");
+            	cheese.setPrice("25");
+            	cheese.setQuantity(String.valueOf(quantity));
+            	items.add(cheese);
             }            
         }
-                          
+        
         itemList.setItems(items);
-        transaction.setItemList(itemList);
-     
+        transaction.setItemList(itemList);     
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(transaction);  
          
-        return listTransaction;        
+        return listTransaction;         
     }
      
     private String getApprovalLink(Payment approvedPayment) {

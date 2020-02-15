@@ -120,7 +120,6 @@ public class PaymentController {
 		
         try {        	
             String approvalLink = service.authorizePayment(sob);
-            System.out.println("reach done authorizePayment");
             return approvalLink;
 //            return "redirect: " + approvalLink;
 //            response.sendRedirect(approvalLink);
