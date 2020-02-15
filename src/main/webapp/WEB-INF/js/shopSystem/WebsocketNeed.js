@@ -20,6 +20,19 @@ try{
 	userName = undefined; 
 }
 
+let demoFlag = false; 
+let demoCounter = 0 ; 
+let demoDialog = [
+	"嗨，請問一下",
+	"你們為什麼賣夏威夷披薩這種垃圾食物",
+	"啊啊啊啊啊我誰～～～"
+]
+
+// 沒登入時刪除聊天聊天
+if((typeof customerEmail) == "undefined"){
+	$("#center-text").remove();
+}
+
 
 $(function () {
 	// 用於保留使用者對話紀錄
@@ -60,6 +73,13 @@ $(function () {
         $("#chat-circle").toggle('scale');
         $(".chat-box").toggle('scale');
     })
+    
+    
+    $("#demo").click(function(){
+    	demoFlag = true; 
+    	sendMessage(demoDialog[demoCounter]);
+    	demoCounter += 1; 
+    })
 })
 
 
@@ -98,13 +118,20 @@ function connect() {
 	    // 對方端傳來訊息 顯示的
 	    stompClient.subscribe('/user/subscribe', function(messageOutput) {
 	        //判斷是不是customerService使用的(前台一般都是true)
-//	    	console.log(messageOutput.body);
 	        var messageGet = JSON.parse(messageOutput.body);
 	        if (messageGet.customerService == true) {
 	        	// 取得訊息本體產生出來
 	        	var msg = messageGet.message.text;
 	    	    generate_message(msg, 'other');
 	    	    storage_message(msg, 'other');
+	    	    
+	    	    if(demoFlag == true && demoCounter<3){
+	    	    	setTimeout(function(){
+	    	    		sendMessage(demoDialog[demoCounter]);
+	    	    		demoCounter += 1;   
+	    	    	}, 1000);
+	    	    	
+	    	    }
 	        }
 	    });
     });

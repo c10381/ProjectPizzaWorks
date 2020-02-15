@@ -8,7 +8,7 @@ $(function () {
 		deleteList(num);
 	})
 	totalPriceCal();
-	chanceQtty();
+	changeQtty();
 	
 });
 
@@ -190,6 +190,12 @@ function insertQtty(qtty,index) {
 	return str;
 }
 
-function chanceQtty(){
-	
+function changeQtty(){
+	$("select").on('change', function(){
+		cart.salesOrderDetails[$(this).data("num")].quantity = parseInt($(this).val());
+		
+		totalPriceCal();
+		let cartStr = JSON.stringify(cart);
+		localStorage.setItem('cartList', cartStr);
+	})
 }
