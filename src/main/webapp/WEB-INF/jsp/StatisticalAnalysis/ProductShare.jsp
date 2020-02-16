@@ -152,7 +152,7 @@ input[type="number"] {
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-	<!-- -------------------------圓餅圖------------------------------------ -->
+	<!-- -------------------------圓餅圖HTML------------------------------------ -->
 	<div>
 		<!-- 產品下拉式選單 -->
 		<b>選取一個產品名稱</b><select id="show"></select>
@@ -185,11 +185,12 @@ input[type="number"] {
 			</figure>
 		</div>
 
-		<!-- -------------------------------------折線圖------------------------------------------------- -->
+		<!-- -------------------------------------折線圖HTML------------------------------------------------- -->
 
 		<!-- 產品下拉式選單for Line Chart -->
 		<div class="row">
 			<b>選取一個產品名稱</b> <select id="productList"></select>
+			<b>選取一個產品名稱</b> <select id="productList2"></select>
 			<!-- 請選擇起迄兩個月 -->
 			<!-- 小日曆-起日 -->
 			<div class="calendar ml-3">
@@ -263,7 +264,8 @@ input[type="number"] {
 			},
 			success : function(jsa_str) {
 				showOptions(jsa_str);
-				showOptions2(jsa_str);
+				showOptionsLineChart1(jsa_str);
+				showOptionsLineChart2(jsa_str);
 				showOptionsHistogram1(jsa_str);
 				showOptionsHistogram2(jsa_str);
 				showOptionsHistogram3(jsa_str);
@@ -284,9 +286,8 @@ input[type="number"] {
 			}
 			;
 		};
-		//LineChart下拉式選單-塞值
-		function showOptions2(jsa_str) {
-			console.log(jsa_str);
+		//LineChart下拉式選單-塞值1
+		function showOptionsLineChart1(jsa_str) {
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(options[i].productName);
@@ -294,10 +295,17 @@ input[type="number"] {
 			}
 			;
 		};
-
+		//LineChart下拉式選單-塞值2
+		function showOptionsLineChart2(jsa_str) {
+			var options = jsa_str;
+			for (i = 0; i < options.length; i++) {
+				var option = $("<option>").val(options[i].productId).text(options[i].productName);
+				$("#productList2").append(option);
+			}
+			;
+		};
 		//Histogram下拉式選單-塞值1
 		function showOptionsHistogram1(jsa_str) {
-			console.log(jsa_str);
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(
@@ -308,7 +316,6 @@ input[type="number"] {
 		};
 		//Histogram下拉式選單-塞值2
 		function showOptionsHistogram2(jsa_str) {
-			console.log(jsa_str);
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(
@@ -319,7 +326,6 @@ input[type="number"] {
 		};
 		//Histogram下拉式選單-塞值3
 		function showOptionsHistogram3(jsa_str) {
-			console.log(jsa_str);
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(
@@ -330,7 +336,6 @@ input[type="number"] {
 		};
 		//Histogram下拉式選單-塞值4
 		function showOptionsHistogram4(jsa_str) {
-			console.log(jsa_str);
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(
@@ -341,7 +346,6 @@ input[type="number"] {
 		};
 		//Histogram下拉式選單-塞值5
 		function showOptionsHistogram5(jsa_str) {
-			console.log(jsa_str);
 			var options = jsa_str;
 			for (i = 0; i < options.length; i++) {
 				var option = $("<option>").val(options[i].productId).text(
@@ -523,9 +527,11 @@ input[type="number"] {
 		//2. 第一次呼叫折線圖(Highchart)
 		function showLineChart(data2) {
 			var dropListName = $("#productList option:selected").text();
-			console.log("AAAAAA")
-			console.log(dropListName);
+			var dropListName2 = $("#productList2 option:selected").text();
 			Highcharts.chart('container2', {
+				chart : {
+					width: 800
+				},
 				title : {
 					text : '披薩毛利率趨勢'
 				},
@@ -569,7 +575,7 @@ input[type="number"] {
 
 				series : [ {
 					name : dropListName,
-					data : [ data2, 0.5, 0.4 ]
+					data : [ data2, 0.5, 0.4, 0.45, 0.55 ]
 				} ],
 
 				responsive : {
@@ -591,14 +597,12 @@ input[type="number"] {
 
 		//3. AJAX：折線圖(POST後GET值)
 		function sendLineChartInfo() {
+			//宣告一個JSON變數，儲存下拉式選單的值
 			var test_input = {
 				productId : $("#productList").val(),
 				startDateLine : $("#startDateLine").val(),
-				endDateLine : $("#endDateLine").val()
+				productId2 : $("#productList2").val(),
 			}
-			/* console.log($("#startDateLine").val());
-			console.log($("#endDateLine").val());
-			 */
 			//test_input.productId = $("#productList").val();
 			$.ajax({
 				url : "${pageContext.request.contextPath}/LineChartPost",
@@ -616,15 +620,14 @@ input[type="number"] {
 		}
 		//4. POST後的折線圖
 		function showLineChart2(data) {
+			//欲POST的下拉式選單內容
 			var dropListName = $("#productList option:selected").text();
-			console.log("AAAAAA")
-			console.log(dropListName);
-			console.log(data);
+			var dropListName2 = $("#productList2 option:selected").text();
+			//將後端傳回的字串年月日轉成整數型別
 			var startYearInt = parseInt(data.startYear);
 			var startMonthInt = parseInt(data.startMonth);
 			var startDayInt = parseInt(data.startDay);
-			console.log(startYearInt);
-			console.log(startMonthInt);
+			
 			Highcharts.chart('container2', {
 				title : {
 					text : '披薩毛利率趨勢'
@@ -646,7 +649,7 @@ input[type="number"] {
 						month : '%Y-%m'
 					},
 					accessibility : {
-						rangeDescription : '範圍：2020/1-3'
+						rangeDescription : '範圍：3個月'
 					}
 				},
 
@@ -662,18 +665,26 @@ input[type="number"] {
 							connectorAllowed : true
 						},
 						//(2020y,1m,1d)
-						//做活的，直接在前端拆解小月曆的年月日
-						pointStart : Date.UTC(startYearInt, startMonthInt - 1,
+						//做活的，直接在前端拆解小月曆的年月日(Date.UTC是網路語法)
+						//Month-1是因為JS月份從1起算，+3是因為前端傳endDate後端引用startDate(-3)
+						pointStart : Date.UTC(startYearInt, startMonthInt,
 								startDayInt),
 						pointIntervalUnit : 'month'
 					}
 				},
 				//放入單一產品折線圖(值)
-				series : [ {
-					name : dropListName,
-					data : [ data.oneProductGp1, data.oneProductGp2,
-							data.oneProductGp3 ]
-				} ],
+				series : [ 
+					{
+						name : dropListName,
+						data : [ data.oneProductGp1, data.oneProductGp2,
+							 data.oneProductGp3, data.oneProductGp4, data.oneProductGp5 ]
+					},
+					{
+						name : dropListName2,
+						data : [ data.oneProductGp6, data.oneProductGp7,
+							 data.oneProductGp8, data.oneProductGp9, data.oneProductGp10 ]
+					}
+					],
 				//不攸關
 				responsive : {
 					rules : [ {

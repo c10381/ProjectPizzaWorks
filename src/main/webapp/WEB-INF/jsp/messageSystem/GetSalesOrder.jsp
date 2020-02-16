@@ -15,9 +15,7 @@
 	<section class="content-header">
 		<div class="container-fluid row">
 			<div class="col-md-1">
-				<button
-					onclick="loadingPage('${request.contextPath}/shopManageSystem/GetAllSalesOrder')"
-					class="btn btn-block btn-secondary">返回</button>
+				<i class='fas fa-times' style='font-size:20px;margin:7px; float:left ' onclick='floatPageClose()'></i>
 			</div>
 			<!-- col end -->
 			<div class="col-md-4"></div>

@@ -24,10 +24,33 @@
 					<th>電話</th>
 					<!-- <th>地址</th> -->
 					<th>狀態</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody></tbody>
 		</table>
+	</div>
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">
+				顧客狀態 | 變更:<span></span>
+			</h5>
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<div class="modal-body">
+			<h6>狀態更動</h6>
+			<select id='sltStatus'></select>
+		</div>
+
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" id="updateResponse">變更狀態</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+		</div>
 	</div>
 	<script>
 		var table = $('#Table')
@@ -38,61 +61,76 @@
 								//默認不使用Key,直接讀取的Object Array
 								dataSrc : "",
 							},
-							searching: false,
-			                bSort: false,  //禁止排序
-			                info: false,   //去掉底部文字
-							columns : [ {
-								data : "email"
-							}, {
-								data : "lastName"
-							}, {
-								data : "firstName"
-							}, {
-								data : "gender",
-								render : function(data) {
-									if (data == 1) {
-										return "男";
-									} else if (data == 2) {
-										return "女";
-									}
-								},
-							}, {
-								data : 'privilegeId',
-								render : function(data) {
-									if (data == 2) {
-										return "網站後台管理員";
-									} else if (data == 3) {
-										return "銷貨負責人";
-									} else if (data == 4) {
-										return "進貨負責人";
-									} else if (data == 5) {
-										return "存貨負責人";
-									} else if (data == 6) {
-										return "客服人員";
-									} else if (data == 7) {
-										return "管理者";
-									}
-								},
-							}, {
-								data : "birthDate"
-							}, {
-								data : "cellphone"
-							}, {
-								/* data : "address"
-							}, { */
-								data : "activeStatus",
-								render : function(data) {
-									if (data == 0) {
-										return "會員刪除";
-									} else if (data == 1) {
-										return "未啟用";
-									} else if (data == 2) {
-										return "改密碼";
-									} else if (data == 3) {
-										return "已啟用";
-									}
-								},
-							}, ],
+							searching : false,
+							bSort : false, //禁止排序
+							info : false, //去掉底部文字
+							columns : [
+									{
+										data : "email"
+									},
+									{
+										data : "lastName"
+									},
+									{
+										data : "firstName"
+									},
+									{
+										data : "gender",
+										render : function(data) {
+											if (data == 1) {
+												return "男";
+											} else if (data == 2) {
+												return "女";
+											}
+										},
+									},
+									{
+										data : 'privilegeId',
+										render : function(data) {
+											if (data == 2) {
+												return "網站後台管理員";
+											} else if (data == 3) {
+												return "銷貨負責人";
+											} else if (data == 4) {
+												return "進貨負責人";
+											} else if (data == 5) {
+												return "存貨負責人";
+											} else if (data == 6) {
+												return "客服人員";
+											} else if (data == 7) {
+												return "管理者";
+											}
+										},
+									},
+									{
+										data : "birthDate"
+									},
+									{
+										data : "cellphone"
+									},
+									{
+										/* data : "address"
+										}, { */
+										data : "activeStatus",
+										render : function(data) {
+											if (data == 0) {
+												return "會員刪除";
+											} else if (data == 1) {
+												return "未啟用";
+											} else if (data == 2) {
+												return "改密碼";
+											} else if (data == 3) {
+												return "已啟用";
+											}
+										},
+									},
+									{
+										data : null,
+										render : function() {
+											return '<div><button type="button" class="btn btn-danger btn-sm btnResponse" data-toggle="modal" data-target="#ModalCenter">狀態變更</button></div>';
+										}
+
+									} ],
 							//中文化相關
 							oLanguage : {
 								"sProcessing" : "處理中...",
@@ -110,6 +148,44 @@
 								}
 							}
 						});
+		<c:if test="${privilegeId==7}">
+		var monitorData;
+		// 當權限為可審核才可以載入此段javascript
+		$("#cusTable tbody").on(
+				"click",
+				".btnResponse",
+				function() {
+					var tr = $(this).closest('tr');
+					monitorData = table.row(tr).data();
+					console.log("monitorData : " + monitorData);
+					var activeStatus = table.row(tr).data().activeStatus;
+					console.log("activeStatus : " + activeStatus);
+					// Modal 標頭
+					$("#exampleModalLongTitle span").html(activeStatus);
+
+					// Modal Option
+					var status = table.row(tr).data().activeStatus;
+					var op_text = [ "已離職", "更改密碼", "已啟用" ];
+					var str = "";
+					for (var i = 0; i < op_text.length; i++) {
+						if (i == status) {
+							str += "<option value="+i+" selected >"
+									+ op_text[i] + "</option>";
+						} else {
+							str += "<option value="+i+" >" + op_text[i]
+									+ "</option>";
+						}
+					}
+					$("#sltStatus").html(str);
+				});
+		$("#updateResponse").on(
+				"click",
+				function() {
+					$.ajax(){
+						
+					}
+				})
+		</c:if>
 	</script>
 </body>
 </html>

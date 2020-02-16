@@ -249,7 +249,7 @@ function MessageDemo(email){
 	//第三回合
 	//傳給Admin
 	if(email=="admin@pizza.com"&&comessageCounter==2){
-		document.getElementById("to"+email+"Message").value="好，收到了！";
+		document.getElementById("to"+email+"Message").value="好，收到！";
 		comessageCounter++;	
 		return;
 	}

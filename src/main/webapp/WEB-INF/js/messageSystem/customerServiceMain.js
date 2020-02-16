@@ -154,5 +154,5 @@ function CustomerDemo(text){
 }
 //Demo用2
 function CustomerDemoButton(){
-	$(".write_msg").val("已確認完成，下次訂貨還請你告訴店員您的姓名與Email，我們會在招待您一份，Pizza Bite誠摯期待您下次光臨！");
+	$(".write_msg").val("已確認完成，稍候會寄一封確認信給您，下次消費請出示Email，我們會再招待您一份，Pizza Bite誠摯期待您下次光臨！");
 }

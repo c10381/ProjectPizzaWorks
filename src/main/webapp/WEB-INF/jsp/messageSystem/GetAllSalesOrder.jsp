@@ -37,6 +37,7 @@
 						<th>產品總數</th>
 						<th>訂單總價</th>
 						<th>訂單狀態</th>
+						<th></th>
 					</tr>
 				</thead>
 			</table>
@@ -155,7 +156,14 @@
 	                                return '已結單';
 	                        }
 	                    }
-	                },
+	                },{
+	                	"targets" : 9,
+	                	"data" : "sRequestId",
+	                	"width" : "8%",
+	                	"render": function (data, type, row, meta) {
+	                		return "<div><button class='btn btn-success btn-sm detailbtn'>詳細資訊</button></div>"
+                        }
+                    }
                 ],
 	        });
 		
@@ -163,7 +171,7 @@
 		$('#soTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
 	    	var salesOrderId = table.row(tr).data().salesOrderId;
-	    	loadingPage('${request.contextPath}/shopManageSystem/getSalesOrder?id='+salesOrderId);
+	    	floatPage('${request.contextPath}/messageSystem/getSalesOrder?id='+salesOrderId,'70%','90vh');
 		});
 		
 		/* 表格的開關  */

@@ -187,7 +187,7 @@
                     }
                 ],
 	        });
-		
+		z
 		// 導向單一產品頁面
 		$('#soTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
