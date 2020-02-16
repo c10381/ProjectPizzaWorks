@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -117,49 +118,58 @@ public class StatisticalAnalysisController {
 	@RequestMapping(value = "/LineChartPost", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String LineChartPost(@RequestParam("lineChartInfo") String lineChartInfo, Model model)
 			throws ParseException {
-		System.out.println("prolineChartInfoduct = " + lineChartInfo);
 		JSONObject jso = new JSONObject(lineChartInfo);
-		Integer productId = Integer.parseInt(jso.getString("productId"));
-		String startDateLine = jso.getString("startDateLine");
-		// 若兩某時段，該產品原物料皆未被進貨，算出之兩比例會相等，折線圖會變成水平線
-		//以下計算第二時間點、第三時間點
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime endDate1 = LocalDateTime.parse(startDateLine + " 23:59:59", formatter);
-		LocalDateTime endDate2 = endDate1.plusMonths(1);
-		LocalDateTime endDate3 = endDate2.plusMonths(1);
-		LocalDateTime startDate1 = endDate1.minusMonths(3).minusDays(1).plusSeconds(1);
-		LocalDateTime startDate2 = startDate1.plusMonths(1);
-		LocalDateTime startDate3 = startDate2.plusMonths(1);
-		
-		String startDate1_str = startDate1.format(formatter);
-		String startDate2_str = startDate2.format(formatter);
-		String startDate3_str = startDate3.format(formatter);
-		String endDate1_str = endDate1.format(formatter);
-		String endDate2_str = endDate2.format(formatter);
-		String endDate3_str = endDate3.format(formatter);
 
-		Double oneProductGp1_0000 = service.getOneProductGp(productId, startDate1_str, endDate1_str);
-		Double oneProductGp2_0000 = service.getOneProductGp(productId, startDate2_str, endDate2_str);
-		Double oneProductGp3_0000 = service.getOneProductGp(productId, startDate3_str, endDate3_str);
-		// 把GP小數位數改成小數點兩位
-		DecimalFormat df = new DecimalFormat("######0.00");
-		String oneProductGp1_0000_string = df.format(oneProductGp1_0000);
-		String oneProductGp2_0000_string = df.format(oneProductGp2_0000);
-		String oneProductGp3_0000_string = df.format(oneProductGp3_0000);
-		Double oneProductGp1_00 = Double.parseDouble(oneProductGp1_0000_string);
-		Double oneProductGp2_00 = Double.parseDouble(oneProductGp2_0000_string);
-		Double oneProductGp3_00 = Double.parseDouble(oneProductGp3_0000_string);
+		Integer productId = Integer.parseInt(jso.getString("productId"));
+		Integer productId2 = Integer.parseInt(jso.getString("productId2"));
+		// 傳入前端一個時間點，傳回五個時間區段
+		HashMap<String, String> map = service.LineChartDateTransfer(jso.getString("startDateLine"));
+		// 呼叫五個點
+		Double oneProductGp1_0000 = service.getOneProductGp(productId, map.get("startDate1_str"),
+				map.get("endDate1_str"));
+		Double oneProductGp2_0000 = service.getOneProductGp(productId, map.get("startDate2_str"),
+				map.get("endDate2_str"));
+		Double oneProductGp3_0000 = service.getOneProductGp(productId, map.get("startDate3_str"),
+				map.get("endDate3_str"));
+		Double oneProductGp4_0000 = service.getOneProductGp(productId, map.get("startDate4_str"),
+				map.get("endDate4_str"));
+		Double oneProductGp5_0000 = service.getOneProductGp(productId, map.get("startDate5_str"),
+				map.get("endDate5_str"));
+
+		Double oneProductGp6_0000 = service.getOneProductGp(productId2, map.get("startDate1_str"),
+				map.get("endDate1_str"));
+		Double oneProductGp7_0000 = service.getOneProductGp(productId2, map.get("startDate2_str"),
+				map.get("endDate2_str"));
+		Double oneProductGp8_0000 = service.getOneProductGp(productId2, map.get("startDate3_str"),
+				map.get("endDate3_str"));
+		Double oneProductGp9_0000 = service.getOneProductGp(productId2, map.get("startDate4_str"),
+				map.get("endDate4_str"));
+		Double oneProductGp10_0000 = service.getOneProductGp(productId2, map.get("startDate5_str"),
+				map.get("endDate5_str"));
+
+		// 把GP小數位數改成小數點兩位，不然太長
+		HashMap<String, Double> mapDecimal = service.GP4DicimalTo2(oneProductGp1_0000, oneProductGp2_0000,
+				oneProductGp3_0000, oneProductGp4_0000, oneProductGp5_0000);
+		HashMap<String, Double> mapDecimal2 = service.GP4DicimalTo2(oneProductGp6_0000, oneProductGp7_0000,
+				oneProductGp8_0000, oneProductGp9_0000, oneProductGp10_0000);
 
 		// 把起日拆成年、月、日
-		String startYear = startDate1_str.substring(0, 4);
-		String startMonth = startDate1_str.substring(5, 7);
-		String startDay = startDate1_str.substring(8, 10);
-		System.out.println("yyyy = " + startYear + ";mm = " + startMonth + ";dd = " + startDay);
+		String startYear = map.get("startDate1_str").substring(0, 4);
+		String startMonth = map.get("startDate1_str").substring(5, 7);
+		String startDay = map.get("startDate1_str").substring(8, 10);
 
 		JSONObject jso2 = new JSONObject();
-		jso2.put("oneProductGp1", oneProductGp1_00);
-		jso2.put("oneProductGp2", oneProductGp2_00);
-		jso2.put("oneProductGp3", oneProductGp3_00);
+		jso2.put("oneProductGp1", mapDecimal.get("oneProductGp1_00"));
+		jso2.put("oneProductGp2", mapDecimal.get("oneProductGp2_00"));
+		jso2.put("oneProductGp3", mapDecimal.get("oneProductGp3_00"));
+		jso2.put("oneProductGp4", mapDecimal.get("oneProductGp4_00"));
+		jso2.put("oneProductGp5", mapDecimal.get("oneProductGp5_00"));
+
+		jso2.put("oneProductGp6", mapDecimal2.get("oneProductGp1_00"));
+		jso2.put("oneProductGp7", mapDecimal2.get("oneProductGp2_00"));
+		jso2.put("oneProductGp8", mapDecimal2.get("oneProductGp3_00"));
+		jso2.put("oneProductGp9", mapDecimal2.get("oneProductGp4_00"));
+		jso2.put("oneProductGp10", mapDecimal2.get("oneProductGp5_00"));
 		jso2.put("startYear", startYear);
 		jso2.put("startMonth", startMonth);
 		jso2.put("startDay", startDay);
@@ -167,16 +177,27 @@ public class StatisticalAnalysisController {
 		return jso2.toString();
 	}
 
-	// HistogramGet
-	@RequestMapping(value = "/HistogramGet", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String HistogramGet(Model model) throws ParseException {
-		JSONObject jso = new JSONObject();
-		jso.put("product1", service.getOneProductSalesShare(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-		jso.put("product2", service.getOneProductSalesShare(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-		jso.put("product3", service.getOneProductSalesShare(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-		jso.put("product4", service.getOneProductSalesShare(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-		jso.put("product5", service.getOneProductSalesShare(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-		return jso.toString();
+	// LineChartPostSheet
+	@RequestMapping(value = "/LineChartPostSheet", method = RequestMethod.POST)
+	public @ResponseBody String LineChartPostSheet(@RequestParam("lineChartInfo") String lineChartInfo, Model model) 
+			throws ParseException {
+		JSONObject jso = new JSONObject(lineChartInfo);
+		Integer productId = Integer.parseInt(jso.getString("productId"));
+		Integer productId2 = Integer.parseInt(jso.getString("productId2"));
+		HashMap<String, String> map = service.LineChartDateTransfer(jso.getString("startDateLine"));
+		Double unitCost1 = service.getUnitCost(productId, map.get("startDate1_str"), map.get("endDate1_str"));
+		Double unitCost2 = service.getUnitCost(productId, map.get("startDate2_str"), map.get("endDate2_str"));
+		Double unitCost3 = service.getUnitCost(productId, map.get("startDate3_str"), map.get("endDate3_str"));
+		Double unitCost4 = service.getUnitCost(productId, map.get("startDate4_str"), map.get("endDate4_str"));
+		Double unitCost5 = service.getUnitCost(productId, map.get("startDate5_str"), map.get("endDate5_str"));
+		Double unitCost6 = service.getUnitCost(productId2, map.get("startDate1_str"), map.get("endDate1_str"));
+		Double unitCost7 = service.getUnitCost(productId2, map.get("startDate2_str"), map.get("endDate2_str"));
+		Double unitCost8 = service.getUnitCost(productId2, map.get("startDate3_str"), map.get("endDate3_str"));
+		Double unitCost9 = service.getUnitCost(productId2, map.get("startDate4_str"), map.get("endDate4_str"));
+		Double unitCost10 = service.getUnitCost(productId2, map.get("startDate5_str"), map.get("endDate5_str"));
+		
+		JSONObject jso2 = new JSONObject();
+		return "";
 	}
 
 	// HistogramPost
