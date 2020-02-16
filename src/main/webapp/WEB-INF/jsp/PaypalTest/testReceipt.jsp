@@ -18,44 +18,42 @@
 </style>
 </head>
 <body>
-		
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
-	<div align="center">
-    <h1>付款成功，感謝您的訂購!</h1>
-    <br/>
-    <h2>訂單資訊如下:</h2>
-    <table>
-        <tr>
-            <td><b>Merchant:</b></td>
-            <td>Company ABC Ltd.</td>
-        </tr>
-        <tr>
-            <td><b>訂購者:</b></td>
-            <td>${payer.firstName} ${payer.lastName}</td>      
-        </tr>
-        <tr>
-            <td><b>訂單內容:</b></td>
-            <td>${transaction.description}</td>
-        </tr>
-        <tr>
-            <td><b>小計:</b></td>
-            <td>${transaction.amount.details.subtotal} NTD</td>
-        </tr>
-        <tr>
-            <td><b>運費:</b></td>
-            <td>${transaction.amount.details.shipping} NTD</td>
-        </tr>
-        <tr>
-            <td><b>Tax:</b></td>
-            <td>${transaction.amount.details.tax} NTD</td>
-        </tr>
-        <tr>
-            <td><b>總金額:</b></td>
-            <td>${transaction.amount.total} NTD</td>
-        </tr>                    
-    </table>
-</div>
-		
+	
+	
+	<section class="ftco-section">		
+		<div id='container justify-content-center'> 
+			<div id='header'>
+				<h1 style="text-align: center">付款成功，感謝您的訂購!</h1>
+			</div>
+			<!-- /div header -->
+			    <table class="mx-auto">
+		            <tr>
+		                <td class="text-lg text-white"><b>商家資訊</b></td>
+		                <td class="text-lg text-primary">Pizza Bite</td>
+		            </tr>
+		            <tr>
+		                <td class="text-lg text-white"><b>訂購者</b></td>
+		                <td class="text-lg text-primary">${payer.firstName} ${payer.lastName}</td>
+		            </tr>
+		            <tr>
+		                <td class="text-lg text-white"><b>訂單內容</b></td>
+		                <td class="text-lg text-primary">${transaction.description}</td>
+		            </tr>
+		            <tr>
+		                <td class="text-lg text-white"><b>總金額</b></td>
+		                <td class="text-lg text-primary">${transaction.amount.total} NTD</td>
+		            </tr>
+		            <tr>
+		            	<td colspan="2" class="justify-content-end">
+		            		<a href="${pageContext.request.contextPath}/member/orders"><button type="button" class="btn btn-primary btn-rounded">前往訂單一覽</button></a>
+		            	</td>
+		            </tr>
+        	</table>
+		</div>			
+	</section>
+	
+	
 		<jsp:include page="../shopSystem/fragment/footer.jsp" />
 		<jsp:include page="../shopSystem/fragment/loader.jsp" />
 		<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
