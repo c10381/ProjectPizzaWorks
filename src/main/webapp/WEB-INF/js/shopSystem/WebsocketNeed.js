@@ -24,8 +24,9 @@ let demoFlag = false;
 let demoCounter = 0 ; 
 let demoDialog = [
 	"嗨，請問一下",
-	"你們為什麼賣夏威夷披薩這種垃圾食物",
-	"啊啊啊啊啊我誰～～～"
+	"我之前吃你們家的Pizza上吐下瀉耶",
+	"昨天晚上喔！",
+	"好，感謝",
 ]
 
 // 沒登入時刪除聊天聊天
@@ -125,11 +126,17 @@ function connect() {
 	    	    generate_message(msg, 'other');
 	    	    storage_message(msg, 'other');
 	    	    
-	    	    if(demoFlag == true && demoCounter<3){
-	    	    	setTimeout(function(){
-	    	    		sendMessage(demoDialog[demoCounter]);
-	    	    		demoCounter += 1;   
-	    	    	}, 1000);
+	    	    if(demoFlag == true && demoCounter<5){
+	    	    	if(msg=="已確認完成，下次訂貨還請你告訴店員您的姓名與Email，Pizza Bite誠摯期待您下次光臨！"){
+	    	    		setTimeout(function(){
+	    	    			sendMessage("好，收到！感謝你！");
+	    	    		}, 3000);
+	    	    	}else{
+	    	    		setTimeout(function(){
+	    	    			sendMessage(demoDialog[demoCounter]);
+	    	    			demoCounter += 1;   
+	    	    		}, 1500);	    	    		
+	    	    	}
 	    	    	
 	    	    }
 	        }

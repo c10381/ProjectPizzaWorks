@@ -26,13 +26,13 @@
 				<div class="col-4">
 					身分：
 					<select id="privilege">
-						<option value='1' selected>顧客</option>
-						<option value='2'>員工</option>						
+						<option value='1'>顧客</option>
+						<option value='2' selected>員工</option>						
 					</select>
 				</div>
 				<div class="col-8 row align-items-center">
 					寄件人：
-					<input type="text" class="form-control col-9" placeholder="請輸入姓名，自動搜尋..." id="MailTo" list="searchMem">
+					<input type="text" class="form-control col-9" placeholder="請輸入姓名或Email" id="MailTo" list="searchMem">
 					<datalist id='searchMem'></datalist>
 					<input type="hidden" name="answer" id="answerInput-hidden">
 				</div>
@@ -132,11 +132,11 @@
 		}
 		function DemoButton() {
 			/* $("#MailTo").val("c10381@gmail.com"); */
-			$("#Mailsubject").val("嗨，你好嗎？");
+			$("#Mailsubject").val("本店招待！");
 			$("#compose-textarea")
 					.summernote(
-							'editor.pasteHTML',
-							"<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>感謝各位廠商今天到來</span></div>");
+							'code',
+							"下次訂餐請出示本頁面，即送您一份Pizza。");
 		}
 		function emptyButton(){
 			$("#MailTo").val("");

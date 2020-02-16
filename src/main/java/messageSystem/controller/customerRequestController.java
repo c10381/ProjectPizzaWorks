@@ -181,6 +181,8 @@ public class customerRequestController {
 		;
 		return false;
 	}
+	
+	//拿Email模糊查詢的資料(可以用firstName/lastName/Email查詢)
 	@GetMapping(value="/messageSystem/getEmail",produces="text/html;charset=UTF-8;")
 	public @ResponseBody String getMemberNameAndEmailByNameAndPrivileId(@RequestParam("name") String name,@RequestParam("privilege") Integer privilege) {
 		Integer[] privilegeId= null;
