@@ -31,11 +31,11 @@
 				<!--form starts-->
 				<div class="form-row form-group">
 					<div class="col-sm-2"></div>
-                	<label for="email" class="col-form-label col-sm-2 align-self-center">* 請輸入信箱：</label>
+                	<label for="email" class="col-form-label col-md-2 align-self-center">* 請輸入信箱：</label>
                 	<!-- col end-->
-                	<input id="email" name="email" class="form-control col-sm-4" type='email' placeholder='請輸入註冊信箱' required />
+                	<input id="email" name="email" class="form-control col-md-4" type='email' placeholder='請輸入註冊信箱' required />
             		<!-- col end-->
-            		<div class="col-sm-3 align-self-center" id="email_errbox"></div>
+            		<div class="col-md-3 align-self-center" id="email_errbox"></div>
             		<!-- col end-->
     			</div>
     			<!-- row form-group ends-->
@@ -48,13 +48,13 @@
 				</div>
 				<div class="form-row form-group">
 						<div class="col-sm-2"></div>
-						<label for="password" class="col-form-label col-sm-2 align-self-center">* 請輸入密碼：</label> 
+						<label for="password" class="col-form-label col-md-2 align-self-center">* 請輸入密碼：</label> 
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
-					 	       maxlength="16" class="form-control col-sm-4" 
+					 	       maxlength="16" class="form-control col-md-4" 
 					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)()[a-zA-Z\d+@]{8,16}$"/> 
 						<!-- col end-->
-						<h6 id="pwdReminder" class="form-text text-muted col-sm-2 align-self-center">
+						<h6 id="pwdReminder" class="form-text text-muted col-md-2 align-self-center">
 						 8-16字元 
 						</h6>
 						
@@ -63,25 +63,25 @@
     			<!-- row form-group end-->	
 				<div class="form-row form-group">
 					<div class="col-sm-2"></div>
-					<label for="validpwd" class="col-form-label col-sm-2 align-self-center">* 請確認密碼 ：</label> 
+					<label for="validpwd" class="col-form-label col-md-2 align-self-center">* 請確認密碼 ：</label> 
 					<!-- col end-->
 					<input id="validpwd" name="validpwd" type="password" placeholder="請再次輸入密碼" required 
-						   maxlength="15" class="form-control col-sm-4"/>
+						   maxlength="15" class="form-control col-md-4"/>
 					<!-- col end-->
-					<div class="col-sm-3 align-self-center" id="validpwd_errbox"></div>					
+					<div class="col-md-3 align-self-center" id="validpwd_errbox"></div>					
 					<!-- col end-->
 				</div>
     			<!-- row form-group end-->	
 				<br> 
 				<div class="row">
 					<div class="col-sm-2"></div>
-					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-sm-1"/>
+					<input type="button" id="Demo1" value="Demo1"  class="btn btn-white btn-outline-white col-md-1"/>
 					<div>&nbsp;</div>
-					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-sm-1"/>			
+					<input type="button" id="Demo2" value="Demo2"  class="btn btn-white btn-outline-white col-md-1"/>			
 					<div class="col-sm-2"></div>
-					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-sm-1"/> 
+					<input id="btnReset" type="reset" value="重填" class="btn btn-primary col-md-1"/> 
 					<div>&nbsp;</div>
-					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-sm-1"/>
+					<input id="btnAdd" type="submit" value="送出"  class="btn btn-primary col-md-1"/>
 					<!-- col end-->
 				</div> 
 				<!-- row end -->
@@ -147,18 +147,18 @@
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');
-		flag = false;
+		emailExists();
 	})
 	
 	//一鍵輸入功能--ver Dennis
 	$("#Demo2").click(function() {
-		$("#email").val("c10381@gmail.com");
+		$("#email").val("jjj@pizza.com");
 		$("#password").val("P@ssw0rd");
 		$("#validpwd").val("P@ssw0rd");
 		$('#email_errbox').text('');
 		$('#pwd_errbox').text('');
 		$('#validpwd_errbox').text('');
-		flag = false;
+		emailExists();
 	})
 
 	//鍵盤點擊開始輸入後將密碼提示清空
