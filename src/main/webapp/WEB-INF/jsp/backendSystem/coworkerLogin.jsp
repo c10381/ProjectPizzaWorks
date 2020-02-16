@@ -119,7 +119,7 @@
 			});
 			$("#Service").click(function() {
 				$("#email").val("service@pizza.com");
-				$("#password").val("P@ssw0rd");
+				$("#password").val("Do!ng123");
 			});
 			$("#purchase").click(function() {
 				$("#email").val("purchase@pizza.com");
