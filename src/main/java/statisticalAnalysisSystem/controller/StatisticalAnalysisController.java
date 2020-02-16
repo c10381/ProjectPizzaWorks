@@ -271,4 +271,25 @@ public class StatisticalAnalysisController {
 			service.addFakeSalesOrder(salesOrder);
 		}
 	}
+	
+	// PieChartPost
+		@RequestMapping(value = "/GetPieChartValue", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
+				throws JSONException, ParseException {
+			JSONArray output_jsa = new JSONArray();
+			System.out.println(input_json);
+			JSONObject input_jso = new JSONObject(input_json);
+			String startDate = input_jso.getString("startDate") + " 00:00:00";
+			String endDate= input_jso.getString("endDate") + " 23:59:59";
+			JSONArray input_option_jsa = input_jso.getJSONArray("input_option");
+			for(int i = 0; i<input_option_jsa.length();i++) {
+				JSONObject input_option_jso = input_option_jsa.getJSONObject(i);
+				Double y = service.getOneProductSalesShare(input_option_jso.getInt("productId"), startDate, endDate);
+				JSONObject output_jso = new JSONObject();
+				output_jso.put("productName", input_option_jso.getString("productName"));
+				output_jso.put("productValue", y);
+				output_jsa.put(output_jso);
+			}
+			return output_jsa.toString();
+		}
 }
