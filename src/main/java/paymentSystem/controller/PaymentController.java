@@ -119,7 +119,7 @@ public class PaymentController {
 	
 	@PostMapping(value = "/PaypalTest/paypalCheckout", consumes = "application/json")
 	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
-		
+		System.out.println(sob.getSalesOrderId());
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		
 		if(mem == null) {

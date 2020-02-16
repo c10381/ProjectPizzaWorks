@@ -27,7 +27,7 @@
     <table>
         <tr>
             <td><b>Merchant:</b></td>
-            <td>Company ABC Ltd.</td>
+            <td>Pizza Bite.</td>
         </tr>
         <tr>
             <td><b>訂購者:</b></td>
