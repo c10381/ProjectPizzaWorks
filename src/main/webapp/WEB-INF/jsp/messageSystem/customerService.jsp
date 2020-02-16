@@ -48,6 +48,7 @@
 					<div class="type_msg">
 						<div class="input_msg_write">
 							<input type="text" class="write_msg" placeholder="請輸入訊息..." onkeyup="CsputEnter(this)"/>
+							<button class="btn btn-outline-light btn-sm" onclick="CustomerDemoButton()">Demo</button>
 							<button class="msg_send_btn" type="button" onclick="sendToCustomerMessage(this)">
 								<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 							</button>

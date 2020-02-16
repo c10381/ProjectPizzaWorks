@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -61,10 +62,22 @@ public class StatisticalAnalysisController {
 		return "/StatisticalAnalysis/ProductShare";
 	}
 
+	// 導向ShowPieChart.jsp
+	@GetMapping(value = "/toPieChart")
+	public String redirectPieChart(Model model) {
+		return "/StatisticalAnalysis/ShowPieChart";
+	}
+
 	// 導向GrossProfitTrend.jsp(暫無用)
 	@GetMapping(value = "/LineChartTest")
 	public String showLineChart(Model model) {
 		return "/StatisticalAnalysis/GrossProfitTrend";
+	}
+	
+	// 導向ProductHisotgram.jsp
+	@GetMapping(value = "/toHistogram")
+	public String showHisotgram(Model model) {
+		return "/StatisticalAnalysis/ProductHistogram";
 	}
 
 	// 回傳下拉式選單資料Controller
@@ -201,27 +214,30 @@ public class StatisticalAnalysisController {
 	}
 
 	// HistogramPost
+	// 取出有key值為product開頭的產品去進行計算，再放到輸出物件中
 	@RequestMapping(value = "/HistogramPost", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String HistogramPost(@RequestParam("HistogramInfo") String HistogramInfo, Model model)
 			throws JSONException, ParseException {
 		JSONObject jso = new JSONObject(HistogramInfo);
-		Integer productId1 = Integer.parseInt(jso.getString("productId1"));
-		Integer productId2 = Integer.parseInt(jso.getString("productId2"));
-		Integer productId3 = Integer.parseInt(jso.getString("productId3"));
-		Integer productId4 = Integer.parseInt(jso.getString("productId4"));
-		Integer productId5 = Integer.parseInt(jso.getString("productId5"));
-		
+		JSONObject cloneToOutput = new JSONObject(HistogramInfo); // 用來輸出的
+		// 取出開始/ 結尾日
 		String startDate = jso.getString("startDate");
 		String endDate = jso.getString("endDate");
 		String startDateSec = startDate + " 00:00:00";
 		String endDateSec = endDate + " 23:59:59";
 		
-		jso.put("product1", service.getOneProductSalesShare(productId1, startDateSec, endDateSec));
-		jso.put("product2", service.getOneProductSalesShare(productId2, startDateSec, endDateSec));
-		jso.put("product3", service.getOneProductSalesShare(productId3, startDateSec, endDateSec));
-		jso.put("product4", service.getOneProductSalesShare(productId4, startDateSec, endDateSec));
-		jso.put("product5", service.getOneProductSalesShare(productId5, startDateSec, endDateSec));
-		return jso.toString();
+		Iterator<String> keys = jso.keySet().iterator();
+		while (keys.hasNext()) {
+			String key = keys.next();
+			if(key.substring(0, 7).equals("product")) {
+				String index = "product" + (key.substring(key.length()-1, key.length())); 
+				Integer valProductId = Integer.parseInt(jso.getString(key));
+				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
+//				keys.remove();
+				cloneToOutput.put(index, val ); 
+			}
+		} ;
+		return cloneToOutput.toString();
 	}
 
 	@RequestMapping(value = "/addFakeSalesOrders", method = RequestMethod.GET)
@@ -276,4 +292,25 @@ public class StatisticalAnalysisController {
 			service.addFakeSalesOrder(salesOrder);
 		}
 	}
+	
+	// PieChartPost
+		@RequestMapping(value = "/GetPieChartValue", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
+				throws JSONException, ParseException {
+			JSONArray output_jsa = new JSONArray();
+			System.out.println(input_json);
+			JSONObject input_jso = new JSONObject(input_json);
+			String startDate = input_jso.getString("startDate") + " 00:00:00";
+			String endDate= input_jso.getString("endDate") + " 23:59:59";
+			JSONArray input_option_jsa = input_jso.getJSONArray("input_option");
+			for(int i = 0; i<input_option_jsa.length();i++) {
+				JSONObject input_option_jso = input_option_jsa.getJSONObject(i);
+				Double y = service.getOneProductSalesShare(input_option_jso.getInt("productId"), startDate, endDate);
+				JSONObject output_jso = new JSONObject();
+				output_jso.put("productName", input_option_jso.getString("productName"));
+				output_jso.put("productValue", y);
+				output_jsa.put(output_jso);
+			}
+			return output_jsa.toString();
+		}
 }
