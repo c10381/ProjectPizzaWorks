@@ -39,8 +39,10 @@ public interface CustomerService {
 	
 	MembersBean login(String email , String pwd);
 	
-	boolean pwdChecker(String email, String pwd);
+	boolean oldPwdChecker(String email, String pwd);
+	boolean newPwdChecker(String eamil, String oldPwd, String newPwd);
 	boolean updPwd(String email, String oldPwd, String newPwd);
 	boolean resetPwd(String email, String newPwd );
 	
+	void saveCustomerStatus(MembersBean mem);
 }

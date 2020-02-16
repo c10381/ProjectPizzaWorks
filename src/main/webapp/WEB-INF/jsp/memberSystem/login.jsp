@@ -34,15 +34,15 @@
 				
 				<div class="form-row form-group">
 					<div class="col-sm-3"></div>
-					<label for="email" class="col-form-label col-sm-1 align-self-center">帳號：</label>
-					<input id='email' type="email" class="form-control col-sm-3" name="email" required autocomplete="off">
+					<label for="email" class="col-form-label col-md-1 align-self-center">帳號：</label>
+					<input id='email' type="email" class="form-control col-md-3" name="email" required autocomplete="off">
 					<div class="col-sm-3 align-self-center text-danger" id="email_err">${email_errMsg}</div>
 				</div>
 					
 				<div class="form-row form-group">
 					<div class="col-sm-3"></div>
-					<label for="password" class="col-form-label col-sm-1 align-self-center">密碼：</label>
-					<input id='password' type="password" class="form-control col-sm-3" name="password" required>						
+					<label for="password" class="col-form-label col-md-1 align-self-center">密碼：</label>
+					<input id='password' type="password" class="form-control col-md-3" name="password" required>						
 					<div class="col-sm-3 align-self-center text-danger" id="pwd_err">${pwd_errMsg}</div>					
 				</div>
 					
@@ -53,7 +53,7 @@
 					<input type="button" id="Demo2" class="btn btn-white btn-outline-white col-sm-1" value="Demo2" />
 					<div class="col-sm-2"></div>																
 						<!-- /.col -->					
-					<button type="submit" class="btn btn-primary col-sm-2">登入</button>
+					<button type="submit" class="btn btn-primary col-md-2">登入</button>
 					
 					<!-- /.col -->
 				</div>

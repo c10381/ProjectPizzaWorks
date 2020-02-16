@@ -66,7 +66,7 @@ function openCSbox(Email, Name , content) {
 function getCustomerMessage(messageOutput) {
 	//判斷有沒有開過視窗
 	openCSbox(messageOutput.message.from, messageOutput.message.fromName,messageOutput.message.text);
-
+	
 	var pCS = document.createElement('p');
 	pCS.appendChild(document.createTextNode(messageOutput.message.text));
 	var divCSI = document.createElement('div');
@@ -83,6 +83,8 @@ function getCustomerMessage(messageOutput) {
 	responseCS.appendChild(divCS);
 
 	responseCS.scrollTop = responseCS.scrollHeight;
+	//Demo用
+	CustomerDemo(messageOutput.message.text);
 }
 // 發出訊息(需要包進this)
 function sendToCustomerMessage(obj) {
@@ -135,3 +137,22 @@ function CsputEnter(obj) {
 
 // =====WebSocket=====
 //與聊天系統共用connect()與disconnect()
+
+//Demo用
+function CustomerDemo(text){
+	if(text=="嗨，請問一下"){
+		setTimeout(function(){
+			$(".write_msg").val("是的，請說");
+		}, 5000);
+	}
+	if(text=="我之前吃你們家的Pizza上吐下瀉耶"){
+		$(".write_msg").val("身體還好嗎？還想請問一下您在那時候下定我們家的Pizza呢？");
+	}
+	if(text=="昨天晚上喔！"){
+		$(".write_msg").val("好的，請稍等，我幫您查詢一下！");
+	}
+}
+//Demo用2
+function CustomerDemoButton(){
+	$(".write_msg").val("已確認完成，稍候會寄一封確認信給您，下次消費請出示Email，我們會再招待您一份，Pizza Bite誠摯期待您下次光臨！");
+}

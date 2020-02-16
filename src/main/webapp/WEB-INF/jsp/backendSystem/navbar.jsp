@@ -244,7 +244,7 @@
 			},
 			success : function(data) {				
 				$('#footer').html('查看所有訂單');
-				$('#footer').attr("onclick","loadingPage('/shopManageSystem/salesOrders')");				
+				$('#footer').attr("onclick","loadingPage('/shopManageSystem/GetAllSalesOrder')");				
 				if (data.length == 0) {
 					$('#note').hide();
 					$('#note1').html('目前沒有訂單');

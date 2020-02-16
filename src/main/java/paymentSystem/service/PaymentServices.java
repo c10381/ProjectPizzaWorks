@@ -21,6 +21,8 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
+import _model.MembersBean;
+import _model.ProductBean;
 import _model.SalesOrderBean;
 import shopSystem.dao.ShopDao;
 
@@ -29,6 +31,7 @@ import shopSystem.dao.ShopDao;
 public class PaymentServices {
 	
 	ShopDao dao;
+	
 	
 	private static final String CLIENT_ID = "AerXyJ9NF_HpEbkF0nhEicgbXmAbGout6KiAKU_BnvxwMR9F8Yx2WpgaInuFI-GqjXbBTOlxrCAt4Xl5";
     private static final String CLIENT_SECRET = "EHj6MslMjqDx5DU3PfDc-u6G9_xPYGyciFPXQkmm14Z9f7Ep3YeO2TDS95JBc1HTtyewMVj_ZjP7c3jV";
@@ -39,10 +42,10 @@ public class PaymentServices {
 		this.dao = dao;
 	}
         
-    public String authorizePayment(SalesOrderBean orderDetail)        
+    public String authorizePayment(SalesOrderBean orderDetail, MembersBean mem)        
             throws PayPalRESTException {       
  
-        Payer payer = getPayerInformation();
+        Payer payer = getPayerInformation(mem);
         RedirectUrls redirectUrls = getRedirectURLs();
         List<Transaction> listTransaction = getTransactionInformation(orderDetail);
          
@@ -73,14 +76,16 @@ public class PaymentServices {
     }
     
     
-    private Payer getPayerInformation() {
-    	Payer payer = new Payer();
+    private Payer getPayerInformation(MembersBean mem) {
+    	Payer payer = new Payer();    	
         payer.setPaymentMethod("paypal");
          
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("Leon")
-                 .setLastName("Tsai")
-                 .setEmail("iiiedujava@gmail.com");       
+        payerInfo.setFirstName(mem.getFirstName())
+                 .setLastName(mem.getLastName())
+                 .setEmail(mem.getEmail());
+//                 .setCountryCode("TW")
+//                 .setPhone("0912345678");
         payer.setPayerInfo(payerInfo);
          
         return payer;       
@@ -103,29 +108,57 @@ public class PaymentServices {
         amount.setCurrency("TWD");
         amount.setTotal(String.valueOf(orderDetail.getTotalSales()));
         amount.setDetails(details);
+        
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription("PizzaBite餐點");
-         
+        transaction.setDescription("PizzaBite餐點 | 訂單號:" + String.valueOf(orderDetail.getSalesOrderId()));
+        
+        
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
-         
-        Item item = new Item();
-        item.setCurrency("TWD");
-        item.setName("PizzaBite餐點");
-        item.setPrice(String.valueOf(orderDetail.getTotalSales()));
-        item.setTax("0");
-        item.setQuantity("1");
-         
-        items.add(item);
+        
+        
+        for(int i=0;i<orderDetail.getSalesOrderDetails().size();i++) {
+        	Item item = new Item();
+        	item.setTax("0");
+            item.setCurrency("TWD");
+            
+            ProductBean pb = dao.getProductById(orderDetail.getSalesOrderDetails().get(i).getProductId());
+            int quantity = orderDetail.getSalesOrderDetails().get(i).getQuantity();
+            int unitprice = (int) orderDetail.getSalesOrderDetails().get(i).getUnitPrice();
+            item.setName(pb.getProductName() + "*" + String.valueOf(quantity) + ":");
+            item.setPrice(String.valueOf(unitprice));            
+            item.setQuantity(String.valueOf(quantity));         
+            items.add(item);
+            
+            if(orderDetail.getSalesOrderDetails().get(i).getCrustTypeId()==2) {
+            	Item crust = new Item();
+            	crust.setTax("0");
+            	crust.setCurrency("TWD");
+            	crust.setName("芝心餅皮" + "*" + String.valueOf(quantity) + ":");
+            	crust.setPrice("60");
+            	crust.setQuantity(String.valueOf(quantity));
+            	items.add(crust);
+            }
+            
+            if(orderDetail.getSalesOrderDetails().get(i).getDoubleCheese()==1) {
+            	Item cheese = new Item();
+            	cheese.setTax("0");
+            	cheese.setCurrency("TWD");
+            	cheese.setName("雙倍起司" + "*" + String.valueOf(quantity) + ":");
+            	cheese.setPrice("25");
+            	cheese.setQuantity(String.valueOf(quantity));
+            	items.add(cheese);
+            }            
+        }
+        
         itemList.setItems(items);
-        transaction.setItemList(itemList);
-     
+        transaction.setItemList(itemList);     
         List<Transaction> listTransaction = new ArrayList<>();
         listTransaction.add(transaction);  
          
-        return listTransaction;        
+        return listTransaction;         
     }
      
     private String getApprovalLink(Payment approvedPayment) {

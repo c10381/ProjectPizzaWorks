@@ -32,7 +32,7 @@
 				<div class="form-row form-group">
 					<div class="col-sm-3"></div>
 					<label for="password" class="col-form-label col-sm-2 align-self-center" >* 請輸入舊密碼：</label>
-					<input id="oldPwd" name="oldPwd" type="password" required maxlength="16" class="form-control col-sm-3" onblur="pwdChecker()"/> 
+					<input id="oldPwd" name="oldPwd" type="password" required maxlength="16" class="form-control col-sm-3" onblur="oldPwdChecker()"/> 
 					<div class="col-sm-3 align-self-center" id="oldpwd_errbox"></div>	
 				</div>
 				
@@ -43,9 +43,9 @@
 					<input id="newPwd" name="newPwd" type="password" required maxlength="16" class="form-control col-sm-3" 
 					 	  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d+@]{8,16}$"/> 
 					<!-- col end-->
-					<h6 id="pwdReminder" class="form-text text-muted col-sm-3 align-self-center">
-						8-16字元，不含特殊符號   
-					</h6>
+					<div id="newpwd_errbox" class="form-text text-muted col-sm-3 align-self-center">
+						8-16字元，大、小寫英文、數字及特殊符號各一   
+					</div>
 				</div>
 					<!-- row form-group end-->					
 				<div class="form-row form-group">
@@ -76,8 +76,11 @@
 	<jsp:include page="../shopSystem/fragment/ContentJS.jsp" />
 	<script type="text/javascript">
 	
-	function pwdChecker(){
+	function oldPwdChecker(){
 		var oldpwd = $('#oldPwd').val();
+		//let objArray = [{"oldPwd":oldpwd}];
+		//let jsonStr = JSON.stringify(objArray);
+		//console.log(jsonStr);
 		if(oldpwd==""){
 			$('#oldpwd_errbox').text('請輸入密碼!');
 			$("#btnAdd").prop("disabled",true);
@@ -85,17 +88,16 @@
 				"class" : "text-danger col-sm-3 align-self-center"					
 			});
 		}else{
+			
 			$.ajax({
-				url: "${pageContext.request.contextPath}/memberSystem/oldPwdChecker?oldPwd=" + oldpwd,
+				url: "${pageContext.request.contextPath}/memberSystem/oldPwdChecker",
 				type: "POST",
-				error: function(data){
-					console.log('error');
-				},
+				data: oldpwd,
+				contentType : 'application/json; charset=utf-8',
 				success: function(data){
-					console.log();
+					console.log(data);
 					if(data){
-						$('#oldpwd_errbox').text('');
-						console.log(data);
+						$('#oldpwd_errbox').text("");
 						$('#btnAdd').prop('disabled',false);						
 					}else{	
 						$('#oldpwd_errbox').text('密碼不正確');
@@ -109,15 +111,36 @@
 		}						
 	}
 	
+	$('#newPwd').blur(function(){
+		let oldpwd = $("#oldPwd").val();
+		let newpwd = $("#newPwd").val();
+		if(oldpwd == newpwd){
+			$('#newpwd_errbox').text('新密碼不可與舊密碼相同!');
+			$('#newpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"					
+			});
+			
+		}	
+	})
+	
+	
 	$('form').submit(function(event){		
-		var pwd1 = $("#newPwd").val();
-		var pwd2 = $("#validPwd").val();				
+		let pwd1 = $("#newPwd").val();
+		let pwd2 = $("#validPwd").val();
+		let pwd3 = $("#oldPwd").val();
+		
 		if(pwd1 != pwd2){
 			event.preventDefault();
-			$('#oldpwd_errbox').attr({
+			$('#validpwd_errbox').attr({
 				"class" : "text-danger col-sm-3 align-self-center"					
 			});
 			$('#validpwd_errbox').text('輸入密碼不一致，請再次確認!');
+		}else if(pwd1 == pwd3){
+			event.preventDefault();
+			$('#newpwd_errbox').text("新密碼不可與舊密碼相同!");
+			$('#newpwd_errbox').attr({
+				"class" : "text-danger col-sm-3 align-self-center"					
+			});			
 		}
 	})
 	

@@ -36,7 +36,7 @@
 					<div class="col-sm-3"></div>
 					<label class="col-form-label col-sm-1 align-self-center">帳號：</label>
 					<form:input path="email" value="${MembersBean.email}" type="text" 
-						class="form-control col-sm-3"  readonly='true'/>
+						class="form-control col-sm-4"  readonly='true'/>
 					<div class="col-sm-2"></div>						
 				<!--form row ends  -->
 				</div>
@@ -119,7 +119,7 @@
 		$("#fName").val("披莎");
 		$("#gender").val("2");
 		$("#birth").val("2000-10-10");
-		$("#addr").val("復興南路一段390號2樓");
+		$("#addr").val("台北市大安區復興南路一段390號2樓");
 		$("#phone").val("0912345678");				
 	})
 	
@@ -129,7 +129,8 @@
 		$("#gender").val("1");
 		$("#birth").val("1991-05-18");
 		$("#addr").val("新北市板橋區文化路一段27號13樓");
-		$("#phone").val("0939916599");				
+		$("#phone").val("0939916599");
+		
 	})
 
 	

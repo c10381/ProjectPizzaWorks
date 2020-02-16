@@ -56,7 +56,7 @@ function openchatmessagebox(Email,Name){
 				"<div class='chatnew_messages myMessage'></div>"+
 				"</div>"+
 				"<div class='chatinput_box'>"+
-				"<textarea rows='1' class='chatmessage_input' placeholder='Type a message...' id='to"+Email+"Message' onkeyup='putEnter(\""+Email+"\",this)'></textarea>"+
+				"<textarea rows='1' class='chatmessage_input' placeholder='請輸入...' id='to"+Email+"Message' onkeyup='putEnter(\""+Email+"\",this)'></textarea>"+
 				"<button class='btn btn-outline-light btn-sm' onclick='MessageDemo(\""+Email+"\")'>Demo</button>"+
 //          "<i class='fas fa-location-arrow chatenter' onclick='sendMessage(\""+Email+"\")'></i>"+
 				"<i class='fas fa-location-arrow chatenter' onclick='sendMessage(\""+Email+"\",this)'></i>"+
@@ -220,31 +220,46 @@ var comessageCounter=0;
 //Demo用
 function MessageDemo(email){
 	//第一回合
-	//傳給service
-	if(email=="service@pizza.com"&&comessageCounter==0){
-		document.getElementById("to"+email+"Message").value="嗨，有空嗎？";
+	//傳給Admin
+	if(email=="admin@pizza.com"&&comessageCounter==0){
+		document.getElementById("to"+email+"Message").value="管理者您好，現在方便嗎？";
 		comessageCounter++;	
 		return;
 	}
-	//傳給Admin
-	if(email=="admin@pizza.com"&&comessageCounter==0){
-		document.getElementById("to"+email+"Message").value="是，請說！";
+	
+	//傳給service
+	if(email=="service@pizza.com"&&comessageCounter==0){
+		document.getElementById("to"+email+"Message").value="是，怎麼了嗎？";
 		comessageCounter++;	
 		return;
 	}
 	//第二回合
-	//傳給service
-	if(email=="service@pizza.com"&&comessageCounter==1){
-		document.getElementById("to"+email+"Message").value="有顧客直接反應客服很少在線";
-		comessageCounter++;	
-		return;
-	}
 	//傳給Admin
 	if(email=="admin@pizza.com"&&comessageCounter==1){
-		document.getElementById("to"+email+"Message").value="好的，之後會改進！";
+		document.getElementById("to"+email+"Message").value="有顧客反應，他昨晚吃我們的Pizza後身體不舒服，可能是龍蝦沙拉有問題";
 		comessageCounter++;	
 		return;
 	}
+	//傳給service
+	if(email=="service@pizza.com"&&comessageCounter==1){
+		document.getElementById("to"+email+"Message").value="好，收到，我再跟進貨反應，先給顧客一個Pizza作為賠償。";
+		comessageCounter++;	
+		return;
+	}
+	//第三回合
+	//傳給Admin
+	if(email=="admin@pizza.com"&&comessageCounter==2){
+		document.getElementById("to"+email+"Message").value="好，收到！";
+		comessageCounter++;	
+		return;
+	}
+	//傳給service
+	if(email=="service@pizza.com"&&comessageCounter==1){
+		document.getElementById("to"+email+"Message").value="另外，有顧客最近抱怨客服一直不在線上，煩請多留意。";
+		comessageCounter++;	
+		return;
+	}
+	
 }
 
 //客服人員

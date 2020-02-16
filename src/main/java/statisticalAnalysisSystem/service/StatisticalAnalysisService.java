@@ -1,6 +1,7 @@
 package statisticalAnalysisSystem.service;
 
 import java.text.ParseException;
+import java.util.HashMap;
 
 import _model.SalesOrderBean;
 import purchaseSystem.dao.PurchaseDao;
@@ -25,4 +26,10 @@ public interface StatisticalAnalysisService {
 	Double getOneMaterialCost(Integer materialsId) throws ParseException;
 	// 取得[一定期間][單一產品]之[毛利率]
 	Double getOneProductGp(Integer productId, String startingDate, String endDate) throws ParseException;
+
+	HashMap<String, String> LineChartDateTransfer(String date);
+
+	HashMap<String, Double> GP4DicimalTo2(Double gp1, Double gp2, Double gp3, Double gp4, Double gp5);
+
+	Double getUnitCost(Integer productId, String startingDate, String endDate) throws ParseException;
 }

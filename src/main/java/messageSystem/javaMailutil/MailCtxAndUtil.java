@@ -273,8 +273,8 @@ public class MailCtxAndUtil {
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <!-- 信件的下半部文字內容 -->" + 
-					"                    <td style='padding:0 20px 20px;color: #D1B96D;'>在辛勤的工作後，" + 
-					"                        <br>是不是想吃片熱騰騰的Pizza呢？<br>Pizza Bite在此誠心跟您推薦以下新口味：</td>" + 
+					"                    <td style='padding:0 20px 20px;color: #D1B96D;'>您好" + 
+					"                        <br></td>" + 
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <td style='padding:0'>" + 
@@ -288,8 +288,10 @@ public class MailCtxAndUtil {
 					"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
 					"                                                <tbody>" + 
 					"                                                    <tr>" + 
-					"                                                        <td>"+
-																				Context+
+					"                                                        <td>"+ 
+					"															<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>"+
+																					Context+
+					"					                                       </div></span>"+
 					"                                                        </td>" + 
 					"                                                    </tr>" + 
 					"                                                </tbody>" + 
@@ -338,7 +340,7 @@ public class MailCtxAndUtil {
 			
 			return Context;
 		}
-		//促銷信(要修啊～～)
+		//回信(要修啊～～)
 				public String AnswerCustomer(String memberName,String Context) {
 
 					Context="<div>" + 
@@ -368,7 +370,7 @@ public class MailCtxAndUtil {
 							"                <tr>" + 
 							"                    <!-- 信件的下半部文字內容 -->" + 
 							"                    <td style='padding:0 20px 20px;color: #D1B96D;'>感謝您的回饋" + 
-							"                        <br>Pizza Bit一定用最認真的心情看待您的意見<br>您之前的問題我們</td>" + 
+							"                        <br>Pizza Bit一定用最認真的心情看待您的意見<br>您之前的問題我們在此回應您</td>" + 
 							"                </tr>" + 
 							"                <tr>" + 
 							"                    <td style='padding:0'>" + 
@@ -378,17 +380,9 @@ public class MailCtxAndUtil {
 							"                            <tbody>" + 
 							"                                <tr >" + 
 							"                                    <td style='text-align:center;vertical-align:top;font-size:0;padding:15px 0'>" + 
-							"                                        <div style='width:100%;vertical-align:top'>" + 
-							"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
-							"                                                <tbody>" + 
-							"                                                    <tr>" + 
-							"														<td>"+
+							"										<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>"+
 							                                                        Context+
-							"														</td>"+
-							"                                                    </tr>" + 
-							"                                                </tbody>" + 
-							"                                            </table>" + 
-							"                                        </div>" + 
+							"                                       </div></span>"+
 							"                                    </td>" + 
 							"                                </tr>" + 
 							"                            </tbody>" + 
