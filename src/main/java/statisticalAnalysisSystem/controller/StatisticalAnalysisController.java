@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -70,6 +71,12 @@ public class StatisticalAnalysisController {
 	@GetMapping(value = "/LineChartTest")
 	public String showLineChart(Model model) {
 		return "/StatisticalAnalysis/GrossProfitTrend";
+	}
+	
+	// 導向ProductHisotgram.jsp
+	@GetMapping(value = "/toHistogram")
+	public String showHisotgram(Model model) {
+		return "/StatisticalAnalysis/ProductHistogram";
 	}
 
 	// 回傳下拉式選單資料Controller
@@ -186,27 +193,30 @@ public class StatisticalAnalysisController {
 	}
 
 	// HistogramPost
+	// 取出有key值為product開頭的產品去進行計算，再放到輸出物件中
 	@RequestMapping(value = "/HistogramPost", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String HistogramPost(@RequestParam("HistogramInfo") String HistogramInfo, Model model)
 			throws JSONException, ParseException {
 		JSONObject jso = new JSONObject(HistogramInfo);
-		Integer productId1 = Integer.parseInt(jso.getString("productId1"));
-		Integer productId2 = Integer.parseInt(jso.getString("productId2"));
-		Integer productId3 = Integer.parseInt(jso.getString("productId3"));
-		Integer productId4 = Integer.parseInt(jso.getString("productId4"));
-		Integer productId5 = Integer.parseInt(jso.getString("productId5"));
-
+		JSONObject cloneToOutput = new JSONObject(HistogramInfo); // 用來輸出的
+		// 取出開始/ 結尾日
 		String startDate = jso.getString("startDate");
 		String endDate = jso.getString("endDate");
 		String startDateSec = startDate + " 00:00:00";
 		String endDateSec = endDate + " 23:59:59";
-
-		jso.put("product1", service.getOneProductSalesShare(productId1, startDateSec, endDateSec));
-		jso.put("product2", service.getOneProductSalesShare(productId2, startDateSec, endDateSec));
-		jso.put("product3", service.getOneProductSalesShare(productId3, startDateSec, endDateSec));
-		jso.put("product4", service.getOneProductSalesShare(productId4, startDateSec, endDateSec));
-		jso.put("product5", service.getOneProductSalesShare(productId5, startDateSec, endDateSec));
-		return jso.toString();
+		
+		Iterator<String> keys = jso.keySet().iterator();
+		while (keys.hasNext()) {
+			String key = keys.next();
+			if(key.substring(0, 7).equals("product")) {
+				String index = "product" + (key.substring(key.length()-1, key.length())); 
+				Integer valProductId = Integer.parseInt(jso.getString(key));
+				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
+//				keys.remove();
+				cloneToOutput.put(index, val ); 
+			}
+		} ;
+		return cloneToOutput.toString();
 	}
 
 	@RequestMapping(value = "/addFakeSalesOrders", method = RequestMethod.GET)

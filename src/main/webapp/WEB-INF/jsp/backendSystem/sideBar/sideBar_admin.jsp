@@ -212,6 +212,11 @@
 				<i class="nav-icon fas fa-chart-pie"></i>
 				<p>圓餅圖</p>
 			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toHistogram')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-pie"></i>
+				<p>長條圖</p>
+			</div></li>
 	</ul>
 </li> 
 

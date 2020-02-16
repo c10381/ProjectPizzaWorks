@@ -2,7 +2,7 @@
     display: inline-block;
     cursor: pointer;
     line-height: 1;
-    width: 200px;
+    width: 300px;
 }
 
 .fs-label-wrap {
@@ -49,13 +49,13 @@
     position: absolute;
     background-color: #fff;
     border: 1px solid #ddd;
-    width: 200px;
+    width: 300px;
     margin-top: 5px;
     z-index: 1000;
 }
 
 .fs-dropdown .fs-options {
-    max-height: 200px;
+    max-height: 300px;
     overflow: auto;
 }
 
