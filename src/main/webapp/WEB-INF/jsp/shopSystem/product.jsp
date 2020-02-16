@@ -63,6 +63,12 @@ justify-content:center;
 											</c:when>
 											<c:when test="${ item.material.materialsName == '橄欖油' }">
 											</c:when>
+											<c:when test="${ item.material.materialsName == '鹽' }">
+											</c:when>
+											<c:when test="${ item.material.materialsName == '糖' }">
+											</c:when>
+											<c:when test="${ item.material.materialsName == '油' }">
+											</c:when>
 											<c:otherwise>
 											 ${item.material.materialsName }
 											 <c:if test="${!s.last  }">、</c:if>
