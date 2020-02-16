@@ -19,7 +19,7 @@
 <body>
 	<jsp:include page="../shopSystem/fragment/navbar.jsp" />
 <div align="center">
-    <h1>請再次確認訂單內容</h1>
+    <h1>請確認訂單內容</h1>
     <form action="${pageContext.request.contextPath}/PaypalTest/execute_Payment" method="post">
     <table>
         <tr>
@@ -30,28 +30,20 @@
             </td>
         </tr>
         <tr>
-            <td>訂購餐點:</td>
             <td>${transaction.description}</td>
         </tr>
-        <tr>
-            <td>小計:</td>
-            <td>${transaction.amount.details.subtotal} NTD</td>
-        </tr>
-        <tr>
-            <td>運費:</td>
-            <td>${transaction.amount.details.shipping} NTD</td>
-        </tr>
-        <tr>
-            <td>稅:</td>
-            <td>${transaction.amount.details.tax} NTD</td>
-        </tr>
+<!--         <tr> -->
+<!--         	<td>訂單號:</td> -->
+<%--             <td>${transaction.noteToPayee}</td> --%>
+<!--         </tr> -->
+        
         <tr>
             <td>總金額:</td>
             <td>${transaction.amount.total} NTD</td>
         </tr>
         <tr><td><br/></td></tr>
         <tr>
-            <td colspan="2"><b>Payer Information:</b></td>
+            <td colspan="2"><b>付款資訊:</b></td>
         </tr>
 
         <tr>
@@ -71,28 +63,12 @@
             <td>${shippingAddress.recipientName}</td>
         </tr>
         <tr>
-            <td>Line 1:</td>
+            <td>地址:</td>
             <td>${shippingAddress.line1}</td>
-        </tr>
-        <tr>
-            <td>City:</td>
-            <td>${shippingAddress.city}</td>
-        </tr>
-        <tr>
-            <td>State:</td>
-            <td>${shippingAddress.state}</td>
-        </tr>
-        <tr>
-            <td>Country Code:</td>
-            <td>${shippingAddress.countryCode}</td>
-        </tr>
-        <tr>
-            <td>Postal Code:</td>
-            <td>${shippingAddress.postalCode}</td>
-        </tr>
+        </tr>      
         <tr>
             <td colspan="2" align="center">
-                <input type="submit" value="確認付款" />
+                <input type="submit" value="確認付款" class="btn btn-primary"/>
             </td>
         </tr>    
     </table>

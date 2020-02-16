@@ -211,7 +211,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Transactional
 	@Override
-	public boolean pwdChecker(String email, String pwd) {
+	public boolean oldPwdChecker(String email, String pwd) {
 		boolean checker = false;
 		String encodedPwd = encrypter.getMD5Endocing(pwd);
 		String dbPwd = dao.pwdLoader(email);
@@ -223,6 +223,30 @@ public class CustomerServiceImpl implements CustomerService {
 		}else {
 			return checker;
 		}		
+	}
+	
+	@Transactional
+	@Override
+	public boolean newPwdChecker(String email, String oldPwd, String newPwd) {
+		boolean checker = true;
+		String encodedPwd = encrypter.getMD5Endocing(newPwd);//newPwd 
+		String dbPwd = dao.pwdLoader(email);//oldPwd
+		if(dbPwd!=null) {
+			if(encodedPwd.equals(dbPwd)) {
+				return checker;				
+			}else {
+				checker = false;
+				return checker;
+			}			
+		}else {			
+			return checker;
+		}		
+	}
+	
+	@Transactional
+	@Override
+	public void saveCustomerStatus(MembersBean mem) {
+		dao.saveCustomerStatus(mem);		
 	}
 	
 }

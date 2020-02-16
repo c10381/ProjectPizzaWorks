@@ -18,7 +18,7 @@
 				<th>帳號</th>
 				<th>姓</th>
 				<th>名</th>
-				<th>性別</th>
+				<th align="center">性別</th>
 				<th>生日</th>
 				<th>電話</th>
 				<th>地址</th>
@@ -96,7 +96,7 @@
 								data : "activeStatus",
 								render : function(data){
 									if(data==0){
-										return "已停權";
+										return "已停用";
 									}else if(data==1){
 										return "未啟用";
 									}else if(data==2){
@@ -138,7 +138,7 @@
 		    $("#cusTable tbody").on("click", ".btnResponse" ,function (){
 				var tr = $(this).closest('tr');
 				monitorData = table.row(tr).data();
-				console.log("monitorData : "+monitorData);
+				console.log("monitorData : " + monitorData);
 		    	var activeStatus = table.row(tr).data().activeStatus;
 				console.log("activeStatus : " + activeStatus);
 				// Modal 標頭
@@ -151,13 +151,47 @@
 				for(var i = 0; i<op_text.length; i++){
             		if(i==status){
             			str += "<option value="+i+" selected >"+op_text[i]+"</option>";
-            		} else{
+            		}else{
             			str += "<option value="+i+" >"+op_text[i]+"</option>";
             		}
             	}
 				$("#sltStatus").html(str);
 			});
+		
+		    $("#updateResponse").click(function(){
+				console.log(monitorData);
+				let status = $("#sltStatus").val();
+				
+				if(status==null){
+					alert("請更動狀態");
+					return ;
+				}
+				
+				/*var updateInfo = {};
+				updateInfo.orderStatus = status;
+				updateInfo.salesOrderId = monitorData.salesOrderId;
+				console.log(JSON.stringify(updateInfo));*/
+				monitorData.activeStatus = status;
+				console.log(status);
+				
+				$.ajax({
+			  	    type : "PUT", 
+			  	    url : "../memberSystem/saveCustomerStatus",
+			  	    data: JSON.stringify(monitorData),
+			  	    contentType: "application/json; charset=utf-8",
+			   	}).done(function(data){
+			   		alert("成功");
+			   		$('#ModalCenter').one('hidden.bs.modal',function(){
+					loadingPage("/memberSystem/allCustomer");
+					}).modal("hide");
+			   	}).fail(function(){
+			   		console.log("失敗");
+			   		return false;
+			   	});			
+			});			
 		</c:if>
+		
+		
 		
 		
 	</script>

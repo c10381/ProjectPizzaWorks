@@ -323,7 +323,7 @@
 			   		}).done(function(data){
 			   			alert("成功");
 			   			$('#ModalCenter').one('hidden.bs.modal',function(){
-			   				loadingPage("/shopManageSystem/GetAllSalesOrder")
+			   				loadingPage("../shopManageSystem/GetAllSalesOrder")
 						}).modal("hide");
 			   		}).fail(function(){
 			   			console.log("失敗");
