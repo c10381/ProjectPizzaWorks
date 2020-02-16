@@ -87,9 +87,8 @@ public class ShopController {
 	// 轉址後台修改成功頁面
 	@RequestMapping("/insertWebInfo")
 	public String insertWebInfo(WebInfo webinfo) {
-		System.out.println("AAAAA");
 		shopService.insertWebInfo(webinfo);
-		return "shopSystem/SuccessInsertWebInfo";
+		return "shopSystem/backEnd/SuccessInsertWebInfo";
 	}
 
 	// 取得網站資訊，回傳給前台修改

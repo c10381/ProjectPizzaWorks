@@ -28,9 +28,6 @@
 				<li class="nav-item"><a href="<spring:url value='/shop/contactUs' />" class="nav-link">聯絡我們</a>
 				</li>
 			</ul>
-		</div>
-		
-		<div class="collapse navbar-collapse nav-rt" id="ftco-nav">
 			<ul class="nav navbar-nav ml-auto">
 				<li class="nav-item active"><a
 					href='<spring:url value="/shop/cart" />' class="nav-link"> <i

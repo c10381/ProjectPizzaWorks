@@ -106,7 +106,7 @@ public class customerRequestDaoImpl implements customerRequestDao {
 	@Override
 	public List<MembersBean> getMemberNameAndEmailByNameAndPrivileId(String name,Integer[] privilegeId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM MembersBean WHERE (firstName LIKE :name OR lastName LIKE :name) AND privilegeId in (:privilegeId)";
+		String hql = "FROM MembersBean WHERE (firstName LIKE :name OR lastName LIKE :name OR email LIKE :name) AND privilegeId in (:privilegeId)";
 		List<MembersBean> list=null;
 		try {
 			list=session.createQuery(hql).setParameter("name",'%'+name+'%')

@@ -36,7 +36,7 @@
 			onclick="loadingPage('/shopManageSystem/products')">
 			<div class="nav-link">
 				<i class="far fa-circle nav-icon "></i>
-				<p>檢視產品</p>
+				<p>檢視並修改產品</p>
 			</div>
 		</li>
 

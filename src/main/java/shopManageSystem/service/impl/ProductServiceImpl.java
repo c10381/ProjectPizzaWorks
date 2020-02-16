@@ -199,7 +199,7 @@ public class ProductServiceImpl implements ProductService {
 	public void saveSalesList(SalesOrderBean salesOrder) {
 		SalesListBean salesList = new SalesListBean();
 		salesList.setSalesOrderId(salesOrder.getSalesOrderId());
-		salesList.setMemberId(salesOrder.getMemberId());
+		salesList.setMemberId(5);
 		salesList.setOrderTime(salesOrder.getOrderTime());
 		salesList.setTotalSales(salesOrder.getTotalSales());
 		Integer salesListId = dao.InsertSalesList(salesList);

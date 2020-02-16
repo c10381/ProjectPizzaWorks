@@ -17,7 +17,7 @@
 	<section>
 		<div>
 			<div class="container" style="text-align: center">
-				<h2>材料一覽</h2>
+				<h2>新增產品</h2>
 			</div>
 		</div>
 	</section>
@@ -61,7 +61,7 @@
 				<div class="card card-default">
 					<div class="card-header">
 						<div class="card-title">
-							<i class="fas fa-box-open"></i>材料
+							<i class="fas fa-box-open"></i>食材
 						</div>
 						<!-- card-title end -->
 					</div>

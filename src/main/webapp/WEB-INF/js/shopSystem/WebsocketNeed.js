@@ -20,6 +20,20 @@ try{
 	userName = undefined; 
 }
 
+let demoFlag = false; 
+let demoCounter = 0 ; 
+let demoDialog = [
+	"嗨，請問一下",
+	"我之前吃你們家的Pizza上吐下瀉耶",
+	"昨天晚上喔！",
+	"好，感謝",
+]
+
+// 沒登入時刪除聊天聊天
+if((typeof customerEmail) == "undefined"){
+	$("#center-text").remove();
+}
+
 
 $(function () {
 	// 用於保留使用者對話紀錄
@@ -60,6 +74,13 @@ $(function () {
         $("#chat-circle").toggle('scale');
         $(".chat-box").toggle('scale');
     })
+    
+    
+    $("#demo").click(function(){
+    	demoFlag = true; 
+    	sendMessage(demoDialog[demoCounter]);
+    	demoCounter += 1; 
+    })
 })
 
 
@@ -98,13 +119,26 @@ function connect() {
 	    // 對方端傳來訊息 顯示的
 	    stompClient.subscribe('/user/subscribe', function(messageOutput) {
 	        //判斷是不是customerService使用的(前台一般都是true)
-//	    	console.log(messageOutput.body);
 	        var messageGet = JSON.parse(messageOutput.body);
 	        if (messageGet.customerService == true) {
 	        	// 取得訊息本體產生出來
 	        	var msg = messageGet.message.text;
 	    	    generate_message(msg, 'other');
 	    	    storage_message(msg, 'other');
+	    	    
+	    	    if(demoFlag == true && demoCounter<5){
+	    	    	if(msg=="已確認完成，下次訂貨還請你告訴店員您的姓名與Email，Pizza Bite誠摯期待您下次光臨！"){
+	    	    		setTimeout(function(){
+	    	    			sendMessage("好，收到！感謝你！");
+	    	    		}, 3000);
+	    	    	}else{
+	    	    		setTimeout(function(){
+	    	    			sendMessage(demoDialog[demoCounter]);
+	    	    			demoCounter += 1;   
+	    	    		}, 1500);	    	    		
+	    	    	}
+	    	    	
+	    	    }
 	        }
 	    });
     });

@@ -142,8 +142,8 @@
     	   }
            $("#ftco-navbar #ftco-nav:first-of-type li:nth-of-type(3)").addClass("active");
            $("#demo").click(function(){
-       		   $("input[name='email']").val("user@pizza.com"); 
-       		   $("input[name='name']").val("鍾先生"); 
+       		   /* $("input[name='email']").val("user@pizza.com");  */
+       		   $("input[name='name']").val("鐘先生"); 
        		   $("textarea[name='content']").val("請問明太子鮭魚Pizza還會再推出嗎?"); 
         	   
            })

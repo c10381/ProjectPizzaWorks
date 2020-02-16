@@ -124,7 +124,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>單價：</label>
-								<form:input type="text" path="unitPrice"
+								<form:input type="text" path="unitPrice" id="unitPrice"
 									value="${product.unitPrice}" class='form-control' />
 							</div>
 							<!-- form-group end -->
@@ -145,7 +145,11 @@
 						
 						</div>
 						<!-- col end -->
-						<div class="col-sm-6"></div>
+						<div class="col-sm-4"></div>
+						<!-- col end -->
+						<div class="col-sm-2">
+							<button id="demo" type="button" class="btn btn-block btn-outline-info">一鍵輸入</button>
+						</div>
 						<!-- col end -->
 						<div class="col-sm-2">
 							<button
@@ -199,6 +203,13 @@
 					}
 				});
 			});
+			
+			
+			$("#demo").click(function(){
+				$("#productName").val("北海道龍蝦醬干貝比薩"); 
+				$("#briefInfo").val("史上最受歡迎的金帶財比薩系列，PizzaBite限量推出香濃升級版，讓消費者感受融合龍蝦醬後更濃郁的起司口感！");
+				$("#unitPrice").val(750);
+			})
 		});
 		function readURL(input){
 			if(input.files && input.files[0]){

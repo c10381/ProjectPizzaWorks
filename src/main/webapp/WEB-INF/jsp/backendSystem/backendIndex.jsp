@@ -46,6 +46,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+<!-- fselect -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/backendSystem/fSelect.css">
 <style>
 .sidebar {
   overflow-y: scroll; /* Add the ability to scroll */
@@ -164,12 +166,14 @@
 	<!-- WebSocket用套件 -->
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
-    <!-- chatroom Js (放最後面)-->
-	<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
     <!-- flatpickr -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
 	
+    <script src="${pageContext.request.contextPath}/js/backendSystem/fSelect.js"></script>
+	<!-- chatroom Js (放最後面)-->
+	<script src="${pageContext.request.contextPath}/js/backendSystem/chatroommain.js"></script>
+    
 	
 	<script>
 		//紀錄email

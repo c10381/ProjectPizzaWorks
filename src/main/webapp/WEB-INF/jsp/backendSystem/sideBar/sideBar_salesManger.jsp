@@ -68,4 +68,4 @@
 <!-- /Analysis -->
 
 <li class="nav-header"
-	style="margin: 0; padding: 0px; text-align: center; font-size: 25px; line-height: 1.5">salesManager</li>
+	style="margin: 0; padding: 0px; text-align: center; font-size: 25px; line-height: 1.5">SalesManager</li>

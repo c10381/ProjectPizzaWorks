@@ -196,11 +196,31 @@
 	</div></li>
 <!-- /MailService -->
 <!-- Analysis -->
-<li class="nav-item has-treeview" onclick="loadingPage('/PieChartTest')"><div
-		class="nav-link">
-		<i class="nav-icon far fa-chart-bar"></i>
-		<p>數據分析</p>
-	</div></li>
+
+<li class="nav-item has-treeview"><div class="nav-link">
+		<i class="nav-icon fas fa-chart-bar"></i>
+		<p>數據分析<i class="fas fa-angle-left right"></i></p>
+	</div>
+	<ul class="nav nav-treeview" style="display: none;">
+		<li class="nav-item" onclick="loadingPage('/PieChartTest')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-pie"></i>
+				<p>原圖</p>
+			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toPieChart')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-pie"></i>
+				<p>圓餅圖</p>
+			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toHistogram')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-pie"></i>
+				<p>長條圖</p>
+			</div></li>
+	</ul>
+</li> 
+
+
 <!-- /Analysis -->
 <li class="nav-header"
 	style="margin: 0; padding: 0px; text-align: center; font-size: 25px; line-height: 1.5">Admin</li>

@@ -63,8 +63,7 @@
 
 						<div class="quickComment mt-2">
 							<button type="button" class="btn btn-outline-secondary btn-sm">如擬辦理</button>
-							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK
-								NOPROBLEM</button>
+							<button type="button" class="btn btn-outline-secondary btn-sm">同意辦理</button>
 							<button type="button" class="btn btn-outline-secondary btn-sm">不能同意辦理</button>
 						</div>
 					</div>

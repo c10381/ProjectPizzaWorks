@@ -57,7 +57,7 @@
 	            }, {
 	                "data": "requestTime"
 	            },{
-	            	"data": "proposalerId"
+	            	"data": "fullName"
 	            }
 	            ],
 	            "columnDefs": [
