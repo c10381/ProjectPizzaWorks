@@ -88,8 +88,8 @@
 			</div>
 			<!-- /.login-box -->
 			<!-- Login Demo btns-->
-			<footer class="footer fixed-bottom justify-content-center align-self-center">
-				<div style="margin: 20px auto; width: 600px" class="justify-content-center align-items-center">
+			<footer class="footer fixed-bottom" style="width:100%">
+				<div style="margin: 20px auto;width:620px" class="justify-content-center align-items-center">
 					<div id="admin" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">管理員</div>
 					<div id="Service" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">客服人員</div>
 					<div id="webadmin" class="btn btn-default btn-md" style="margin: 5px;background: #fac564;color: black;">網站管理員</div>
