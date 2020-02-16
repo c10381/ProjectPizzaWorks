@@ -110,8 +110,8 @@
 	<script>
 	$().ready(function(){
 		$("#admin").click(function(){
-			$("#password").val("P@ssw0rd");
-			$("#Compassword").val("P@ssw0rd");
+			$("#password").val("Do!ng123");
+			$("#Compassword").val("Do!ng123");
 		});
 	});
 	</script>

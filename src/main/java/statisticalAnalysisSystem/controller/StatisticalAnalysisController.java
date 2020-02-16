@@ -233,7 +233,6 @@ public class StatisticalAnalysisController {
 				String index = "product" + (key.substring(key.length()-1, key.length())); 
 				Integer valProductId = Integer.parseInt(jso.getString(key));
 				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
-//				keys.remove();
 				cloneToOutput.put(index, val ); 
 			}
 		} ;
