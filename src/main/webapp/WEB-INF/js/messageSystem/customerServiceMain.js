@@ -140,13 +140,10 @@ function CsputEnter(obj) {
 
 //Demo用
 function CustomerDemo(text){
-	if(text=="嗨，請問一下"){
+	if(text=="嗨，請問一下，我之前吃你們家的Pizza上吐下瀉耶"){
 		setTimeout(function(){
-			$(".write_msg").val("是的，請說");
+			$(".write_msg").val("身體還好嗎？還想請問一下您在那時候下定我們家的Pizza呢？");
 		}, 5000);
-	}
-	if(text=="我之前吃你們家的Pizza上吐下瀉耶"){
-		$(".write_msg").val("身體還好嗎？還想請問一下您在那時候下定我們家的Pizza呢？");
 	}
 	if(text=="昨天晚上喔！"){
 		$(".write_msg").val("好的，請稍等，我幫您查詢一下！");
