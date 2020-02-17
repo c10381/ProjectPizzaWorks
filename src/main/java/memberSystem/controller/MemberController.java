@@ -201,7 +201,5 @@ public class MemberController {
 
 		return Custservice.getAllCustomers();
 	}
-
-	// ==更改前台顧客狀態==	
 	
 }

@@ -91,7 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 			if(veb.getRequestStatus()==1) {
 				veb.setRequestStatus(2);
 			}else if(veb.getRequestStatus()==3) {
-				veb.setRequestStatus(4);
+				veb.setRequestStatus(2);
 			}else {
 				return null;
 			}
