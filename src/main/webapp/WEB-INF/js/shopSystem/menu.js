@@ -156,7 +156,11 @@ function checkDeliver(productId , productName , productPrice) {
 			
 			if (deliverType == "delivery") {
 				cart.needDelivery = 1;
-				cart.deliverAddress = $("#address").val();
+				let county = $("select[name='county']").val(); 
+				let district = $("select[name='district']").val(); 
+				let address = $("#address").val();
+				let deliverAddress = county + district + address; 
+				cart.deliverAddress = deliverAddress;
 			} else {
 				cart.needDelivery = 0;
 			}
@@ -217,5 +221,13 @@ function insertTime() {
 		wrap : true,
 		defaultDate: roundedTime,
 		static: true, 
+		onChange: function(selectedDates, dateStr, instance){
+			var diff = selectedDates[0]-new Date().getTime();
+			if(diff < 0){
+				swal("無法選擇過去時間");
+			} else if(diff < 1000*60*20){
+				swal("取餐時間需為20分鐘後");
+			}
+		}
 	});
 }

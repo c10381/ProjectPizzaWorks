@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.resource.HttpResource;
 import com.google.gson.Gson;
 
 import _model.MembersBean;
+import _model.SalesOrderBean;
 import memberSystem.service.CustomerService;
 import memberSystem.service.MemberService;
 
@@ -199,7 +201,5 @@ public class MemberController {
 
 		return Custservice.getAllCustomers();
 	}
-
-	// ==/查詢全部會員/==
 	
 }

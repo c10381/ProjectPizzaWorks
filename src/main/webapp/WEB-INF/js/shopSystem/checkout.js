@@ -38,11 +38,10 @@ function sendPayPal(){
 	    contentType : "application/json",
 	    
 	}).done(function(data){
-		// 動作請再修改
-		console.log(data);
+		localStorage.clear();
+		updateList();
 		window.location.replace(data);
 	}).fail(function(){
-		// 動作請再修改
 		window.location.replace("../PaypalTest/paypalError");
 		swal("失敗"); 
 	})
@@ -148,8 +147,9 @@ function sendOrder(){
 				}).then((value)=>{
 					switch(value){
 					case "paypal":
-						swal("PayPal");
+						swal("正為您導向paypal付款畫面");
 						sendPayPal(); 
+						
 				        break;
 					case "cash":
 						swal({

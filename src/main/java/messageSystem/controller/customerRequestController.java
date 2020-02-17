@@ -31,13 +31,15 @@ import messageSystem.javaMailutil.MailCtxAndUtil;
 import messageSystem.javaMailutil.SpringMailConfig;
 import messageSystem.javaMailutil.SpringMailUtil;
 import messageSystem.service.customerRequestService;
+import shopManageSystem.service.ProductService;
 
 @Controller
 public class customerRequestController {
 
 	customerRequestService service;
 	MemberService mservice;
-
+	ProductService Pservice;
+	
 	@Autowired
 	public void setService(customerRequestService service) {
 		this.service = service;
@@ -46,6 +48,12 @@ public class customerRequestController {
 	@Autowired
 	public void setMservice(MemberService mservice) {
 		this.mservice = mservice;
+	}
+	
+
+	@Autowired
+	public void setService(ProductService Pservice) {
+		this.Pservice = Pservice;
 	}
 
 	// 操作Spring Mail區
@@ -181,7 +189,15 @@ public class customerRequestController {
 		;
 		return false;
 	}
-	
+	//轉址，拿到訂單詳細資訊
+	@RequestMapping(value = "/messageSystem/getSalesOrder", method = RequestMethod.GET)
+	public String getSalesOrder(@RequestParam("id") Integer salesOrderId, Model model) {
+		List<Object> output = Pservice.getSalesOrderDetails(salesOrderId);
+		model.addAttribute("salesOrder", output.get(0));
+		model.addAttribute("products", output.get(1));
+		model.addAttribute("crusts", output.get(2));
+		return "messageSystem/GetSalesOrder";
+	}
 	//拿Email模糊查詢的資料(可以用firstName/lastName/Email查詢)
 	@GetMapping(value="/messageSystem/getEmail",produces="text/html;charset=UTF-8;")
 	public @ResponseBody String getMemberNameAndEmailByNameAndPrivileId(@RequestParam("name") String name,@RequestParam("privilege") Integer privilege) {

@@ -78,13 +78,13 @@
 								'responseComment':"${Bean.responseComment}",
 							</c:when>
 							<c:otherwise>
-								'responseComment':"<div id='${Bean.vRequestId}response'><input type='text' id='${Bean.vRequestId}responseComment'></input></div>",
+								'responseComment':"<div id='${Bean.vRequestId}response'><input type='text' class='form-control' id='${Bean.vRequestId}responseComment'></input></div>",
 							</c:otherwise>
 						</c:choose>
 						
 						<c:choose>
 							<c:when test="${Bean.requestStatus == 3}">
-								'response':"<div id='${Bean.vRequestId}ButtonArea'><button onclick='responseCommit(${Bean.vRequestId})'>核准</button><button onclick='responseRefuse(${Bean.vRequestId})'>拒絕</button></div>",
+								'response':"<div id='${Bean.vRequestId}ButtonArea'><button class='btn btn-sm btn-danger' onclick='responseCommit(${Bean.vRequestId})'>核准</button><button class='btn btn-sm btn-Info' onclick='responseRefuse(${Bean.vRequestId})'>拒絕</button></div>",
 							</c:when>
 							<c:otherwise>
 								'response':"",

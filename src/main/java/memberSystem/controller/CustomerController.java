@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,12 +101,21 @@ public class CustomerController {
 				// 會員權限為顧客且狀態是active，會將頁面導入登入成功後的畫面並在session塞會員的資料，且會將該session的錯誤訊息清空
 				session.setAttribute("CLoginOK", bean);
 				return "redirect:/";				
-			}
-			if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
+			}else if (bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 1) {
 				// 會員權限為顧客但狀態是inactive，會將頁面重新導進登入畫面並以errMsg告知使用者到信箱收驗證信以啟動會員
 				model.addAttribute("email_errMsg","請先開通會員!");
 				return "memberSystem/login";				
-			} else {
+			}else if(bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 0) {
+				//會員權限為顧客但是被停權，會將頁面重新導進登入畫面並以errMsg告知使用者帳號遭停權
+				model.addAttribute("email_errMsg","該帳號已遭停權！");
+				return "memberSystem/login";
+			}else if(bean.getPrivilegeId() == 1 && bean.getActiveStatus() == 2) {
+				//會員權限為顧客但是狀態是忘記密碼，如果成功登入，表示會員想起密碼，將會員狀態改為正常的已啟用				
+				bean.setActiveStatus(3);
+				service.saveCustomerStatus(bean);				
+				session.setAttribute("CLoginOK", bean);
+				return "redirect:/";
+			}else {
 				// 會員權限為後台管理者，會將頁面重新導入至登入畫面，並以errMsg告知使用者帳號或密碼錯誤並重新輸入
 				model.addAttribute("email_errMsg","帳號或密碼錯誤!");
 				return "memberSystem/login";
@@ -148,23 +158,39 @@ public class CustomerController {
 	public String updPwd(Model model) {
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		if (mem == null) {
+			model.addAttribute("email_errMsg", "請先進行登入！");
 			return "memberSystem/login";
 		}
 		return "memberSystem/updPwd";
 	}
 	
 	//前端修改密碼的舊密碼判定
-	@RequestMapping(value = "/memberSystem/oldPwdChecker", method=RequestMethod.POST)
+	@PostMapping(value = "/memberSystem/oldPwdChecker")
 	@ResponseBody
-	public boolean oldPwdChecker(@RequestParam("oldPwd")String pwd, Model model) {		
+	public boolean oldPwdChecker(@RequestBody String oldpwd, Model model) {		
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		boolean pwdChecker=false;
-		if(service.pwdChecker(mem.getEmail(), pwd)) {
+		System.out.println(oldpwd);
+		if(service.oldPwdChecker(mem.getEmail(), oldpwd)) {
 			pwdChecker = true;
 			return pwdChecker;
 		}else {			
 			return pwdChecker;
 		}		
+	}
+	
+	//前端修改密碼的新密碼判定
+	@RequestMapping(value = "/memberSystem/newPwdChecker", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean newPwdChecker(@RequestParam("newPwd")String newPwd, Model model) {
+		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
+		boolean pwdChecker = true;
+		if(service.newPwdChecker(mem.getEmail(),mem.getPassword(), newPwd)) {
+			return pwdChecker;
+		}else {
+			pwdChecker = false;
+			return pwdChecker;
+		}
 	}
 
 	// 修改密碼
@@ -248,4 +274,13 @@ public class CustomerController {
 		}
 		return "memberSystem/validationCodeFail";
 	}	
+	
+	// ==更改前台顧客狀態==	
+	@RequestMapping(value = "memberSystem/saveCustomerStatus", method=RequestMethod.PUT, consumes="application/json")
+	public @ResponseBody String saveCustomerStatus(@RequestBody MembersBean mem, Model model) {
+//		System.out.println(mem);
+		service.saveCustomerStatus(mem);
+		return "OK";
+	}
+	
 }

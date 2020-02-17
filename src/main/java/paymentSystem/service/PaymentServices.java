@@ -83,7 +83,7 @@ public class PaymentServices {
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName(mem.getFirstName())
                  .setLastName(mem.getLastName())
-                 .setEmail(mem.getLastName());
+                 .setEmail(mem.getEmail());
 //                 .setCountryCode("TW")
 //                 .setPhone("0912345678");
         payer.setPayerInfo(payerInfo);
@@ -108,11 +108,13 @@ public class PaymentServices {
         amount.setCurrency("TWD");
         amount.setTotal(String.valueOf(orderDetail.getTotalSales()));
         amount.setDetails(details);
+        
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription("PizzaBite餐點");
-         
+        transaction.setDescription("PizzaBite餐點 | 訂單號:" + String.valueOf(orderDetail.getSalesOrderId()));
+        
+        
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<>();
         

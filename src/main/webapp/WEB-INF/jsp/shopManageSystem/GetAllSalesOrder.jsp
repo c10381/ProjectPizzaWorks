@@ -187,7 +187,7 @@
                     }
                 ],
 	        });
-		
+		z
 		// 導向單一產品頁面
 		$('#soTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
@@ -323,7 +323,7 @@
 			   		}).done(function(data){
 			   			alert("成功");
 			   			$('#ModalCenter').one('hidden.bs.modal',function(){
-			   				loadingPage("/shopManageSystem/GetAllSalesOrder")
+			   				loadingPage("../shopManageSystem/GetAllSalesOrder")
 						}).modal("hide");
 			   		}).fail(function(){
 			   			console.log("失敗");

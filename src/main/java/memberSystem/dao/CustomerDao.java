@@ -20,26 +20,28 @@ public interface CustomerDao {
 	MembersBean getCustomer(String email);
 	
 	// 新增一筆Customer物件到資料庫
-	public boolean addCustomer(MembersBean mem);
+	boolean addCustomer(MembersBean mem);
 	
 	//	直接更新這個使用者的Bean
 	boolean updateCustomer(MembersBean mem);
 	
 	// 更新紀錄(給使用者註冊資料用)
-	public boolean updateInfo(MembersBean mem);
+	boolean updateInfo(MembersBean mem);
 	
 	// 查詢所有紀錄
 	List<MembersBean> getAllCustomers();
 	
 	//登入
-	public MembersBean login(String acct, String pwd);
+	MembersBean login(String acct, String pwd);
 	
 	//判斷舊密碼撈的值
-	public String pwdLoader(String email);
+	String pwdLoader(String email);
 	
-	public boolean updPwd(String email, String oldPwd, String newPwd);	
+	boolean updPwd(String email, String oldPwd, String newPwd);	
 	
-	public boolean resetPwd(String email, String newPwd);
+	boolean resetPwd(String email, String newPwd);
+	
+	void saveCustomerStatus(MembersBean mem);
 	
 	//=====以下為驗證信部分======
 	//寫入ValidationRequestBean

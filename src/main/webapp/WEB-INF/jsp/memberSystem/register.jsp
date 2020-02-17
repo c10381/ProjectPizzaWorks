@@ -52,7 +52,7 @@
 						<!-- col end-->
 						<input id="password" name="password" type="password" placeholder='請輸入密碼' required
 					 	       maxlength="16" class="form-control col-md-4" 
-					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)()[a-zA-Z\d+@]{8,16}$"/> 
+					 	 	   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d+@]{8,16}$"/> 
 						<!-- col end-->
 						<h6 id="pwdReminder" class="form-text text-muted col-md-2 align-self-center">
 						 8-16字元 

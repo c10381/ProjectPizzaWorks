@@ -232,9 +232,8 @@ public class StatisticalAnalysisController {
 			if (key.substring(0, 7).equals("product")) {
 				String index = "product" + (key.substring(key.length() - 1, key.length()));
 				Integer valProductId = Integer.parseInt(jso.getString(key));
-				Double val = service.getOneProductSales(valProductId, startDateSec, endDateSec);
-//				keys.remove();
-				cloneToOutput.put(index, val);
+				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
+				cloneToOutput.put(index, val ); 
 			}
 		}
 		;

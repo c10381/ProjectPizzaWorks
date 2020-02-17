@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import _model.MembersBean;
+import _model.ProductBean;
 import _model.ValidationRequestBean;
 import memberSystem.dao.CustomerDao;
 
@@ -246,5 +247,12 @@ public class CustomerDaoImpl implements CustomerDao {
 		}		
 		password = member.getPassword();	
 		return password;
+	}
+
+	@Override
+	public void saveCustomerStatus(MembersBean mem) {
+		Session session = factory.getCurrentSession();
+		MembersBean mb = session.get(MembersBean.class, mem.getMemberId());
+		mb.setActiveStatus(mem.getActiveStatus());		
 	}
 }

@@ -127,9 +127,9 @@ function connect() {
 	    	    storage_message(msg, 'other');
 	    	    
 	    	    if(demoFlag == true && demoCounter<5){
-	    	    	if(msg=="已確認完成，下次訂貨還請你告訴店員您的姓名與Email，Pizza Bite誠摯期待您下次光臨！"){
+	    	    	if(msg=="已確認完成，稍候會寄一封確認信給您，下次消費請出示Email，我們會再招待您一份，Pizza Bite誠摯期待您下次光臨！"){
 	    	    		setTimeout(function(){
-	    	    			sendMessage("好，收到！感謝你！");
+	    	    			sendMessage("好，了解了。感謝你！");
 	    	    		}, 3000);
 	    	    	}else{
 	    	    		setTimeout(function(){

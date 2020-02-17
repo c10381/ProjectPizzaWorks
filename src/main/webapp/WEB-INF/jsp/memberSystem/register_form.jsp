@@ -36,7 +36,7 @@
 					<div class="col-sm-3"></div>
 					<label class="col-form-label col-sm-1 align-self-center">帳號：</label>
 					<form:input path="email" value="${MembersBean.email}" type="text" 
-						class="form-control col-sm-3"  readonly='true'/>
+						class="form-control col-sm-4"  readonly='true'/>
 					<div class="col-sm-2"></div>						
 				<!--form row ends  -->
 				</div>
