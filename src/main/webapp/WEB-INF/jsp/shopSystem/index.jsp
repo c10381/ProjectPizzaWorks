@@ -96,7 +96,7 @@
 						</div>
 						<div class="media-body">
 							<h3 class="heading">美味pizza</h3>
-							<p>Pizza Bite's 義式窯烤披薩、義式半月型派餅、沙拉...等。</p>
+							<p>Pizza Bite's 義式窯烤披薩。</p>
 						</div>
 					</div>
 				</div>
