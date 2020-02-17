@@ -11905,6 +11905,10 @@ textarea.form-control {
 	magin-bottom : 3%;
 }
 
+#address{
+	width: 60%;
+}
+
 
 /* .order_modal .modal-body input {
 	background-color: #121618;
@@ -11922,7 +11926,9 @@ textarea.form-control {
 	border-radius: none;
 } 
 
-
+.district{
+	margin-left: 5px; 
+}
 
 
  

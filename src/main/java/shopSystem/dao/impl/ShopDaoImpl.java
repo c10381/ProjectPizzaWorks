@@ -117,5 +117,16 @@ public class ShopDaoImpl implements ShopDao {
 		ProductBean prodcut = session.get(ProductBean.class, productId);
 		return prodcut;
 	}
+	
+	
+	// 取得銷量最高的五樣產品
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Integer> getTopSixSales () {
+		String hql =  "SELECT productId FROM  SalesOrderDetailBean GROUP BY productId ORDER BY SUM(quantity) DESC" ; 
+		Session session = factory.getCurrentSession();
+		List<Integer> productIds = session.createQuery(hql).setMaxResults(6).getResultList();
+		return productIds;
+	}
 
 }

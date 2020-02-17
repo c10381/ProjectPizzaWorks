@@ -45,8 +45,8 @@
 		                <td class="text-lg text-primary">${transaction.amount.total} NTD</td>
 		            </tr>
 		            <tr>
-		            	<td colspan="2" class="justify-content-end">
-		            		<a href="${pageContext.request.contextPath}/member/orders"><button type="button" class="btn btn-primary btn-rounded">前往訂單一覽</button></a>
+		            	<td colspan="2" align="right">
+		            		<a href="${pageContext.request.contextPath}/member/orders"><button type="button" class="btn btn-primary rounded-full">前往訂單一覽</button></a>
 		            	</td>
 		            </tr>
         	</table>

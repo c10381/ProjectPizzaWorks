@@ -29,3 +29,4 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
+	<script src="${pageContext.request.contextPath}/js/shopSystem/jquery.twzipcode.min.js"></script>

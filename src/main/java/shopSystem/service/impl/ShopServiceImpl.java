@@ -217,4 +217,18 @@ public class ShopServiceImpl implements ShopService {
 			return "";
 		}
 	}
+	
+	
+	// 取得需要的productId後(銷量排名)，再將productBean分別加入輸出List中
+	@Override
+	public String getTopSixSales(){
+		List<ProductBean> productList = new ArrayList<ProductBean>();
+		List<Integer> productIds = dao.getTopSixSales();
+		for(Integer pid: productIds) {
+			ProductBean pb = pdDao.getProductById(pid);
+			productList.add(pb); 
+		}
+		Gson gson = new Gson(); 
+		return gson.toJson(productList);
+	}
 }
