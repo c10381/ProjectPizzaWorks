@@ -257,7 +257,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 		String endDate3_str = endDate3.format(formatter);
 		String endDate4_str = endDate4.format(formatter);
 		String endDate5_str = endDate5.format(formatter);
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("startDate1_str", startDate1_str);
 		map.put("startDate2_str", startDate2_str);
@@ -269,13 +269,13 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 		map.put("endDate3_str", endDate3_str);
 		map.put("endDate4_str", endDate4_str);
 		map.put("endDate5_str", endDate5_str);
-		
+
 		return map;
 	}
-	//將小數點四位的毛利率改成小數點兩位的毛利率
+
+	// 將小數點四位的毛利率改成小數點兩位的毛利率
 	@Override
-	public HashMap<String, Double> GP4DicimalTo2(Double gp1, 
-			Double gp2, Double gp3, Double gp4, Double gp5){
+	public HashMap<String, Double> GP4DicimalTo2(Double gp1, Double gp2, Double gp3, Double gp4, Double gp5) {
 		DecimalFormat df = new DecimalFormat("######0.00");
 		String oneProductGp1_0000_string = df.format(gp1);
 		String oneProductGp2_0000_string = df.format(gp2);
@@ -287,15 +287,15 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 		Double oneProductGp3_00 = Double.parseDouble(oneProductGp3_0000_string);
 		Double oneProductGp4_00 = Double.parseDouble(oneProductGp4_0000_string);
 		Double oneProductGp5_00 = Double.parseDouble(oneProductGp5_0000_string);
-		
+
 		HashMap<String, Double> map = new HashMap<String, Double>();
-		
+
 		map.put("oneProductGp1_00", oneProductGp1_00);
 		map.put("oneProductGp2_00", oneProductGp2_00);
 		map.put("oneProductGp3_00", oneProductGp3_00);
 		map.put("oneProductGp4_00", oneProductGp4_00);
 		map.put("oneProductGp5_00", oneProductGp5_00);
-		
+
 		return map;
 	}
 
@@ -307,5 +307,102 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 			salesOrderDetail.setSalesOrderId(salesOrderId);
 			dao.insertSalesOrderDetail(salesOrderDetail);
 		}
+	}
+
+	// 存貨周轉率---[一定期間][當期總成本/((期初存貨+期末存貨)/2)]---From MaterialsBean
+	// ------------------------平均存貨------------------------
+	// 第一步：先選定期間
+	// 第二步：找出初始進貨量
+	// 第三步：初始進貨量+(銷貨-進貨)，一路加到指定起日==>當期期初存貨
+	// 第四步：當期期初存貨+(銷貨-進貨)，一路加到指定迄日==>當期期末存貨
+	// ------------------------銷貨成本-------------------------
+	// 第五步：訂單明細---訂購商品
+	// 第X步：訂購商品---Recipe---Materials---(無法追溯進貨)---下列替代方案
+	// 第六步：使用兩月平均單位成本---每個食材依食譜依被訂購產品加總
+	// 第七步：兩個相除
+	// 第八步：找三個年度比較
+	// -------------------------問題點------------------------------
+	// 無法追溯銷貨來源---找同期成本替代
+	// 有進貨紀錄，無銷貨紀錄---找銷貨*(1-GP)來替代
+	@Override
+	public Double invTurnover(String startingDate, String endDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		List<StorageHistoryBean> list = dao.getStorageHistoryBeanList();
+		List<SalesOrderBean> list2 = dao.getSalesOrderBeanList();
+		Double costOnCertainTime = 0.0;
+		Double costOnCertainTime2 = 0.0;
+		Double salesOnCertainTime = 0.0;
+		Double salesOnCertainTime2 = 0.0;
+		Double openingInv = 0.0;
+		Double endingInv = 0.0;
+		Double COGSByProductIdUnderSalesOrder = 0.0;
+		Double COGSBySalesOrderId = 0.0;
+		Double COGSAll = 0.0;
+		// 第一步~第四步
+		try {
+			for (StorageHistoryBean shb : list) {
+				if (sdf.parse(shb.getStockTime()).before(sdf.parse(startingDate))) {
+					costOnCertainTime = costOnCertainTime + shb.getUnitPrice();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			for (SalesOrderBean sob : list2) {
+				if (sdf.parse(sob.getOrderTime()).before(sdf.parse(startingDate))) {
+					salesOnCertainTime = salesOnCertainTime + sob.getTotalSales()*0.5;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		openingInv = costOnCertainTime - salesOnCertainTime;
+
+		try {
+			for (StorageHistoryBean shb : list) {
+				if (sdf.parse(shb.getStockTime()).after(sdf.parse(startingDate))
+						&& sdf.parse(shb.getStockTime()).before(sdf.parse(endDate))) {
+					costOnCertainTime2 = costOnCertainTime2 + shb.getUnitPrice();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			for (SalesOrderBean sob : list2) {
+				if (sdf.parse(sob.getOrderTime()).after(sdf.parse(startingDate))
+						&& sdf.parse(sob.getOrderTime()).before(sdf.parse(endDate))) {
+					salesOnCertainTime2 = salesOnCertainTime2 + sob.getTotalSales();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		endingInv = salesOnCertainTime2 - salesOnCertainTime2 + openingInv;
+
+		// 問題點替代方案
+		try {
+			for (SalesOrderBean sob : list2) {
+				if (sdf.parse(sob.getOrderTime()).after(sdf.parse(startingDate))
+						&& sdf.parse(sob.getOrderTime()).before(sdf.parse(endDate))) {
+					List<SalesOrderDetailBean> detailList = sob.getSalesOrderDetails();
+					for (SalesOrderDetailBean sodb : detailList) {
+						Double gpByProduct = getOneProductGp(sodb.getProductId(), startingDate, endDate);
+						Integer quantityByProduct = sodb.getQuantity();
+						// 某一個訂單下單一產品的成本
+						COGSByProductIdUnderSalesOrder = quantityByProduct * (1 - gpByProduct);
+						COGSBySalesOrderId = COGSBySalesOrderId + COGSByProductIdUnderSalesOrder;
+					}
+					COGSAll = COGSAll + COGSBySalesOrderId;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Double invTurnover = COGSAll / ((openingInv + endingInv) / 2);
+		System.out.println("openingInv = " + openingInv + ", endingInv = " + endingInv);
+		System.out.println("COGSAll = " + COGSAll);
+		return invTurnover*100;
 	}
 }

@@ -131,6 +131,23 @@
 	</section>
 	<!-- /section  -->
 
+	<section class="ftco-section">
+    	<div class="container">
+    		<div class="row justify-content-center mb-5 pb-3">
+	          <div class="col-md-7 heading-section ftco-animate text-center">
+	            <h2 class="mb-4"><span class="text-primary">HOT</span>熱銷排行</h2>
+	          </div>
+        	</div>
+        	<!-- /row -->
+    	</div>
+    	<!-- /Container -->
+    	<div class="container-wrap">
+    		<div class="row no-gutters d-flex">
+    		</div>
+    		<!-- /row -->
+    	</div>
+    	<!-- /container-wrap -->
+    </section>	
 
 
 	<!-- End of MainContent -->
@@ -138,9 +155,64 @@
 	<jsp:include page="fragment/loader.jsp" />
 	<jsp:include page="fragment/ContentJS.jsp" />
 	<script>
-		 $('.carousel').carousel({
-			interval : 2000
-		}) 
+		$(function(){
+
+			$('.carousel').carousel({
+				interval : 2000
+			}) 
+			
+			$.ajax({
+	    		type : "GET", 
+	    		url : "${pageContext.request.contextPath }/shop/topSales",
+	    		dataType: "json",
+			}).done(function(data){
+				console.log(data);
+				let str = ""; 
+				for(let i = 0 ; i < data.length; i++){
+					str += generate_services_wrap(data[i], i); 
+				}
+				 $(".container-wrap .row").html(str);  
+			})
+		})
+    				
+		
+		function generate_services_wrap(product , index){
+			let productName  = product.productName;
+			let len = productName.length; 
+			let size = productName.substring(len-2,len-1);
+			
+			if(productName.substring(len-1,len)==')'){
+				productName = productName.substring(0,(len-3));
+			}
+			let productPrice = product.unitPrice; 
+			if(size =='大'){
+				productPrice -= 100; 
+			} 
+			
+			let str = ''; 
+				str += '<div class="col-lg-4 d-flex ftco-animate fadeInUp ftco-animated">' ;
+				str +=		'<div class="services-wrap d-flex">' ; 
+			
+				if(Math.floor(index/3) == 0){
+				str += 			'<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/picture/'+product.productId+') ; background-size:contain"></a> ';
+				str +=			'<div class="text p-4">';
+				str +=				'<h3>'+ productName +'</h3>';
+				str +=				'<p>'+ product.briefInfo+ '</p>';
+				str +=				'<p class="price"><span>$'+productPrice+' 起</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">立即訂購</a></p>';
+				str +=			'</div>';
+			}else{
+				str +=			'<div class="text p-4">';
+				str +=				'<h3>'+ productName +'</h3>';
+				str +=				'<p>'+ product.briefInfo+ '</p>';
+				str +=				'<p class="price"><span> $'+  productPrice+' 起</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">立即訂購</a></p>';
+				str +=			'</div>';
+				str += 			'<a href="#" class="img" style="background-image: url(${pageContext.request.contextPath}/picture/'+product.productId+'); background-size:contain;"></a>';
+			}
+				str +=		'</div>';
+				str +=	'</div>';
+				str +=  '<!--/產品 -->'
+			return str ; 
+		}
 	</script>
 </body>
 </html>

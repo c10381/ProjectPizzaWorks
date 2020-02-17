@@ -32,4 +32,6 @@ public interface StatisticalAnalysisService {
 	HashMap<String, Double> GP4DicimalTo2(Double gp1, Double gp2, Double gp3, Double gp4, Double gp5);
 
 	Double getUnitCost(Integer productId, String startingDate, String endDate) throws ParseException;
+
+	Double invTurnover(String startingDate, String endDate) throws ParseException;
 }

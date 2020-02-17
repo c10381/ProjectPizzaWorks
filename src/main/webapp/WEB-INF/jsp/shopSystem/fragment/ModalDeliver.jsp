@@ -43,13 +43,19 @@
 						</div>
 						<div class="row">
 							<p class="md_label">外送地址</p>
-							<input type="text" class="md_content" name="deliverAddress" id="address"/>
+							<div id="twzipcode" ></div>
+						</div>
+						<div class="row">
+							<p class="md_label">&nbsp</p>
+							<input type="text" class="md_content" name="deliverAddress" id="address"/>						
+						
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="modal-footer">
+				<button class="btn btn-outline-secondary" type="button" id="demoToCart">一鍵輸入</button>
 				<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
 				<a class="btn btn-primary next" href="#">下一步</a>
 			</div>
