@@ -26,4 +26,8 @@ public interface StatisticalAnalysisDao {
 	// 取得單一食材storageHistoryBeanList(依據食材ID)
 	List<StorageHistoryBean> getMaterialUnitCost_SHB(Integer materialsId);
 
+	List<StorageHistoryBean> getStorageHistoryBeanList();
+
+	List<SalesOrderBean> getSalesOrderBeanList();
+
 }

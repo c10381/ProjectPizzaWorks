@@ -290,16 +290,6 @@ input[type="number"] {
 							});
 		};
 
-		//小月曆-------------建立且在標籤中插入小月曆----------------------
-		function insertTimeGroup() {
-			flatpickr("input", {
-				"plugins" : [ new rangePlugin({
-					input : "#select_date2",
-				}) ]
-			});
-		}
-		insertTimeGroup();
-
 		//----------------------------圓餅圖--------------------------------
 
 		//1. AJAX：圓餅圖(GET值)
@@ -368,7 +358,20 @@ input[type="number"] {
 								} ]
 							});
 		};
+		
+		//小月曆-------------建立且在標籤中插入小月曆----------------------
+		function insertTimeGroup() {
+			flatpickr("input", {
+				 "plugins" : [ new rangePlugin({
+					input : "#select_date2",
+				}) ] 
+			});
+		}
+		insertTimeGroup();
+
 	</script>
+	<script
+	src="https://cdn.jsdelivr.net/npm/flatpickr@latest/dist/plugins/rangePlugin.js"></script>
 </body>
 
 </html>

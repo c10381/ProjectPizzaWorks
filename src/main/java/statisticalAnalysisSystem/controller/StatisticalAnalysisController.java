@@ -73,7 +73,7 @@ public class StatisticalAnalysisController {
 	public String showLineChart(Model model) {
 		return "/StatisticalAnalysis/GrossProfitTrend";
 	}
-	
+
 	// 導向ProductHisotgram.jsp
 	@GetMapping(value = "/toHistogram")
 	public String showHisotgram(Model model) {
@@ -192,7 +192,7 @@ public class StatisticalAnalysisController {
 
 	// LineChartPostSheet
 	@RequestMapping(value = "/LineChartPostSheet", method = RequestMethod.POST)
-	public @ResponseBody String LineChartPostSheet(@RequestParam("lineChartInfo") String lineChartInfo, Model model) 
+	public @ResponseBody String LineChartPostSheet(@RequestParam("lineChartInfo") String lineChartInfo, Model model)
 			throws ParseException {
 		JSONObject jso = new JSONObject(lineChartInfo);
 		Integer productId = Integer.parseInt(jso.getString("productId"));
@@ -208,7 +208,7 @@ public class StatisticalAnalysisController {
 		Double unitCost8 = service.getUnitCost(productId2, map.get("startDate3_str"), map.get("endDate3_str"));
 		Double unitCost9 = service.getUnitCost(productId2, map.get("startDate4_str"), map.get("endDate4_str"));
 		Double unitCost10 = service.getUnitCost(productId2, map.get("startDate5_str"), map.get("endDate5_str"));
-		
+
 		JSONObject jso2 = new JSONObject();
 		return "";
 	}
@@ -237,17 +237,18 @@ public class StatisticalAnalysisController {
 		String endDate = jso.getString("endDate");
 		String startDateSec = startDate + " 00:00:00";
 		String endDateSec = endDate + " 23:59:59";
-		
+
 		Iterator<String> keys = jso.keySet().iterator();
 		while (keys.hasNext()) {
 			String key = keys.next();
-			if(key.substring(0, 7).equals("product")) {
-				String index = "product" + (key.substring(key.length()-1, key.length())); 
+			if (key.substring(0, 7).equals("product")) {
+				String index = "product" + (key.substring(key.length() - 1, key.length()));
 				Integer valProductId = Integer.parseInt(jso.getString(key));
 				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
 				cloneToOutput.put(index, val ); 
 			}
-		} ;
+		}
+		;
 		return cloneToOutput.toString();
 	}
 
@@ -303,25 +304,38 @@ public class StatisticalAnalysisController {
 			service.addFakeSalesOrder(salesOrder);
 		}
 	}
-	
+
 	// PieChartPost
-		@RequestMapping(value = "/GetPieChartValue", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-		public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
-				throws JSONException, ParseException {
-			JSONArray output_jsa = new JSONArray();
-			System.out.println(input_json);
-			JSONObject input_jso = new JSONObject(input_json);
-			String startDate = input_jso.getString("startDate") + " 00:00:00";
-			String endDate= input_jso.getString("endDate") + " 23:59:59";
-			JSONArray input_option_jsa = input_jso.getJSONArray("input_option");
-			for(int i = 0; i<input_option_jsa.length();i++) {
-				JSONObject input_option_jso = input_option_jsa.getJSONObject(i);
-				Double y = service.getOneProductSalesShare(input_option_jso.getInt("productId"), startDate, endDate);
-				JSONObject output_jso = new JSONObject();
-				output_jso.put("productName", input_option_jso.getString("productName"));
-				output_jso.put("productValue", y);
-				output_jsa.put(output_jso);
-			}
-			return output_jsa.toString();
+	@RequestMapping(value = "/GetPieChartValue", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
+			throws JSONException, ParseException {
+		JSONArray output_jsa = new JSONArray();
+		System.out.println(input_json);
+		JSONObject input_jso = new JSONObject(input_json);
+		String startDate = input_jso.getString("startDate") + " 00:00:00";
+		String endDate = input_jso.getString("endDate") + " 23:59:59";
+		JSONArray input_option_jsa = input_jso.getJSONArray("input_option");
+		for (int i = 0; i < input_option_jsa.length(); i++) {
+			JSONObject input_option_jso = input_option_jsa.getJSONObject(i);
+			Double y = service.getOneProductSalesShare(input_option_jso.getInt("productId"), startDate, endDate);
+			JSONObject output_jso = new JSONObject();
+			output_jso.put("productName", input_option_jso.getString("productName"));
+			output_jso.put("productValue", y);
+			output_jsa.put(output_jso);
 		}
+		return output_jsa.toString();
+	}
+	// InvTurnover
+	@RequestMapping(value = "/GetInvTurnover", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public @ResponseBody String GetInvTurnover(Model model)
+			throws JSONException, ParseException {
+		Double invT1 = service.invTurnover("2019-07-01 00:00:00", "2020-08-31 23:59:59");
+		Double invT2 = service.invTurnover("2019-09-01 00:00:00", "2020-10-31 23:59:59");
+		Double invT3 = service.invTurnover("2019-11-01 00:00:00", "2020-12-31 23:59:59");
+		JSONObject jso = new JSONObject();
+		jso.put("invT1", invT1);
+		jso.put("invT2", invT2);
+		jso.put("invT3", invT3);
+		return jso.toString();
+	}
 }
