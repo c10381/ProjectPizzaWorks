@@ -24,5 +24,7 @@ public interface ShopService {
 	WebInfo getWebInfo();
 
 	String getMemberAllOrders(Integer memberId);
+
+	String getTopSixSales();
 	
 }

@@ -29,3 +29,4 @@
 	
 	<script src="${pageContext.request.contextPath}/js/backendSystem/flatpickr.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/backendSystem/confirmDate.js"></script>
+	<script src="${pageContext.request.contextPath}/js/shopSystem/jquery.twzipcode.min.js"></script>

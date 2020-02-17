@@ -30,4 +30,6 @@ public interface ShopDao {
 
 	ProductBean getProductById(Integer productId);
 
+	List<Integer> getTopSixSales();
+
 }

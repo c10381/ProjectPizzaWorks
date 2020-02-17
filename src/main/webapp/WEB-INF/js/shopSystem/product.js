@@ -45,29 +45,23 @@ function checkDeliver() {
 	})
 
 	$("#delieverModal .next").click(function() {
-		var nowDate = new Date();
 		// 取得需求日期
 		$(".flatpickr-input").each(function() {
 			if($(this).val()!=""){
 				cart.requireTime = ($(this).val());
 			};
 		})
-		
 		if(cart.requireTime==undefined){
 			swal("請選擇日期");
 		}else{
-//			var deliverType = $("#delieverModal select").val();
-//			console.log(cart.requireTime);
-//			console.log(new Date());
-//			return;
-//			if(cart.requireTime<=(new Date()+1000*60*20)){
-//				swal("時間不可以晚於現在");
-//				return ; 
-//			}
+			var deliverType = $("#delieverModal select").val();
 			
 			if (deliverType == "delivery") {
-				cart.needDelivery = 1;
-				cart.deliverAddress = $("#address").val();
+				let county = $("select[name='county']").val(); 
+				let district = $("select[name='district']").val(); 
+				let address = $("#address").val();
+				let deliverAddress = county + district + address; 
+				cart.deliverAddress = deliverAddress;
 			} else {
 				cart.needDelivery = 0;
 			}
@@ -136,13 +130,6 @@ function updateCart(productId) {
 	// 產品大小資訊 與 產品編號
 	let size = $("#pizzaSize option:selected").val();
 	
-//	if (size == "large") {
-//		detail.size = "大";
-//		productId = productId;
-//	} else {
-//		productId += 1;
-//		detail.size = "小";
-//	}
 	switch(size){
 	case "large" :
 		detail.size = "大";
@@ -273,5 +260,3 @@ function insertTime() {
 	});
 }
 
-function insertAddress(){
-}

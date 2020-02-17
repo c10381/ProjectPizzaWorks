@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import _model.CrustBean;
 import _model.MembersBean;
+import _model.ProductBean;
 import _model.SalesOrderBean;
 import shopSystem.service.ShopService;
 
@@ -41,6 +42,12 @@ public class ShopRestController {
 	@GetMapping(value = "/getCrust" , produces = "application/json")
 	public List<CrustBean> getCrust() {
 		return service.getCrust();
+	}
+	
+	// 前台銷售排行
+	@GetMapping(value = "/topSales", produces = "application/json")
+	public String getTopFiveSales(){
+		return service.getTopSixSales();
 	}
 	
 }
