@@ -72,12 +72,15 @@ public class PaymentController {
 	public String testExecute_Payment(@RequestParam("paymentId") String paymentId, 
 			  @RequestParam("PayerID") String payerID, Model model) {		
 		try {
+			
 			//PaymentServices service = new PaymentServices();
             Payment payment = service.executePayment(paymentId, payerID);             
             PayerInfo payerInfo = payment.getPayer().getPayerInfo();
             Transaction transaction = payment.getTransactions().get(0);
             model.addAttribute("payer",payerInfo);
             model.addAttribute("transaction",transaction);
+            String orderId = transaction.getDescription().substring(18);
+            service.updateOrderStatus(Integer.valueOf(orderId));
             return"PaypalTest/testReceipt";
             //request.setAttribute("payer", payerInfo);
             //request.setAttribute("transaction", transaction);           
@@ -119,15 +122,12 @@ public class PaymentController {
 	
 	@PostMapping(value = "/PaypalTest/paypalCheckout", consumes = "application/json")
 	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
-		System.out.println(sob.getSalesOrderId());
+//		System.out.println(sob.getSalesOrderId());
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
-		
-		if(mem == null) {
-			return"Member = null";
-		}
-				
+		SalesOrderBean order = service.getLatestOrderByCustomerId(mem.getMemberId());
+		System.out.println(order);		
         try {        	
-            String approvalLink = service.authorizePayment(sob, mem);
+            String approvalLink = service.authorizePayment(order, mem);
             return approvalLink;
 
              
