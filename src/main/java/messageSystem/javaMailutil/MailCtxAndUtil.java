@@ -58,7 +58,7 @@ public class MailCtxAndUtil {
 				"                                                        <!-- 驗證連結按鈕 (修改href) -->" + 
 				"                                                        <td align='center' style='background:#D1B96D;padding:13px 0'>" + 
 				"                                                            <!-- -->" + 
-				"                                                            <a href=\'"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/"+CustomerConfirmURL+"\'" + 
+				"                                                            <a href=\'"+request.getRequestURL()+"/"+CustomerConfirmURL+"\'" + 
 				"                                                                style='text-decoration:none;color:#fff;font-size:20px;font-weight:bold;display:block;text-align:center'" + 
 				"                                                                target='_blank'><span" + 
 				"                                                                    id='button_validation'>驗證電子郵件地址</span></strong></a>" + 
@@ -269,7 +269,7 @@ public class MailCtxAndUtil {
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <!-- 會員名稱 及 問候語 -->" + 
-					"                    <td style='padding:30px 0 20px 20px;color: #D1B96D;'><span id='memberName'></span>您好：</td>" + 
+					"                    <td style='padding:30px 0 20px 20px;color: #D1B96D;'><span id='memberName'></span></td>" + 
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <!-- 信件的下半部文字內容 -->" + 
@@ -289,9 +289,9 @@ public class MailCtxAndUtil {
 					"                                                <tbody>" + 
 					"                                                    <tr>" + 
 					"                                                        <td>"+ 
-					"															<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>"+
+					"															<div style='font-size:30px;'><span style='color: white;'>"+
 																					Context+
-					"					                                       </div></span>"+
+					"					                                       </span></div>"+
 					"                                                        </td>" + 
 					"                                                    </tr>" + 
 					"                                                </tbody>" + 
