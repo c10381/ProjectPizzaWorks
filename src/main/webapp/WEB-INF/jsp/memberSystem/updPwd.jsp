@@ -140,14 +140,14 @@
 		let newpwd = $("#newPwd").val();
 		let validpwd = $("#validPwd").val();
 		if(newpwd == validpwd){
+			$('#newpwd_errbox').text('');			
+			$('#btnAdd').prop('disabled',false);
+		}else{
 			$('#validpwd_errbox').text('密碼輸入不一致');
 			$('#validpwd_errbox').attr({
 				"class" : "text-danger col-lg-3 align-self-center"					
 			});
 			$('#btnAdd').prop('disabled',true);
-		}else{
-			$('#newpwd_errbox').text('');
-			$('#btnAdd').prop('disabled',false);
 		}	
 	})
 	

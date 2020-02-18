@@ -1,10 +1,11 @@
 package paymentSystem.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,13 +119,32 @@ public class PaymentServices {
      
     private RedirectUrls getRedirectURLs(HttpServletRequest request) {
     	RedirectUrls redirectUrls = new RedirectUrls();
+    	String ip;
+		try {
+			InetAddress	ipAddr = InetAddress.getLocalHost();
+			ip = String.valueOf(ipAddr);
+			System.out.println(ipAddr);
+			int index = ip.indexOf("/");
+			ip = ip.substring(index);
+			System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
+	        redirectUrls.setCancelUrl("http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+	        redirectUrls.setReturnUrl("http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+	        System.out.println("ReturnUrl:"+"http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+	        return redirectUrls;
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return redirectUrls;
+		}
+
     	
     	//String returnUrl = "http://" + request.getRequestURI() +"port:8080"+"/ProjectPizzaWorks/PaypalTest/testReview_Payment";
-    	System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
-        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
-        System.out.println("ReturnUrl:"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
-        return redirectUrls;       
+//    	System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
+//        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+//        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+//        System.out.println("ReturnUrl:"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+//        return redirectUrls;       
     }
      
     private List<Transaction> getTransactionInformation(SalesOrderBean orderDetail) {
