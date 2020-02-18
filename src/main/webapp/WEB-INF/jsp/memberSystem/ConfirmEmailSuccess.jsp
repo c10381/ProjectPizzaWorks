@@ -20,9 +20,9 @@
 	<section class="ftco-section">
 		
 		<div id='container justify-content-center'>	
-			<h2>${MembersBean.lastName}${MembersBean.firstName}您好！</h2>
-			<h3>信箱驗證成功，畫面將在3秒後自動跳轉至登入頁面!</h3>
-			<h3>請準備好您的神奇小卡，並享受一段味蕾的刺激旅程...</h3>
+			<h2 style="text-align: center">${MembersBean.lastName}${MembersBean.firstName}您好！</h2>
+			<h3 style="text-align: center">信箱驗證成功，畫面將在3秒後自動跳轉至登入頁面!</h3>
+			<h3 style="text-align: center">請準備好您的神奇小卡，並享受一段味蕾的刺激旅程...</h3>
 		</div>
 	</section>
 	
