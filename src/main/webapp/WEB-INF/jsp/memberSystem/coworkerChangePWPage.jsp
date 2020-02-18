@@ -49,7 +49,7 @@
 
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="請輸入密碼"
-							id="password" name="password">
+							id="password" name="password" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -58,7 +58,7 @@
 					</div>
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="確認密碼"
-							id="Compassword" name="comfirmPassword">
+							id="Compassword" name="comfirmPassword" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
