@@ -219,22 +219,23 @@ function showCoworkerMessageOutput(messageOutput) {
 var comessageCounter=0;
 //Demo用
 function MessageDemo(email){
+	console.log("Demoooo");
 	//第一回合
 	//傳給Admin
-	if(email=="admin@pizza.com"&&comessageCounter==1){
+	if(email=="admin@pizza.com"&&comessageCounter==0){
 		document.getElementById("to"+email+"Message").value="有顧客反應，他昨晚吃我們的Pizza後身體不舒服，可能是龍蝦沙拉有問題";
 		comessageCounter++;	
 		return;
 	}
 	//傳給service
-	if(email=="service@pizza.com"&&comessageCounter==1){
+	if(email=="service@pizza.com"&&comessageCounter==0){
 		document.getElementById("to"+email+"Message").value="好，收到，我再跟進貨反應，先給顧客一個Pizza作為賠償。";
 		comessageCounter++;	
 		return;
 	}
 	//第三回合
 	//傳給Admin
-	if(email=="admin@pizza.com"&&comessageCounter==2){
+	if(email=="admin@pizza.com"&&comessageCounter==1){
 		document.getElementById("to"+email+"Message").value="好，收到！";
 		comessageCounter++;	
 		return;
