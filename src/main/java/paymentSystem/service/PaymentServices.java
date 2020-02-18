@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,15 +123,17 @@ public class PaymentServices {
     	RedirectUrls redirectUrls = new RedirectUrls();
     	String ip;
 		try {
+			
 			InetAddress	ipAddr = InetAddress.getLocalHost();
+			ipAddr.getHostAddress();
 			ip = String.valueOf(ipAddr);
 			System.out.println(ipAddr);
 			int index = ip.indexOf("/");
 			ip = ip.substring(index);
 			System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
-	        redirectUrls.setCancelUrl("http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-	        redirectUrls.setReturnUrl("http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
-	        System.out.println("ReturnUrl:"+"http://"+ip+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+	        redirectUrls.setCancelUrl("http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+	        redirectUrls.setReturnUrl("http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+	        System.out.println("ReturnUrl:"+"http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
 	        return redirectUrls;
 			
 		} catch (UnknownHostException e) {
