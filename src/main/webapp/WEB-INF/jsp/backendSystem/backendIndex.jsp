@@ -264,7 +264,7 @@
 			<c:choose>
 				<c:when test="${Mem_LoginOK.privilegeId==2}">
 					//網站管理者
-					loadingPage('/memberSystem/allMember');
+					loadingPage('/memberSystem/allCustomer');
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==3}">
 					//銷貨人員

@@ -81,7 +81,7 @@
 		var table = $("#prTable").DataTable(
 	        {
 	            "ajax": {
-	                "url": "http://localhost:8080/ProjectPizzaWorks/getAllPurchaseRequestJSON",
+	                "url": "${pageContext.request.contextPath}/getAllPurchaseRequestJSON",
 	                "type": "GET",
 	                "dataSrc": "",
 	            },
