@@ -246,7 +246,7 @@ public class CustomerController {
 	//忘記密碼頁面，但是他不動耶
 	@GetMapping(value = "/memberSystem/forgetpwd")
 	public String forgetPWPageRequest() {
-		return "memberSystem/ForgetPWPage";
+		return "memberSystem/forgetPWPage";
 	}
 
 	// Customer導入忘記密碼

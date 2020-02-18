@@ -34,7 +34,7 @@ public interface MemberDao {
 	
 	Boolean updateValidationRequest(ValidationRequestBean vrb);
 
-
+	
 
 
 
