@@ -80,6 +80,11 @@
 				<i class="nav-icon fas fa-chart-bar"></i>
 				<p>產品銷售額比較</p>
 			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toInvturnover')"><div
+			class="nav-link">
+			<i class="nav-icon fas fa-chart-line"></i>
+			<p>存貨周轉率趨勢</p>
+		</div></li>
 	</ul>
 </li> 
 <!-- /Analysis -->

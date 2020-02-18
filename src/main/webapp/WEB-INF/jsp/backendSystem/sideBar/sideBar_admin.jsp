@@ -196,7 +196,6 @@
 	</div></li>
 <!-- /MailService -->
 <!-- Analysis -->
-
 <li class="nav-item has-treeview"><div class="nav-link">
 		<i class="nav-icon fas fa-diagnoses"></i>
 		<p>數據分析<i class="fas fa-angle-left right"></i></p>
@@ -207,11 +206,6 @@
 				<i class="nav-icon fas fa-chart-line"></i>
 				<p>產品毛利率趨勢</p>
 			</div></li>
-		<li class="nav-item" onclick="loadingPage('/toInvturnover')"><div
-			class="nav-link">
-			<i class="nav-icon fas fa-chart-line"></i>
-			<p>存貨周轉率趨勢</p>
-		</div></li>
 		<li class="nav-item" onclick="loadingPage('/toPieChart')"><div
 				class="nav-link">
 				<i class="nav-icon fas fa-chart-pie"></i>
@@ -222,10 +216,13 @@
 				<i class="nav-icon fas fa-chart-bar"></i>
 				<p>產品銷售額比較</p>
 			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toInvturnover')"><div
+			class="nav-link">
+			<i class="nav-icon fas fa-chart-line"></i>
+			<p>存貨周轉率趨勢</p>
+		</div></li>
 	</ul>
 </li> 
-
-
 <!-- /Analysis -->
 <li class="nav-header"
 	style="margin: 0; padding: 0px; text-align: center; font-size: 25px; line-height: 1.5">Admin</li>

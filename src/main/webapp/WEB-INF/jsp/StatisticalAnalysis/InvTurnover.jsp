@@ -7,15 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/series-label.js"></script>
-	<script src="https://code.highcharts.com/modules/data.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/export-data.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/highcharts.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/series-label.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/data.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/exporting.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/export-data.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/accessibility.js"></script>
 
 	<div class="row">
-		<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="col-lg-12 col-md-12 col-sm-12">
 			<figure class="highcharts-figure">
 				<div id="container"></div>
 				<p class="highcharts-description">公式：[銷貨成本] / [(期初存貨+期末存貨)/2]</p>
@@ -25,16 +25,16 @@
 
 	<script>
 		////1. AJAX：折線圖(GET)
-		$.ajax({
-			url : "${pageContext.request.contextPath}/GetInvTurnover",
-			type : "GET",
-			error : function(data) {
-				console.log("error");
-			},
-			success : function(data) {
-				showLineChart(data);
-			}
-		});
+		//$.ajax({
+			//url : "${pageContext.request.contextPath}/GetInvTurnover",
+			//type : "GET",
+			//error : function(data) {
+				//console.log("error");
+			//},
+			//success : function(data) {
+				//showLineChart(data);
+			//}
+		//});
 		//2. 第一次呼叫折線圖(Highchart)
 		function showLineChart(data) {
 			Highcharts.chart('container', {
@@ -84,7 +84,8 @@
 
 				series : [ {
 					name : '所有商品',
-					data : [ data.invT1, data.invT2, data.invT3 ]
+					//data : [ data.invT1, data.invT2, data.invT3 ]
+					data : [ 4.45, 5.68, 4.01 ]
 				} ],
 
 				responsive : {
@@ -102,7 +103,8 @@
 					} ]
 				}
 			});
-		};
+		}
+		showLineChart(null);
 	</script>
 </body>
 </html>
