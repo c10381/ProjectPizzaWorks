@@ -23,8 +23,7 @@ try{
 let demoFlag = false; 
 let demoCounter = 0 ; 
 let demoDialog = [
-	"嗨，請問一下",
-	"我之前吃你們家的Pizza上吐下瀉耶",
+	"嗨，請問一下，我之前吃你們家的Pizza上吐下瀉耶",
 	"昨天晚上喔！",
 	"好，感謝",
 ]
@@ -126,7 +125,7 @@ function connect() {
 	    	    generate_message(msg, 'other');
 	    	    storage_message(msg, 'other');
 	    	    
-	    	    if(demoFlag == true && demoCounter<5){
+	    	    if(demoFlag == true && demoCounter<4){
 	    	    	if(msg=="已確認完成，稍候會寄一封確認信給您，下次消費請出示Email，我們會再招待您一份，Pizza Bite誠摯期待您下次光臨！"){
 	    	    		setTimeout(function(){
 	    	    			sendMessage("好，了解了。感謝你！");

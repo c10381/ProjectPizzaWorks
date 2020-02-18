@@ -24,14 +24,16 @@ import com.paypal.base.rest.PayPalRESTException;
 import _model.MembersBean;
 import _model.ProductBean;
 import _model.SalesOrderBean;
+import paymentSystem.dao.PaymentDao;
 import shopSystem.dao.ShopDao;
 
 @Service
 @Transactional
 public class PaymentServices {
 	
-	ShopDao dao;
+	private ShopDao dao;
 	
+	private PaymentDao pdao;
 	
 	private static final String CLIENT_ID = "AerXyJ9NF_HpEbkF0nhEicgbXmAbGout6KiAKU_BnvxwMR9F8Yx2WpgaInuFI-GqjXbBTOlxrCAt4Xl5";
     private static final String CLIENT_SECRET = "EHj6MslMjqDx5DU3PfDc-u6G9_xPYGyciFPXQkmm14Z9f7Ep3YeO2TDS95JBc1HTtyewMVj_ZjP7c3jV";
@@ -41,6 +43,12 @@ public class PaymentServices {
 	public void setDao(ShopDao dao) {
 		this.dao = dao;
 	}
+    
+    @Autowired
+	public void setpDao(PaymentDao pdao) {
+		this.pdao = pdao;
+	}
+    
         
     public String authorizePayment(SalesOrderBean orderDetail, MembersBean mem)        
             throws PayPalRESTException {       
@@ -84,8 +92,9 @@ public class PaymentServices {
         payerInfo.setFirstName(mem.getFirstName())
                  .setLastName(mem.getLastName())
                  .setEmail(mem.getEmail());
+//        		 .setPhone(mem.getCellphone());
 //                 .setCountryCode("TW")
-//                 .setPhone("0912345678");
+//                 
         payer.setPayerInfo(payerInfo);
          
         return payer;       
@@ -172,8 +181,17 @@ public class PaymentServices {
             }
         }      
         System.out.println("approvalLink:"+approvalLink);
-        return approvalLink;
-        
+        return approvalLink;        
+    }
+    
+    @Transactional
+    public SalesOrderBean getLatestOrderByCustomerId(Integer customerId) {    	
+    	return pdao.getLatestOrderByCustomerId(customerId);    	 
+    }
+    
+    @Transactional
+    public void updateOrderStatus(Integer orderId) {
+    	pdao.updateOrderStatus(orderId);
     }
 }
 
