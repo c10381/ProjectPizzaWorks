@@ -213,6 +213,18 @@ public class StatisticalAnalysisController {
 		return "";
 	}
 
+	// HistogramGet
+		@RequestMapping(value = "/HistogramGet", method = RequestMethod.GET, produces = "application/json")
+		public @ResponseBody String HistogramGet(Model model) throws ParseException {
+			JSONObject jso = new JSONObject();
+			jso.put("product1", service.getOneProductSalesShare(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product2", service.getOneProductSalesShare(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product3", service.getOneProductSalesShare(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product4", service.getOneProductSalesShare(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product5", service.getOneProductSalesShare(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			return jso.toString();
+	}
+	
 	// HistogramPost
 	// 取出有key值為product開頭的產品去進行計算，再放到輸出物件中
 	@RequestMapping(value = "/HistogramPost", method = RequestMethod.POST, produces = "application/json")

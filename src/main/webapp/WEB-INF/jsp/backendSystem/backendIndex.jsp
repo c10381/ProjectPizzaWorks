@@ -16,13 +16,13 @@
 	href="${pageContext.request.contextPath}/css/backendSystem/jquery-ui.min.css">
 <!-- DataTable -->
 <link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+	href="${pageContext.request.contextPath}/css/backendSystem/datatables.min.css" />
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/all.css">
 <!-- Ionicons -->
 <link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	href="${pageContext.request.contextPath}/css/backendSystem/ionicons.min.css">
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/backendSystem/adminlte.css">
@@ -43,9 +43,9 @@
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/jquery-ui.min.js"></script>
 <!-- flatpickr -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/flatpickr.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/dark.css">	
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/confirmDate.css">
 <!-- fselect -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/backendSystem/fSelect.css">
 <style>
@@ -154,7 +154,7 @@
 		src="${pageContext.request.contextPath}/js/backendSystem/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- DataTable(Api) -->
 	<script type="text/javascript"
-		src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+		src="${pageContext.request.contextPath}/js/backendSystem/datatables.min.js"></script>
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/js/backendSystem/adminlte.min.js"></script>
@@ -167,8 +167,8 @@
 	<script src="${pageContext.request.contextPath}/js/messageSystem/sockjs-0.3.4.js"></script>
     <script src="${pageContext.request.contextPath}/js/messageSystem/stomp.js"></script>
     <!-- flatpickr -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/flatpickr.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/backendSystem/confirmDate.js"></script>
 	
     <script src="${pageContext.request.contextPath}/js/backendSystem/fSelect.js"></script>
 	<!-- chatroom Js (放最後面)-->
@@ -263,23 +263,28 @@
 		$().ready(function(){
 			<c:choose>
 				<c:when test="${Mem_LoginOK.privilegeId==2}">
-					
+					//網站管理者
+					loadingPage('/memberSystem/allCustomer');
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==3}">
-					
+					//銷貨人員
+					loadingPage('/shopManageSystem/GetAllSalesOrder');
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==4}">
-					
+					//採購人員
+					loadingPage('/purchase/GetAllPurchaseRequest');				
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==5}">
-					;
+					//庫存人員
+					loadingPage('/stock/GetAllStockRequest');	
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==6}">
 					//客服人員
 					loadingPage('/customerService');
 				</c:when>
 				<c:when test="${Mem_LoginOK.privilegeId==7}">
-					
+					//管理者
+					loadingPage('/PieChartTest');
 				</c:when>
 				<c:otherwise>
 				</c:otherwise>

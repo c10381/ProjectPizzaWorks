@@ -60,11 +60,28 @@
 	</ul></li>
 <!-- /StockSystem -->
 <!-- Analysis -->
-<li class="nav-item has-treeview menu-open" onclick="loadingPage('/PieChartTest')"><div
-		class="nav-link">
-		<i class="nav-icon far fa-chart-bar"></i>
-		<p>數據分析</p>
-	</div></li>
+<li class="nav-item has-treeview menu-open"><div class="nav-link">
+		<i class="nav-icon fas fa-diagnoses"></i>
+		<p>數據分析<i class="fas fa-angle-left right"></i></p>
+	</div>
+	<ul class="nav nav-treeview" style="display: block;">
+		<li class="nav-item" onclick="loadingPage('/PieChartTest')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-line"></i>
+				<p>產品毛利率趨勢</p>
+			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toPieChart')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-pie"></i>
+				<p>產品銷售額佔比</p>
+			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toHistogram')"><div
+				class="nav-link">
+				<i class="nav-icon fas fa-chart-bar"></i>
+				<p>產品銷售額比較</p>
+			</div></li>
+	</ul>
+</li> 
 <!-- /Analysis -->
 
 <li class="nav-header"
