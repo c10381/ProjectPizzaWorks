@@ -207,6 +207,11 @@
 				<i class="nav-icon fas fa-chart-line"></i>
 				<p>產品毛利率趨勢</p>
 			</div></li>
+		<li class="nav-item" onclick="loadingPage('/toInvturnover')"><div
+			class="nav-link">
+			<i class="nav-icon fas fa-chart-line"></i>
+			<p>存貨周轉率趨勢</p>
+		</div></li>
 		<li class="nav-item" onclick="loadingPage('/toPieChart')"><div
 				class="nav-link">
 				<i class="nav-icon fas fa-chart-pie"></i>

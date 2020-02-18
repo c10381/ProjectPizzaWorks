@@ -79,6 +79,11 @@ public class StatisticalAnalysisController {
 	public String showHisotgram(Model model) {
 		return "/StatisticalAnalysis/ProductHistogram";
 	}
+	// 導向ProductHisotgram.jsp
+		@GetMapping(value = "/toInvturnover")
+		public String showInvturnover(Model model) {
+			return "/StatisticalAnalysis/InvTurnover";
+		}
 
 	// 回傳下拉式選單資料Controller
 	@RequestMapping(value = "/pDropDownMenu", method = RequestMethod.GET, produces = "application/json")

@@ -83,7 +83,7 @@
 				},
 
 				series : [ {
-					name : dropListName,
+					name : '所有商品',
 					data : [ data.invT1, data.invT2, data.invT3 ]
 				} ],
 
