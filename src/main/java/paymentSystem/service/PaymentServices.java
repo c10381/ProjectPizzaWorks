@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,10 +118,11 @@ public class PaymentServices {
      
     private RedirectUrls getRedirectURLs(HttpServletRequest request) {
     	RedirectUrls redirectUrls = new RedirectUrls();
+    	
     	//String returnUrl = "http://" + request.getRequestURI() +"port:8080"+"/ProjectPizzaWorks/PaypalTest/testReview_Payment";
     	System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
-        redirectUrls.setCancelUrl("http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-        redirectUrls.setReturnUrl("http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
         System.out.println("ReturnUrl:"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
         return redirectUrls;       
     }
