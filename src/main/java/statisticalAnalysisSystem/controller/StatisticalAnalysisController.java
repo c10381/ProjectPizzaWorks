@@ -317,9 +317,11 @@ public class StatisticalAnalysisController {
 	@RequestMapping(value = "/GetInvTurnover", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String GetInvTurnover(Model model)
 			throws JSONException, ParseException {
-		Double invT1 = service.invTurnover("2019-07-01 00:00:00", "2020-08-31 23:59:59");
-		Double invT2 = service.invTurnover("2019-09-01 00:00:00", "2020-10-31 23:59:59");
-		Double invT3 = service.invTurnover("2019-11-01 00:00:00", "2020-12-31 23:59:59");
+//		Double invT1 = service.invTurnover("2019-06-03 00:00:00", "2019-11-31 23:59:59");
+//		System.out.println("invT1:" + invT1);
+		Double invT1 = service.invTurnover("2019-07-01 00:00:00", "2019-12-31 23:59:59");
+		Double invT2 = service.invTurnover("2019-08-01 00:00:00", "2020-01-31 23:59:59");
+		Double invT3 = service.invTurnover("2020-02-01 00:00:00", "2020-02-10 23:59:59");
 		JSONObject jso = new JSONObject();
 		jso.put("invT1", invT1);
 		jso.put("invT2", invT2);
