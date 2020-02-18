@@ -122,17 +122,16 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs(HttpServletRequest request) {
     	RedirectUrls redirectUrls = new RedirectUrls();
     	String ip;
-		try {
-			
+		try {			
 			InetAddress	ipAddr = InetAddress.getLocalHost();
 			ipAddr.getHostAddress();
 			ip = String.valueOf(ipAddr);
 			System.out.println(ipAddr);
 			int index = ip.indexOf("/");
 			ip = ip.substring(index);
-			System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
-	        redirectUrls.setCancelUrl("http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-	        redirectUrls.setReturnUrl("http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+			
+	        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+	        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
 	        System.out.println("ReturnUrl:"+"http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
 	        return redirectUrls;
 			
