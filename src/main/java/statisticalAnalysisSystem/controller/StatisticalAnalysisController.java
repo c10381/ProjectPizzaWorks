@@ -223,11 +223,11 @@ public class StatisticalAnalysisController {
 		@RequestMapping(value = "/HistogramGet", method = RequestMethod.GET, produces = "application/json")
 		public @ResponseBody String HistogramGet(Model model) throws ParseException {
 			JSONObject jso = new JSONObject();
-			jso.put("product1", service.getOneProductSalesShare(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product2", service.getOneProductSalesShare(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product3", service.getOneProductSalesShare(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product4", service.getOneProductSalesShare(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product5", service.getOneProductSalesShare(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product1", service.getOneProductSales(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product2", service.getOneProductSales(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product3", service.getOneProductSales(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product4", service.getOneProductSales(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product5", service.getOneProductSales(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
 			return jso.toString();
 	}
 	
@@ -250,7 +250,7 @@ public class StatisticalAnalysisController {
 			if (key.substring(0, 7).equals("product")) {
 				String index = "product" + (key.substring(key.length() - 1, key.length()));
 				Integer valProductId = Integer.parseInt(jso.getString(key));
-				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
+				Double val = service.getOneProductSales(valProductId, startDateSec, endDateSec);
 				cloneToOutput.put(index, val ); 
 			}
 		}

@@ -353,7 +353,7 @@ input[type="number"] {
 						//(2020y,1m,1d)
 						//做活的，直接在前端拆解小月曆的年月日(Date.UTC是網路語法)
 						//Month-1是因為JS月份從1起算，+3是因為前端傳endDate後端引用startDate(-3)
-						pointStart : Date.UTC(startYearInt, startMonthInt,
+						pointStart : Date.UTC(startYearInt, startMonthInt+2,
 								startDayInt),
 						pointIntervalUnit : 'month'
 					}

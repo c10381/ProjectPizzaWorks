@@ -253,7 +253,7 @@ input[type="number"] {
 								yAxis : {
 									min : 0,
 									title : {
-										text : '%'
+										text : '新台幣元'
 									}
 								},
 								legend : {
