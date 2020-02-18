@@ -33,7 +33,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/chatBox.css">
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/themes/dark.css">	
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/plugins/confirmDate/confirmDate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/flatpickr.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/dark.css">	
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/shopSystem/confirmDate.css">

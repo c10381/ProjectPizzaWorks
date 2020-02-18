@@ -41,7 +41,7 @@
 		var table = $("#poTable").DataTable(
 	        {
 	            "ajax": {
-	                "url": "http://localhost:8080/ProjectPizzaWorks/getAllPurchaseOrderJSON",
+	                "url": "${pageContext.request.contextPath}/getAllPurchaseOrderJSON",
 	                "type": "GET",
 	                "dataSrc": "",
 	            },

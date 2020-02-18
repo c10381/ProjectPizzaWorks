@@ -57,6 +57,7 @@ function checkDeliver() {
 			var deliverType = $("#delieverModal select").val();
 			
 			if (deliverType == "delivery") {
+				cart.needDelivery = 1;
 				let county = $("select[name='county']").val(); 
 				let district = $("select[name='district']").val(); 
 				let address = $("#address").val();
