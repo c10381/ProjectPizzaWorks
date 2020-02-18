@@ -1,5 +1,7 @@
 package paymentSystem.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,13 +123,13 @@ public class PaymentController {
 //	}
 	
 	@PostMapping(value = "/PaypalTest/paypalCheckout", consumes = "application/json")
-	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob){
+	public @ResponseBody String paypalCheckout(Model model, @RequestBody SalesOrderBean sob, HttpServletRequest request){
 //		System.out.println(sob.getSalesOrderId());
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		SalesOrderBean order = service.getLatestOrderByCustomerId(mem.getMemberId());
 		System.out.println(order);		
         try {        	
-            String approvalLink = service.authorizePayment(order, mem);
+            String approvalLink = service.authorizePayment(order, mem, request);
             return approvalLink;
 
              

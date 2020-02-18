@@ -58,7 +58,7 @@ public class MailCtxAndUtil {
 				"                                                        <!-- 驗證連結按鈕 (修改href) -->" + 
 				"                                                        <td align='center' style='background:#D1B96D;padding:13px 0'>" + 
 				"                                                            <!-- -->" + 
-				"                                                            <a href=\'"+request.getRequestURL()+"/"+CustomerConfirmURL+"\'" + 
+				"                                                            <a href=\'"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/"+CustomerConfirmURL+"\'" + 
 				"                                                                style='text-decoration:none;color:#fff;font-size:20px;font-weight:bold;display:block;text-align:center'" + 
 				"                                                                target='_blank'><span" + 
 				"                                                                    id='button_validation'>驗證電子郵件地址</span></strong></a>" + 
