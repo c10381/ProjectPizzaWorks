@@ -64,17 +64,14 @@
 						<div id='sltStatus' class="mb-3 text-lg" ></div>
 						<hr class="mb-2">
 						<h6>意見回覆</h6>
-						<textarea cols="48" rows="5" class="p-1"></textarea>
+						<textarea cols="48" rows="5" class="p-1" id="DemoTextarea"></textarea>
 
 						<div class="quickComment mt-2">
-							<button type="button" class="btn btn-outline-secondary btn-sm">如擬辦理</button>
-							<button type="button" class="btn btn-outline-secondary btn-sm">OKOK
-								NOPROBLEM</button>
-							<button type="button" class="btn btn-outline-secondary btn-sm">不能同意辦理</button>
+							<button type="button" class="btn btn-outline-secondary btn-sm" onclick="DemoButton()">一鍵輸入</button>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="updateResponse">送出審核</button>
+						<button type="button" class="btn btn-primary" id="updateResponse">回應</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">關閉</button>
 					</div>
@@ -318,7 +315,9 @@
     	
 	    return str;
 	    }
-	
+	function DemoButton(){
+		$("#DemoTextarea").val("之後會開始賣喔！");
+		}
 	</script>
 </body>
 </html>

@@ -187,7 +187,7 @@
                     }
                 ],
 	        });
-		z
+		
 		// 導向單一產品頁面
 		$('#soTable tbody').on('click', '.detailbtn', function(){
 			var tr = $(this).closest('tr');
@@ -302,7 +302,7 @@
 				if(status == 3){
 					$.ajax({
 			  		    type : "PUT", 
-			  		    url : "../shopManageSystem/saveSalesList",
+			  		    url : "${pageContext.request.contextPath}/shopManageSystem/saveSalesList",
 			  		    data: JSON.stringify(monitorData),
 			  		    contentType: "application/json; charset=utf-8",
 			   		}).done(function(data){
@@ -317,13 +317,13 @@
 				} else{
 					$.ajax({
 			  		    type : "PUT", 
-			  		    url : "../shopManageSystem/updateResponse",
+			  		    url : "${pageContext.request.contextPath}/shopManageSystem/updateResponse",
 			  		    data: JSON.stringify(monitorData),
 			  		    contentType: "application/json; charset=utf-8",
 			   		}).done(function(data){
 			   			alert("成功");
 			   			$('#ModalCenter').one('hidden.bs.modal',function(){
-			   				loadingPage("../shopManageSystem/GetAllSalesOrder")
+			   				loadingPage("/shopManageSystem/GetAllSalesOrder")
 						}).modal("hide");
 			   		}).fail(function(){
 			   			console.log("失敗");
