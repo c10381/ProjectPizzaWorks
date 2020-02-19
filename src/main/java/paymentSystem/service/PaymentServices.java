@@ -1,13 +1,13 @@
 package paymentSystem.service;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,22 +122,39 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs(HttpServletRequest request) {
     	RedirectUrls redirectUrls = new RedirectUrls();
     	String ip;
-		try {			
+    			
+//    	Enumeration e = NetworkInterface.getNetworkInterfaces();
+//    	while(e.hasMoreElements()) {
+//    	    NetworkInterface n = (NetworkInterface) e.nextElement();
+//    	    Enumeration ee = n.getInetAddresses();
+//    	    while (ee.hasMoreElements()) {
+//    	        InetAddress i = (InetAddress) ee.nextElement();
+//    	        System.out.println("i.getHostAddress():"+i.getHostAddress());
+//    	    }
+//    	}
+    	
+		try {
+			
 			InetAddress	ipAddr = InetAddress.getLocalHost();
 			ipAddr.getHostAddress();
 			ip = String.valueOf(ipAddr);
 			System.out.println(ipAddr);
 			int index = ip.indexOf("/");
 			ip = ip.substring(index);
-			
-	        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-	        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+			request.getServerName();
+			request.getServerPort();
+			System.out.println("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+	        redirectUrls.setCancelUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+	        redirectUrls.setReturnUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        	        
+//	        redirectUrls.setCancelUrl("http://eeitdemo11001fortest.eastasia.cloudapp.azure.com:8080"+/ProjectPizzaWorks/PaypalTest/Cancel");        
+//	        redirectUrls.setReturnUrl("http://eeitdemo11001fortest.eastasia.cloudapp.azure.com:8080"+/ProjectPizzaWorks/PaypalTest/testReview_Payment");   
+	        
 	        System.out.println("ReturnUrl:"+"http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
 	        return redirectUrls;
 			
-		} catch (UnknownHostException e) {
+		} catch (UnknownHostException ex) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ex.printStackTrace();
 			return redirectUrls;
 		}
 
