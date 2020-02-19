@@ -129,10 +129,7 @@ public class PaymentController {
 		request.getRequestURL();
 		MembersBean mem = (MembersBean) model.getAttribute("CLoginOK");
 		SalesOrderBean order = service.getLatestOrderByCustomerId(mem.getMemberId());
-		System.out.println(order);
-		System.out.println("Controller: request.getRequestURL()"+request.getRequestURL());
-		System.out.println("Controller: request.getLocalAddr()"+request.getLocalAddr());
-		System.out.println("Controller: request.getLocalPort()"+request.getLocalPort());
+
         try {        	
             String approvalLink = service.authorizePayment(order, mem, request);
             return approvalLink;
@@ -141,8 +138,8 @@ public class PaymentController {
         } catch (PayPalRESTException ex) {
         	
             model.addAttribute("errorMessage", "付款失敗，請聯絡客服人員！");
-            ex.printStackTrace();
-            return "Fail";
+            ex.printStackTrace();                       
+            return "http://"+request.getServerName()+":"+request.getServerPort()+"PaypalTest/paypalError";
         }
     }	
 }
