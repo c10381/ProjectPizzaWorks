@@ -129,9 +129,9 @@ public class PaymentServices {
 			System.out.println(ipAddr);
 			int index = ip.indexOf("/");
 			ip = ip.substring(index);
-			
-	        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
-	        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getLocalPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+			System.out.println("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+			redirectUrls.setCancelUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");       
+			redirectUrls.setReturnUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
 	        System.out.println("ReturnUrl:"+"http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
 	        return redirectUrls;
 			

@@ -343,7 +343,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 			for (StorageHistoryBean shb : list) {
 				if (sdf.parse(shb.getStockTime()).before(sdf.parse(startingDate))) {
 					costOnCertainTime = costOnCertainTime + shb.getUnitPrice();
-					System.out.println("costOnCertainTime : " + costOnCertainTime);
+//					System.out.println("costOnCertainTime : " + costOnCertainTime);
 				}
 			}
 		} catch (Exception e) {
@@ -353,7 +353,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 			for (SalesOrderBean sob : list2) {
 				if (sdf.parse(sob.getOrderTime()).before(sdf.parse(startingDate))) {
 					salesOnCertainTime = salesOnCertainTime + sob.getTotalSales()*0.5;
-					System.out.println("salesOnCertainTime : " + salesOnCertainTime);
+//					System.out.println("salesOnCertainTime : " + salesOnCertainTime);
 				}
 			}
 		} catch (Exception e) {
@@ -366,9 +366,9 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 				if (sdf.parse(shb.getStockTime()).after(sdf.parse(startingDate))
 						&& sdf.parse(shb.getStockTime()).before(sdf.parse(endDate))) {
 					costOnCertainTime2 = costOnCertainTime2 + shb.getUnitPrice();
-					System.out.println("costOnCertainTime2 : " + costOnCertainTime2);
+//					System.out.println("costOnCertainTime2 : " + costOnCertainTime2);
 				}else {
-					System.out.println("!!!!!!!!!!!!!!!!!???????????????????");
+//					System.out.println("!!!!!!!!!!!!!!!!!???????????????????");
 				}
 			}
 		} catch (Exception e) {
@@ -379,7 +379,7 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 				if (sdf.parse(sob.getOrderTime()).after(sdf.parse(startingDate))
 						&& sdf.parse(sob.getOrderTime()).before(sdf.parse(endDate))) {
 					salesOnCertainTime2 = salesOnCertainTime2 + sob.getTotalSales();
-					System.out.println("salesOnCertainTime2 : " + salesOnCertainTime2);
+//					System.out.println("salesOnCertainTime2 : " + salesOnCertainTime2);
 				}
 			}
 		} catch (Exception e) {
@@ -407,8 +407,8 @@ public class StatisticalAnalysisServiceImpl implements StatisticalAnalysisServic
 			e.printStackTrace();
 		}
 		Double invTurnover = COGSAll / ((openingInv + endingInv) / 2);
-		System.out.println("openingInv = " + openingInv + ", endingInv = " + endingInv);
-		System.out.println("COGSAll = " + COGSAll);
+//		System.out.println("openingInv = " + openingInv + ", endingInv = " + endingInv);
+//		System.out.println("COGSAll = " + COGSAll);
 		return invTurnover*100;
 	}
 }

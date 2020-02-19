@@ -316,7 +316,7 @@ public class StatisticalAnalysisController {
 	public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
 			throws JSONException, ParseException {
 		JSONArray output_jsa = new JSONArray();
-		System.out.println(input_json);
+//		System.out.println(input_json);
 		JSONObject input_jso = new JSONObject(input_json);
 		String startDate = input_jso.getString("startDate") + " 00:00:00";
 		String endDate = input_jso.getString("endDate") + " 23:59:59";
