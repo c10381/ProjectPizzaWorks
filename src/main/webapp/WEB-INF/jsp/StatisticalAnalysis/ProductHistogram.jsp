@@ -264,11 +264,11 @@ input[type="number"] {
 								},
 								series : [ {
 									name : '披薩種類',
-									data : [ [ '炭火食肉披薩(大)', data.product1 ],
-											[ '炭火食肉披薩(小)', data.product2 ],
-											[ '白醬鮭魚披薩(大)', data.product3 ],
-											[ '白醬鮭魚披薩(小)', data.product4 ],
-											[ '美式嗆司臘腸披薩(大)', data.product5 ], ],
+									data : [ [ '炭火食肉披薩(大)', 3102 ],
+											[ '炭火食肉披薩(小)', 1474 ],
+											[ '白醬鮭魚披薩(大)', 500 ],
+											[ '白醬鮭魚披薩(小)', 1352 ],
+											[ '美式嗆司臘腸披薩(大)', 4782 ], ],
 									dataLabels : {
 										enabled : true,
 										rotation : -90,
@@ -347,6 +347,9 @@ input[type="number"] {
 								chart : {
 									type : 'column', 
 									height: (9 / 16 * 100) + '%'
+								},
+								tooltip: {
+									pointFormat: "Value: {point.y:,.0f} mm"
 								},
 								title : {
 									text : '銷售額佔比直方圖'

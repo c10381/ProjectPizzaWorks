@@ -347,13 +347,22 @@ input[type="number"] {
 									name : 'Brands',
 									colorByPoint : true,
 									data : [ {
-										name : dropListName,
-										y : data1.product1,
+										name : '炭火食肉披薩(大)',
+										y : 0.169,
 										sliced : true,
 										selected : true
 									}, {
+										name : '白醬鮭魚披薩(大)',
+										y : 0.072
+									}, {
+										name : '波隆那臘腸披薩(小)',
+										y : 0.107
+									}, {
+										name : '日式燒肉披薩(大)',
+										y : 0.029
+									}, {
 										name : '其他',
-										y : 1 - data1.product1
+										y : 1-0.029-0.107-0.072-0.169
 									} ]
 								} ]
 							});

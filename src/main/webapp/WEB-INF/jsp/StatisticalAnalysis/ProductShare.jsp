@@ -261,7 +261,7 @@ input[type="number"] {
 
 				series : [ {
 					name : dropListName,
-					data : [ data2, 0.5, 0.4, 0.45, 0.55 ]
+					data : [ 0.31, 0.5, 0.4, 0.45, 0.55 ]
 				} ],
 
 				responsive : {
