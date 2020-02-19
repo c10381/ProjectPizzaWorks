@@ -9,12 +9,13 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class SpringMailConfig{
 	//需要的人來找Dennis拿
-	public static String MAILUsername="";
-	private static String Password = "";
+	public static String MAILUsername="mailUserName@gmail.com";
+	private static String Password = "Password";
 	@Bean
 	public JavaMailSenderImpl mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.office365.com");
+//		mailSender.setHost("smtp.office365.com");
+		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 
 		mailSender.setUsername(MAILUsername);
