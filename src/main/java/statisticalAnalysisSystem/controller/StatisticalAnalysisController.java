@@ -79,6 +79,12 @@ public class StatisticalAnalysisController {
 	public String showHisotgram(Model model) {
 		return "/StatisticalAnalysis/ProductHistogram";
 	}
+	
+	// 導向ProductHisotgram.jsp
+	@GetMapping(value = "/toInvturnover")
+	public String showInvturnover(Model model) {
+		return "/StatisticalAnalysis/InvTurnover";
+	}
 
 	// 回傳下拉式選單資料Controller
 	@RequestMapping(value = "/pDropDownMenu", method = RequestMethod.GET, produces = "application/json")
@@ -217,11 +223,11 @@ public class StatisticalAnalysisController {
 		@RequestMapping(value = "/HistogramGet", method = RequestMethod.GET, produces = "application/json")
 		public @ResponseBody String HistogramGet(Model model) throws ParseException {
 			JSONObject jso = new JSONObject();
-			jso.put("product1", service.getOneProductSalesShare(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product2", service.getOneProductSalesShare(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product3", service.getOneProductSalesShare(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product4", service.getOneProductSalesShare(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
-			jso.put("product5", service.getOneProductSalesShare(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product1", service.getOneProductSales(1, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product2", service.getOneProductSales(2, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product3", service.getOneProductSales(3, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product4", service.getOneProductSales(4, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
+			jso.put("product5", service.getOneProductSales(5, "2020-02-01 00:00:00", "2020-02-05 00:00:00"));
 			return jso.toString();
 	}
 	
@@ -244,7 +250,7 @@ public class StatisticalAnalysisController {
 			if (key.substring(0, 7).equals("product")) {
 				String index = "product" + (key.substring(key.length() - 1, key.length()));
 				Integer valProductId = Integer.parseInt(jso.getString(key));
-				Double val = service.getOneProductSalesShare(valProductId, startDateSec, endDateSec);
+				Double val = service.getOneProductSales(valProductId, startDateSec, endDateSec);
 				cloneToOutput.put(index, val ); 
 			}
 		}
@@ -310,7 +316,7 @@ public class StatisticalAnalysisController {
 	public @ResponseBody String GetPieChartValue(@RequestParam("input_json") String input_json, Model model)
 			throws JSONException, ParseException {
 		JSONArray output_jsa = new JSONArray();
-		System.out.println(input_json);
+//		System.out.println(input_json);
 		JSONObject input_jso = new JSONObject(input_json);
 		String startDate = input_jso.getString("startDate") + " 00:00:00";
 		String endDate = input_jso.getString("endDate") + " 23:59:59";
@@ -329,9 +335,11 @@ public class StatisticalAnalysisController {
 	@RequestMapping(value = "/GetInvTurnover", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String GetInvTurnover(Model model)
 			throws JSONException, ParseException {
-		Double invT1 = service.invTurnover("2019-07-01 00:00:00", "2020-08-31 23:59:59");
-		Double invT2 = service.invTurnover("2019-09-01 00:00:00", "2020-10-31 23:59:59");
-		Double invT3 = service.invTurnover("2019-11-01 00:00:00", "2020-12-31 23:59:59");
+//		Double invT1 = service.invTurnover("2019-06-03 00:00:00", "2019-11-31 23:59:59");
+//		System.out.println("invT1:" + invT1);
+		Double invT1 = service.invTurnover("2019-07-01 00:00:00", "2019-12-31 23:59:59");
+		Double invT2 = service.invTurnover("2019-08-01 00:00:00", "2020-01-31 23:59:59");
+		Double invT3 = service.invTurnover("2020-02-01 00:00:00", "2020-02-10 23:59:59");
 		JSONObject jso = new JSONObject();
 		jso.put("invT1", invT1);
 		jso.put("invT2", invT2);

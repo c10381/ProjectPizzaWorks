@@ -1,7 +1,13 @@
 package paymentSystem.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,11 +56,24 @@ public class PaymentServices {
 	}
     
         
-    public String authorizePayment(SalesOrderBean orderDetail, MembersBean mem)        
+    public String authorizePayment(SalesOrderBean orderDetail, MembersBean mem, HttpServletRequest request)        
             throws PayPalRESTException {       
  
+//    	System.out.println("request.getContextPath() : "+request.getContextPath());
+//    	System.out.println("request.getLocalName() : "+request.getLocalName());
+//    	System.out.println("request.getLocalPort() : "+request.getLocalPort());
+//    	System.out.println("request.getServerPort() : "+request.getServerPort());
+//    	System.out.println("request.getRemoteHost() : "+request.getRemoteHost());
+//    	System.out.println("request.getRequestURI() : "+request.getRequestURI());
+//    	System.out.println("request.getServletContext() : "+request.getServletContext());
+//    	System.out.println("request.getServletPath() : "+request.getServletPath());
+//    	System.out.println("request.getScheme() : "+request.getScheme());
+//    	System.out.println("request.getRequestURL() : "+ request.getRequestURL());
+    	
+    	
+   	
         Payer payer = getPayerInformation(mem);
-        RedirectUrls redirectUrls = getRedirectURLs();
+        RedirectUrls redirectUrls = getRedirectURLs(request);
         List<Transaction> listTransaction = getTransactionInformation(orderDetail);
          
         Payment requestPayment = new Payment();
@@ -100,11 +119,35 @@ public class PaymentServices {
         return payer;       
     }
      
-    private RedirectUrls getRedirectURLs() {
+    private RedirectUrls getRedirectURLs(HttpServletRequest request) {
     	RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/ProjectPizzaWorks/PaypalTest/Cancel");
-        redirectUrls.setReturnUrl("http://localhost:8080/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
-        return redirectUrls;       
+    	String ip;
+		try {			
+			InetAddress	ipAddr = InetAddress.getLocalHost();
+			ipAddr.getHostAddress();
+			ip = String.valueOf(ipAddr);
+			System.out.println(ipAddr);
+			int index = ip.indexOf("/");
+			ip = ip.substring(index);
+			System.out.println("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+			redirectUrls.setCancelUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");       
+			redirectUrls.setReturnUrl("http://"+request.getServerName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+	        System.out.println("ReturnUrl:"+"http://"+ipAddr.getHostAddress()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+	        return redirectUrls;
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return redirectUrls;
+		}
+
+    	
+    	//String returnUrl = "http://" + request.getRequestURI() +"port:8080"+"/ProjectPizzaWorks/PaypalTest/testReview_Payment";
+//    	System.out.println("request.getRemoteAddr() = "+request.getRemoteAddr());
+//        redirectUrls.setCancelUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/Cancel");        
+//        redirectUrls.setReturnUrl("http://"+request.getLocalAddr()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");        
+//        System.out.println("ReturnUrl:"+"http://"+request.getLocalName()+":"+request.getServerPort()+"/ProjectPizzaWorks/PaypalTest/testReview_Payment");
+//        return redirectUrls;       
     }
      
     private List<Transaction> getTransactionInformation(SalesOrderBean orderDetail) {

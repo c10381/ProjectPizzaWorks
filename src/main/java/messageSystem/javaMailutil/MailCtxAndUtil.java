@@ -269,7 +269,7 @@ public class MailCtxAndUtil {
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <!-- 會員名稱 及 問候語 -->" + 
-					"                    <td style='padding:30px 0 20px 20px;color: #D1B96D;'><span id='memberName'></span>您好：</td>" + 
+					"                    <td style='padding:30px 0 20px 20px;color: #D1B96D;'><span id='memberName'></span></td>" + 
 					"                </tr>" + 
 					"                <tr>" + 
 					"                    <!-- 信件的下半部文字內容 -->" + 
@@ -285,13 +285,13 @@ public class MailCtxAndUtil {
 					"                                <tr >" + 
 					"                                    <td style='text-align:center;vertical-align:top;font-size:0;padding:15px 0'>" + 
 					"                                        <div style='width:100%;vertical-align:top'>" + 
-					"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
+					"                                            <table width='70%' align='center' style='text-align:center;margin:0 auto'>" + 
 					"                                                <tbody>" + 
 					"                                                    <tr>" + 
 					"                                                        <td>"+ 
-					"															<div style='font-size:30px'><span style='color: rgb(99, 99, 99);>"+
+					"															<div style='font-size:30px;'><span style='color: #D1B96D;'>"+
 																					Context+
-					"					                                       </div></span>"+
+					"					                                       </span></div>"+
 					"                                                        </td>" + 
 					"                                                    </tr>" + 
 					"                                                </tbody>" + 

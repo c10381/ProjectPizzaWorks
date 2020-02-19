@@ -44,8 +44,8 @@ public class SystemController {
 		return outputMessage;
 	}
 
-	// 給員工現在登入帳號(有使用排程自動更新)
-	//@Scheduled(fixedRate = 10000)
+	// 給員工現在登入帳號(有使用排程自動更新<-禁忌按鈕,會讓客服系統壞掉)
+	//@Scheduled(fixedRate = 5000)
 	@PostMapping("/messageSystem/getOnline")
 	public void getOnline() {
 		Map<String, List<Map<String, String>>> map = new HashMap<String, List<Map<String, String>>>();

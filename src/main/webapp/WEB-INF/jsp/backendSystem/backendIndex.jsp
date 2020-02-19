@@ -140,7 +140,7 @@
 		<div class="float-right d-none d-sm-block">
 			<b>Version</b> 5.2.1
 		</div>
-		<strong>Copyright &copy; 2020 <a href="http://adminlte.io">iiiEDU</a>.
+		<strong>Copyright &copy; 2020 <a href="http://adminlte.io">PizzaBite</a>.
 		</strong> All rights reserved.
 	</footer>
 	<!-- /footer -->
@@ -291,10 +291,6 @@
 			</c:choose>
 			}
 		)
-		
-		
 	</script>
-
-		
 </body>
 </html>
