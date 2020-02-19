@@ -115,7 +115,7 @@ function updateCart(productId) {
 		"unitPrice" : 0,
 		"quantity" : 0,
 		"doubleCheese" : 0,
-		"crustTypeId" : 0,
+		"crustTypeId" : 1,
 		"crustTypeName" : ""
 	};
 

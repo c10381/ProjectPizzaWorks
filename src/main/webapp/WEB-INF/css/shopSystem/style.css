@@ -80,7 +80,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #E0E0E0;
   text-align: left;
   background-color: #fff;
 }
@@ -2224,6 +2224,7 @@ select.form-control-lg:not([size]):not([multiple]),
 .form-text {
   display: block;
   margin-top: 0.25rem;
+  color: #D3D3D3; 
 }
 
 .form-row {
@@ -9391,7 +9392,7 @@ a.text-dark:focus {
 }
 
 .text-muted {
-  color: #6c757d !important;
+  color: #D3D3D3 !important;
 }
 
 .text-black-50 {
@@ -9491,7 +9492,7 @@ body {
   font-size: 17px;
   line-height: 1.8;
   font-weight: 300;
-  color: gray;
+  color: #E0E0E0;
   background: url(../../images/shopSystem/bg_4.jpg) no-repeat fixed;
   background-size: cover;
 }
@@ -10148,10 +10149,10 @@ h5,
 .ftco-about pre{
 	width : inherit;
 	font-size: 16px;
-	color: #6c757d;
+	color: #E0E0E0;
 	font-family: "Poppins", "Noto Sans TC", Arial, sans-serif;
 }
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .ftco-about .one-half {
     padding: 5%;
     width: 50%;
@@ -10334,6 +10335,7 @@ h5,
 }
 .pricing-entry .desc {
   width: calc(100% - 60px);
+  
 }
 .pricing-entry .desc p {
   margin-bottom: 0;
@@ -10356,7 +10358,7 @@ h5,
   z-index: -1;
 }
 .pricing-entry .text h3 {
-  width: calc(100% - 80px);
+  width: calc(100% - 1%);
   font-size: 18px;
 }
 .pricing-entry .text h3 span {

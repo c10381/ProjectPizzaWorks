@@ -34,12 +34,12 @@
 			</div>
 	</div>
 	<section class="ftco-about d-md-flex">
-		<div class="one-half">
+		<div class="one-half col-lg-8">
 			<div class="row justify-content-center">
-					<div class="col-md-8 cartList"></div>
+					<div class="col-lg-8 cartList"></div>
 				</div>
 			</div>
-		<div class="one-half ftco-animate">
+		<div class="one-half ftco-animate col-lg-4">
 			<div class="heading-section ftco-animate ">
 				<h3 class="mb-3">訂購資料</h3>
 			</div>
@@ -86,7 +86,6 @@
 				<div class="col-md-6 d-flex align-self-stretch">
 					<div id="map"></div>
 				</div>
-				
 			</div>
 		</div>
 	</section>

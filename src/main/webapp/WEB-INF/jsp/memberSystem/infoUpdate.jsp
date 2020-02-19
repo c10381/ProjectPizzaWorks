@@ -27,9 +27,9 @@
 			<form:form method='POST' modelAttribute="MembersBean"
 				class='col-md-6 mx-auto align-items-center' action='${pageContext.request.contextPath}/memberSystem/doupdate'>
 			<fieldset>			
-				<legend style="text-align: center">聯絡資料檢視/修改</legend>
-				
-				<div class='form-row form-group'>
+<!-- 				<legend style="text-align: center">聯絡資料檢視/修改</legend>
+ -->				
+				<div class='form-row form-group '>
 					<div class="col-sm-3"></div>
 					<label class="col-form-label col-sm-1 align-self-center">地址 ：</label>
 					<form:input id="address" path="address" type="text"
@@ -38,7 +38,7 @@
 				
 				<div class='form-row form-group'>
 					<div class="col-sm-3"></div>
-					<label class="col-form-label col-sm-1 align-self-center">電話 ：</label>
+					<label class="col-form-label col-sm-1 align-self-center ">電話 ：</label>
 					<form:input id="cellphone" path="cellphone" type="text"
 						value='${CLoginOK.cellphone}' required='required' class="form-control col-sm-2" />
 				</div>

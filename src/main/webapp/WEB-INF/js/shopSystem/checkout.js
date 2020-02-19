@@ -61,8 +61,8 @@ function updateList() {
 					<div class="img" style="background-image: url(../picture/${salesOrderDetails[i].productId});"></div>
 						<div class="desc pl-3">
 							<div class="d-flex text align-items-center">
-								<div class="col-md-11">
-									<h3>${salesOrderDetails[i].productName} ${salesOrderDetails[i].size}披薩</h3>
+								<div class="col-md-10">
+									<h3>${salesOrderDetails[i].productName} <span class="col-lg-3">${salesOrderDetails[i].size}披薩</span></h3>
 								</div>`;
 			//當有餅皮或加起司時，價格做變動
 			str += insertPrice(i);
@@ -72,7 +72,7 @@ function updateList() {
 							<span>${salesOrderDetails[i].crustTypeName}</span> 
 							<span> / </span>`
 			if (salesOrderDetails[i].doubleCheese == 1) {
-				str += `<span>加量一份起司</span> <span>+25</span>`
+				str += `<span class="col-lg-3">加量一份起司</span> <span>+25</span>`
 			} else {
 				str += `<span>正常起司</span>`
 			}
@@ -84,8 +84,8 @@ function updateList() {
 		}
 	}	
 	
-	str += `<div class="row pt-3"><h2>總金額</h2>`; 
-	str += `<h3 class="ml-2 price">${totalPriceCal()}</h3></div>`;
+	str += `<div class="row pt-3 ml-1"><h2>總金額</h2>`; 
+	str += `<h3 class="ml-1 price">${totalPriceCal()}</h3></div>`;
 	
 	$(".cartList").html(str);
 }
@@ -118,7 +118,7 @@ function insertPrice(index){
 		unitPrice += priceDoubleCheeese; 
 	}
 	
-	str += `<span class="price col-sm-3">${unitPrice}</span>`;
+	str += `<span class="price col-sm-3 mr-2">${unitPrice}</span>`;
 	return str;
 }
 
