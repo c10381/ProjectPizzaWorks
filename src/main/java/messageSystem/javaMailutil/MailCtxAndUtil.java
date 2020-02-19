@@ -285,11 +285,11 @@ public class MailCtxAndUtil {
 					"                                <tr >" + 
 					"                                    <td style='text-align:center;vertical-align:top;font-size:0;padding:15px 0'>" + 
 					"                                        <div style='width:100%;vertical-align:top'>" + 
-					"                                            <table width='50%' align='center' style='text-align:center;margin:0 auto'>" + 
+					"                                            <table width='70%' align='center' style='text-align:center;margin:0 auto'>" + 
 					"                                                <tbody>" + 
 					"                                                    <tr>" + 
 					"                                                        <td>"+ 
-					"															<div style='font-size:30px;'><span style='color: white;'>"+
+					"															<div style='font-size:30px;'><span style='color: #D1B96D;'>"+
 																					Context+
 					"					                                       </span></div>"+
 					"                                                        </td>" + 
