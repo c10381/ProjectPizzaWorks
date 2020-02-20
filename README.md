@@ -10,31 +10,31 @@
 
 2. 使用技術：
 
-	- 後端：Spring MVC、Hibernate
+   - 後端：Spring MVC、Hibernate
 
-	- 前端：Bootstrap、jQuery、DataTable.js、Highcharts
+   - 前端：Bootstrap、jQuery、DataTable.js、Highcharts
 
-	- Database：SQL、MySQL
-
-	- 專題發表時部屬於Microsoft Azure
+   - Database：SQL、MySQL
+ 
+   - 專題發表時部屬於Microsoft Azure
 
 3. 協作人：
-	- 鐘于翔@c10381(組長)
+   - 鐘于翔@c10381(組長)
 	
   專案環境建置、AOP設定(後台登入)、後台畫面設置、員工系統、聊天與客服系統(WebSocket)、信件系統(Java Mail)
 
-	- 高煌勝@qvex123321
+   - 高煌勝@qvex123321
   
   資料庫架構設計、部署至Azure、產品管理系統(新增產品)、後台銷貨系統(訂單)、採購系統(新增採購單)與庫存系統
 
-	- 張珈華@JC9074
+   - 張珈華@JC9074
   
   前台商城系統(購物車、商城前端畫面、前台客服畫面)、後台銷貨系統(請購單)、採購系統(檢視、審核請購單)
 
-	- 官漢軍@Lorlith
+   - 官漢軍@Lorlith
   
   產品管理系統(修改產品、食譜)、銷貨、庫存商業邏輯、統計分析系統
 
-	- 蔡育承@LeonTsJava/@aeru111
+   - 蔡育承@LeonTsJava/@aeru111
   
   前台會員系統、PayPal支付、後台各角色通知
