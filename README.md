@@ -16,7 +16,7 @@
 
 - Database：SQL、MySQL
 
-專題發表時部屬於Microsoft Azure
+- 專題發表時部屬於Microsoft Azure
 
 3. 協作人：
 - 鐘于翔@c10381(組長)
