@@ -10,11 +10,11 @@
 
 2. 使用技術：
 
-後端：Spring MVC、Hibernate
+- 後端：Spring MVC、Hibernate
 
-前端：Bootstrap、jQuery
+- 前端：Bootstrap、jQuery、DataTable.js、Highcharts
 
-Database：SQL、MySQL
+- Database：SQL、MySQL
 
 專題發表時部屬於Microsoft Azure
 
